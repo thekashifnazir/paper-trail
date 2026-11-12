@@ -92,3 +92,16 @@ export type RunProgress = {
   stage: "idle" | "exact" | "memory" | "agent" | "done";
   percent: number;
 };
+
+export type OpenCharge = {
+  charge_id: string;
+  tenant_id: string;
+  tenant_name: string;
+  unit: string;
+  charge_type: string;
+  period: string;
+  due_date: string | null;
+  outstanding: number;
+};
+
+export type ManualAllocation = { charge_id: string; amount: number };

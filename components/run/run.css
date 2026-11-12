@@ -11,5 +11,5 @@
 
 .run-screen:has(#rejected-panel-title) .run-table {
   flex: none;
-  height: 560px;
+  height: 600px;
 }

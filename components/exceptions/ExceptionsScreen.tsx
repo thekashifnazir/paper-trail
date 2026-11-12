@@ -3,7 +3,9 @@
 import Link from "next/link";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { toast } from "sonner";
+import { useFindMatch } from "@/components/match/FindMatch";
 import { EmptyState, ErrorNote, Skeleton } from "@/components/shared";
+import { lineMatchesQuery } from "@/lib/filter";
 import { useStore } from "@/lib/store";
 import type { LineView, ReviewReason } from "@/lib/types";
 import { DetailPane } from "./DetailPane";
@@ -23,6 +25,9 @@ export function ExceptionsScreen() {
   const [selectedId, setSelectedId] = useState<string | null>(null);
   const [leavingId, setLeavingId] = useState<string | null>(null);
   const [inflight, setInflight] = useState(false);
+  const [query, setQuery] = useState("");
+  const [reasonFilter, setReasonFilter] = useState<string | null>(null);
+  const { openFindMatch } = useFindMatch();
   const lock = useRef(false);
   const mounted = useRef(true);
 
@@ -31,13 +36,29 @@ export function ExceptionsScreen() {
     [lines],
   );
 
-  const groups = useMemo<QueueGroup[]>(
+  const searched = useMemo(
+    () => queue.filter((line) => lineMatchesQuery(line, query)),
+    [queue, query],
+  );
+
+  const reasonCounts = useMemo(
     () =>
       GROUP_ORDER.map((reason) => ({
         reason,
-        items: queue.filter((line) => line.review_reason === reason),
-      })).filter((group) => group.items.length > 0),
-    [queue],
+        count: searched.filter((line) => line.review_reason === reason).length,
+      })).filter((r) => queue.some((line) => line.review_reason === r.reason)),
+    [queue, searched],
+  );
+
+  const groups = useMemo<QueueGroup[]>(
+    () =>
+      GROUP_ORDER.filter((reason) => !reasonFilter || reason === reasonFilter)
+        .map((reason) => ({
+          reason,
+          items: searched.filter((line) => line.review_reason === reason),
+        }))
+        .filter((group) => group.items.length > 0),
+    [searched, reasonFilter],
   );
 
   const flat = useMemo(() => groups.flatMap((group) => group.items), [groups]);
@@ -100,6 +121,7 @@ export function ExceptionsScreen() {
       const tag = (event.target as HTMLElement | null)?.tagName;
       if (tag === "INPUT" || tag === "TEXTAREA" || tag === "SELECT") return;
       if (lock.current) return;
+      if (document.querySelector('[role="dialog"]')) return;
       const index = flat.findIndex((line) => line.id === selectedId);
       if (index < 0) return;
       const key = event.key.toLowerCase();
@@ -111,6 +133,11 @@ export function ExceptionsScreen() {
       if (key === "r") {
         event.preventDefault();
         void settle("reject", flat[index]);
+        return;
+      }
+      if (key === "f") {
+        event.preventDefault();
+        openFindMatch(flat[index]);
         return;
       }
       if (key === "j") {
@@ -127,7 +154,7 @@ export function ExceptionsScreen() {
     }
     window.addEventListener("keydown", onKey);
     return () => window.removeEventListener("keydown", onKey);
-  }, [flat, selectedId, settle]);
+  }, [flat, selectedId, settle, openFindMatch]);
 
   if (queue.length === 0) {
     if (error) {
@@ -180,8 +207,14 @@ export function ExceptionsScreen() {
       <div className="grid min-h-0 flex-1 grid-cols-[380px_minmax(0,1fr)] gap-4">
       <QueuePane
         count={queue.length}
+        shown={flat.length}
         total={total}
         groups={groups}
+        query={query}
+        onQuery={setQuery}
+        reasons={reasonCounts}
+        reasonFilter={reasonFilter}
+        onReasonFilter={setReasonFilter}
         selectedId={selected?.id ?? null}
         leavingId={leavingId}
         onSelect={(id) => {
@@ -195,10 +228,11 @@ export function ExceptionsScreen() {
           busy={inflight}
           onApprove={() => void settle("approve", selected)}
           onReject={() => void settle("reject", selected)}
+          onFindMatch={() => openFindMatch(selected)}
         />
       ) : (
         <section className="flex h-full min-h-0 items-center justify-center rounded-[8px] border border-line bg-surface text-[13px] text-muted">
-          Select a receipt to review
+          {flat.length === 0 ? "No receipts match the filters" : "Select a receipt to review"}
         </section>
       )}
       </div>

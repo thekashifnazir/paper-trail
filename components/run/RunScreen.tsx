@@ -7,7 +7,7 @@ import { useStore } from "@/lib/store";
 import type { LineView } from "@/lib/types";
 import { KpiRow } from "./KpiRow";
 import { LineDrawer } from "./LineDrawer";
-import { LineTable, type LineFilter } from "./LineTable";
+import { LineTable, NO_FILTERS, type LineFilter, type LineFilters } from "./LineTable";
 import { RejectedPanel } from "./RejectedPanel";
 import { StatementCard } from "./StatementCard";
 import "./run.css";
@@ -23,17 +23,18 @@ function barSegments(lines: LineView[]): BarSegment[] {
     exact: { key: "exact", count: 0, value: 0 },
     memory: { key: "memory", count: 0, value: 0 },
     agent: { key: "agent", count: 0, value: 0 },
+    human: { key: "human", count: 0, value: 0 },
     queue: { key: "queue", count: 0, value: 0 },
   };
   for (const line of lines) {
     let key: BarSegment["key"] | null = null;
     if (line.status === "proposed") key = "queue";
-    else if (line.status === "approved" && line.method && line.method !== "human") key = line.method;
+    else if (line.status === "approved" && line.method) key = line.method;
     if (!key) continue;
     seg[key].count += 1;
     seg[key].value += line.amount;
   }
-  return [seg.exact, seg.memory, seg.agent, seg.queue];
+  return [seg.exact, seg.memory, seg.agent, ...(seg.human.count > 0 ? [seg.human] : []), seg.queue];
 }
 
 export function RunScreen() {
@@ -42,6 +43,7 @@ export function RunScreen() {
   const [polled, setPolled] = useState<LineView[] | null>(null);
   const [filter, setFilter] = useState<LineFilter>("all");
   const [query, setQuery] = useState("");
+  const [filters, setFilters] = useState<LineFilters>(NO_FILTERS);
   const [selectedId, setSelectedId] = useState<string | null>(null);
   const runLock = useRef(false);
 
@@ -81,6 +83,7 @@ export function RunScreen() {
     setSelectedId(null);
     setFilter("all");
     setQuery("");
+    setFilters(NO_FILTERS);
   }, [month]);
 
   const monthSummary = summary && summary.month === month ? summary : null;
@@ -145,18 +148,20 @@ export function RunScreen() {
           <span className="text-muted"> — payers you approved last month.</span>
         </div>
       ) : null}
+      <RejectedPanel onShowInTable={() => setFilter("rejected")} />
       <LineTable
         lines={monthLines}
         month={month}
         loading={loading}
         filter={filter}
         query={query}
+        filters={filters}
         selectedId={selectedId}
         onFilter={setFilter}
         onQuery={setQuery}
+        onFilters={setFilters}
         onSelect={setSelectedId}
       />
-      <RejectedPanel />
       <LineDrawer line={selected} onClose={closeDrawer} />
     </div>
   );

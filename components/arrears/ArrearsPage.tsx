@@ -2,7 +2,8 @@
 
 import { Fragment, useEffect, useMemo, useState } from "react";
 import { chaseSplit, draftChaser } from "@/lib/chaser";
-import { shortDate } from "@/lib/format";
+import { Search, X } from "lucide-react";
+import { gbp, shortDate } from "@/lib/format";
 import { useStore } from "@/lib/store";
 import type { ArrearsRow, AuditRow } from "@/lib/types";
 import {
@@ -90,11 +91,43 @@ export function ArrearsPage() {
   const [copied, setCopied] = useState(false);
   const [expanded, setExpanded] = useState<string | null>(null);
 
+  const [query, setQuery] = useState("");
+  const [disputedOnly, setDisputedOnly] = useState(false);
+  const [minOutstanding, setMinOutstanding] = useState("");
+  const [minDays, setMinDays] = useState(0);
+  const [sortBy, setSortBy] = useState<"amount" | "oldest">("amount");
+
   const ran = lines.some((line) => line.method != null);
   const sorted = useMemo(
     () => [...arrears].sort((a, b) => b.outstanding - a.outstanding),
     [arrears],
   );
+  const filtering = query.trim() !== "" || disputedOnly || minOutstanding.trim() !== "" || minDays > 0;
+  const visible = useMemo(() => {
+    const needle = query.trim().toLowerCase();
+    const min = Number(minOutstanding);
+    return sorted
+      .filter((row) => {
+        if (disputedOnly && !row.disputed) return false;
+        if (minDays > 0 && row.days_overdue < minDays) return false;
+        if (minOutstanding.trim() && Number.isFinite(min) && row.outstanding < min) return false;
+        if (!needle) return true;
+        return [row.tenant_name, row.unit, row.tenant_id, ...row.open_charges.map((c) => c.charge_id)]
+          .some((s) => s.toLowerCase().includes(needle));
+      })
+      .sort((a, b) =>
+        sortBy === "oldest"
+          ? a.oldest_due_date.localeCompare(b.oldest_due_date) || b.outstanding - a.outstanding
+          : b.outstanding - a.outstanding,
+      );
+  }, [sorted, query, disputedOnly, minOutstanding, minDays, sortBy]);
+  const visibleTotal = visible.reduce((sum, row) => sum + row.outstanding, 0);
+  function clearFilters() {
+    setQuery("");
+    setDisputedOnly(false);
+    setMinOutstanding("");
+    setMinDays(0);
+  }
   const sortedAudit = useMemo(
     () => [...audit].sort((a, b) => (a.ts < b.ts ? 1 : a.ts > b.ts ? -1 : 0)),
     [audit],
@@ -168,6 +201,75 @@ export function ArrearsPage() {
             <p className="text-[12px] text-muted">Updating…</p>
           ) : null}
         </div>
+        <div className="flex flex-wrap items-center gap-x-4 gap-y-2 border-b border-line bg-canvas px-3 py-2 text-[12px]">
+          <label className="flex h-8 w-[260px] items-center gap-2 rounded-[8px] border border-line bg-surface px-2.5 focus-within:border-ink">
+            <Search className="h-3.5 w-3.5 shrink-0 text-muted" aria-hidden />
+            <input
+              value={query}
+              onChange={(event) => setQuery(event.target.value)}
+              placeholder="Tenant, unit or invoice ref"
+              aria-label="Search arrears"
+              className="min-w-0 flex-1 bg-transparent text-[13px] outline-none placeholder:text-muted"
+            />
+          </label>
+          <label className="flex items-center gap-1.5 text-ink">
+            <input
+              type="checkbox"
+              checked={disputedOnly}
+              onChange={(event) => setDisputedOnly(event.target.checked)}
+              className="h-3.5 w-3.5"
+            />
+            Disputed only
+          </label>
+          <label className="flex items-center gap-1.5">
+            <span className="text-muted">Min outstanding £</span>
+            <input
+              inputMode="decimal"
+              value={minOutstanding}
+              onChange={(event) => setMinOutstanding(event.target.value)}
+              aria-label="Minimum outstanding"
+              className="mono h-7 w-20 rounded-[6px] border border-line bg-surface px-1.5 text-right text-[12px] text-ink"
+            />
+          </label>
+          <label className="flex items-center gap-1.5">
+            <span className="text-muted">Overdue</span>
+            <select
+              value={minDays}
+              onChange={(event) => setMinDays(Number(event.target.value))}
+              className="h-7 rounded-[6px] border border-line bg-surface px-2 text-[12px] text-ink"
+            >
+              <option value={0}>Any</option>
+              <option value={30}>30+ days</option>
+              <option value={60}>60+ days</option>
+              <option value={90}>90+ days</option>
+            </select>
+          </label>
+          <label className="flex items-center gap-1.5">
+            <span className="text-muted">Sort</span>
+            <select
+              value={sortBy}
+              onChange={(event) => setSortBy(event.target.value as "amount" | "oldest")}
+              className="h-7 rounded-[6px] border border-line bg-surface px-2 text-[12px] text-ink"
+            >
+              <option value="amount">Most owed</option>
+              <option value="oldest">Oldest due</option>
+            </select>
+          </label>
+          <span className="mono ml-auto text-muted">
+            {visible.length} of {sorted.length}
+            {filtering ? <> · {gbp(visibleTotal)}</> : null}
+          </span>
+          {filtering ? (
+            <button
+              type="button"
+              onClick={clearFilters}
+              className="inline-flex h-7 items-center gap-1 rounded-[6px] px-2 font-medium text-ink hover:bg-surface"
+            >
+              <X className="h-3.5 w-3.5 text-muted" aria-hidden />
+              Clear
+            </button>
+          ) : null}
+        </div>
         {error ? (
           <div className="px-3 pt-3">
             <DangerNote message={error} />
@@ -194,7 +296,17 @@ export function ArrearsPage() {
                 </tr>
               </thead>
               <tbody>
-                {sorted.map((row) => (
+                {visible.length === 0 ? (
+                  <tr>
+                    <td colSpan={6} className="px-3 py-10 text-center text-[13px] text-muted">
+                      No tenants match.{" "}
+                      <button type="button" onClick={clearFilters} className="font-medium text-ink underline">
+                        Clear filters
+                      </button>
+                    </td>
+                  </tr>
+                ) : null}
+                {visible.map((row) => (
                   <Fragment key={row.tenant_id}>
                     <tr
                       className="cursor-pointer border-b border-line hover:bg-canvas"

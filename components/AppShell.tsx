@@ -12,6 +12,7 @@ import {
   RotateCcw,
   type LucideIcon,
 } from "lucide-react";
+import { FindMatchProvider } from "@/components/match/FindMatch";
 import { useStore } from "@/lib/store";
 
 const nav: { href: string; label: string; icon: LucideIcon }[] = [
@@ -153,6 +154,7 @@ export function AppShell({ children }: { children: React.ReactNode }) {
 
   return (
     <MotionConfig reducedMotion="user">
+      <FindMatchProvider>
       <div className="flex min-h-screen">
         <Sidebar pathname={pathname} queueCount={queueCount} />
         <div className="flex min-w-0 flex-1 flex-col">
@@ -172,6 +174,7 @@ export function AppShell({ children }: { children: React.ReactNode }) {
           <main className="min-h-0 flex-1 px-6 py-5">{children}</main>
         </div>
       </div>
+      </FindMatchProvider>
     </MotionConfig>
   );
 }

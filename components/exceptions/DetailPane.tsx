@@ -1,6 +1,6 @@
 "use client";
 
-import { AlertTriangle, Check, X } from "lucide-react";
+import { AlertTriangle, Check, Search, X } from "lucide-react";
 import {
   EvidenceCard,
   isDecisiveEvidence,
@@ -147,11 +147,13 @@ export function DetailPane({
   busy,
   onApprove,
   onReject,
+  onFindMatch,
 }: {
   line: LineView;
   busy: boolean;
   onApprove: () => void;
   onReject: () => void;
+  onFindMatch: () => void;
 }) {
   const unallocated = keepsUnallocated(line);
   const showLedger = !unallocated && line.allocations.length > 0;
@@ -247,6 +249,19 @@ export function DetailPane({
           <X className="h-4 w-4 text-muted" strokeWidth={2.25} aria-hidden />
           Reject
           <Keycap>R</Keycap>
+        </button>
+        <button
+          type="button"
+          onClick={onFindMatch}
+          disabled={busy}
+          className={`inline-flex h-9 items-center gap-2 rounded-[8px] border px-3.5 text-[13px] font-medium hover:bg-canvas disabled:opacity-60 ${
+            unallocated ? "border-ink bg-surface text-ink" : "border-line bg-surface text-ink"
+          }`}
+          title="Search open charges and allocate this receipt by hand"
+        >
+          <Search className="h-4 w-4 text-muted" strokeWidth={2.25} aria-hidden />
+          Find match
+          <Keycap>F</Keycap>
         </button>
         <span className="ml-auto flex items-center gap-1.5 text-[12px] text-muted">
           <Keycap>J</Keycap>

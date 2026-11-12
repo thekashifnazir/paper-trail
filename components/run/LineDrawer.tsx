@@ -2,6 +2,7 @@
 
 import { useEffect } from "react";
 import Link from "next/link";
+import { canFindMatch, useFindMatch } from "@/components/match/FindMatch";
 import { ConfidenceMeter, EvidenceCard, MethodBadge, Money } from "@/components/shared";
 import type { LineView } from "@/lib/types";
 
@@ -12,6 +13,7 @@ export function LineDrawer({
   line: LineView | null;
   onClose: () => void;
 }) {
+  const { openFindMatch } = useFindMatch();
   useEffect(() => {
     if (!line) return;
     const onKey = (event: KeyboardEvent) => {
@@ -59,7 +61,7 @@ export function LineDrawer({
           <Money value={line.amount} size="kpi" />
         </div>
         <div className="mt-3 flex items-center gap-3">
-          <MethodBadge method={line.method} />
+          <MethodBadge method={line.method} status={line.status} />
           <ConfidenceMeter value={line.confidence} />
         </div>
         {line.reasoning ? (
@@ -94,14 +96,28 @@ export function LineDrawer({
             ))}
           </div>
         ) : null}
-        {line.status === "proposed" ? (
-          <Link
-            href="/exceptions"
-            className="mt-5 inline-flex rounded-lg bg-ink px-3 py-2 text-[13px] font-medium text-canvas"
-          >
-            Review in Exceptions
-          </Link>
-        ) : null}
+        <div className="mt-5 flex flex-wrap gap-2">
+          {line.status === "proposed" ? (
+            <Link
+              href="/exceptions"
+              className="inline-flex rounded-lg bg-ink px-3 py-2 text-[13px] font-medium text-canvas"
+            >
+              Review in Exceptions
+            </Link>
+          ) : null}
+          {canFindMatch(line) ? (
+            <button
+              type="button"
+              onClick={() => {
+                onClose();
+                openFindMatch(line);
+              }}
+              className="inline-flex rounded-lg border border-line px-3 py-2 text-[13px] font-medium text-ink hover:bg-canvas"
+            >
+              Find match
+            </button>
+          ) : null}
+        </div>
       </aside>
     </div>
   );
