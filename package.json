@@ -4,7 +4,8 @@
   "type": "module",
   "scripts": {
     "test": "vitest run",
-    "compare": "tsx scripts/compare.ts"
+    "compare": "tsx scripts/compare.ts",
+    "score": "tsx scripts/score.ts"
   },
   "devDependencies": {
     "@types/node": "^22.10.0",

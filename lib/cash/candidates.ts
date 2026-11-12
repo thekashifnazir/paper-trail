@@ -1,5 +1,6 @@
 // The open charges worth sending to the agent for one leftover line. Same logic as the pass 3 input
 // session 1 built (cashgen/make_jev_kit.py), plus approved aliases and "amount fits a sum of one tenant's charges".
+import { tenantForPayer } from "./match";
 import { toPence } from "./money";
 import type { BankLine, Charge, OpenCharge, PayerAlias, Pence, Tenant } from "./types";
 
@@ -27,6 +28,8 @@ export function candidates(
 
   // tenants the payer can stand for: same name, approved alias, or parent company
   const tids = new Set<string>();
+  const byName = tenantForPayer(line.payer_name, charges); // handles bank names cut at 18 chars, Ltd/Limited
+  if (byName) tids.add(byName);
   for (const t of tenants) {
     if (t.tenant_name.toUpperCase() === payer) tids.add(t.tenant_id);
     if (t.parent_company && t.parent_company.toUpperCase() === payer) tids.add(t.tenant_id);

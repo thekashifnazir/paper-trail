@@ -2,7 +2,7 @@ import { existsSync } from "node:fs";
 import { describe, expect, it } from "vitest";
 import { candidates } from "./candidates";
 import { checkProposal, checkSum } from "./checkSum";
-import { hasData, loadData } from "./data";
+import { loadCsvDir } from "./data";
 import { allocate } from "./match";
 import { fmt, toPence } from "./money";
 import { score } from "./score";
@@ -31,9 +31,11 @@ describe("checkSum: code decides, not the model", () => {
   });
 });
 
-const run = hasData() ? describe : describe.skip;
-run("on the local event data (CASH_DATA_DIR, never committed)", () => {
-  const d = loadData();
+// Parity with session 1's match.py on the Cortile-based CSVs: local only, never committed (CASH_DATA_DIR).
+const dir = process.env.CASH_DATA_DIR;
+const run = dir && existsSync(dir) ? describe : describe.skip;
+run("on the local Cortile CSVs (CASH_DATA_DIR)", () => {
+  const d = loadCsvDir(dir!);
   const scoredOf = (r: ReturnType<typeof allocate>) => [
     ...r.allocations.map((a) => ({ bank_line_id: a.bank_line_id, charge_id: a.charge_id, amount: a.amount, method: a.method })),
     ...r.leftover.map((b) => ({ bank_line_id: b.id, charge_id: "", amount: toPence(b.amount), method: "none" })),
@@ -41,7 +43,7 @@ run("on the local event data (CASH_DATA_DIR, never committed)", () => {
 
   it("pass 1 places every clean line, 100% precision", () => {
     const s = score(d.truth, scoredOf(allocate(d.charges, d.bankLines)));
-    expect(s.perCase.clean).toEqual({ right: 149, n: 149 });
+    expect(s.perCase.clean.right).toBe(s.perCase.clean.n);
     expect(s.wrong).toBe(0);
   });
 
