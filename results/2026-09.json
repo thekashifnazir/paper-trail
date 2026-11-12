@@ -1,13 +1,13 @@
 {
  "month": "2026-09",
- "mode": "jev_then_grok",
+ "mode": "grok",
  "model": "grok-4.7",
  "lines": [
   {
    "bank_line_id": "B2609-001",
    "method": "agent",
    "status": "to_a_person",
-   "confidence": 0.99,
+   "confidence": 0.96,
    "allocations": [
     {
      "charge_id": "INV-2609-088-S",
@@ -15,17 +15,22 @@
     }
    ],
    "unallocated_amount": 0,
-   "reasoning": "Jev: pays INV-2609-088-S (1.00), one charge (0.99), payer fits (0.98); code allocated 316.88.",
+   "reasoning": "PREMIER GROUP PLC may pay Premier Ventures Ltd charges per the company lookup row. Reference SERV CHARGE SEPT matches the September service charge INV-2609-088-S for 316.88 exactly.",
    "evidence": [
     {
      "type": "bank_line",
      "ref": "B2609-001",
-     "quote": "PREMIER GROUP PLC SERV CHARGE SEPT amount 316.88"
+     "quote": "PREMIER GROUP PLC 316.88 SERV CHARGE SEPT"
+    },
+    {
+     "type": "tenant",
+     "ref": "T088",
+     "quote": "Premier Ventures Ltd parent_company PREMIER GROUP PLC; lookup group_members Premier Ventures Ltd"
     },
     {
      "type": "charge",
      "ref": "INV-2609-088-S",
-     "quote": "Premier Ventures Ltd service_charge 2026-09 amount_open 316.88"
+     "quote": "service_charge 2026-09 amount_open 316.88 due 2026-09-01"
     }
    ],
    "code_rejections": []
@@ -86,7 +91,7 @@
    "bank_line_id": "B2609-006",
    "method": "agent",
    "status": "to_a_person",
-   "confidence": 0.97,
+   "confidence": 0.95,
    "allocations": [
     {
      "charge_id": "INV-2609-088-R",
@@ -94,17 +99,22 @@
     }
    ],
    "unallocated_amount": 0,
-   "reasoning": "Jev: pays INV-2609-088-R (1.00), one charge (0.97), payer fits (0.98); code allocated 2279.17.",
+   "reasoning": "PREMIER GROUP PLC may pay Premier Ventures Ltd charges per the company lookup row, and SEPT RENT plus the exact amount match the September rent charge.",
    "evidence": [
     {
      "type": "bank_line",
      "ref": "B2609-006",
-     "quote": "PREMIER GROUP PLC SEPT RENT amount 2279.17"
+     "quote": "PREMIER GROUP PLC SEPT RENT 2279.17"
+    },
+    {
+     "type": "tenant",
+     "ref": "T088",
+     "quote": "Premier Ventures Ltd parent_company PREMIER GROUP PLC; lookup group_members Premier Ventures Ltd"
     },
     {
      "type": "charge",
      "ref": "INV-2609-088-R",
-     "quote": "Premier Ventures Ltd rent 2026-09 amount_open 2279.17"
+     "quote": "rent period 2026-09 due 2026-09-01 amount_open 2279.17"
     }
    ],
    "code_rejections": []
@@ -524,12 +534,12 @@
     }
    ],
    "unallocated_amount": 250,
-   "reasoning": "Payer HARBOUR INVESTMENT matches Harbour Investments Ltd and the reference names INV-2609-103-R, so that September rent charge is allocated in full and the 250.00 excess is left unallocated.",
+   "reasoning": "Payer HARBOUR INVESTMENT matches tenant Harbour Investments Ltd and the reference names INV-2609-103-R, so that September rent is allocated in full. The payment exceeds the open rent by 250.00, which is left unallocated as a credit on account.",
    "evidence": [
     {
      "type": "bank_line",
      "ref": "B2609-038",
-     "quote": "HARBOUR INVESTMENT INV-2609-103-R SEPT RENT 4937.50"
+     "quote": "HARBOUR INVESTMENT 4937.50 INV-2609-103-R SEPT RENT"
     },
     {
      "type": "tenant",
@@ -539,7 +549,7 @@
     {
      "type": "charge",
      "ref": "INV-2609-103-R",
-     "quote": "INV-2609-103-R rent 2026-09 amount_open 4687.50 due 2026-09-01"
+     "quote": "rent 2026-09 due 2026-09-01 amount_open 4687.50"
     }
    ],
    "code_rejections": []
@@ -790,14 +800,18 @@
    "bank_line_id": "B2609-057",
    "method": "agent",
    "status": "to_a_person",
-   "confidence": null,
+   "confidence": 0,
    "allocations": [],
    "unallocated_amount": 1531.61,
-   "reasoning": null,
-   "evidence": [],
-   "code_rejections": [
-    "Jev: payer fits no tenant (any_fits 0.03)"
-   ]
+   "reasoning": "No tenant, company lookup row, or note matches payer MR J R ASHWORTH, so the receipt stays unallocated.",
+   "evidence": [
+    {
+     "type": "bank_line",
+     "ref": "B2609-057",
+     "quote": "payer_name MR J R ASHWORTH amount 1531.61 reference empty"
+    }
+   ],
+   "code_rejections": []
   },
   {
    "bank_line_id": "B2609-058",
@@ -868,7 +882,7 @@
    "bank_line_id": "B2609-063",
    "method": "agent",
    "status": "to_a_person",
-   "confidence": 0.98,
+   "confidence": 0.95,
    "allocations": [
     {
      "charge_id": "INV-2609-089-R",
@@ -876,17 +890,22 @@
     }
    ],
    "unallocated_amount": 0,
-   "reasoning": "Jev: pays INV-2609-089-R (1.00), one charge (0.98), payer fits (0.98); code allocated 4158.34.",
+   "reasoning": "BEACON GRP PLC may pay Beacon Property Holdings Ltd per the company lookup row (group member) and tenant parent_company. Reference RENT SEPT names September rent INV-2609-089-R, which matches the bank amount exactly.",
    "evidence": [
     {
      "type": "bank_line",
      "ref": "B2609-063",
-     "quote": "BEACON GRP PLC RENT SEPT amount 4158.34"
+     "quote": "BEACON GRP PLC RENT SEPT 4158.34"
+    },
+    {
+     "type": "tenant",
+     "ref": "T089",
+     "quote": "Beacon Property Holdings Ltd parent_company BEACON GRP PLC"
     },
     {
      "type": "charge",
      "ref": "INV-2609-089-R",
-     "quote": "Beacon Property Holdings Ltd rent 2026-09 amount_open 4158.34"
+     "quote": "rent 2026-09 due 2026-09-01 amount_open 4158.34"
     }
    ],
    "code_rejections": []
@@ -921,7 +940,7 @@
    "bank_line_id": "B2609-066",
    "method": "agent",
    "status": "to_a_person",
-   "confidence": 0.6,
+   "confidence": 0.62,
    "allocations": [],
    "unallocated_amount": 3608.33,
    "reasoning": "possible duplicate of B2609-021",
@@ -929,12 +948,12 @@
     {
      "type": "bank_line",
      "ref": "B2609-066",
-     "quote": "LARKSPUR COMMERCIA inv2609020r 3608.33"
+     "quote": "payer LARKSPUR COMMERCIA amount 3608.33 reference inv2609020r"
     },
     {
      "type": "bank_line",
      "ref": "B2609-021",
-     "quote": "earlier identical line: same payer, amount and reference"
+     "quote": "earlier identical line same payer, amount and reference"
     }
    ],
    "code_rejections": []
@@ -960,7 +979,7 @@
    "bank_line_id": "B2609-068",
    "method": "agent",
    "status": "to_a_person",
-   "confidence": 0.62,
+   "confidence": 0.55,
    "allocations": [],
    "unallocated_amount": 2541.67,
    "reasoning": "possible duplicate of B2609-056",
@@ -973,7 +992,7 @@
     {
      "type": "bank_line",
      "ref": "B2609-056",
-     "quote": "earlier_identical_lines: B2609-056"
+     "quote": "earlier identical line same payer, amount and reference"
     }
    ],
    "code_rejections": []
@@ -1008,7 +1027,7 @@
    "bank_line_id": "B2609-071",
    "method": "agent",
    "status": "to_a_person",
-   "confidence": 0.99,
+   "confidence": 0.96,
    "allocations": [
     {
      "charge_id": "INV-2609-089-S",
@@ -1016,17 +1035,22 @@
     }
    ],
    "unallocated_amount": 0,
-   "reasoning": "Jev: pays INV-2609-089-S (1.00), one charge (0.99), payer fits (0.98); code allocated 567.63.",
+   "reasoning": "BEACON GRP PLC is the parent and lookup group payer for Beacon Property Holdings Ltd. Reference SEPT SC and the amount 567.63 match the September service charge in full.",
    "evidence": [
     {
      "type": "bank_line",
      "ref": "B2609-071",
-     "quote": "BEACON GRP PLC SEPT SC amount 567.63"
+     "quote": "payer BEACON GRP PLC, reference SEPT SC, amount 567.63"
+    },
+    {
+     "type": "tenant",
+     "ref": "T089",
+     "quote": "Beacon Property Holdings Ltd, parent_company BEACON GRP PLC; lookup group_members include Beacon Property Holdings Ltd"
     },
     {
      "type": "charge",
      "ref": "INV-2609-089-S",
-     "quote": "Beacon Property Holdings Ltd service_charge 2026-09 amount_open 567.63"
+     "quote": "service_charge period 2026-09 due 2026-09-01 amount_open 567.63"
     }
    ],
    "code_rejections": []
@@ -1061,7 +1085,7 @@
    "bank_line_id": "B2609-074",
    "method": "agent",
    "status": "to_a_person",
-   "confidence": 0.98,
+   "confidence": 0.96,
    "allocations": [
     {
      "charge_id": "INV-2609-086-R",
@@ -1069,17 +1093,22 @@
     }
    ],
    "unallocated_amount": 0,
-   "reasoning": "Jev: pays INV-2609-086-R (1.00), one charge (0.98), payer fits (0.98); code allocated 5995.83.",
+   "reasoning": "FAIRWAY GROUP PLC may pay Fairway Lettings Ltd charges per the company lookup (group member) and parent company. Reference SEPT RENT and the amount match September rent INV-2609-086-R exactly.",
    "evidence": [
     {
      "type": "bank_line",
      "ref": "B2609-074",
-     "quote": "FAIRWAY GROUP PLC SEPT RENT amount 5995.83"
+     "quote": "FAIRWAY GROUP PLC SEPT RENT 5995.83"
     },
     {
      "type": "charge",
      "ref": "INV-2609-086-R",
      "quote": "Fairway Lettings Ltd rent 2026-09 amount_open 5995.83"
+    },
+    {
+     "type": "tenant",
+     "ref": "T086",
+     "quote": "Fairway Lettings Ltd parent_company FAIRWAY GROUP PLC; lookup group_members Fairway Lettings Ltd"
     }
    ],
    "code_rejections": []
@@ -1114,7 +1143,7 @@
    "bank_line_id": "B2609-077",
    "method": "agent",
    "status": "to_a_person",
-   "confidence": 0.98,
+   "confidence": 0.96,
    "allocations": [
     {
      "charge_id": "INV-2609-086-S",
@@ -1122,17 +1151,22 @@
     }
    ],
    "unallocated_amount": 0,
-   "reasoning": "Jev: pays INV-2609-086-S (0.99), one charge (0.98), payer fits (0.98); code allocated 587.33.",
+   "reasoning": "FAIRWAY GROUP PLC is the group payer for Fairway Lettings Ltd, and reference SEPT SC names the September 2026 service charge, which is open for exactly 587.33.",
    "evidence": [
     {
      "type": "bank_line",
      "ref": "B2609-077",
-     "quote": "FAIRWAY GROUP PLC SEPT SC amount 587.33"
+     "quote": "FAIRWAY GROUP PLC 587.33 reference SEPT SC"
+    },
+    {
+     "type": "tenant",
+     "ref": "T086",
+     "quote": "Fairway Lettings Ltd parent_company FAIRWAY GROUP PLC; lookup group_members include Fairway Lettings Ltd"
     },
     {
      "type": "charge",
      "ref": "INV-2609-086-S",
-     "quote": "Fairway Lettings Ltd service_charge 2026-09 amount_open 587.33"
+     "quote": "service_charge 2026-09 due 2026-09-01 amount_open 587.33"
     }
    ],
    "code_rejections": []
@@ -1193,14 +1227,18 @@
    "bank_line_id": "B2609-082",
    "method": "agent",
    "status": "to_a_person",
-   "confidence": null,
+   "confidence": 0,
    "allocations": [],
    "unallocated_amount": 5651.82,
-   "reasoning": null,
-   "evidence": [],
-   "code_rejections": [
-    "Jev: payer fits no tenant (any_fits 0.03)"
-   ]
+   "reasoning": "No tenant, company lookup row, or note matches payer A G FERREIRA, and there are no open charges, so the receipt is left unallocated.",
+   "evidence": [
+    {
+     "type": "bank_line",
+     "ref": "B2609-082",
+     "quote": "payer_name A G FERREIRA amount 5651.82 reference empty"
+    }
+   ],
+   "code_rejections": []
   },
   {
    "bank_line_id": "B2609-083",
@@ -1538,7 +1576,7 @@
     }
    ],
    "unallocated_amount": 0,
-   "reasoning": "LIBERTY LETTINGS L matches Liberty Lettings Ltd, and SEPT RENT SC NET equals September rent in full plus September service charge less the £71.75 dispute.",
+   "reasoning": "LIBERTY LETTINGS L matches Liberty Lettings Ltd, and SEPT RENT SC NET of 2254.16 equals September rent in full plus September service charge less the £71.75 dispute noted on 2 September 2026.",
    "evidence": [
     {
      "type": "bank_line",
@@ -1562,7 +1600,7 @@
     },
     {
      "type": "note",
-     "ref": "T095 2026-09-02",
+     "ref": "T095",
      "quote": "Disputing £71.75 of September service charge, email of 2 September 2026."
     }
    ],
@@ -1585,7 +1623,7 @@
    "bank_line_id": "B2609-109",
    "method": "agent",
    "status": "to_a_person",
-   "confidence": 0.99,
+   "confidence": 0.95,
    "allocations": [
     {
      "charge_id": "INV-2609-087-R",
@@ -1593,17 +1631,22 @@
     }
    ],
    "unallocated_amount": 0,
-   "reasoning": "Jev: pays INV-2609-087-R (1.00), one charge (0.99), payer fits (0.98); code allocated 2312.51.",
+   "reasoning": "CENTRAL GROUP PLC may pay Central Developments Ltd charges per the company lookup row (group member Central Developments Ltd; parent of T087). Reference RENT SEPT PAYMENT and the amount match September rent INV-2609-087-R exactly.",
    "evidence": [
     {
      "type": "bank_line",
      "ref": "B2609-109",
-     "quote": "CENTRAL GROUP PLC RENT SEPT PAYMENT amount 2312.51"
+     "quote": "CENTRAL GROUP PLC RENT SEPT PAYMENT 2312.51"
+    },
+    {
+     "type": "tenant",
+     "ref": "T087",
+     "quote": "Central Developments Ltd parent_company CENTRAL GROUP PLC"
     },
     {
      "type": "charge",
      "ref": "INV-2609-087-R",
-     "quote": "Central Developments Ltd rent 2026-09 amount_open 2312.51"
+     "quote": "rent 2026-09 due 2026-09-01 amount_open 2312.51"
     }
    ],
    "code_rejections": []
@@ -1638,7 +1681,7 @@
    "bank_line_id": "B2609-112",
    "method": "agent",
    "status": "to_a_person",
-   "confidence": 0.99,
+   "confidence": 0.95,
    "allocations": [
     {
      "charge_id": "INV-2609-087-S",
@@ -1646,17 +1689,22 @@
     }
    ],
    "unallocated_amount": 0,
-   "reasoning": "Jev: pays INV-2609-087-S (1.00), one charge (0.99), payer fits (0.98); code allocated 242.15.",
+   "reasoning": "CENTRAL GROUP PLC may pay Central Developments Ltd per company lookup, and reference SERV CHARGE SEPT matches the September service charge of 242.15 exactly.",
    "evidence": [
     {
      "type": "bank_line",
      "ref": "B2609-112",
-     "quote": "CENTRAL GROUP PLC SERV CHARGE SEPT amount 242.15"
+     "quote": "CENTRAL GROUP PLC SERV CHARGE SEPT 242.15"
+    },
+    {
+     "type": "tenant",
+     "ref": "T087",
+     "quote": "Central Developments Ltd parent_company CENTRAL GROUP PLC; lookup group_members Central Developments Ltd"
     },
     {
      "type": "charge",
      "ref": "INV-2609-087-S",
-     "quote": "Central Developments Ltd service_charge 2026-09 amount_open 242.15"
+     "quote": "service_charge period 2026-09 amount_open 242.15"
     }
    ],
    "code_rejections": []
@@ -1820,7 +1868,7 @@
     }
    ],
    "unallocated_amount": 0,
-   "reasoning": "SHIELD COMMERCIAL matches Shield Commercial Ltd and the reference names September. The £2113.88 equals September rent in full plus September service charge less the £90.07 dispute, so the shortfall stays on the disputed service charge.",
+   "reasoning": "SHIELD COMMERCIAL matches Shield Commercial Ltd, and the September reference plus the £90.07 service-charge dispute produce an exact short-pay of £2113.88 (full September rent and the undisputed part of the September service charge).",
    "evidence": [
     {
      "type": "bank_line",
@@ -1833,19 +1881,19 @@
      "quote": "Shield Commercial Ltd"
     },
     {
+     "type": "note",
+     "ref": "T097",
+     "quote": "Disputing £90.07 of September service charge, email of 3 September 2026. Tenant says the communal cleaning contract was not delivered for most of the month and is withholding that part of the charge."
+    },
+    {
      "type": "charge",
      "ref": "INV-2609-097-R",
-     "quote": "rent 2026-09 amount_open 1979.17 due 2026-09-01"
+     "quote": "rent 2026-09 amount_open 1979.17"
     },
     {
      "type": "charge",
      "ref": "INV-2609-097-S",
-     "quote": "service_charge 2026-09 amount_open 224.78 due 2026-09-01"
-    },
-    {
-     "type": "note",
-     "ref": "T097",
-     "quote": "Disputing £90.07 of September service charge, email of 3 September 2026."
+     "quote": "service_charge 2026-09 amount_open 224.78"
     }
    ],
    "code_rejections": []
@@ -1970,7 +2018,7 @@
     }
    ],
    "unallocated_amount": 0,
-   "reasoning": "PIONEER RETAIL LIM is the 18-character truncation of Pioneer Retail Ltd, and 3594.59 equals September rent in full plus September service charge less the £94.96 dispute noted on 1 September 2026.",
+   "reasoning": "PIONEER RETAIL LIM is a bank truncation of Pioneer Retail Limited (T099). 3594.59 equals September rent in full plus September service charge less the disputed £94.96, matching reference RENT+SC SEPT PART.",
    "evidence": [
     {
      "type": "bank_line",
@@ -1983,19 +2031,19 @@
      "quote": "Pioneer Retail Ltd"
     },
     {
-     "type": "note",
-     "ref": "T099",
-     "quote": "Disputing £94.96 of September service charge, email of 1 September 2026."
-    },
-    {
      "type": "charge",
      "ref": "INV-2609-099-R",
-     "quote": "rent 2026-09 amount_open 3308.33"
+     "quote": "rent 2026-09 amount_open 3308.33 due 2026-09-01"
     },
     {
      "type": "charge",
      "ref": "INV-2609-099-S",
-     "quote": "service_charge 2026-09 amount_open 381.22"
+     "quote": "service_charge 2026-09 amount_open 381.22 due 2026-09-01"
+    },
+    {
+     "type": "note",
+     "ref": "T099",
+     "quote": "Disputing £94.96 of September service charge, email of 1 September 2026."
     }
    ],
    "code_rejections": []
@@ -2016,12 +2064,12 @@
     }
    ],
    "unallocated_amount": 0,
-   "reasoning": "HARBOUR ESTATES LI is Harbour Estates Ltd truncated, and RENT+SC SEPT PART matches the September charges. 4950.17 equals September rent in full plus September service charge less the £108.10 dispute, so the shortfall stays on the disputed service charge.",
+   "reasoning": "HARBOUR ESTATES LI matches Harbour Estates Ltd (T098). 4950.17 equals September rent in full plus September service charge less the £108.10 dispute; the reference names RENT+SC SEPT PART.",
    "evidence": [
     {
      "type": "bank_line",
      "ref": "B2609-134",
-     "quote": "HARBOUR ESTATES LI RENT+SC SEPT PART 4950.17"
+     "quote": "HARBOUR ESTATES LI 4950.17 RENT+SC SEPT PART"
     },
     {
      "type": "tenant",
@@ -2040,7 +2088,7 @@
     },
     {
      "type": "note",
-     "ref": "T098",
+     "ref": "T098 2026-08-31",
      "quote": "Disputing £108.10 of September service charge, email of 31 August 2026."
     }
    ],
@@ -2357,7 +2405,7 @@
     }
    ],
    "unallocated_amount": 250,
-   "reasoning": "Payer LIBERTY DEVELOPMEN is the bank truncation of tenant Liberty Developments Ltd, and the reference names INV-2609-104-R; that September rent is allocated in full and the £250 excess is left unallocated.",
+   "reasoning": "Payer LIBERTY DEVELOPMEN is a truncated match to Liberty Developments Ltd and the reference names INV-2609-104-R; allocate that September rent in full and leave the £250 excess unallocated.",
    "evidence": [
     {
      "type": "bank_line",
@@ -2365,14 +2413,14 @@
      "quote": "LIBERTY DEVELOPMEN INV-2609-104-R SEPT RENT 6775.00"
     },
     {
+     "type": "charge",
+     "ref": "INV-2609-104-R",
+     "quote": "Liberty Developments Ltd rent 2026-09 amount_open 6525"
+    },
+    {
      "type": "tenant",
      "ref": "T104",
      "quote": "Liberty Developments Ltd"
-    },
-    {
-     "type": "charge",
-     "ref": "INV-2609-104-R",
-     "quote": "rent 2026-09 amount_open 6525 due 2026-09-01"
     }
    ],
    "code_rejections": []
@@ -2623,7 +2671,7 @@
     }
    ],
    "unallocated_amount": 250,
-   "reasoning": "Payer PIONEER COMMERCIAL matches tenant Pioneer Commercial Ltd and the reference names INV-2609-105-R; the payment exceeds that September rent by 250.00, left unallocated as credit on account.",
+   "reasoning": "PIONEER COMMERCIAL matches tenant Pioneer Commercial Ltd and the reference names INV-2609-105-R; the payment exceeds that charge by 250.00, left unallocated as credit on account.",
    "evidence": [
     {
      "type": "bank_line",
@@ -2638,7 +2686,7 @@
     {
      "type": "charge",
      "ref": "INV-2609-105-R",
-     "quote": "rent 2026-09 amount_open 6762.50 due 2026-09-01 invoice_ref INV-2609-105-R"
+     "quote": "rent 2026-09 amount_open 6762.50"
     }
    ],
    "code_rejections": []
@@ -2906,12 +2954,12 @@
     }
    ],
    "unallocated_amount": 0,
-   "reasoning": "METRO VENTURES matches Metro Ventures Ltd. 3237.26 equals September rent in full plus the undisputed part of the September service charge after the £177.56 dispute, and the reference names September rent less dispute.",
+   "reasoning": "METRO VENTURES matches Metro Ventures Ltd. 3237.26 equals September rent in full plus September service charge less the £177.56 dispute noted on 9 September 2026.",
    "evidence": [
     {
      "type": "bank_line",
      "ref": "B2609-197",
-     "quote": "METRO VENTURES 3237.26 SEPT RENT LESS DISPUTE"
+     "quote": "METRO VENTURES SEPT RENT LESS DISPUTE 3237.26"
     },
     {
      "type": "tenant",
