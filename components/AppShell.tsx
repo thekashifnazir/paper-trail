@@ -54,6 +54,8 @@ function Sidebar({ pathname, queueCount }: { pathname: string; queueCount: numbe
         <span className="text-[15px] font-semibold tracking-[-0.01em]">Paper Trail</span>
       </div>
 
+      <div className="px-4 text-[13px] text-side-muted">Sample portfolio</div>
+
 
       <div className="label mt-5 px-4 !text-side-muted">Workspace</div>
       <nav className="mt-1.5 flex flex-col gap-0.5 px-3">

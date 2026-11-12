@@ -2,7 +2,7 @@
 
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { AllocationBar, type BarSegment } from "@/components/shared";
-import { getLines } from "@/lib/api";
+import { getLines, getMode } from "@/lib/api";
 import { displayLines, useStore } from "@/lib/store";
 import type { LineView } from "@/lib/types";
 import { KpiRow } from "./KpiRow";
@@ -61,14 +61,21 @@ export function RunScreen() {
 
   useEffect(() => {
     if (!running) return;
+    // Live writes nothing until the run ends, so polling would only load the database for nothing.
+    if (getMode() !== "demo") return;
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
     let cancelled = false;
+    let inFlight = false;
     const poll = async () => {
+      if (inFlight) return;
+      inFlight = true;
       try {
         const next = await getLines(month);
         if (!cancelled) setPolled(displayLines(next, audit));
       } catch {
         /* The store records the run error. */
+      } finally {
+        inFlight = false;
       }
     };
     void poll();

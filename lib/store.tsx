@@ -156,22 +156,44 @@ export function StoreProvider({ children }: { children: React.ReactNode }) {
     void refresh();
   }, [refresh]);
 
+  // A new month starts idle: the stepper only lights up once Run is pressed.
+  useEffect(() => {
+    setProgress({ stage: "idle", percent: 0 });
+  }, [month]);
+
+  /** After a decision: what the screen needs first (lines, audit), the rest in the background. */
+  const afterWrite = useCallback(async () => {
+    try {
+      const [l, au] = await Promise.all([getLines(month), getAudit()]);
+      setLines(displayLines(l, au));
+      setAudit(au);
+    } catch (e) {
+      setError(e instanceof Error ? e.message : "Failed to load");
+      return;
+    }
+    void Promise.all([getSummary(month), getArrears()])
+      .then(([s, a]) => {
+        setSummary(s);
+        setArrears(a);
+      })
+      .catch(() => undefined);
+  }, [month, mode]);
+
   const run = useCallback(async () => {
     setError(null);
     setProgress({ stage: "exact", percent: 10 });
+    // Live answers once at the end, so walk the passes while the engine works and hold on Agent.
+    const timers: number[] = [];
+    if (getMode() === "live") {
+      timers.push(window.setTimeout(() => setProgress({ stage: "memory", percent: 55 }), 300));
+      timers.push(window.setTimeout(() => setProgress({ stage: "agent", percent: 85 }), 600));
+    }
     try {
-      let reported = false;
-      const s = await runStatement(month, (p) => {
-        reported = true;
-        setProgress(p);
-      });
-      if (!reported) {
-        // The real API answers once, so walk the passes the engine just ran.
-        await pause(350);
-        setProgress({ stage: "memory", percent: 55 });
-        await pause(350);
+      const s = await runStatement(month, setProgress);
+      timers.forEach((t) => window.clearTimeout(t));
+      if (getMode() === "live") {
         setProgress({ stage: "agent", percent: 85 });
-        await pause(350);
+        await pause(300);
       }
       setProgress({ stage: "done", percent: 100 });
       setSummary(s);
@@ -184,6 +206,7 @@ export function StoreProvider({ children }: { children: React.ReactNode }) {
       setArrears(a);
       setAudit(au);
     } catch (e) {
+      timers.forEach((t) => window.clearTimeout(t));
       setError(e instanceof Error ? e.message : "Run failed");
       setProgress({ stage: "idle", percent: 0 });
     }
@@ -192,18 +215,18 @@ export function StoreProvider({ children }: { children: React.ReactNode }) {
   const approve = useCallback(
     async (id: string) => {
       const res = await approveLine(id);
-      await refresh();
+      await afterWrite();
       return res.remembered;
     },
-    [refresh],
+    [afterWrite],
   );
 
   const reject = useCallback(
     async (id: string) => {
       await rejectLine(id);
-      await refresh();
+      await afterWrite();
     },
-    [refresh],
+    [afterWrite],
   );
 
   const manualMatch = useCallback(
@@ -214,10 +237,10 @@ export function StoreProvider({ children }: { children: React.ReactNode }) {
       reasoning: string,
     ) => {
       const res = await manualAllocate(id, allocations, unallocated, reasoning);
-      await refresh();
+      await afterWrite();
       return res.remembered;
     },
-    [refresh],
+    [afterWrite],
   );
 
   const reset = useCallback(async () => {

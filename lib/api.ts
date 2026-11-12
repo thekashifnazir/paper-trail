@@ -48,13 +48,18 @@ export function setMode(next: DataMode) {
 
 const isMock = () => getMode() === "demo";
 
+const TIMEOUT_MS = 45_000;
+
 // Live mode. A failed call is logged and thrown: never a silent fallback to the mock.
 async function json<T>(url: string, init?: RequestInit): Promise<T> {
   const method = init?.method ?? "GET";
   let res: Response;
+  const controller = new AbortController();
+  const timer = setTimeout(() => controller.abort(), TIMEOUT_MS);
   try {
     res = await fetch(url, {
       ...init,
+      signal: controller.signal,
       cache: "no-store",
       headers: {
         "content-type": "application/json",
@@ -63,9 +68,15 @@ async function json<T>(url: string, init?: RequestInit): Promise<T> {
       },
     });
   } catch (e) {
+    clearTimeout(timer);
+    if (controller.signal.aborted) {
+      console.error(`[api] ${method} ${url} timed out after ${TIMEOUT_MS / 1000}s`);
+      throw new Error(`The engine did not answer in ${TIMEOUT_MS / 1000} s (${method} ${url}). Try again.`);
+    }
     console.error(`[api] ${method} ${url} network error`, e);
     throw new Error(`${method} ${url}: network error`);
   }
+  clearTimeout(timer);
   if (!res.ok) {
     const body = await res.text();
     let msg = body;
