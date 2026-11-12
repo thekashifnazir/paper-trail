@@ -36,7 +36,7 @@ function barSegments(lines: LineView[]): BarSegment[] {
 }
 
 export function RunScreen() {
-  const { month, lines, summary, progress, error, run } = useStore();
+  const { month, lines, summary, progress, error, loading, run } = useStore();
   const [running, setRunning] = useState(false);
   const [polled, setPolled] = useState<LineView[] | null>(null);
   const [filter, setFilter] = useState<LineFilter>("all");
@@ -123,6 +123,7 @@ export function RunScreen() {
       <LineTable
         lines={monthLines}
         month={month}
+        loading={loading}
         filter={filter}
         query={query}
         selectedId={selectedId}

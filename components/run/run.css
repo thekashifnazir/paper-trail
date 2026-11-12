@@ -1,31 +1,4 @@
+/* Run screen fills the viewport below the top bar; the table scrolls inside. */
 .run-screen {
-  height: calc(100dvh - 80px);
-  max-height: calc(100dvh - 80px);
-}
-
-.run-screen .run-bar > div > div:first-child > div {
-  transition: width 320ms ease-out;
-}
-
-@keyframes run-row-resolve {
-  from {
-    background-color: var(--hairline);
-  }
-  to {
-    background-color: transparent;
-  }
-}
-
-.run-row-resolve {
-  animation: run-row-resolve 420ms ease-out;
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .run-screen .run-bar > div > div:first-child > div {
-    transition: none;
-  }
-
-  .run-row-resolve {
-    animation: none;
-  }
+  height: calc(100dvh - var(--topbar-h) - 40px);
 }
