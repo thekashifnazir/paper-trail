@@ -30,12 +30,12 @@ function allocatedTo(line: LineView) {
 function StatusCell({ status }: { status: LineView["status"] }) {
   if (status == null) return <MethodBadge method={null} />;
   if (status === "proposed") {
-    return <span className="text-[13px] font-medium text-queue">In queue</span>;
+    return <span className="pill pill-med">In queue</span>;
   }
   if (status === "approved") {
-    return <span className="text-[13px] text-muted">Approved</span>;
+    return <span className="pill pill-high">Approved</span>;
   }
-  return <span className="text-[13px] text-muted">Rejected</span>;
+  return <span className="pill pill-none">Rejected</span>;
 }
 
 function ColGroup() {
@@ -155,19 +155,17 @@ export function LineTable({
   const slice = rows.slice(start, end);
 
   return (
-    <section className="flex min-h-0 flex-1 flex-col overflow-hidden rounded-[12px] border border-hairline bg-sheet">
-      <div className="flex flex-wrap items-end gap-x-4 gap-y-2 border-b border-hairline px-3 pt-2">
-        <div className="flex gap-0">
+    <section className="card flex min-h-0 flex-1 flex-col overflow-hidden">
+      <div className="flex flex-wrap items-end gap-x-4 gap-y-2 border-b border-hairline px-4 pt-2">
+        <div className="flex gap-6" role="tablist">
           {FILTERS.map((item) => (
             <button
               key={item.id}
               type="button"
+              role="tab"
+              aria-selected={filter === item.id}
               onClick={() => onFilter(item.id)}
-              className={`-mb-px border-b-2 px-2.5 pb-2 text-[13px] font-medium ${
-                filter === item.id
-                  ? "border-ink text-ink"
-                  : "border-transparent text-muted hover:text-ink"
-              }`}
+              className="tab"
             >
               {item.label}
             </button>
@@ -178,7 +176,7 @@ export function LineTable({
           onChange={(event) => onQuery(event.target.value)}
           placeholder="Search payer or reference"
           aria-label="Search payer or reference"
-          className="mb-1.5 ml-auto min-w-[200px] rounded-lg border border-hairline bg-paper px-2.5 py-1 text-[13px]"
+          className="mb-1.5 ml-auto min-w-[220px] rounded-md border border-hairline bg-card px-2.5 py-1.5 text-[13px] focus:border-primary focus:outline-none"
         />
       </div>
       <div
@@ -188,20 +186,20 @@ export function LineTable({
       >
         <table className="w-full min-w-[960px] table-fixed border-separate border-spacing-0 text-left">
           <ColGroup />
-          <thead ref={theadRef} className="sticky top-0 z-10 bg-fill">
-            <tr className="text-[12px] font-medium tracking-[0.04em] text-muted">
-              <th className="border-b border-hairline px-3 py-2 font-medium">Date</th>
-              <th className="border-b border-hairline px-3 py-2 font-medium">Payer</th>
-              <th className="border-b border-hairline px-3 py-2 font-medium">Reference</th>
-              <th className="border-b border-hairline px-3 py-2 text-right font-medium">
+          <thead ref={theadRef} className="sticky top-0 z-10 bg-card">
+            <tr className="text-[12px] font-medium text-muted">
+              <th className="border-b border-hairline px-3 py-2.5 font-medium">Date</th>
+              <th className="border-b border-hairline px-3 py-2.5 font-medium">Payer</th>
+              <th className="border-b border-hairline px-3 py-2.5 font-medium">Reference</th>
+              <th className="border-b border-hairline px-3 py-2.5 text-right font-medium">
                 Amount
               </th>
-              <th className="border-b border-hairline px-3 py-2 font-medium">
+              <th className="border-b border-hairline px-3 py-2.5 font-medium">
                 Allocated to
               </th>
-              <th className="border-b border-hairline px-3 py-2 font-medium">Method</th>
-              <th className="border-b border-hairline px-3 py-2 font-medium">Confidence</th>
-              <th className="border-b border-hairline px-3 py-2 font-medium">Status</th>
+              <th className="border-b border-hairline px-3 py-2.5 font-medium">Method</th>
+              <th className="border-b border-hairline px-3 py-2.5 font-medium">Confidence</th>
+              <th className="border-b border-hairline px-3 py-2.5 font-medium">Status</th>
             </tr>
           </thead>
           <tbody>
@@ -218,9 +216,9 @@ export function LineTable({
                   key={line.id}
                   data-line-id={line.id}
                   onClick={() => onSelect(line.id)}
-                  className={`cursor-pointer hover:bg-fill ${
+                  className={`cursor-pointer hover:bg-canvas ${
                     resolving.has(line.id) ? "run-row-resolve" : ""
-                  } ${selected ? "bg-fill" : ""}`}
+                  } ${selected ? "bg-primary/5" : ""}`}
                   style={{ height: ROW_HEIGHT }}
                 >
                   <td className="h-11 whitespace-nowrap px-3 text-[13px] shadow-[inset_0_-1px_0_var(--hairline)]">

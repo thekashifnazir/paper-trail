@@ -1,11 +1,26 @@
 @import "tailwindcss";
 
 :root {
-  --paper: oklch(0.976 0.001 106);
+  /* Mockup palette */
+  --nav: #0f1b33;
+  --nav-active: rgba(255, 255, 255, 0.12);
+  --primary: #1d4ed8;
+  --primary-hover: #1e40af;
+  --primary-ink: #ffffff;
+  --canvas: #f3f4f6;
+  --card: #ffffff;
+  --ok: #15803d;
+  --ok-wash: #dcfce7;
+  --warn: #92400e;
+  --warn-wash: #fef3c7;
+  --neutral-wash: #eef0f3;
+  --muted-dark: #4b5563;
+
+  --paper: var(--canvas);
   --sheet: oklch(1 0 0);
   --ink: oklch(0.191 0.002 107);
-  --muted: oklch(0.538 0.008 97);
-  --hairline: oklch(0.918 0.004 107);
+  --muted: #6b7280;
+  --hairline: #e5e7eb;
   --fill: oklch(0.964 0.003 106);
 
   --brand: var(--ink);
@@ -29,6 +44,19 @@
 }
 
 @theme inline {
+  --color-nav: var(--nav);
+  --color-nav-active: var(--nav-active);
+  --color-primary: var(--primary);
+  --color-primary-hover: var(--primary-hover);
+  --color-primary-ink: var(--primary-ink);
+  --color-canvas: var(--canvas);
+  --color-card: var(--card);
+  --color-ok: var(--ok);
+  --color-ok-wash: var(--ok-wash);
+  --color-warn: var(--warn);
+  --color-warn-wash: var(--warn-wash);
+  --color-neutral-wash: var(--neutral-wash);
+  --color-muted-dark: var(--muted-dark);
   --color-paper: var(--paper);
   --color-sheet: var(--sheet);
   --color-ink: var(--ink);
@@ -61,7 +89,7 @@ html,
 body {
   margin: 0;
   min-height: 100%;
-  background: var(--paper);
+  background: var(--canvas);
   color: var(--ink);
   font-family: var(--font-geist-sans), ui-sans-serif, system-ui, sans-serif;
   font-size: 15px;
@@ -73,6 +101,78 @@ input,
 textarea,
 select {
   font: inherit;
+}
+
+/* ---- Mockup components (in components layer so utilities can override) ---- */
+@layer components {
+.card {
+  background: var(--card);
+  border: 1px solid var(--hairline);
+  border-radius: 8px;
+}
+
+.pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  border-radius: 9999px;
+  padding: 2px 8px;
+  font-size: 12px;
+  font-weight: 500;
+  line-height: 1.4;
+  white-space: nowrap;
+}
+.pill-high { background: var(--ok-wash); color: var(--ok); }
+.pill-med { background: var(--warn-wash); color: var(--warn); }
+.pill-none { background: var(--neutral-wash); color: var(--muted-dark); }
+.pill-neutral { background: var(--neutral-wash); color: var(--ink); }
+
+.btn-primary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  background: var(--primary);
+  color: var(--primary-ink);
+  border: 0;
+  border-radius: 6px;
+  padding: 8px 20px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 120ms ease;
+}
+.btn-primary:hover:not(:disabled) { background: var(--primary-hover); }
+.btn-primary:focus-visible { outline: 2px solid var(--primary); outline-offset: 2px; }
+.btn-primary:disabled {
+  background: #e5e7eb;
+  color: #9ca3af;
+  cursor: not-allowed;
+}
+
+.tabs {
+  display: flex;
+  gap: 24px;
+  border-bottom: 1px solid var(--hairline);
+}
+.tab {
+  appearance: none;
+  background: none;
+  border: 0;
+  border-bottom: 2px solid transparent;
+  margin-bottom: -1px;
+  padding: 8px 0;
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--muted);
+  cursor: pointer;
+}
+.tab:hover { color: var(--ink); }
+.tab[aria-selected="true"] {
+  color: var(--ink);
+  border-bottom-color: var(--primary);
+}
+
 }
 
 .tabular {

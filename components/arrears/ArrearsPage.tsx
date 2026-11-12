@@ -57,14 +57,14 @@ function DisputeStatus({ note }: { note: string | null }) {
     >
       <span
         title={note ?? undefined}
-        className="inline-flex items-center rounded-full bg-queue-wash px-2 py-0.5 text-[12px] font-medium text-queue"
+        className="pill pill-med"
       >
         Disputed
       </span>
       {note && tip ? (
         <span
           role="tooltip"
-          className="pointer-events-none fixed z-30 w-72 rounded-lg border border-hairline bg-sheet px-3 py-2 text-left text-[12px] font-normal tracking-normal text-ink"
+          className="pointer-events-none fixed z-30 w-72 card px-3 py-2 text-left text-[12px] font-normal tracking-normal text-ink"
           style={{
             left: tip.x,
             top: tip.y,
@@ -136,7 +136,7 @@ export function ArrearsPage() {
     return (
       <div className="space-y-3">
         <header>
-          <h1 className="text-[24px] font-medium tracking-[-0.02em] text-ink">
+          <h1 className="text-[22px] font-semibold tracking-[-0.01em] text-ink">
             Arrears
           </h1>
         </header>
@@ -151,7 +151,7 @@ export function ArrearsPage() {
   return (
     <div className="space-y-3">
       <header>
-        <h1 className="text-[24px] font-medium tracking-[-0.02em] text-ink">
+        <h1 className="text-[22px] font-semibold tracking-[-0.01em] text-ink">
           Arrears
         </h1>
         <p className="mt-0.5 text-[13px] text-muted">
@@ -172,9 +172,9 @@ export function ArrearsPage() {
         </KpiStrip>
       ) : null}
 
-      <section className="overflow-hidden rounded-[12px] border border-hairline bg-sheet">
-        <div className="flex items-center justify-between gap-3 border-b border-hairline px-3 py-2">
-          <h2 className="text-[16px] font-medium tracking-[-0.02em] text-ink">
+      <section className="card overflow-hidden">
+        <div className="flex items-center justify-between gap-3 border-b border-hairline px-4 py-3">
+          <h2 className="text-[15px] font-semibold text-ink">
             Open balances
           </h2>
           {updating ? (
@@ -196,7 +196,7 @@ export function ArrearsPage() {
         ) : (
           <div className="max-h-[min(560px,56vh)] overflow-auto">
             <table className="w-full text-left">
-              <thead className="sticky top-0 z-10 bg-fill text-[12px] font-medium tracking-[0.04em] text-muted">
+              <thead className="sticky top-0 z-10 bg-card text-[12px] font-medium text-muted">
                 <tr className="border-b border-hairline">
                   <th className="px-3 py-2 font-medium">Tenant and unit</th>
                   <th className="px-3 py-2 text-right font-medium">Outstanding</th>
@@ -210,7 +210,7 @@ export function ArrearsPage() {
                 {sorted.map((row) => (
                   <Fragment key={row.tenant_id}>
                     <tr
-                      className="cursor-pointer border-b border-hairline hover:bg-fill"
+                      className="cursor-pointer border-b border-hairline hover:bg-canvas"
                       onClick={() =>
                         setExpanded(
                           expanded === row.tenant_id ? null : row.tenant_id,
@@ -244,7 +244,7 @@ export function ArrearsPage() {
                         <div className="flex items-center gap-2">
                           <div className="h-1 w-16 overflow-hidden rounded-full bg-hairline">
                             <div
-                              className="h-full bg-queue"
+                              className="h-full bg-warn"
                               style={{
                                 width: `${(row.days_overdue / maxDays) * 100}%`,
                               }}
@@ -259,7 +259,7 @@ export function ArrearsPage() {
                         {row.disputed ? (
                           <DisputeStatus note={row.dispute_note} />
                         ) : (
-                          <span className="text-[13px] text-muted">Overdue</span>
+                          <span className="pill pill-neutral">Overdue</span>
                         )}
                       </td>
                       <td className="h-11 px-3 text-right align-middle">
@@ -270,7 +270,7 @@ export function ArrearsPage() {
                               event.stopPropagation();
                               openChaser(row);
                             }}
-                            className="rounded-lg border border-hairline bg-sheet px-2.5 py-1 text-[12px] font-medium text-ink hover:bg-fill"
+                            className="btn-primary !px-3 !py-1 !text-[12px]"
                           >
                             Draft chaser
                           </button>
@@ -280,7 +280,7 @@ export function ArrearsPage() {
                       </td>
                     </tr>
                     {expanded === row.tenant_id ? (
-                      <tr className="border-b border-hairline bg-paper">
+                      <tr className="border-b border-hairline bg-canvas">
                         <td colSpan={6} className="px-3 py-2.5">
                           <ul className="space-y-1">
                             {row.open_charges.map((charge) => (
@@ -353,9 +353,9 @@ function AuditLog({
   updating: boolean;
 }) {
   return (
-    <section className="overflow-hidden rounded-[12px] border border-hairline bg-sheet">
-      <div className="flex items-center justify-between gap-3 border-b border-hairline px-3 py-2">
-        <h2 className="text-[16px] font-medium tracking-[-0.02em] text-ink">
+    <section className="card overflow-hidden">
+      <div className="flex items-center justify-between gap-3 border-b border-hairline px-4 py-3">
+        <h2 className="text-[15px] font-semibold text-ink">
           Audit log
         </h2>
         {updating ? (
@@ -376,7 +376,7 @@ function AuditLog({
       ) : (
         <div className="max-h-56 overflow-auto">
           <table className="w-full text-left text-[13px]">
-            <thead className="sticky top-0 bg-fill text-[12px] font-medium tracking-[0.04em] text-muted">
+            <thead className="sticky top-0 bg-card text-[12px] font-medium text-muted">
               <tr className="border-b border-hairline">
                 <th className="px-3 py-1.5 font-medium">Time</th>
                 <th className="px-3 py-1.5 font-medium">Actor</th>
@@ -450,7 +450,7 @@ function ChaserDialog({
         role="dialog"
         aria-modal="true"
         aria-labelledby="chaser-title"
-        className="flex h-[min(720px,calc(100vh-2rem))] w-full max-w-5xl flex-col overflow-hidden rounded-[12px] border border-hairline bg-sheet"
+        className="card flex h-[min(720px,calc(100vh-2rem))] w-full max-w-5xl flex-col overflow-hidden"
         onClick={(event) => event.stopPropagation()}
       >
         <div className="grid min-h-0 flex-1 md:grid-cols-2">
@@ -465,13 +465,13 @@ function ChaserDialog({
               value={subject}
               onChange={(event) => onSubject(event.target.value)}
               aria-label="Subject"
-              className="mt-1.5 rounded-lg border border-hairline bg-paper px-2.5 py-1.5 font-medium text-ink"
+              className="mt-1.5 rounded-md border border-hairline bg-card px-2.5 py-1.5 font-medium text-ink"
             />
             <textarea
               value={body}
               onChange={(event) => onBody(event.target.value)}
               aria-label="Letter"
-              className="mt-2 min-h-0 flex-1 resize-none rounded-lg border border-hairline bg-paper px-2.5 py-2 leading-relaxed text-ink"
+              className="mt-2 min-h-0 flex-1 resize-none rounded-md border border-hairline bg-card px-2.5 py-2 leading-relaxed text-ink focus:border-primary focus:outline-none"
             />
           </div>
           <div className="min-h-0 overflow-auto p-4">
@@ -503,14 +503,14 @@ function ChaserDialog({
           <button
             type="button"
             onClick={onCopy}
-            className="rounded-lg bg-ink px-3.5 py-2 text-[13px] font-medium text-paper"
+            className="btn-primary"
           >
             {copied ? "Copied" : "Copy to clipboard"}
           </button>
           <button
             type="button"
             onClick={onClose}
-            className="rounded-lg border border-hairline bg-sheet px-3.5 py-2 text-[13px] font-medium text-ink hover:bg-fill"
+            className="rounded-md border border-hairline bg-card px-4 py-2 text-[14px] font-medium text-ink hover:bg-canvas"
           >
             Close
           </button>

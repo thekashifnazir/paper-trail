@@ -14,7 +14,7 @@ export function Money({
 }) {
   return (
     <span
-      className={`money tabular ${large ? "text-[22px] font-medium leading-none" : "text-[13px]"} ${
+      className={`money tabular ${large ? "text-[24px] font-bold leading-none" : "text-[13px]"} ${
         danger ? "text-danger" : ""
       }`}
     >
@@ -30,9 +30,9 @@ const methodStyle: Record<
   exact: { label: "Exact", fg: "text-exact", bg: "bg-exact-wash" },
   memory: { label: "Memory", fg: "text-memory", bg: "bg-memory-wash" },
   agent: { label: "Agent", fg: "text-agent", bg: "bg-agent-wash" },
-  human: { label: "Human", fg: "text-ink", bg: "bg-fill" },
-  queue: { label: "In queue", fg: "text-queue", bg: "bg-queue-wash" },
-  pending: { label: "Pending", fg: "text-muted", bg: "bg-fill" },
+  human: { label: "Human", fg: "text-ink", bg: "bg-neutral-wash" },
+  queue: { label: "In queue", fg: "text-warn", bg: "bg-warn-wash" },
+  pending: { label: "Pending", fg: "text-muted-dark", bg: "bg-neutral-wash" },
 };
 
 export function MethodBadge({
@@ -47,7 +47,7 @@ export function MethodBadge({
   const s = methodStyle[key];
   return (
     <span
-      className={`inline-flex items-center rounded-full px-2 py-0.5 text-[12px] font-medium tracking-[0.04em] ${s.fg} ${s.bg}`}
+      className={`pill ${s.fg} ${s.bg}`}
     >
       {s.label}
     </span>
@@ -60,7 +60,7 @@ export function ConfidenceMeter({ value }: { value: number | null }) {
     <div className="flex min-w-[72px] items-center gap-1.5">
       <div className="h-1 flex-1 overflow-hidden rounded-full bg-hairline">
         <div
-          className="h-full rounded-full bg-ink"
+          className="h-full rounded-full bg-primary"
           style={{ width: `${Math.round(value * 100)}%` }}
         />
       </div>
@@ -69,7 +69,7 @@ export function ConfidenceMeter({ value }: { value: number | null }) {
   );
 }
 
-/** Metric strip cell — API kept as KpiCard; visual is strip cells, not cards. */
+/** Stat card (mockup): small grey label, large bold figure. */
 export function KpiCard({
   label,
   value,
@@ -81,22 +81,21 @@ export function KpiCard({
   hint?: string;
   accent?: "amber" | "red" | "teal";
 }) {
-  const rule =
+  const dot =
     accent === "amber"
-      ? "border-l-queue"
+      ? "bg-queue"
       : accent === "red"
-        ? "border-l-danger"
+        ? "bg-danger"
         : accent === "teal"
-          ? "border-l-memory"
-          : "border-l-transparent";
+          ? "bg-memory"
+          : null;
   return (
-    <div
-      className={`min-w-0 flex-1 border-l-2 px-3 py-2.5 first:pl-3 ${rule}`}
-    >
-      <div className="text-[12px] font-medium tracking-[0.04em] text-muted">
+    <div className="card min-w-[150px] flex-1 px-4 py-3">
+      <div className="flex items-center gap-1.5 text-[12px] text-muted">
+        {dot ? <span className={`h-1.5 w-1.5 rounded-full ${dot}`} aria-hidden /> : null}
         {label}
       </div>
-      <div className="mt-0.5 text-[22px] font-medium leading-tight tracking-[-0.02em]">
+      <div className="mt-1 text-[22px] font-bold leading-tight tracking-[-0.01em] text-ink">
         {value}
       </div>
       {hint ? <div className="mt-0.5 text-[12px] text-muted">{hint}</div> : null}
@@ -106,7 +105,7 @@ export function KpiCard({
 
 export function KpiStrip({ children }: { children: React.ReactNode }) {
   return (
-    <div className="flex flex-wrap divide-x divide-hairline overflow-hidden rounded-[12px] border border-hairline bg-sheet">
+    <div className="flex flex-wrap gap-3">
       {children}
     </div>
   );
@@ -158,8 +157,8 @@ export function AllocationBar({
 
 export function EvidenceCard({ item }: { item: Evidence }) {
   return (
-    <figure className="rounded-lg border border-hairline bg-sheet px-3 py-2">
-      <blockquote className="border-l-2 border-ink pl-2.5 text-[13px] leading-snug text-ink">
+    <figure className="card px-3 py-2">
+      <blockquote className="border-l-2 border-primary pl-2.5 text-[13px] leading-snug text-ink">
         “{item.quote}”
       </blockquote>
       <figcaption className="mt-1.5 font-mono text-[11px] text-muted">
@@ -177,8 +176,8 @@ export function EmptyState({
   body: string;
 }) {
   return (
-    <div className="rounded-[12px] border border-dashed border-hairline bg-sheet px-5 py-10 text-center">
-      <div className="text-[22px] font-medium tracking-[-0.02em] text-ink">
+    <div className="card px-5 py-10 text-center">
+      <div className="text-[18px] font-semibold text-ink">
         {title}
       </div>
       <p className="mx-auto mt-1.5 max-w-md text-[14px] text-muted">{body}</p>
@@ -192,7 +191,7 @@ export function Skeleton({ rows = 5 }: { rows?: number }) {
       {Array.from({ length: rows }).map((_, i) => (
         <div
           key={i}
-          className="h-11 animate-pulse rounded-md bg-fill"
+          className="h-11 animate-pulse rounded-md bg-neutral-wash"
           style={{ opacity: 1 - i * 0.08 }}
         />
       ))}
