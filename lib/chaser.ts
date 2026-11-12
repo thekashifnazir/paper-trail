@@ -21,15 +21,17 @@ function isServiceCharge(chargeType: string) {
   return chargeType.replaceAll("_", " ") === "service charge";
 }
 
-/** First £ amount in a dispute note, or null when the note names no amount. */
+/** Sum of every £ amount in a dispute note (one per disputed month), or null when the note names none. */
 function poundAmount(note: string | null): number | null {
   if (!note) return null;
-  const match = note.match(/£\s*(\d{1,3}(?:,\d{3})*|\d+)(?:\.(\d{1,2}))?/);
-  if (!match) return null;
-  const pounds = Number(match[1].replaceAll(",", ""));
-  const pence = match[2] ? Number(match[2].padEnd(2, "0").slice(0, 2)) / 100 : 0;
-  if (!Number.isFinite(pounds + pence)) return null;
-  return round2(pounds + pence);
+  const matches = [...note.matchAll(/£\s*(\d{1,3}(?:,\d{3})*|\d+)(?:\.(\d{1,2}))?/g)];
+  if (!matches.length) return null;
+  const total = matches.reduce((sum, m) => {
+    const pounds = Number(m[1].replaceAll(",", ""));
+    const pence = m[2] ? Number(m[2].padEnd(2, "0").slice(0, 2)) / 100 : 0;
+    return sum + pounds + pence;
+  }, 0);
+  return Number.isFinite(total) ? round2(total) : null;
 }
 
 function asCharge(
