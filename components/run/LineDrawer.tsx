@@ -32,15 +32,15 @@ export function LineDrawer({
         role="dialog"
         aria-modal="true"
         aria-label={line.payer_name}
-        className="h-full w-full max-w-[420px] overflow-auto border-l border-hairline bg-card p-5"
+        className="h-full w-full max-w-[420px] overflow-auto border-l border-line bg-surface p-5"
         onClick={(event) => event.stopPropagation()}
       >
         <div className="flex items-start justify-between gap-3">
           <div className="min-w-0">
-            <div className="text-[12px] font-medium uppercase tracking-[0.04em] text-muted">
+            <div className="text-[12px] font-medium tracking-[0.04em] text-muted">
               Receipt
             </div>
-            <h2 className="mt-0.5 text-[20px] font-semibold leading-tight tracking-[-0.01em]">
+            <h2 className="mt-0.5 text-[20px] font-medium leading-tight tracking-[-0.02em]">
               {line.payer_name}
             </h2>
             <div className="mt-0.5 truncate font-mono text-[12px] text-muted">
@@ -56,7 +56,7 @@ export function LineDrawer({
           </button>
         </div>
         <div className="mt-3">
-          <Money value={line.amount} large />
+          <Money value={line.amount} size="kpi" />
         </div>
         <div className="mt-3 flex items-center gap-3">
           <MethodBadge method={line.method} />
@@ -70,7 +70,7 @@ export function LineDrawer({
             {line.allocations.map((allocation) => (
               <div
                 key={allocation.charge_id}
-                className="card px-3 py-2 text-[13px]"
+                className="rounded-lg border border-line px-2.5 py-2 text-[13px]"
               >
                 <div className="font-medium">{allocation.tenant_name}</div>
                 <div className="text-[12px] text-muted">
@@ -86,7 +86,7 @@ export function LineDrawer({
         ) : null}
         {line.evidence.length > 0 ? (
           <div className="mt-4 space-y-2">
-            <div className="text-[12px] font-medium uppercase tracking-[0.04em] text-muted">
+            <div className="text-[12px] font-medium tracking-[0.04em] text-muted">
               Evidence
             </div>
             {line.evidence.map((item, index) => (
@@ -97,9 +97,9 @@ export function LineDrawer({
         {line.status === "proposed" ? (
           <Link
             href="/exceptions"
-            className="btn-primary mt-5"
+            className="mt-5 inline-flex rounded-lg bg-ink px-3 py-2 text-[13px] font-medium text-canvas"
           >
-            Review in Reconcile
+            Review in Exceptions
           </Link>
         ) : null}
       </aside>

@@ -2,88 +2,176 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { MotionConfig } from "framer-motion";
+import {
+  ArrowLeftRight,
+  Building2,
+  ChevronsUpDown,
+  Clock3,
+  Inbox,
+  RotateCcw,
+  type LucideIcon,
+} from "lucide-react";
 import { useStore } from "@/lib/store";
 
-const nav = [
-  { href: "/", label: "Run" },
-  { href: "/exceptions", label: "Reconcile" },
-  { href: "/arrears", label: "Arrears" },
+const nav: { href: string; label: string; icon: LucideIcon }[] = [
+  { href: "/", label: "Cash application", icon: ArrowLeftRight },
+  { href: "/exceptions", label: "Exceptions", icon: Inbox },
+  { href: "/arrears", label: "Arrears", icon: Clock3 },
 ];
+
+const MONTHS = [
+  { value: "2026-09", label: "Sep 2026" },
+  { value: "2026-10", label: "Oct 2026" },
+];
+
+function LogoMark() {
+  return (
+    <span
+      className="flex h-6 w-6 items-center justify-center rounded-[6px] bg-side-ink"
+      aria-hidden
+    >
+      <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
+        <path
+          d="M3 3.5h8M3 7h5M3 10.5h6.5"
+          stroke="var(--side)"
+          strokeWidth="1.6"
+          strokeLinecap="round"
+        />
+      </svg>
+    </span>
+  );
+}
+
+function isActive(pathname: string, href: string) {
+  return href === "/" ? pathname === "/" : pathname.startsWith(href);
+}
+
+function Sidebar({ pathname, queueCount }: { pathname: string; queueCount: number }) {
+  return (
+    <aside className="sticky top-0 flex h-screen w-[var(--sidebar-w)] shrink-0 flex-col bg-side text-side-ink">
+      <div className="flex h-[var(--topbar-h)] items-center gap-2.5 px-4">
+        <LogoMark />
+        <span className="text-[15px] font-semibold tracking-[-0.01em]">Paper Trail</span>
+      </div>
+
+      <div className="px-3">
+        <div
+          className="flex h-9 items-center gap-2 rounded-[8px] border border-side-active px-2.5 text-[13px]"
+          title="One property in this workspace"
+        >
+          <Building2 className="h-3.5 w-3.5 text-side-muted" aria-hidden />
+          <span className="min-w-0 flex-1 truncate">Wharfside Quarter</span>
+          <ChevronsUpDown className="h-3.5 w-3.5 text-side-muted" aria-hidden />
+        </div>
+      </div>
+
+      <div className="label mt-5 px-4 !text-side-muted">Workspace</div>
+      <nav className="mt-1.5 flex flex-col gap-0.5 px-3">
+        {nav.map((item) => {
+          const active = isActive(pathname, item.href);
+          const Icon = item.icon;
+          return (
+            <Link
+              key={item.href}
+              href={item.href}
+              aria-current={active ? "page" : undefined}
+              className={`relative flex h-8 items-center gap-2.5 rounded-[6px] px-2.5 text-[13px] font-medium ${
+                active
+                  ? "bg-side-active text-side-ink"
+                  : "text-side-muted hover:bg-side-active hover:text-side-ink"
+              }`}
+            >
+              {active ? (
+                <span
+                  className="absolute -left-3 top-1.5 bottom-1.5 w-[2px] rounded-r-full bg-lime"
+                  aria-hidden
+                />
+              ) : null}
+              <Icon className="h-4 w-4 shrink-0" strokeWidth={1.75} aria-hidden />
+              <span className="flex-1">{item.label}</span>
+              {item.href === "/exceptions" && queueCount > 0 ? (
+                <span className="money rounded-full bg-queue-tint px-1.5 text-[11px] leading-[18px] font-medium text-queue">
+                  {queueCount}
+                </span>
+              ) : null}
+            </Link>
+          );
+        })}
+      </nav>
+
+      <div className="mt-auto px-4 pb-4">
+        <span className="inline-flex items-center gap-1.5 rounded-full border border-side-active px-2.5 py-1 text-[11px] font-medium text-side-muted">
+          <span className="h-1.5 w-1.5 rounded-full bg-side-muted" aria-hidden />
+          Synthetic data
+        </span>
+      </div>
+    </aside>
+  );
+}
+
+function MonthSwitch({
+  month,
+  onChange,
+}: {
+  month: string;
+  onChange: (value: string) => void;
+}) {
+  return (
+    <div
+      role="radiogroup"
+      aria-label="Statement month"
+      className="inline-flex h-8 items-center rounded-[8px] border border-line bg-canvas p-0.5"
+    >
+      {MONTHS.map((m) => {
+        const on = m.value === month;
+        return (
+          <button
+            key={m.value}
+            type="button"
+            role="radio"
+            aria-checked={on}
+            onClick={() => onChange(m.value)}
+            className={`h-full rounded-[6px] border px-3 text-[13px] font-medium ${
+              on
+                ? "border-line bg-surface text-ink"
+                : "border-transparent text-muted hover:text-ink"
+            }`}
+          >
+            {m.label}
+          </button>
+        );
+      })}
+    </div>
+  );
+}
 
 export function AppShell({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
   const { month, setMonth, queueCount, reset } = useStore();
+  const title = nav.find((item) => isActive(pathname, item.href))?.label ?? "";
 
   return (
-    <div className="min-h-screen bg-canvas">
-      <header className="sticky top-0 z-20 bg-nav text-white">
-        <div className="mx-auto flex min-h-14 max-w-[1280px] flex-wrap items-center justify-between gap-x-6 gap-y-2 px-6 py-2">
-          <div className="flex flex-wrap items-center gap-6">
-            <Link
-              href="/"
-              className="text-[16px] font-semibold tracking-[-0.01em] text-white"
-            >
-              Paper Trail
-            </Link>
-            <nav className="flex items-center gap-1">
-              {nav.map((item) => {
-                const active =
-                  item.href === "/"
-                    ? pathname === "/"
-                    : pathname.startsWith(item.href);
-                return (
-                  <Link
-                    key={item.href}
-                    href={item.href}
-                    aria-current={active ? "page" : undefined}
-                    className={`inline-flex items-center rounded-md px-3 py-1.5 text-[14px] font-medium transition-colors ${
-                      active
-                        ? "bg-nav-active text-white"
-                        : "text-white/75 hover:bg-white/5 hover:text-white"
-                    }`}
-                  >
-                    {item.label}
-                    {item.href === "/exceptions" && queueCount > 0 ? (
-                      <span className="ml-2 rounded-full bg-white/15 px-1.5 py-px text-[11px] font-semibold text-white">
-                        {queueCount}
-                      </span>
-                    ) : null}
-                  </Link>
-                );
-              })}
-            </nav>
-          </div>
-
-          <div className="flex flex-wrap items-center gap-3">
-            <label className="sr-only" htmlFor="month">
-              Statement month
-            </label>
-            <select
-              id="month"
-              value={month}
-              onChange={(e) => setMonth(e.target.value)}
-              className="rounded-md border border-white/20 bg-white/10 px-2 py-1 text-[13px] text-white [&>option]:text-ink"
-            >
-              <option value="2026-09">2026-09</option>
-              <option value="2026-10">2026-10</option>
-            </select>
-            <span className="rounded-full border border-white/20 px-2 py-0.5 text-[12px] font-medium text-white/75">
-              Synthetic data
-            </span>
+    <MotionConfig reducedMotion="user">
+      <div className="flex min-h-screen">
+        <Sidebar pathname={pathname} queueCount={queueCount} />
+        <div className="flex min-w-0 flex-1 flex-col">
+          <header className="sticky top-0 z-20 flex h-[var(--topbar-h)] shrink-0 items-center gap-4 border-b border-line bg-surface px-6">
+            <h1 className="text-[15px] font-semibold tracking-[-0.01em] text-ink">{title}</h1>
+            <span className="h-4 w-px bg-line" aria-hidden />
+            <MonthSwitch month={month} onChange={setMonth} />
             <button
               type="button"
               onClick={() => void reset()}
-              className="rounded-md border border-white/20 px-2.5 py-1 text-[13px] font-medium text-white/90 hover:bg-white/10"
+              className="ml-auto inline-flex h-8 items-center gap-1.5 rounded-[8px] border border-line bg-surface px-3 text-[13px] font-medium text-ink hover:bg-canvas"
             >
+              <RotateCcw className="h-3.5 w-3.5 text-muted" aria-hidden />
               Reset
             </button>
-            <span className="text-[13px] text-white/75">
-              Finance · Credit control
-            </span>
-          </div>
+          </header>
+          <main className="min-h-0 flex-1 px-6 py-5">{children}</main>
         </div>
-      </header>
-      <main className="mx-auto max-w-[1280px] p-6">{children}</main>
-    </div>
+      </div>
+    </MotionConfig>
   );
 }

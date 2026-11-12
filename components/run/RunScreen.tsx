@@ -1,8 +1,7 @@
 "use client";
 
-import Link from "next/link";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
-import { AllocationBar } from "@/components/shared";
+import { AllocationBar, type BarSegment } from "@/components/shared";
 import { getLines } from "@/lib/api";
 import { useStore } from "@/lib/store";
 import type { LineView } from "@/lib/types";
@@ -19,23 +18,26 @@ function monthName(month: string) {
   return month;
 }
 
-function barCounts(lines: LineView[]) {
-  let exact = 0;
-  let memory = 0;
-  let agent = 0;
-  let queue = 0;
+function barSegments(lines: LineView[]): BarSegment[] {
+  const seg: Record<BarSegment["key"], BarSegment> = {
+    exact: { key: "exact", count: 0, value: 0 },
+    memory: { key: "memory", count: 0, value: 0 },
+    agent: { key: "agent", count: 0, value: 0 },
+    queue: { key: "queue", count: 0, value: 0 },
+  };
   for (const line of lines) {
-    if (line.status === "proposed") queue += 1;
-    if (line.status !== "approved") continue;
-    if (line.method === "exact") exact += 1;
-    else if (line.method === "memory") memory += 1;
-    else if (line.method === "agent") agent += 1;
+    let key: BarSegment["key"] | null = null;
+    if (line.status === "proposed") key = "queue";
+    else if (line.status === "approved" && line.method && line.method !== "human") key = line.method;
+    if (!key) continue;
+    seg[key].count += 1;
+    seg[key].value += line.amount;
   }
-  return { exact, memory, agent, queue };
+  return [seg.exact, seg.memory, seg.agent, seg.queue];
 }
 
 export function RunScreen() {
-  const { month, lines, summary, progress, error, run } = useStore();
+  const { month, lines, summary, progress, error, loading, run } = useStore();
   const [running, setRunning] = useState(false);
   const [polled, setPolled] = useState<LineView[] | null>(null);
   const [filter, setFilter] = useState<LineFilter>("all");
@@ -89,7 +91,16 @@ export function RunScreen() {
     return source.filter((line) => line.statement_month === month);
   }, [running, polled, lines, month]);
 
-  const counts = useMemo(() => barCounts(monthLines), [monthLines]);
+  const segments = useMemo(() => barSegments(monthLines), [monthLines]);
+  const stepCounts = useMemo(() => {
+    const counts = { exact: 0, memory: 0, agent: 0 };
+    for (const line of monthLines) {
+      if (line.method === "exact" || line.method === "memory" || line.method === "agent") {
+        counts[line.method] += 1;
+      }
+    }
+    return counts;
+  }, [monthLines]);
   const memoryCount = useMemo(
     () => monthLines.filter((line) => line.method === "memory").length,
     [monthLines],
@@ -104,45 +115,40 @@ export function RunScreen() {
         running={running}
         hasRun={hasRun}
         stage={progress.stage}
+        counts={stepCounts}
+        outcome={
+          hasRun
+            ? {
+                matched: segments
+                  .filter((seg) => seg.key !== "queue")
+                  .reduce((sum, seg) => sum + seg.count, 0),
+                queue: segments.find((seg) => seg.key === "queue")?.count ?? 0,
+              }
+            : null
+        }
         error={error}
         onRun={startRun}
       />
-      {hasRun && !running ? (
-        <div className="flex items-center gap-3 px-1 text-[14px]">
-          <span>
-            <span className="font-mono tabular-nums">{counts.exact + counts.memory + counts.agent}</span> matched ·{" "}
-            <span className="font-mono tabular-nums">{counts.queue}</span> need you
-          </span>
-          {counts.queue > 0 ? (
-            <Link href="/exceptions" className="font-medium text-primary underline underline-offset-2">
-              Review {counts.queue} →
-            </Link>
-          ) : null}
-        </div>
-      ) : null}
       <KpiRow lines={monthLines} started={running || hasRun} score={monthSummary?.score} />
-      <div className="run-bar card px-4 py-3">
-        <AllocationBar
-          exact={counts.exact}
-          memory={counts.memory}
-          agent={counts.agent}
-          queue={counts.queue}
-        />
-      </div>
+      <section className="rounded-[8px] border border-line bg-surface px-4 py-3.5">
+        <div className="mb-2.5 flex items-baseline justify-between">
+          <span className="label">Allocation by method</span>
+          <span className="text-[12px] text-muted">Share of receipts</span>
+        </div>
+        <AllocationBar segments={segments} />
+      </section>
       {month === "2026-10" && memoryCount > 0 ? (
-        <div className="card border-l-4 border-l-memory px-4 py-3 text-[14px]">
-          <span className="font-semibold text-memory">
+        <div className="flex items-center gap-2.5 rounded-[8px] border border-line border-l-[3px] border-l-lime bg-surface px-3.5 py-2.5 text-[14px]">
+          <span className="font-medium text-memory">
             {memoryCount} receipts matched from memory
           </span>
           <span className="text-muted"> — payers you approved last month.</span>
         </div>
       ) : null}
-      <div className="shrink-0">
-        <RejectedPanel />
-      </div>
       <LineTable
         lines={monthLines}
         month={month}
+        loading={loading}
         filter={filter}
         query={query}
         selectedId={selectedId}
@@ -150,6 +156,7 @@ export function RunScreen() {
         onQuery={setQuery}
         onSelect={setSelectedId}
       />
+      <RejectedPanel />
       <LineDrawer line={selected} onClose={closeDrawer} />
     </div>
   );

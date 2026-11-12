@@ -12,6 +12,7 @@
     "score": "tsx scripts/score.ts"
   },
   "dependencies": {
+    "framer-motion": "^11.18.2",
     "geist": "^1.9.2",
     "lucide-react": "^0.511.0",
     "next": "^15.5.29",

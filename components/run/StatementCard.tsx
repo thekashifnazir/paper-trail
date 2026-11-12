@@ -1,6 +1,9 @@
 "use client";
 
+import Link from "next/link";
 import { useRef, useState } from "react";
+import { ArrowRight, ChevronRight, Play, Upload } from "lucide-react";
+import { ErrorNote, METHOD_STYLE } from "@/components/shared";
 import type { RunProgress } from "@/lib/types";
 
 const STEPS = [
@@ -10,26 +13,43 @@ const STEPS = [
 ] as const;
 
 type StepKey = (typeof STEPS)[number][0];
+export type StepCounts = Record<StepKey, number>;
 
 function stepState(
   key: StepKey,
   stage: RunProgress["stage"],
-): "current" | "lit" | "future" {
-  if (stage === "done") return "lit";
+): "current" | "done" | "future" {
+  if (stage === "done") return "done";
   if (stage === "idle") return "future";
   if (stage === key) return "current";
   const order = STEPS.map(([id]) => id);
   const stageIndex = order.indexOf(stage as StepKey);
-  const keyIndex = order.indexOf(key);
-  if (stageIndex > keyIndex) return "lit";
-  return "future";
+  return stageIndex > order.indexOf(key) ? "done" : "future";
 }
 
+function StepDot({ state, keyName }: { state: "current" | "done" | "future"; keyName: StepKey }) {
+  if (state === "done") {
+    return <span className={`h-2 w-2 rounded-full ${METHOD_STYLE[keyName].dot}`} aria-hidden />;
+  }
+  if (state === "current") {
+    return (
+      <span
+        className="h-2.5 w-2.5 rounded-full border-2 border-ink bg-surface"
+        aria-hidden
+      />
+    );
+  }
+  return <span className="h-2 w-2 rounded-full border border-muted/50" aria-hidden />;
+}
+
+/** Slim one-line stepper: Exact rules → Memory → Agent, with Run allocation on the right. */
 export function StatementCard({
   monthLabel,
   running,
   hasRun,
   stage,
+  counts,
+  outcome,
   error,
   onRun,
 }: {
@@ -37,59 +57,95 @@ export function StatementCard({
   running: boolean;
   hasRun: boolean;
   stage: RunProgress["stage"];
+  counts: StepCounts;
+  outcome: { matched: number; queue: number } | null;
   error: string | null;
   onRun: () => void;
 }) {
   const inputRef = useRef<HTMLInputElement>(null);
   const [dragOver, setDragOver] = useState(false);
-  const showDrop = !hasRun && !running;
+  const canDrop = !hasRun && !running;
   const visualStage = !running && hasRun && stage === "idle" ? "done" : stage;
 
-  function pickFile() {
-    inputRef.current?.click();
-  }
-
-  function onFileChosen() {
-    if (inputRef.current) inputRef.current.value = "";
-    onRun();
-  }
-
   return (
-    <section className="card px-4 py-3">
-      <div className="flex flex-wrap items-center justify-between gap-3">
-        {showDrop ? (
-          <div
-            role="button"
-            tabIndex={0}
-            onClick={pickFile}
-            onKeyDown={(event) => {
-              if (event.key === "Enter" || event.key === " ") {
-                event.preventDefault();
-                onRun();
-              }
-            }}
-            onDragEnter={(event) => {
-              event.preventDefault();
-              setDragOver(true);
-            }}
-            onDragOver={(event) => {
-              event.preventDefault();
-              event.dataTransfer.dropEffect = "copy";
-              setDragOver(true);
-            }}
-            onDragLeave={() => setDragOver(false)}
-            onDrop={(event) => {
-              event.preventDefault();
-              setDragOver(false);
-              onRun();
-            }}
-            className={`flex min-h-[48px] min-w-0 flex-1 cursor-pointer items-center rounded-lg border border-dashed px-3 text-[14px] outline-none focus-visible:border-primary ${
-              dragOver
-                ? "border-primary bg-primary/5 text-ink"
-                : "border-hairline bg-canvas text-ink"
-            }`}
+    <div className="space-y-2">
+      <section
+        onDragEnter={(event) => {
+          if (!canDrop) return;
+          event.preventDefault();
+          setDragOver(true);
+        }}
+        onDragOver={(event) => {
+          if (!canDrop) return;
+          event.preventDefault();
+          event.dataTransfer.dropEffect = "copy";
+          setDragOver(true);
+        }}
+        onDragLeave={() => setDragOver(false)}
+        onDrop={(event) => {
+          if (!canDrop) return;
+          event.preventDefault();
+          setDragOver(false);
+          onRun();
+        }}
+        className={`flex h-14 items-center gap-5 rounded-[8px] border bg-surface pl-4 pr-2.5 ${
+          dragOver ? "border-dashed border-ink" : "border-line"
+        }`}
+      >
+        <div className="min-w-0 shrink-0">
+          <div className="label">Statement</div>
+          <div className="text-[13px] font-medium text-ink">{monthLabel} 2026</div>
+        </div>
+        <span className="h-7 w-px bg-line" aria-hidden />
+        <ol className="flex min-w-0 flex-1 items-center gap-3" role="status" aria-live="polite">
+          {STEPS.map(([key, label], index) => {
+            const state = stepState(key, visualStage);
+            return (
+              <li key={key} className="flex items-center gap-3">
+                {index > 0 ? (
+                  <ChevronRight className="h-3.5 w-3.5 text-line" strokeWidth={2} aria-hidden />
+                ) : null}
+                <span className="flex items-center gap-2 whitespace-nowrap text-[13px]">
+                  <StepDot state={state} keyName={key} />
+                  <span className={state === "future" ? "text-muted" : "font-medium text-ink"}>
+                    {label}
+                  </span>
+                  {state === "done" ? (
+                    <span className="mono text-[12px] text-muted">{counts[key]}</span>
+                  ) : state === "current" ? (
+                    <span className="text-[12px] text-muted">running</span>
+                  ) : null}
+                </span>
+              </li>
+            );
+          })}
+        </ol>
+        {outcome && !running ? (
+          <span className="flex shrink-0 items-center gap-3 text-[13px]">
+            <span className="text-muted">
+              <span className="mono text-ink">{outcome.matched}</span> matched ·{" "}
+              <span className="mono text-ink">{outcome.queue}</span> need you
+            </span>
+            {outcome.queue > 0 ? (
+              <Link
+                href="/exceptions"
+                className="inline-flex h-8 items-center gap-1.5 rounded-[8px] border border-line px-2.5 font-medium text-ink hover:bg-canvas"
+              >
+                Review {outcome.queue}
+                <ArrowRight className="h-3.5 w-3.5" aria-hidden />
+              </Link>
+            ) : null}
+          </span>
+        ) : null}
+        {canDrop ? (
+          <button
+            type="button"
+            onClick={() => inputRef.current?.click()}
+            className="inline-flex h-8 shrink-0 items-center gap-1.5 rounded-[8px] px-2.5 text-[13px] text-muted hover:bg-canvas hover:text-ink"
+            title={`Drop the ${monthLabel} bank statement, or use the sample`}
           >
-            Drop the {monthLabel} bank statement, or use the sample
+            <Upload className="h-3.5 w-3.5" aria-hidden />
+            Upload CSV
             <input
               ref={inputRef}
               type="file"
@@ -97,47 +153,24 @@ export function StatementCard({
               className="sr-only"
               tabIndex={-1}
               onClick={(event) => event.stopPropagation()}
-              onChange={onFileChosen}
+              onChange={() => {
+                if (inputRef.current) inputRef.current.value = "";
+                onRun();
+              }}
             />
-          </div>
-        ) : (
-          <div className="grid min-h-12 min-w-0 flex-1 gap-2 sm:grid-cols-3" role="status">
-            {STEPS.map(([key, label]) => {
-              const state = stepState(key, visualStage);
-              const className =
-                state === "current"
-                  ? "border-primary bg-primary/10 text-primary"
-                  : state === "lit"
-                    ? "border-ok/40 bg-ok-wash text-ok"
-                    : "border-hairline text-muted";
-              return (
-                <div
-                  key={key}
-                  className={`flex items-center rounded-md border px-3 text-[13px] font-medium ${className}`}
-                >
-                  {label}
-                </div>
-              );
-            })}
-          </div>
-        )}
+          </button>
+        ) : null}
         <button
           type="button"
           disabled={running}
           onClick={onRun}
-          className="btn-primary shrink-0"
+          className="inline-flex h-9 shrink-0 items-center gap-2 rounded-[8px] bg-ink px-3.5 text-[13px] font-medium text-surface hover:opacity-90 disabled:opacity-60"
         >
+          <Play className="h-3.5 w-3.5" fill="currentColor" aria-hidden />
           {running ? "Running…" : "Run allocation"}
         </button>
-      </div>
-      {error ? (
-        <div className="mt-2.5 rounded-lg border border-danger/30 bg-danger-wash px-3 py-2 text-[13px] text-danger">
-          {error}{" "}
-          <button type="button" className="font-medium underline" onClick={onRun}>
-            Retry
-          </button>
-        </div>
-      ) : null}
-    </section>
+      </section>
+      {error ? <ErrorNote message={error} onRetry={onRun} /> : null}
+    </div>
   );
 }

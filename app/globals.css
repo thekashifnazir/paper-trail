@@ -1,84 +1,77 @@
 @import "tailwindcss";
 
+/*
+ * Paper Trail tokens. Every colour in the UI comes from here.
+ * Components use the Tailwind names in @theme (bg-surface, text-muted, border-line …).
+ */
 :root {
-  /* Mockup palette */
-  --nav: #0f1b33;
-  --nav-active: rgba(255, 255, 255, 0.12);
-  --primary: #1d4ed8;
-  --primary-hover: #1e40af;
-  --primary-ink: #ffffff;
-  --canvas: #f3f4f6;
-  --card: #ffffff;
-  --ok: #15803d;
-  --ok-wash: #dcfce7;
-  --warn: #92400e;
-  --warn-wash: #fef3c7;
-  --neutral-wash: #eef0f3;
-  --muted-dark: #4b5563;
+  /* Surfaces */
+  --canvas: #f7f7f5;
+  --surface: #ffffff;
+  --line: #e7e5e0;
+  --ink: #111312;
+  --muted: #6b7270;
+  --quote: #fafaf8;
 
-  --paper: var(--canvas);
-  --sheet: oklch(1 0 0);
-  --ink: oklch(0.191 0.002 107);
-  --muted: #6b7280;
-  --hairline: #e5e7eb;
-  --fill: oklch(0.964 0.003 106);
+  /* Sidebar */
+  --side: #0f1211;
+  --side-ink: #e7eae8;
+  --side-muted: #8a918e;
+  --side-active: #1c2220;
 
-  --brand: var(--ink);
-  --brand-wash: var(--fill);
+  /* Highlight: active nav indicator and "matched from memory" moments only */
+  --lime: #c8f250;
 
-  --danger: oklch(0.505 0.19 27);
-  --danger-wash: oklch(0.96 0.02 25);
+  /* Method pairs: text / tinted background. Always shown with a label. */
+  --exact: #52525b;
+  --exact-tint: #f4f4f5;
+  --memory: #0f7b55;
+  --memory-tint: #e3f6ec;
+  --agent: #5b3fe0;
+  --agent-tint: #eeeafe;
+  --queue: #a15c07;
+  --queue-tint: #fef3d6;
+  --risk: #b42318;
+  --risk-tint: #fee4e2;
 
-  --exact: oklch(0.45 0.01 100);
-  --exact-wash: oklch(0.96 0.005 100);
-  --memory: oklch(0.45 0.08 180);
-  --memory-wash: oklch(0.95 0.03 180);
-  --agent: oklch(0.62 0.12 55);
-  --agent-wash: oklch(0.95 0.04 70);
-  --queue: oklch(0.55 0.14 70);
-  --queue-wash: oklch(0.96 0.05 90);
+  /* Actions */
+  --approve: #0f7b55;
 
-  /* Legacy aliases — prefer hairline / sheet in new code */
-  --line: var(--hairline);
-  --panel: var(--sheet);
+  /* Layout */
+  --radius: 8px;
+  --sidebar-w: 232px;
+  --topbar-h: 52px;
+
+  /* The only shadow: popovers and toasts. */
+  --shadow-pop: 0 8px 24px -12px color-mix(in srgb, var(--ink) 30%, transparent);
 }
 
 @theme inline {
-  --color-nav: var(--nav);
-  --color-nav-active: var(--nav-active);
-  --color-primary: var(--primary);
-  --color-primary-hover: var(--primary-hover);
-  --color-primary-ink: var(--primary-ink);
   --color-canvas: var(--canvas);
-  --color-card: var(--card);
-  --color-ok: var(--ok);
-  --color-ok-wash: var(--ok-wash);
-  --color-warn: var(--warn);
-  --color-warn-wash: var(--warn-wash);
-  --color-neutral-wash: var(--neutral-wash);
-  --color-muted-dark: var(--muted-dark);
-  --color-paper: var(--paper);
-  --color-sheet: var(--sheet);
+  --color-surface: var(--surface);
+  --color-line: var(--line);
   --color-ink: var(--ink);
   --color-muted: var(--muted);
-  --color-hairline: var(--hairline);
-  --color-fill: var(--fill);
-  --color-line: var(--hairline);
-  --color-panel: var(--sheet);
-  --color-brand: var(--brand);
-  --color-brand-wash: var(--brand-wash);
-  --color-danger: var(--danger);
-  --color-danger-wash: var(--danger-wash);
+  --color-quote: var(--quote);
+  --color-side: var(--side);
+  --color-side-ink: var(--side-ink);
+  --color-side-muted: var(--side-muted);
+  --color-side-active: var(--side-active);
+  --color-lime: var(--lime);
   --color-exact: var(--exact);
-  --color-exact-wash: var(--exact-wash);
+  --color-exact-tint: var(--exact-tint);
   --color-memory: var(--memory);
-  --color-memory-wash: var(--memory-wash);
+  --color-memory-tint: var(--memory-tint);
   --color-agent: var(--agent);
-  --color-agent-wash: var(--agent-wash);
+  --color-agent-tint: var(--agent-tint);
   --color-queue: var(--queue);
-  --color-queue-wash: var(--queue-wash);
+  --color-queue-tint: var(--queue-tint);
+  --color-risk: var(--risk);
+  --color-risk-tint: var(--risk-tint);
+  --color-approve: var(--approve);
   --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-ibm-plex);
+  --font-mono: var(--font-geist-mono);
+  --radius-ui: var(--radius);
 }
 
 * {
@@ -92,7 +85,7 @@ body {
   background: var(--canvas);
   color: var(--ink);
   font-family: var(--font-geist-sans), ui-sans-serif, system-ui, sans-serif;
-  font-size: 15px;
+  font-size: 14px;
   line-height: 1.45;
 }
 
@@ -103,87 +96,57 @@ select {
   font: inherit;
 }
 
-/* ---- Mockup components (in components layer so utilities can override) ---- */
-@layer components {
-.card {
-  background: var(--card);
-  border: 1px solid var(--hairline);
-  border-radius: 8px;
+::selection {
+  background: var(--ink);
+  color: var(--surface);
 }
 
-.pill {
-  display: inline-flex;
-  align-items: center;
-  gap: 4px;
-  border-radius: 9999px;
-  padding: 2px 8px;
-  font-size: 12px;
-  font-weight: 500;
-  line-height: 1.4;
+:focus-visible {
+  outline: 2px solid var(--ink);
+  outline-offset: 2px;
+}
+
+/* Raw bank data: payer, reference, amounts, invoice ids, evidence quotes. */
+.mono,
+.money {
+  font-family: var(--font-geist-mono), ui-monospace, monospace;
+  font-variant-numeric: tabular-nums;
+  font-feature-settings: "tnum", "zero" 0;
+}
+
+.money {
   white-space: nowrap;
-}
-.pill-high { background: var(--ok-wash); color: var(--ok); }
-.pill-med { background: var(--warn-wash); color: var(--warn); }
-.pill-none { background: var(--neutral-wash); color: var(--muted-dark); }
-.pill-neutral { background: var(--neutral-wash); color: var(--ink); }
-
-.btn-primary {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  gap: 6px;
-  background: var(--primary);
-  color: var(--primary-ink);
-  border: 0;
-  border-radius: 6px;
-  padding: 8px 20px;
-  font-size: 14px;
-  font-weight: 600;
-  cursor: pointer;
-  transition: background-color 120ms ease;
-}
-.btn-primary:hover:not(:disabled) { background: var(--primary-hover); }
-.btn-primary:focus-visible { outline: 2px solid var(--primary); outline-offset: 2px; }
-.btn-primary:disabled {
-  background: #e5e7eb;
-  color: #9ca3af;
-  cursor: not-allowed;
-}
-
-.tabs {
-  display: flex;
-  gap: 24px;
-  border-bottom: 1px solid var(--hairline);
-}
-.tab {
-  appearance: none;
-  background: none;
-  border: 0;
-  border-bottom: 2px solid transparent;
-  margin-bottom: -1px;
-  padding: 8px 0;
-  font-size: 14px;
-  font-weight: 500;
-  color: var(--muted);
-  cursor: pointer;
-}
-.tab:hover { color: var(--ink); }
-.tab[aria-selected="true"] {
-  color: var(--ink);
-  border-bottom-color: var(--primary);
-}
-
 }
 
 .tabular {
   font-variant-numeric: tabular-nums;
-  font-feature-settings: "tnum";
 }
 
-.money {
-  font-family: var(--font-ibm-plex), ui-monospace, monospace;
-  font-variant-numeric: tabular-nums;
-  text-align: right;
+/* 12px uppercase label with 0.04em tracking. */
+.label {
+  font-size: 12px;
+  line-height: 16px;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--muted);
+}
+
+kbd.keycap {
+  display: inline-flex;
+  min-width: 18px;
+  height: 18px;
+  align-items: center;
+  justify-content: center;
+  padding: 0 4px;
+  border: 1px solid var(--line);
+  border-bottom-width: 2px;
+  border-radius: 4px;
+  background: var(--surface);
+  font-family: var(--font-geist-mono), ui-monospace, monospace;
+  font-size: 11px;
+  line-height: 1;
+  color: var(--muted);
 }
 
 @media (prefers-reduced-motion: reduce) {

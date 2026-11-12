@@ -1,31 +1,15 @@
+/* Run screen fills the viewport below the top bar; the table scrolls inside.
+   When the Rejected panel is present the page grows and scrolls instead. */
 .run-screen {
-  height: calc(100dvh - 104px);
-  max-height: calc(100dvh - 104px);
+  min-height: calc(100dvh - var(--topbar-h) - 40px);
+  height: calc(100dvh - var(--topbar-h) - 40px);
 }
 
-.run-screen .run-bar > div > div:first-child > div {
-  transition: width 320ms ease-out;
+.run-screen:has(#rejected-panel-title) {
+  height: auto;
 }
 
-@keyframes run-row-resolve {
-  from {
-    background-color: var(--hairline);
-  }
-  to {
-    background-color: transparent;
-  }
-}
-
-.run-row-resolve {
-  animation: run-row-resolve 420ms ease-out;
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .run-screen .run-bar > div > div:first-child > div {
-    transition: none;
-  }
-
-  .run-row-resolve {
-    animation: none;
-  }
+.run-screen:has(#rejected-panel-title) .run-table {
+  flex: none;
+  height: 560px;
 }

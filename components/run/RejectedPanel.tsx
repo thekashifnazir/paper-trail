@@ -2,7 +2,9 @@
 
 import { useCallback, useEffect, useMemo, useState, type JSX } from "react";
 import { toast } from "sonner";
-import { gbp, shortDate } from "@/lib/format";
+import { RotateCcw } from "lucide-react";
+import { Money, moneyText } from "@/components/shared";
+import { shortDate } from "@/lib/format";
 import { useStore } from "@/lib/store";
 import type { AuditRow, LineView } from "@/lib/types";
 
@@ -91,7 +93,10 @@ export function RejectedPanel(): JSX.Element | null {
     return rejected
       .map((line) => {
         const a = latest.get(line.id) ?? null;
-        return { line, audit: a, charges: a ? chargeIds(a.detail) : [] };
+        const fromAudit = a ? chargeIds(a.detail) : [];
+        const charges =
+          fromAudit.length > 0 ? fromAudit : line.allocations.map((x) => x.charge_id);
+        return { line, audit: a, charges };
       })
       .sort((x, y) => (y.audit?.ts ?? "").localeCompare(x.audit?.ts ?? ""));
   }, [lines, audit, month]);
@@ -130,143 +135,112 @@ export function RejectedPanel(): JSX.Element | null {
 
   if (rows.length === 0) return null;
 
-  const btnOutline =
-    "inline-flex items-center justify-center whitespace-nowrap rounded-md border px-3 py-1.5 text-[13px] font-medium transition-colors disabled:cursor-not-allowed disabled:opacity-50";
-  const btnStyle = {
-    borderColor: "var(--primary, #1d4ed8)",
-    color: "var(--primary, #1d4ed8)",
-    background: "transparent",
-  } as const;
+  const ghost =
+    "inline-flex h-8 items-center gap-1.5 whitespace-nowrap rounded-[8px] border border-line bg-surface px-3 text-[13px] font-medium text-ink hover:bg-canvas disabled:cursor-not-allowed disabled:opacity-50";
+  const TH = "label h-9 border-b border-line bg-surface px-3 text-left align-middle";
+  const TD = "border-b border-line px-3 py-3 align-top";
 
   return (
     <section
-      className="card"
       aria-labelledby="rejected-panel-title"
-      style={{
-        background: "var(--card, #ffffff)",
-        border: "1px solid var(--hairline, #e5e7eb)",
-        borderRadius: 8,
-        fontSize: 14,
-        color: "var(--ink, #111827)",
-      }}
+      className="overflow-hidden rounded-[8px] border border-line bg-surface"
     >
-      <header
-        className="flex flex-wrap items-start justify-between gap-3 px-5 py-4"
-        style={{ borderBottom: "1px solid var(--hairline, #e5e7eb)" }}
-      >
+      <header className="flex items-center justify-between gap-3 border-b border-line px-4 py-3">
         <div>
-          <h2
-            id="rejected-panel-title"
-            className="text-[15px] font-semibold"
-            style={{ color: "var(--nav, #0f1b33)" }}
-          >
-            Rejected ({rows.length})
+          <h2 id="rejected-panel-title" className="flex items-center gap-2 text-[14px] font-semibold text-ink">
+            Rejected
+            <span className="money rounded-full bg-risk-tint px-1.5 text-[11px] leading-[18px] font-medium text-risk">
+              {rows.length}
+            </span>
           </h2>
-          <p className="mt-0.5 text-[13px]" style={{ color: "var(--muted, #6b7280)" }}>
+          <p className="mt-0.5 text-[12px] text-muted">
             Proposals you turned down. They post nothing to tenant ledgers.
           </p>
         </div>
         <button
           type="button"
-          className={btnOutline}
-          style={btnStyle}
+          className={ghost}
           onClick={returnAll}
           disabled={running}
           title="Re-running the month puts every rejected receipt back in the review queue"
         >
+          <RotateCcw className="h-3.5 w-3.5 text-muted" aria-hidden />
           {running ? "Returning…" : "Return all to review"}
         </button>
       </header>
 
       <div className="overflow-x-auto">
-        <table className="w-full border-collapse text-left text-[14px]">
+        <table className="w-full border-separate border-spacing-0 text-[13px] [&>tbody>tr:last-child>td]:border-b-0">
           <thead>
-            <tr
-              className="text-[12px] font-medium uppercase tracking-wide"
-              style={{ color: "var(--muted, #6b7280)" }}
-            >
-              <th className="px-5 py-2 font-medium">Date</th>
-              <th className="px-3 py-2 font-medium">Payer</th>
-              <th className="px-3 py-2 text-right font-medium">Amount</th>
-              <th className="px-3 py-2 font-medium">Proposed</th>
-              <th className="px-3 py-2 font-medium">Rejected</th>
-              <th className="px-3 py-2 font-medium">Reason</th>
-              <th className="px-5 py-2" aria-label="Actions" />
+            <tr>
+              <th className={TH}>Date</th>
+              <th className={TH}>Payer</th>
+              <th className={`${TH} text-right`}>Amount</th>
+              <th className={TH}>Proposed</th>
+              <th className={TH}>Rejected</th>
+              <th className={TH}>Reason</th>
+              <th className={TH} aria-label="Actions" />
             </tr>
           </thead>
           <tbody>
             {rows.map(({ line, audit: a, charges }) => {
               const chosen = reasons[line.id] ?? "";
               return (
-                <tr
-                  key={line.id}
-                  className="align-top"
-                  style={{ borderTop: "1px solid var(--hairline, #e5e7eb)" }}
-                >
-                  <td className="whitespace-nowrap px-5 py-3 tabular-nums">
+                <tr key={line.id}>
+                  <td className={`${TD} mono whitespace-nowrap text-[12px] text-muted`}>
                     {shortDate(line.date)}
                   </td>
-                  <td className="px-3 py-3 font-medium uppercase" style={{ color: "var(--nav, #0f1b33)" }}>
-                    {line.payer_name}
-                    <div
-                      className="mt-0.5 font-mono text-[12px] font-normal normal-case"
-                      style={{ color: "var(--muted, #6b7280)" }}
-                    >
-                      {line.id}
-                    </div>
+                  <td className={TD}>
+                    <div className="mono text-[13px] font-medium text-ink">{line.payer_name}</div>
+                    <div className="mono mt-0.5 text-[12px] text-muted">{line.reference}</div>
                   </td>
-                  <td className="whitespace-nowrap px-3 py-3 text-right tabular-nums">
-                    {gbp(line.amount)}
+                  <td className={`${TD} text-right`}>
+                    <Money value={line.amount} className="font-medium" />
                   </td>
-                  <td className="px-3 py-3">
+                  <td className={TD}>
                     {charges.length > 0 ? (
                       <div className="flex flex-col gap-0.5">
                         {charges.map((c) => (
-                          <span key={c} className="font-mono text-[12px]">
+                          <span key={c} className="mono whitespace-nowrap text-[12px] text-ink">
                             {c}
                           </span>
                         ))}
                       </div>
                     ) : (
-                      <span style={{ color: "var(--muted, #6b7280)" }}>—</span>
+                      <span className="text-muted">—</span>
                     )}
                   </td>
-                  <td className="whitespace-nowrap px-3 py-3">
+                  <td className={`${TD} whitespace-nowrap`}>
                     {a ? (
                       <>
-                        <span className="tabular-nums">{hhmm(a.ts)}</span>
-                        <div className="text-[12px]" style={{ color: "var(--muted, #6b7280)" }}>
+                        <span className="mono text-[12px] text-ink">{hhmm(a.ts)}</span>
+                        <div className="text-[12px] text-muted">
                           by {a.actor === "human" ? "You" : a.actor}
                         </div>
                       </>
                     ) : (
-                      <span style={{ color: "var(--muted, #6b7280)" }}>—</span>
+                      <span className="text-muted">—</span>
                     )}
                   </td>
-                  <td className="min-w-[260px] max-w-[420px] px-3 py-3">
-                    <div className="text-[12px]" style={{ color: "var(--muted, #6b7280)" }}>
-                      Agent&apos;s reasoning (Jev/Grok)
-                    </div>
-                    <p className="mt-0.5 text-[13px] leading-snug" style={{ color: "var(--muted-dark, #4b5563)" }}>
-                      {line.reasoning ?? "No reasoning recorded."}
+                  <td className={`${TD} min-w-[280px] max-w-[460px]`}>
+                    <div className="label">Agent&apos;s reasoning</div>
+                    <p className="mt-1 text-[13px] leading-snug text-ink">
+                      {line.reasoning ? moneyText(line.reasoning) : "No reasoning recorded."}
                     </p>
                     {line.review_reason ? (
-                      <span className="pill pill-med mt-1">{line.review_reason}</span>
+                      <span className="mt-1.5 inline-flex h-5 items-center rounded-full bg-queue-tint px-2 text-[11px] font-medium text-queue">
+                        {line.review_reason}
+                      </span>
                     ) : null}
                     <div className="mt-2 flex flex-wrap items-center gap-2">
-                      <label
-                        className="text-[12px]"
-                        style={{ color: "var(--muted, #6b7280)" }}
-                        htmlFor={`reject-reason-${line.id}`}
-                      >
+                      <label className="text-[12px] text-muted" htmlFor={`reject-reason-${line.id}`}>
                         Your reason
                       </label>
                       <select
                         id={`reject-reason-${line.id}`}
                         value={chosen}
                         onChange={(e) => setReason(line.id, e.target.value)}
-                        className="rounded-md border bg-white px-2 py-1 text-[13px]"
-                        style={{ borderColor: "var(--hairline, #e5e7eb)" }}
+                        className="h-7 rounded-[6px] border border-line bg-surface px-2 text-[12px] text-ink"
                       >
                         <option value="">Not chosen</option>
                         {REASONS.map((r) => (
@@ -276,23 +250,16 @@ export function RejectedPanel(): JSX.Element | null {
                         ))}
                       </select>
                       {chosen ? (
-                        <span
-                          className="pill"
-                          style={{
-                            background: "var(--danger-wash, #fdecec)",
-                            color: "var(--danger, #b91c1c)",
-                          }}
-                        >
+                        <span className="inline-flex h-5 items-center rounded-full bg-risk-tint px-2 text-[11px] font-medium text-risk">
                           {chosen}
                         </span>
                       ) : null}
                     </div>
                   </td>
-                  <td className="whitespace-nowrap px-5 py-3 text-right">
+                  <td className={`${TD} whitespace-nowrap text-right`}>
                     <button
                       type="button"
-                      className={btnOutline}
-                      style={btnStyle}
+                      className={ghost}
                       onClick={returnAll}
                       disabled={running}
                       title={`Re-runs ${line.statement_month}: all ${rows.length} rejected receipt${rows.length === 1 ? "" : "s"} go back to review`}

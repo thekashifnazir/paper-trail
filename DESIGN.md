@@ -1,232 +1,183 @@
 # Paper Trail — Design System
 
-Cool white ledger desk. Credit-controller tool for a 2-minute demo: dense, calm, checkable. Not a startup dashboard.
+An operations product for credit controllers: the density and restraint of a modern fintech back office, built for a 2-minute recording at 1440×900 and 1920×1080. Light canvas, dark sidebar, ink actions, method colour only where it carries meaning.
 
-**Sources:** ElevenLabs product chrome (ink CTAs, hairline sheets, cool white) + Anthropic restraint (clay as Agent spark, cited evidence) + Payment Allocation Tool UI mockup (split reconcile workspace, KPI strip, underline tabs). Hard product constraints win over mockup IA.
-
----
-
-## 1. Audience and feeling
-
-- **Users:** credit controllers allocating bank receipts; judges watching a recording.
-- **Feeling:** trusted ledger on a cool white sheet — black figures, hairline rules, method colour only in badges/bars, clay wherever the agent touched a line.
-- **Density:** legible at 1080p with ~200 table rows. Prefer rules and type hierarchy over cards and shadows.
+Every colour lives in `app/globals.css` as a CSS variable mapped into Tailwind via `@theme`. No hex values in components.
 
 ---
 
-## 2. Typography
+## 1. Tokens
 
-| Role | Spec |
-|---|---|
-| UI / body / nav / tables | **Geist Sans** (`geist/font/sans`) — 15px / 400, line-height 1.45 |
-| Product name / page titles | Geist 22–28px / 500 / letter-spacing −0.02em (**no serif**) |
-| Labels / badges / thead | Geist 12px / 500 / +0.04em, **sentence case** (avoid shouty uppercase where possible) |
-| Money / refs / citation sources | **IBM Plex Mono** — tabular-nums, right-aligned GBP |
+### Surfaces and text
 
-Do not use Inter, Fraunces, Waldenburg, Source Sans, or Anthropic marketing serif.
+| Token | Value | Tailwind | Use |
+|---|---|---|---|
+| `--canvas` | `#F7F7F5` | `bg-canvas` | Page background, hover, selected rows, table sub-headers |
+| `--surface` | `#FFFFFF` | `bg-surface` | Cards, tables, top bar |
+| `--line` | `#E7E5E0` | `border-line` | Every 1px border and row hairline |
+| `--ink` | `#111312` | `text-ink`, `bg-ink` | Body text, primary button, selected rule |
+| `--muted` | `#6B7270` | `text-muted` | Secondary text, labels |
+| `--quote` | `#FAFAF8` | `bg-quote` | Evidence quote block |
 
----
-
-## 3. Colour tokens (oklch → CSS vars)
-
-```css
---paper:        oklch(0.976 0.001 106); /* cool canvas */
---sheet:        oklch(1 0 0);           /* tables, sidebar, drawers */
---ink:          oklch(0.191 0.002 107);
---muted:        oklch(0.538 0.008 97);
---hairline:     oklch(0.918 0.004 107); /* was --line */
---fill:         oklch(0.964 0.003 106); /* hover, active nav, sticky header */
-
---brand:        var(--ink);             /* primary CTA = ink fill, paper text */
---brand-wash:   var(--fill);
-
---danger:       oklch(0.505 0.19 27);
---danger-wash:  oklch(0.96 0.02 25);
-
---exact:        oklch(0.45 0.01 100);   /* stone */
---exact-wash:   oklch(0.96 0.005 100);
---memory:       oklch(0.45 0.08 180);   /* quiet teal */
---memory-wash:  oklch(0.95 0.03 180);
---agent:        oklch(0.62 0.12 55);    /* Anthropic clay — not violet */
---agent-wash:   oklch(0.95 0.04 70);
---queue:        oklch(0.55 0.14 70);    /* amber */
---queue-wash:   oklch(0.96 0.05 90);
-```
-
-Map legacy `--line` → `--hairline`, `--panel` → `--sheet`. Prefer Tailwind `border-hairline`, `bg-sheet`, `bg-fill`.
-
-**Method colours always pair with a text label** (Exact / Memory / Agent / In queue). Never colour a whole row.
-
----
-
-## 4. Layout tokens
+### Sidebar
 
 | Token | Value |
 |---|---|
-| Sidebar | 220–224px, `--sheet` + right hairline |
-| Top bar | sticky ~48px |
-| Exceptions queue | **380px** |
-| Table rows | **44px** (`h-11`) |
-| Sticky headers | background `--fill` |
-| Radii | controls **8px**, sheets **12px**, badges **pill** |
-| Shadow | **almost none** — drawers/modals use hairline + dim overlay, not `shadow-xl` |
+| `--side` | `#0F1211` |
+| `--side-ink` | `#E7EAE8` |
+| `--side-muted` | `#8A918E` |
+| `--side-active` | `#1C2220` |
+
+### Highlight
+
+`--lime` `#C8F250` — **only** the active nav indicator and "matched from memory" moments (October banner rule, Remembered toast). Nowhere else.
+
+### Method pairs (text / tint)
+
+Always shown with a word label, never as colour alone.
+
+| Method | Text | Tint |
+|---|---|---|
+| Exact | `#52525B` | `#F4F4F5` |
+| Memory | `#0F7B55` | `#E3F6EC` |
+| Agent | `#5B3FE0` | `#EEEAFE` |
+| In queue | `#A15C07` | `#FEF3D6` |
+| Risk | `#B42318` | `#FEE4E2` |
+
+Tailwind: `text-exact bg-exact-tint`, `text-memory bg-memory-tint`, `text-agent bg-agent-tint`, `text-queue bg-queue-tint`, `text-risk bg-risk-tint`.
+
+### Actions and shape
+
+- Primary button: `bg-ink text-surface`. Approve: `bg-approve` (`#0F7B55`). Secondary/ghost: `border-line bg-surface`.
+- Radius 8px on cards, buttons and inputs; 6px on badges and small controls.
+- 1px borders. **No shadows** except popovers and toasts (`--shadow-pop`).
+
+### Layout
+
+| Token | Value |
+|---|---|
+| `--sidebar-w` | 232px |
+| `--topbar-h` | 52px |
+| Page gutter | 24px horizontal, 20px vertical |
+| Exceptions queue | 380px |
+| Run table rows | 44px |
+| Exceptions allocation rows | 40px |
+| Queue items | 56px |
 
 ---
 
-## 5. Shell
+## 2. Type rule
 
-**Sidebar (left)**
-- Product name **Paper Trail** (Geist 22–24 / 500) — brand-level signal
-- Subline: `Cash application · Wharfside Quarter` (muted 13px)
-- Nav: Cash application / Exceptions / Arrears
-- Active nav: `--fill` background, 8px radius, **ink text** (not teal wash)
-- Exceptions badge: queue count in `--queue-wash` / `--queue`
+**Raw bank data is Geist Mono. Everything we produce is Geist Sans.**
 
-**Top bar**
-- Statement month select
-- `Synthetic data` chip (hairline border, muted)
-- Reset (secondary outline)
-- Optional: queue count mirror on Exceptions route only if already present — do not invent new chrome
+| Mono (`.mono` / `.money`) | Sans |
+|---|---|
+| Payer names, references, amounts, invoice/charge ids, dates in tables, evidence quotes, counts | Tenant names, labels, headings, reasoning, buttons, hints |
 
-**Adaptation from mockup:** mockup uses a dark navy top nav + horizontal IA (Reconcile / Suspense / Rules / Audit). We keep the existing **light sidebar + three routes**. Do not add navy chrome or new routes.
+| Role | Spec |
+|---|---|
+| Body | Sans 14px / 1.45 |
+| Labels and table headers | `.label` — 12px, 500, uppercase, 0.04em tracking, muted |
+| Payer in tables and queue | Mono 13px / 500 (never bold display text) |
+| KPI figures and detail amount | Mono 32px, −0.03em |
+| Reasoning (exceptions) | Sans 16px / 1.55 |
+
+**Money:** one formatter, `gbp()` in `lib/format.ts`, wrapped by `<Money>` in `components/shared.tsx`: `£` + thousands separators + two decimals. Free text that contains raw amounts (evidence quotes, reasoning) passes through `moneyText()` so `£5341.19` renders as `£5,341.19`.
 
 ---
 
-## 6. Shared components
+## 3. Shell (`components/AppShell.tsx`)
 
-### Money
-- IBM Plex Mono, tabular-nums, right-aligned
-- Optional muted `£` prefix is fine if the formatter already includes it
-- Negatives / unallocated danger → `--danger`
+**Sidebar** — dark, 232px, full height, sticky.
+- Logo mark (24px rounded square, side-ink) + "Paper Trail" 15px semibold.
+- Property row: building icon, "Wharfside Quarter", chevrons, 1px `side-active` border.
+- "Workspace" label, then nav with lucide icons: Cash application, Exceptions, Arrears. 32px items, 6px radius. Active: `side-active` background and a 2px lime indicator on the left edge.
+- Exceptions shows the queue count as an amber pill (`queue-tint` / `queue`, mono).
+- "Synthetic data" pill pinned to the bottom.
 
-### MethodBadge
-- Wash + darker text; **full word** always: Exact / Memory / Agent / Human / In queue / Pending
-- Pill or 8px radius; never colour the whole row
-- Queue when `status === "proposed"`
+**Top bar** — 52px, white, hairline bottom. Page title, divider, month segmented control (Sep 2026 / Oct 2026), Reset on the right. No native `<select>`.
 
-### ConfidenceMeter
-- 4px track `--hairline`, fill `--ink`
-- Mono % label muted
+---
 
-### KpiCard → metric strip
-- Keep API (`label`, `value`, `hint`, `accent`)
-- Visual: **single bordered strip** — cells separated by vertical hairlines, not a 4-card grid
-- Label: 12px sentence case muted; value: 22px Geist medium / Money mono
-- Accent = left rule or bottom hairline tint (amber/red/memory), not a loud border box
+## 4. Cash application (`components/run/*`)
 
-### AllocationBar
-- Segment colours only (exact / memory / agent / queue)
-- Legend outside the bar
+1. **Stepper row** (one line, 56px): Statement month · Exact rules → Memory → Agent · Upload CSV (before first run) · Run allocation. Dots: hollow (future), ink ring (running), method colour + mono count (done). The row accepts a dropped CSV before the first run.
+2. **KPI row**: five equal cards, identical anatomy — label, 32px mono figure, one line of context.
+   - Receipts · `£… received`
+   - Auto-allocated · `90%` · `180 of 200, no human touch`
+   - In queue · `£… awaiting review`
+   - Unallocated value · figure in `text-risk` at full size · `Across N receipts`
+   - Precision · `N wrong allocations`
+   Before a run, figures show `—` with a muted hint.
+3. **Allocation bar**: 12px, rounded, 2px gaps, four method colours. Legend: label, count, value.
+4. **October banner** (memory moment): white card, 3px lime left rule, `{N} receipts matched from memory — payers you approved last month.`
+5. **Table**: sticky label header, 44px rows, hairline row borders, hover `bg-canvas`, no zebra, sorted by date.
+   Columns: Date · Payer · Reference · Allocated to (tenant over invoice id in mono muted, id never truncated) · Method (badge, plus a confidence meter only below 100%) · Amount (right-aligned, last).
+   No status column; queued and rejected lines say so in the badge.
 
-### EvidenceCard (signature)
-- Cited passage: **2px ink left rule**
-- Quote upright (not italic) in curly quotes: `“…”`
-- Mono source line: type + `ref` (no teal type chip)
-- Sheet background, hairline outer optional
+---
 
-### EmptyState / Skeleton
-- EmptyState: Geist title, dashed hairline box, muted body
-- Skeleton: minimal pulse rows on `--fill` / `--hairline` (add if missing)
+## 5. Exceptions (`components/exceptions/*`)
 
-### Primary / secondary buttons
-- Primary: `--ink` fill, `--paper` text, 8px radius
-- Secondary: hairline border, transparent/sheet, ink text
-- Ghost links: ink underline or muted hover fill
+**Queue (380px)** — header with count and total; sticky group labels on `bg-canvas`. Items are 56px, two lines: payer + amount; reference + confidence %. No bars. Selected: `bg-canvas` + 2px ink left rule.
+
+**Detail header** — one row: payer (mono 17px) over reference · date on the left; review-reason pill and amount (mono 32px) on the right.
+
+**Proposed allocation** — fixed-column table, 40px rows: Tenant (+ unit) · Charge id (+ type · period) · Before · Allocated · After. Below it a 32px check row on `memory-tint`: `Balances: £X allocated of £Y received` (risk tint and warning icon when it does not balance).
+
+**Why** — method badge, 5-segment confidence meter (violet for Agent, ink otherwise) with the percentage, then reasoning at 16px.
+
+**Evidence** — two-column grid. Each card: 1px border, 3px left rule and icon by type, 12px uppercase type label, quote in mono on `bg-quote`, source reference in muted text beneath.
+
+| Type | Rule / icon colour | Icon |
+|---|---|---|
+| Company lookup, alias | Agent violet | Building / link |
+| Tenant note | Queue amber | Sticky note |
+| Charge, lease, rule | Exact grey | Receipt / file / list |
+| Bank line | Ink | Landmark |
+
+Company lookups, aliases and tenant notes sort first and span both columns — they are the decisive evidence.
+
+**Action bar** (56px): Approve (green, `A` keycap) · Reject (ghost, `R` keycap) · `J` `K` next / previous on the right.
+
+---
+
+## 6. Arrears (`components/arrears/ArrearsPage.tsx`)
+
+Three KPI cards (same anatomy), open balances table with label headers and mono money, Disputed in `queue` tint, audit log with violet dot for agent/system actors and ink dot for humans. Chaser dialog: hairline, no shadow, evidence cards as citations.
 
 ---
 
 ## 7. Motion
 
-- KPI count-up on settle (subtle)
-- Allocation bar fill by segment
-- Pending → resolved in waves after Run
-- Respect `prefers-reduced-motion: reduce` — no bounce, no ornamental spring
+Framer Motion, 150–250ms, ease-out. `MotionConfig reducedMotion="user"` in the shell; hooks also check `useReducedMotion`.
 
----
-
-## 8. Copy patterns (do not change wording)
-
-- Toast: `Remembered: {PAYER} pays for {TENANT}` + description `Next month this matches automatically.`
-- October banner: `{N} receipts matched from memory — payers you approved last month.`
-  - Restyle: **sheet + left `--memory` rule** (not ink+lime bar)
-
----
-
-## 9. Audit log
-
-- Agent actions: `--agent` clay dot
-- Human actions: `--ink` dot
-- Mono timestamp + object id; sentence-case action text
-- **Intentional change from handoff’s violet** — clay replaces violet
-
----
-
-## 10. What not to do
-
-- Cream / warm paper (`#f4f1ea`), Fraunces / display serif, teal as brand chrome
-- Purple / violet accents, gradient orbs, glow
-- Inter / Roboto / Arial defaults
-- Card grids for KPIs; zebra striping; heavy shadows
-- Colouring entire table rows by method
-- Showing `case_type` or `true_allocations`
-- Rebuilding product flow, mock store, or inventing routes to match mockup IA
-- Navy marketing header as the live shell (mockup-only cue — adapted away)
-
----
-
-## Screen mapping (mockup → Paper Trail)
-
-Mockup is a single **Reconcile** workspace. Map structure onto existing screens; do not rename routes.
-
-### Cash application (`RunPage`) ← mockup Reconcile list + filters
-
-| Mockup | Paper Trail |
+| Moment | Motion |
 |---|---|
-| KPI cards (balance / allocated / lines) | Metric **strip** via `KpiCard` (Receipts, Auto-allocated, In queue, Unallocated) |
-| Underline tabs (Reconcile / Auto-reconciled / …) | Underline filter tabs: All / Exact / Memory / Agent / In queue |
-| Filter row + search | Keep search; underline tabs replace pill chips |
-| Statement↔Match split cards | Keep dense **table** of 200 lines (demo density); row click → detail drawer |
-| OK / Enter confirm | Run allocation primary; approve lives on Exceptions |
-| “Why this match” + Balanced footer | Drawer: reasoning + EvidenceCards + allocations |
-| Reference clay chips | Optional later; method badge + EvidenceCard carry the agent cue |
+| Run | KPI figures count up (250ms); bar segments fill from 0 (250ms) |
+| Approve / reject | Queue item slides left and fades (160ms), then the row collapses (150ms) |
+| Remembered | Toast on sidebar dark, 3px lime left rule, lime icon. Copy: `Remembered: {PAYER} pays for {TENANT}` / `Next month this matches automatically.` |
 
-Progress stages (Exact → Memory → Agent): hairline pills; active = ink underline or `--fill`, not teal wash.
-
-October memory banner: sheet + memory left rule (see §8).
-
-### Exceptions (`ExceptionsPage`) ← mockup Match panel + Suspense queue
-
-| Mockup | Paper Trail |
-|---|---|
-| Left queue of open lines | **380px** grouped queue (review reason headers sticky on `--fill`) |
-| Match panel + charge table | Detail: proposed allocation table, balance check, reasoning |
-| Evidence / why | EvidenceCard grid — cited passages |
-| OK / Suspense actions | Approve / Reject (ink primary / hairline secondary); shortcuts A/R/J/K |
-| Balanced pill | Keep green/check balance affordance if already present — mute to ink/muted if it fights palette |
-
-Selected queue row: ink left rule + `--fill` (not brand-wash teal).
-
-### Arrears (`ArrearsPage`) ← mockup Audit + held-back amounts
-
-| Mockup | Paper Trail |
-|---|---|
-| Audit log nav item | Audit section on Arrears (clay/ink dots) |
-| Suspense / held items | Disputed badge (`queue` wash) + held-back KPI |
-| Dense open-charge list | Expandable tenant rows; Draft chaser modal (hairline, no shadow-xl) |
+Nothing else animates: no hover transitions, no pulsing skeletons, no row flashes.
 
 ---
 
-## Implementation checklist
+## 8. States
 
-1. `app/globals.css` — tokens above; `@theme` maps for Tailwind
-2. `app/layout.tsx` — Geist Sans + IBM Plex Mono; Sonner toward ink (drop loud `richColors` if it fights)
-3. `components/shared.tsx` — Money, badges, meter, KPI strip, EvidenceCard, EmptyState, Skeleton
-4. `components/AppShell.tsx` — sidebar/top bar per §5
-5. Surgical class updates: `RunPage`, `ExceptionsPage`, `ArrearsPage`
-6. Verify demo path; no edits to `app/api/**`, `lib/cash/**`, `data/**`
+Every panel has loading, empty and error states.
+- Loading: static `<Skeleton>` rows (not animated).
+- Empty: `<EmptyState>` — dashed hairline card, 15px title, muted body, optional action.
+- Error: `<ErrorNote>` — risk tint, message, Retry.
 
 ---
 
-## Done when
+## 9. Do not
 
-Three screens match this file at ~1440×900: cool paper, ink CTAs, hairlines, method labels with colour, EvidenceCard as quoted citation, KPI strip, underline filters on Run, clay audit dots for agent.
+- Hard-code colours in components, or introduce a colour outside §1.
+- Use lime outside the active nav indicator and memory moments.
+- Set payer names, references or amounts in sans, or tenant names and reasoning in mono.
+- Format money any way other than `gbp()` / `<Money>` / `moneyText()`.
+- Add shadows to cards, zebra-stripe tables, or colour whole rows by method.
+- Show a confidence meter at 100%.
+- Show `case_type` or `true_allocations`.
+- Add floating buttons or new routes.
