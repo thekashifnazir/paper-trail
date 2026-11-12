@@ -11,8 +11,8 @@ recommended approve on each, quoting the company group lookup; a person then app
 3. Grok Bot: Connect apps → Add a custom connector → **Remote HTTPS**, name **Paper Trail**,
    URL `https://<your-tunnel>.trycloudflare.com/api/mcp/<MCP_TOKEN>`. No headers, no client ID.
    (Grok Bot drops `?key=` query strings, so the token goes in the path.)
-4. It should show **8 tools**: run_month, list_exceptions, propose_allocation, list_review_queue, review_line,
-   explain_line, arrears, summary. If it shows fewer after a code change, Uninstall and add it again (there is no refresh).
+4. It should show **9 tools**: run_month, list_exceptions, propose_allocation, list_review_queue, review_line,
+   explain_line, arrears, draft_chasers, summary. If it shows fewer after a code change, Uninstall and add it again (there is no refresh).
 
 ## 2. Create the bot
 
@@ -29,6 +29,10 @@ Run September in the app first (Cash application → 2026-09 → Run allocation)
 
 Then in the app: Exceptions → a parent-company line → Grok Bot's review is in the evidence → **Approve** →
 "Remembered: PREMIER GROUP PLC pays for Premier Ventures Ltd". October → Run → matched from memory.
+
+**Chasers (step 7)**
+
+> Using Paper Trail, draft chaser emails for the 3 tenants owing the most. Use the draft_chasers tool's subject and body as written, and save each as a draft in my email for me to review. Leave the To line empty. Don't send anything.
 
 **Optional, for the video**
 
