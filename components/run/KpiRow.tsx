@@ -54,6 +54,14 @@ function unallocatedValue(lines: LineView[]) {
     );
 }
 
+function Figure({ children, tone }: { children: React.ReactNode; tone?: "muted" }) {
+  return (
+    <span className={`money tracking-[-0.03em] ${tone === "muted" ? "text-muted" : "text-ink"}`}>
+      {children}
+    </span>
+  );
+}
+
 export function KpiRow({
   lines,
   started,
@@ -66,13 +74,18 @@ export function KpiRow({
   const receipts = lines.length;
   const totalValue = lines.reduce((sum, line) => sum + line.amount, 0);
   const approved = lines.filter((line) => line.status === "approved").length;
-  const queue = lines.filter((line) => line.status === "proposed").length;
+  const queued = lines.filter((line) => line.status === "proposed");
+  const queue = queued.length;
+  const queueValue = queued.reduce((sum, line) => sum + line.amount, 0);
   const unallocated = unallocatedValue(lines);
+  const unallocatedLines = lines.filter(
+    (line) =>
+      (line.status === "proposed" && line.unallocated_amount > 0) || line.status === null,
+  ).length;
+  const autoRate = receipts > 0 ? approved / receipts : 0;
 
   const receiptsN = useCountUp(receipts);
-  const totalValueN = useCountUp(totalValue);
-  const approvedN = useCountUp(approved);
-  const totalN = useCountUp(receipts);
+  const rateN = useCountUp(started ? autoRate : 0);
   const queueN = useCountUp(queue);
   const unallocatedN = useCountUp(unallocated);
   const precisionN = useCountUp(score?.precision ?? 0);
@@ -81,39 +94,59 @@ export function KpiRow({
     <KpiStrip>
       <KpiCard
         label="Receipts"
-        value={<span className="tabular">{Math.round(receiptsN)}</span>}
-        hint={receipts > 0 ? gbp(totalValueN) : "—"}
+        value={<Figure>{Math.round(receiptsN)}</Figure>}
+        hint={receipts > 0 ? <span className="money">{gbp(totalValue)} received</span> : "No statement loaded"}
       />
       <KpiCard
         label="Auto-allocated"
-        value={
-          <span className="tabular">
-            {Math.round(approvedN)}/{Math.round(totalN)}
-          </span>
-        }
-        hint="no human touch"
+        value={started ? <Figure>{pct(rateN)}</Figure> : <Figure tone="muted">—</Figure>}
+        hint={started ? `${approved} of ${receipts}, no human touch` : "Run to allocate"}
       />
       <KpiCard
         label="In queue"
-        value={<span className="tabular">{Math.round(queueN)}</span>}
+        value={started ? <Figure>{Math.round(queueN)}</Figure> : <Figure tone="muted">—</Figure>}
+        hint={
+          !started ? (
+            "Awaiting run"
+          ) : queue > 0 ? (
+            <span>
+              <span className="money">{gbp(queueValue)}</span> awaiting review
+            </span>
+          ) : (
+            "Nothing to review"
+          )
+        }
       />
       <KpiCard
         label="Unallocated value"
         value={
           started ? (
-            <Money value={unallocatedN} tone={unallocated > 0.004 ? "risk" : undefined} />
+            <Money
+              value={unallocatedN}
+              size="kpi"
+              tone={unallocated > 0.004 ? "risk" : undefined}
+            />
           ) : (
-            <span className="tabular text-muted">—</span>
+            <Figure tone="muted">—</Figure>
           )
         }
+        hint={
+          started
+            ? unallocated > 0.004
+              ? `Across ${unallocatedLines} receipt${unallocatedLines === 1 ? "" : "s"}`
+              : "Every pound placed"
+            : "Awaiting run"
+        }
       />
-      {score ? (
-        <KpiCard
-          label="Precision"
-          value={<span className="tabular">{pct(precisionN)}</span>}
-          hint={`${score.wrong_allocations} wrong`}
-        />
-      ) : null}
+      <KpiCard
+        label="Precision"
+        value={score ? <Figure>{pct(precisionN)}</Figure> : <Figure tone="muted">—</Figure>}
+        hint={
+          score
+            ? `${score.wrong_allocations} wrong allocation${score.wrong_allocations === 1 ? "" : "s"}`
+            : "Scored after run"
+        }
+      />
     </KpiStrip>
   );
 }

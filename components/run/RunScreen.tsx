@@ -91,6 +91,15 @@ export function RunScreen() {
   }, [running, polled, lines, month]);
 
   const segments = useMemo(() => barSegments(monthLines), [monthLines]);
+  const stepCounts = useMemo(() => {
+    const counts = { exact: 0, memory: 0, agent: 0 };
+    for (const line of monthLines) {
+      if (line.method === "exact" || line.method === "memory" || line.method === "agent") {
+        counts[line.method] += 1;
+      }
+    }
+    return counts;
+  }, [monthLines]);
   const memoryCount = useMemo(
     () => monthLines.filter((line) => line.method === "memory").length,
     [monthLines],
@@ -105,13 +114,18 @@ export function RunScreen() {
         running={running}
         hasRun={hasRun}
         stage={progress.stage}
+        counts={stepCounts}
         error={error}
         onRun={startRun}
       />
       <KpiRow lines={monthLines} started={running || hasRun} score={monthSummary?.score} />
-      <div className="run-bar">
+      <section className="rounded-[8px] border border-line bg-surface px-4 py-3.5">
+        <div className="mb-2.5 flex items-baseline justify-between">
+          <span className="label">Allocation by method</span>
+          <span className="text-[12px] text-muted">Share of receipts</span>
+        </div>
         <AllocationBar segments={segments} />
-      </div>
+      </section>
       {month === "2026-10" && memoryCount > 0 ? (
         <div className="flex items-center gap-2.5 rounded-[8px] border border-line border-l-[3px] border-l-lime bg-surface px-3.5 py-2.5 text-[14px]">
           <span className="font-medium text-memory">
