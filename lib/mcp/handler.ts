@@ -12,6 +12,8 @@ import { readFileSync } from "node:fs";
 import { join } from "node:path";
 import { arrears, exceptions, explain, hydrate, HttpError, loadStatement, metrics, propose, QUEUE_BELOW, run, store } from "@/lib/cash/service";
 import { saveAudit } from "@/lib/cash/persist";
+import { chaseSplit, draftChaser } from "@/lib/chaser";
+import type { ArrearsRow } from "@/lib/types";
 import { agentRun } from "@/lib/cash/agentRun";
 import { existsSync } from "node:fs";
 import type { Store } from "@/lib/cash/service";
@@ -20,7 +22,7 @@ import { dbEnabled, withDb } from "@/lib/supabase-store";
 // The store this request works on: Supabase-backed (same as the UI routes) when configured, else in memory.
 let current: Store | null = null;
 const cur = () => current ?? store();
-const WRITE_TOOLS = new Set(["run_month", "propose_allocation", "review_line"]);
+const WRITE_TOOLS = new Set(["run_month", "propose_allocation", "review_line", "draft_chasers"]);
 
 const MONTHS = ["2026-09", "2026-10"] as const;
 const PROTOCOL = "2025-06-18";
@@ -106,6 +108,12 @@ const tools = [
     name: "arrears",
     description: "Open amount per tenant after allocation, oldest due first (or most money first).",
     inputSchema: { type: "object", properties: { sort: { type: "string", enum: ["oldest", "amount"] }, limit: { type: "number" } } },
+  },
+  {
+    name: "draft_chasers",
+    description:
+      "Chaser emails for tenants still in arrears after allocation, one per tenant: subject and body, written by the app's own chaser template (the same text as the Arrears screen's Draft chaser). Disputed service charge is held back, not demanded. Use these to create email drafts for the person to review; never send without asking. Tenants have no email address on file, so leave the To line for the person.",
+    inputSchema: { type: "object", properties: { limit: { type: "number", description: "max tenants, default 5, most money first" } } },
   },
   {
     name: "summary",
@@ -241,6 +249,19 @@ async function callTool(name: string, args: Args, runStore?: Store, touch?: (m: 
       const a = arrears(s, args.sort === "amount" ? "amount" : "oldest") as Record<string, unknown> & { arrears?: unknown[] };
       const limit = Number(args.limit ?? 10);
       return Array.isArray(a.arrears) ? { ...a, arrears: a.arrears.slice(0, limit) } : a;
+    }
+    case "draft_chasers": {
+      const a = arrears(s, "amount") as unknown as { arrears?: ArrearsRow[] };
+      const rows = (a.arrears ?? []).slice(0, Number(args.limit ?? 5));
+      const drafts = rows.map((row) => {
+        const { subject, body } = draftChaser(row);
+        const held = chaseSplit(row).heldBack.reduce((sum, c) => sum + c.outstanding, 0);
+        return { tenant_id: row.tenant_id, tenant: row.tenant_name, unit: row.unit, outstanding: row.outstanding, held_back_disputed: Math.round(held * 100) / 100, subject, body };
+      });
+      const audit = { at: new Date().toISOString(), actor: "grok_bot" as const, action: "chasers_drafted", detail: { tenants: drafts.map((d) => d.tenant_id) } };
+      s.audit.push(audit);
+      saveAudit(audit);
+      return { drafts, note: "Drafts only. Nothing is sent. A person reviews and sends." };
     }
     case "summary": {
       const { against_truth: _hidden, ...m } = metrics(s) as Record<string, unknown>; // never show the answer key
