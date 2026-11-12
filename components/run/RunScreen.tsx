@@ -147,6 +147,16 @@ export function RunScreen() {
         monthLabel={monthName(month)}
         lines={monthLines}
         live={getMode() === "live"}
+        result={
+          hasRun
+            ? {
+                exact: segments.find((x) => x.key === "exact")?.count ?? 0,
+                memory: segments.find((x) => x.key === "memory")?.count ?? 0,
+                agent: stepCounts.agent,
+                queue: segments.find((x) => x.key === "queue")?.count ?? 0,
+              }
+            : null
+        }
       />
       <KpiRow lines={monthLines} started={running || hasRun} score={monthSummary?.score} />
       <section className="rounded-[8px] border border-line bg-surface px-4 py-3.5">

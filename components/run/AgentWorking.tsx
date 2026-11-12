@@ -54,13 +54,31 @@ export function AgentWorking({
   monthLabel,
   lines,
   live,
+  result,
 }: {
   running: boolean;
   stage: Stage;
   monthLabel: string;
   lines: LineView[];
   live: boolean;
+  result: { exact: number; memory: number; agent: number; queue: number } | null;
 }) {
+  // Stay up briefly after the run so the result can be read.
+  const [lingering, setLingering] = useState(false);
+  const wasRunning = useRef(false);
+  useEffect(() => {
+    if (running) {
+      wasRunning.current = true;
+      setLingering(false);
+      return;
+    }
+    if (!wasRunning.current) return;
+    wasRunning.current = false;
+    setLingering(true);
+    const t = window.setTimeout(() => setLingering(false), 1800);
+    return () => window.clearTimeout(t);
+  }, [running]);
+  const visible = running || lingering;
   const [log, setLog] = useState<LogLine[]>([]);
   const [elapsed, setElapsed] = useState(0);
   const counter = useRef(0);
@@ -76,6 +94,8 @@ export function AgentWorking({
   );
   const openRef = useRef(open);
   openRef.current = open;
+  const linesRef = useRef(lines);
+  linesRef.current = lines;
   const total = lines.length;
 
   useEffect(() => {
@@ -112,7 +132,11 @@ export function AgentWorking({
     const think = () => {
       const s = stageRef.current;
       if (s !== lastStage.current) {
+        const prev = lastStage.current;
         lastStage.current = s;
+        const count = (m: string) => linesRef.current.filter((l) => l.method === m && l.status === "approved").length;
+        if (prev === "exact" && linesRef.current.length) push("done", `✓ ${count("exact")} matched on exact rules`);
+        if (prev === "memory" && linesRef.current.length) push("done", `✓ ${count("memory")} matched from payer memory`);
         if (s === "exact") push("step", "Pass 1 · Exact rules");
         if (s === "memory") push("step", "Pass 2 · Payer memory");
         if (s === "agent") {
@@ -142,15 +166,34 @@ export function AgentWorking({
   const stageRef = useRef(stage);
   stageRef.current = stage;
 
+  const resultKey = result ? `${result.exact}-${result.memory}-${result.agent}-${result.queue}` : "";
+  const logged = useRef(false);
+  useEffect(() => {
+    if (!lingering) logged.current = false;
+    if (!lingering || !result || logged.current) return;
+    logged.current = true;
+    const secs = ((performance.now() - started.current) / 1000).toFixed(1);
+    setLog((prev) => [
+      ...prev.slice(-10),
+      {
+        id: counter.current++,
+        tone: "done",
+        text: `Done in ${secs} s — ${result.exact} exact · ${result.memory} memory · ${result.agent} agent · ${result.queue} waiting for you`,
+      },
+    ]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [lingering, resultKey]);
+
   useEffect(() => {
     logRef.current?.scrollTo({ top: logRef.current.scrollHeight });
   }, [log]);
 
-  const pct = { idle: 4, exact: 22, memory: 50, agent: 80, done: 100 }[stage];
+  const shownStage: Stage = lingering ? "done" : stage;
+  const pct = { idle: 4, exact: 22, memory: 50, agent: 80, done: 100 }[shownStage];
 
   return (
     <AnimatePresence>
-      {running ? (
+      {visible ? (
         <motion.section
           key="agent-working"
           initial={{ opacity: 0, y: -6 }}
@@ -173,13 +216,15 @@ export function AgentWorking({
             </span>
             <div className="min-w-0 flex-1">
               <div className="text-[14px] font-semibold text-ink">
-                Allocating the {monthLabel} statement
+                {lingering ? `${monthLabel} statement allocated` : `Allocating the ${monthLabel} statement`}
               </div>
               <div className="text-[12px] text-muted">
                 {live ? "Live engine" : "Demo"} · three passes, cheapest first · nothing is posted until it balances
               </div>
             </div>
-            <span className="mono text-[12px] text-muted">{elapsed.toFixed(1)} s</span>
+            <span className="mono text-[12px] text-muted">
+              {running ? `${elapsed.toFixed(1)} s · working` : `${elapsed.toFixed(1)} s`}
+            </span>
           </header>
 
           <div className="h-1 bg-canvas">
@@ -194,7 +239,7 @@ export function AgentWorking({
           <div className="grid grid-cols-[260px_minmax(0,1fr)]">
             <ol className="space-y-3 border-r border-line px-4 py-3">
               {PASSES.map((p) => {
-                const st = stateOf(p.key, stage);
+                const st = stateOf(p.key, shownStage);
                 return (
                   <li key={p.key} className="flex items-start gap-2.5">
                     <span className="mt-0.5 flex h-4 w-4 shrink-0 items-center justify-center">
@@ -229,7 +274,11 @@ export function AgentWorking({
                     animate={{ opacity: 1, x: 0 }}
                     transition={{ duration: 0.15 }}
                     className={`whitespace-pre truncate ${
-                      l.tone === "step" ? "font-medium text-agent" : "text-ink"
+                      l.tone === "step"
+                        ? "font-medium text-agent"
+                        : l.tone === "done"
+                          ? "font-medium text-memory"
+                          : "text-ink"
                     }`}
                   >
                     {l.text}
