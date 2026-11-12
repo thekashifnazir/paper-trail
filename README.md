@@ -28,17 +28,17 @@ flowchart LR
     P1["Pass 1: rules<br/>ref + amount, duplicates,<br/>name + subset sum"] --> P2["Pass 2: payer memory"]
     P2 --> P3["Pass 3: agent<br/>proposes split + quotes"]
     P3 --> CHK{"Code checks<br/>sum to the penny,<br/>quotes found in source"}
-    CHK -- confident --> OK["Allocated"]
-    CHK -- unsure or new payer --> Q["Review queue"]
+    CHK -->|confident| OK["Allocated"]
+    CHK -->|unsure or new payer| Q["Review queue"]
     Q --> H["Person approves<br/>in one click"]
     H --> OK
     OK --> OUT["Arrears list, chaser drafts,<br/>audit log"]
   end
   P3 <--> XAI["xAI API<br/>grok-4.7"]
   P2 <--> SB[("Supabase<br/>payer aliases + audit log")]
-  H -- "approval = remembered payer" --> SB
-  GB["Grok Bot desktop<br/>Credit Controller bot"] <-- "MCP connector<br/>/api/mcp, 9 tools" --> Q
-  GB -. "review_line: recommend + quotes<br/>(cannot approve)" .-> Q
+  H -->|approval = remembered payer| SB
+  GB["Grok Bot desktop<br/>Credit Controller bot"] <-->|MCP connector, 9 tools| Q
+  GB -.->|recommends with quotes, cannot approve| H
   DATA["data/sample<br/>108 tenants, charges, notes,<br/>company lookup"] --> P1
 ```
 
