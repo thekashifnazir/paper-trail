@@ -3,7 +3,8 @@
 import { candidates } from "./candidates";
 import { checkProposal } from "./checkSum";
 import { parseCsv } from "./csv";
-import { loadData, type TenantNote } from "./data";
+import { loadData, type CompanyLookup, type TenantNote } from "./data";
+import { checkEvidence, type EvidenceSources } from "./evidence";
 import { allocate } from "./match";
 import { clearMemory, loadAliases, persistEnabled, saveAlias, saveAudit } from "./persist";
 import { fmt, toPence } from "./money";
@@ -42,6 +43,8 @@ export interface Store {
   holds: Hold[];
   reasoning: Map<string, string>; // bank_line_id -> agent reasoning
   notes: TenantNote[]; // dispute history etc., shown to the agent with the candidates
+  lookup: CompanyLookup[]; // parent companies paying for group members
+  reviewReason: Map<string, string>; // bank_line_id -> why it waits for a person
   audit: AuditRow[];
 }
 
@@ -54,7 +57,7 @@ export class HttpError extends Error {
 const now = () => new Date().toISOString();
 
 export function emptyStore(): Store {
-  return { charges: [], tenants: [], truth: [], bankLines: [], allocations: [], aliases: [], holds: [], reasoning: new Map(), notes: [], audit: [] };
+  return { charges: [], tenants: [], truth: [], bankLines: [], allocations: [], aliases: [], holds: [], reasoning: new Map(), notes: [], lookup: [], reviewReason: new Map(), audit: [] };
 }
 
 // One store per server process. Reference data (tenants, charges, notes, answer key for Sep + Oct) comes from
@@ -63,7 +66,7 @@ const g = globalThis as unknown as { __cashStore?: Store };
 export function store(): Store {
   if (!g.__cashStore) {
     const d = loadData();
-    g.__cashStore = Object.assign(emptyStore(), { charges: d.charges, tenants: d.tenants, truth: d.truth, notes: d.notes });
+    g.__cashStore = Object.assign(emptyStore(), { charges: d.charges, tenants: d.tenants, truth: d.truth, notes: d.notes, lookup: d.companyLookup });
   }
   return g.__cashStore;
 }
@@ -187,13 +190,25 @@ export function propose(s: Store, body: AgentProposal & { bank_line_id: string }
     audit(s, actor, "line_held", { reasoning: body.reasoning }, b.id);
     return { bank_line_id: b.id, status: "held", reasoning: body.reasoning };
   }
-  const status = confidence < QUEUE_BELOW ? "proposed" : "approved";
+  // no source, no figure: a quote that is not in the source it names sends the line to a person
+  const ev = checkEvidence(evidence, evidenceSources(s));
+  const status = ev.rejected.length || confidence < QUEUE_BELOW ? "proposed" : "approved";
+  if (ev.rejected.length) s.reviewReason.set(b.id, `evidence not found: ${ev.rejected.map((r) => r.ref).join(", ")}`);
+  else if (status === "proposed") s.reviewReason.set(b.id, `confidence ${confidence} below ${QUEUE_BELOW}`);
   for (const a of body.allocations) {
     s.allocations.push({ id: `${b.id}:${a.charge_id}`, bank_line_id: b.id, charge_id: a.charge_id, amount: toPence(a.amount), method: "agent", confidence, evidence, status });
   }
   s.reasoning.set(b.id, body.reasoning ?? "");
-  audit(s, actor, status === "approved" ? "agent_allocated" : "agent_proposed", { allocations: body.allocations, unallocated_amount: body.unallocated_amount, confidence }, b.id);
-  return { bank_line_id: b.id, status, unallocated_amount: Number(body.unallocated_amount ?? 0), waits_for_person: status === "proposed" };
+  audit(s, actor, status === "approved" ? "agent_allocated" : "agent_proposed", { allocations: body.allocations, unallocated_amount: body.unallocated_amount, confidence, evidence_rejected: ev.rejected }, b.id);
+  return {
+    bank_line_id: b.id, status, unallocated_amount: Number(body.unallocated_amount ?? 0), waits_for_person: status === "proposed",
+    review_reason: s.reviewReason.get(b.id) ?? null, evidence_checked: ev.checked, evidence_rejected: ev.rejected,
+  };
+}
+
+export function evidenceSources(s: Store): EvidenceSources {
+  const lease = new Map(s.charges.map((c) => [c.tenant_id, c.lease_citation]));
+  return { bankLines: s.bankLines, charges: s.charges, tenants: s.tenants.map((t) => ({ ...t, lease_citation: lease.get(t.tenant_id) ?? "" })), notes: s.notes, lookup: s.lookup, openAmount: openAmounts(s) };
 }
 
 // The allocations an id refers to: one allocation id, or every allocation of a bank line id.
@@ -240,6 +255,7 @@ export function explain(s: Store, id: string) {
     }),
     unallocated_amount: fmt(toPence(b.amount) - allocs.filter(live).reduce((x, a) => x + a.amount, 0)),
     reasoning: hold?.reasoning ?? s.reasoning.get(b.id) ?? null,
+    review_reason: s.reviewReason.get(b.id) ?? null,
     evidence: hold?.evidence ?? allocs[0]?.evidence ?? [],
     decided_by: decided ? { actor: decided.actor, action: decided.action, at: decided.at } : null,
     audit: trail,

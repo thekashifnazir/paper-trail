@@ -7,6 +7,7 @@
 // approvals become aliases, so October runs with September's memory. The November hold-out is never read here.
 import { modelName, proposeAll, pass3Input, stubFetch, type AgentConfig } from "../lib/cash/agent";
 import { candidates } from "../lib/cash/candidates";
+import { checkEvidence } from "../lib/cash/evidence";
 import { loadData, TUNING_MONTHS } from "../lib/cash/data";
 import { allocate, tenantForPayer } from "../lib/cash/match";
 import { mkdirSync, writeFileSync } from "node:fs";
@@ -14,6 +15,10 @@ import { fmt, toPence } from "../lib/cash/money";
 import { score, type ScoredAllocation } from "../lib/cash/score";
 
 const stub = process.argv.includes("--stub");
+const arg = (name: string) => process.argv.find((a) => a.startsWith(`--${name}=`))?.split("=")[1];
+const concurrency = Number(arg("concurrency") ?? 20);
+const onlyMonth = arg("month");
+if (onlyMonth === "2026-11") throw new Error("November is the hold-out: score it once at the end, never while tuning");
 const save = process.argv.includes("--save");
 if (save && stub) throw new Error("--save writes real results; it cannot be combined with --stub");
 try { process.loadEnvFile(".env"); } catch { /* no .env */ }
@@ -21,7 +26,9 @@ const all = loadData();
 const key = process.env.XAI_API_KEY;
 if (!stub && !key) throw new Error("XAI_API_KEY missing: put it in .env (git-ignored), or run with --stub");
 const cfg: AgentConfig = stub ? { apiKey: "stub", model: "stub", fetch: stubFetch(all.truth) } : { apiKey: key!, model: modelName() };
-console.log(`pass 3: ${stub ? "STUB (answer key replay, not a model result)" : `xAI ${cfg.model}`}\n`);
+console.log(`pass 3: ${stub ? "STUB (answer key replay, not a model result)" : `xAI ${cfg.model}`}, concurrency ${concurrency}\n`);
+const leaseOf = new Map(all.charges.map((c) => [c.tenant_id, c.lease_citation]));
+let evChecked = 0, evRejected = 0;
 
 const aliases: { payer_name: string; tenant_id: string }[] = [];
 let open = new Map(all.charges.map((c) => [c.id, toPence(c.amount_due)]));
@@ -31,18 +38,23 @@ const wrongLines: string[] = [];
 const raw: unknown[] = [];
 const t0 = Date.now();
 
-for (const month of TUNING_MONTHS) {
+for (const month of onlyMonth ? [onlyMonth] : TUNING_MONTHS) {
+  const tm = Date.now();
   const d = loadData({ months: [month] });
   const r = allocate(all.charges, d.bankLines, aliases, open);
   open = r.openAmount;
   const inputs = r.leftover.map((b) => pass3Input(candidates(b, all.charges, open, all.tenants, aliases, d.bankLines), all.tenants, all.notes, all.companyLookup));
-  const res = await proposeAll(cfg, inputs, open);
+  const res = await proposeAll(cfg, inputs, open, concurrency);
+  console.log(`${month}: pass 3 on ${inputs.length} lines took ${((Date.now() - tm) / 1000).toFixed(0)}s`);
+  const evSrc = { bankLines: d.bankLines, charges: all.charges, tenants: all.tenants.map((t) => ({ ...t, lease_citation: leaseOf.get(t.tenant_id) ?? "" })), notes: all.notes, lookup: all.companyLookup, openAmount: open };
 
   const truth = new Map(d.truth.map((t) => [t.bank_line_id, t]));
   const auto: ScoredAllocation[] = r.allocations.map((a) => ({ bank_line_id: a.bank_line_id, charge_id: a.charge_id, amount: a.amount, method: a.method }));
   const toPerson: typeof res = [];
   for (const x of res) {
-    if (!x.proposal || x.proposal.confidence < 0.7) { toPerson.push(x); continue; }
+    const ev = x.proposal ? checkEvidence(x.proposal.evidence ?? [], evSrc) : { checked: 0, rejected: [] };
+    evChecked += ev.checked; evRejected += ev.rejected.length;
+    if (!x.proposal || x.proposal.confidence < 0.7 || (ev.rejected.length && x.proposal.allocations.length)) { toPerson.push(x); continue; }
     for (const a of x.proposal.allocations) auto.push({ bank_line_id: x.bank_line_id, charge_id: a.charge_id, amount: toPence(a.amount), method: "agent" });
     if (!x.proposal.allocations.length) auto.push({ bank_line_id: x.bank_line_id, charge_id: "", amount: 0, method: "agent_hold" });
   }
@@ -100,6 +112,7 @@ for (const month of TUNING_MONTHS) {
 console.log(rows.join("\n"));
 for (const [m, v] of Object.entries(perCase)) console.log(`\n${m}: ${v}`);
 console.log(`\naliases learned from approvals: ${aliases.length}`);
+console.log(`\nevidence quotes checked ${evChecked}, not found in their source ${evRejected}`);
 console.log(`\nwrong auto-approved lines: ${wrongLines.length}`);
 for (const w of wrongLines) console.log(`  ${w}`);
 console.log(`\nrun time ${((Date.now() - t0) / 1000).toFixed(0)}s`);

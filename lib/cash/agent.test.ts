@@ -72,3 +72,27 @@ describe("POST /api/agent (xAI stubbed)", () => {
     }
   });
 });
+
+describe("POST /api/agent?replay= (saved run, no xAI)", () => {
+  it("answers from results/2026-09.json through propose(), with evidence counts", async () => {
+    const { existsSync, readFileSync } = await import("node:fs");
+    if (!existsSync("results/2026-09.json")) return;
+    const { join } = await import("node:path");
+    const { POST: statements } = await import("@/app/api/statements/route");
+    const { POST: runPass } = await import("@/app/api/run/route");
+    const { POST: agent } = await import("@/app/api/agent/route");
+    const { SAMPLE_DIR } = await import("./data");
+    delete (globalThis as { __cashStore?: unknown }).__cashStore;
+    const U = "http://app.test";
+    await statements(new Request(U, { method: "POST", headers: { "content-type": "text/csv" }, body: readFileSync(join(SAMPLE_DIR, "bank_2026_09.csv"), "utf8") }));
+    await runPass(new Request(`${U}/?month=2026-09`, { method: "POST" }));
+    const out = await (await agent(new Request(`${U}/?month=2026-09&replay=results/2026-09.json`, { method: "POST" }))).json();
+    expect(out.source).toBe("replay results/2026-09.json");
+    expect(out.lines).toBe(20);
+    expect(out.allocated + out.waiting_for_approval + out.held + out.to_a_person.length).toBe(20);
+    expect(out.evidence_checked).toBeGreaterThan(0);
+    expect(out.seconds).toBeLessThan(2);
+    const bad = await agent(new Request(`${U}/?month=2026-09&replay=../.env`, { method: "POST" }));
+    expect(bad.status).toBe(500);
+  });
+});
