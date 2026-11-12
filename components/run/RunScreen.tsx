@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { AllocationBar } from "@/components/shared";
 import { getLines } from "@/lib/api";
@@ -105,6 +106,19 @@ export function RunScreen() {
         error={error}
         onRun={startRun}
       />
+      {hasRun && !running ? (
+        <div className="flex items-center gap-3 border-b border-hairline px-1 pb-2 text-[14px]">
+          <span>
+            <span className="font-mono tabular-nums">{counts.exact + counts.memory + counts.agent}</span> matched ·{" "}
+            <span className="font-mono tabular-nums">{counts.queue}</span> need you
+          </span>
+          {counts.queue > 0 ? (
+            <Link href="/exceptions" className="font-medium text-ink underline underline-offset-2">
+              Review {counts.queue} →
+            </Link>
+          ) : null}
+        </div>
+      ) : null}
       <KpiRow lines={monthLines} started={running || hasRun} score={monthSummary?.score} />
       <div className="run-bar">
         <AllocationBar

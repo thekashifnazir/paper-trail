@@ -46,8 +46,7 @@ export async function approveLine(
   id: string,
 ): Promise<{ remembered?: string }> {
   if (useMock) return mockApi.approveLine(id);
-  await json(`/api/lines/${id}/approve`, { method: "POST" });
-  return {};
+  return json(`/api/lines/${id}/approve`, { method: "POST" });
 }
 
 export async function rejectLine(id: string): Promise<void> {
