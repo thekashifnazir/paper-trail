@@ -19,3 +19,4 @@ next-env.d.ts
 
 # generated seed data carries Cortile-derived names and ids, never commit
 data/seed/
+.vercel
