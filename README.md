@@ -8,6 +8,42 @@ Commercial leases are more complicated, so matching payments takes judgement and
 
 **Video (2 min):** <https://youtu.be/evdDjT1mR58>
 
+## The problem it solves
+
+A property manager's arrears list is only as good as the cash allocation behind it. Receipts arrive with wrong or missing references, one transfer covering several invoices, a parent company paying for its tenant, or a short payment because the tenant is disputing part of the service charge. Until someone matches each line by hand against the ledger, the lease and old emails, the arrears list is wrong: tenants who paid get chased, and real arrears hide in unallocated cash.
+
+Paper Trail takes that matching off the person and keeps them for the judgement calls only:
+
+- **Most lines never need a person.** On our synthetic test set, 188 of 200 lines in September and 196 of 200 in October were allocated automatically, with 0 wrong.
+- **Every allocation shows its evidence,** so a credit controller can check it in seconds instead of redoing it.
+- **It learns.** Approve a parent-company payer once and next month it matches from memory.
+- **It won't guess.** Duplicates and unidentifiable payments stay with a person, and a model can't approve anything.
+
+## Architecture
+
+```mermaid
+flowchart LR
+  CSV["Bank statement CSV<br/>about 200 lines a month"] --> P1
+  subgraph APP["Paper Trail app (Next.js + TypeScript)"]
+    P1["Pass 1: rules<br/>ref + amount, duplicates,<br/>name + subset sum"] --> P2["Pass 2: payer memory"]
+    P2 --> P3["Pass 3: agent<br/>proposes split + quotes"]
+    P3 --> CHK{"Code checks<br/>sum to the penny,<br/>quotes found in source"}
+    CHK -- confident --> OK["Allocated"]
+    CHK -- unsure or new payer --> Q["Review queue"]
+    Q --> H["Person approves<br/>in one click"]
+    H --> OK
+    OK --> OUT["Arrears list, chaser drafts,<br/>audit log"]
+  end
+  P3 <--> XAI["xAI API<br/>grok-4.7"]
+  P2 <--> SB[("Supabase<br/>payer aliases + audit log")]
+  H -- "approval = remembered payer" --> SB
+  GB["Grok Bot desktop<br/>Credit Controller bot"] <-- "MCP connector<br/>/api/mcp, 9 tools" --> Q
+  GB -. "review_line: recommend + quotes<br/>(cannot approve)" .-> Q
+  DATA["data/sample<br/>108 tenants, charges, notes,<br/>company lookup"] --> P1
+```
+
+Cursor is where the code was written; it isn't part of the running system.
+
 ## For judges: where to look
 
 | Criterion | What to look at |
