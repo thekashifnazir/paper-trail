@@ -11,6 +11,7 @@
 import { readFileSync } from "node:fs";
 import { join } from "node:path";
 import { arrears, exceptions, explain, hydrate, HttpError, loadStatement, metrics, propose, QUEUE_BELOW, run, store } from "@/lib/cash/service";
+import { saveAudit } from "@/lib/cash/persist";
 
 const MONTHS = ["2026-09", "2026-10"] as const;
 const PROTOCOL = "2025-06-18";
@@ -56,6 +57,38 @@ const tools = [
     },
   },
   {
+    name: "list_review_queue",
+    description:
+      "Lines waiting for a person (proposed but not approved) and lines held open, each with its proposal, reasoning, evidence and audit trail, plus the tenant notes, company group lookups and remembered payers you need to review them.",
+    inputSchema: { type: "object", properties: {} },
+  },
+  {
+    name: "review_line",
+    description:
+      "Record your review of one waiting or held line for the person who approves it: recommend approve, reject or needs_info, with a short note and supporting quotes copied word for word from the line's data (bank line, charges, lease citation, tenant notes, company lookup). Quotes that aren't found in the data are refused. You can't approve; the person does, in the app.",
+    inputSchema: {
+      type: "object",
+      properties: {
+        bank_line_id: { type: "string" },
+        recommendation: { type: "string", enum: ["approve", "reject", "needs_info"] },
+        note: { type: "string", description: "one or two sentences a credit controller can read" },
+        quotes: {
+          type: "array",
+          items: {
+            type: "object",
+            properties: {
+              source: { type: "string", enum: ["bank_line", "charge", "lease", "tenant_note", "company_lookup", "alias"] },
+              ref: { type: "string" },
+              quote: { type: "string" },
+            },
+            required: ["source", "ref", "quote"],
+          },
+        },
+      },
+      required: ["bank_line_id", "recommendation", "note", "quotes"],
+    },
+  },
+  {
     name: "explain_line",
     description: "Why a bank line was allocated the way it was: method, charges, evidence, reasoning, who decided and when, and its audit trail.",
     inputSchema: { type: "object", properties: { id: { type: "string", description: "bank line id, e.g. B2609-006" } }, required: ["id"] },
@@ -95,6 +128,56 @@ function isNewPayerRelationship(args: Args): boolean {
   });
 }
 
+const squash = (x: string) => x.toLowerCase().replace(/[\u2018\u2019]/g, "'").replace(/[\u201c\u201d]/g, '"').replace(/\s+/g, " ").trim();
+
+// Everything a reviewer could legitimately quote for one line: its explain payload plus the reference data.
+function reviewContext(id: string) {
+  const s = store();
+  const e = exceptions(s);
+  return { line: explain(s, id), tenant_notes: e.tenant_notes, company_lookup: (s as unknown as { companyLookup?: unknown }).companyLookup ?? null, aliases: e.aliases, tenants: e.tenants };
+}
+
+function reviewQueue() {
+  const s = store();
+  const e = exceptions(s);
+  const held = s.holds.map((h) => h.bank_line_id).filter((id, i, a) => a.indexOf(id) === i);
+  return {
+    waiting_for_approval: e.waiting_for_approval,
+    held: held.map((id) => explain(s, id)),
+    tenant_notes: e.tenant_notes,
+    tenants: e.tenants,
+    aliases: e.aliases,
+  };
+}
+
+function reviewLine(args: Args) {
+  const s = store();
+  const id = String(args.bank_line_id);
+  const rec = String(args.recommendation);
+  if (!["approve", "reject", "needs_info"].includes(rec)) throw new HttpError(400, "recommendation must be approve, reject or needs_info");
+  const proposed = s.allocations.filter((a) => a.bank_line_id === id && a.status === "proposed");
+  const holds = s.holds.filter((h) => h.bank_line_id === id);
+  if (!proposed.length && !holds.length) throw new HttpError(409, `${id} isn't waiting for a person or held`);
+  // No source, no figure: every quote must appear in the data for this line.
+  const haystack = squash(JSON.stringify(reviewContext(id)) + JSON.stringify(exceptions(s)));
+  const quotes = Array.isArray(args.quotes) ? (args.quotes as { source: string; ref: string; quote: string }[]) : [];
+  const missing = quotes.filter((q) => !q.quote || !haystack.includes(squash(q.quote)));
+  if (!quotes.length || missing.length) {
+    throw new HttpError(422, missing.length ? `quote not found in the data: "${missing[0].quote}". Copy quotes word for word.` : "add at least one supporting quote");
+  }
+  const label = rec === "approve" ? "RECOMMEND APPROVE" : rec === "reject" ? "RECOMMEND REJECT" : "NEEDS MORE INFO";
+  const items = [
+    { type: "grok_bot", ref: `Grok Bot review: ${label}`, quote: String(args.note ?? "") },
+    ...quotes.map((q) => ({ type: q.source, ref: q.ref, quote: q.quote })),
+  ] as unknown as (typeof proposed)[number]["evidence"];
+  for (const a of proposed) a.evidence = [...items, ...a.evidence.filter((x) => (x as { type: string }).type !== "grok_bot")];
+  for (const h of holds) h.evidence = [...items, ...h.evidence.filter((x) => (x as { type: string }).type !== "grok_bot")];
+  const row = { at: new Date().toISOString(), actor: "grok_bot" as const, action: "grok_bot_review", bank_line_id: id, detail: { recommendation: rec, note: args.note, quotes } };
+  s.audit.push(row);
+  saveAudit(row);
+  return { bank_line_id: id, recorded: label, quotes_checked: quotes.length, shown_to_person_in: "Exceptions, evidence panel" };
+}
+
 function statementCsv(month: string) {
   if (!MONTHS.includes(month as (typeof MONTHS)[number])) throw new HttpError(400, `month must be one of ${MONTHS.join(", ")}`);
   return readFileSync(join(process.cwd(), "data", "sample", `bank_${month.replace("-", "_")}.csv`), "utf8");
@@ -118,6 +201,10 @@ function callTool(name: string, args: Args): unknown {
       const out = propose(s, body as unknown as Parameters<typeof propose>[1], "grok_bot") as Record<string, unknown>;
       return gated ? { ...out, review_reason: "New payer relationship: a person approves once, then it's remembered", model_confidence: args.confidence } : out;
     }
+    case "list_review_queue":
+      return reviewQueue();
+    case "review_line":
+      return reviewLine(args);
     case "explain_line":
       return explain(s, String(args.id));
     case "arrears": {
