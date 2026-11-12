@@ -8,6 +8,7 @@ import {
   EmptyState,
   EvidenceCard,
   KpiCard,
+  KpiStrip,
   MethodBadge,
   Money,
 } from "@/components/shared";
@@ -50,14 +51,14 @@ export function RunPage() {
       : 0;
 
   return (
-    <div className="space-y-5">
-      <section className="rounded-lg border border-line bg-panel p-5">
-        <div className="flex flex-wrap items-start justify-between gap-4">
-          <div>
-            <h1 className="font-[family-name:var(--font-display)] text-[28px] tracking-tight">
+    <div className="space-y-3">
+      <section className="rounded-[12px] border border-hairline bg-sheet px-4 py-3">
+        <div className="flex flex-wrap items-center justify-between gap-3">
+          <div className="min-w-0">
+            <h1 className="text-[24px] font-medium tracking-[-0.02em]">
               Cash application
             </h1>
-            <p className="mt-1 max-w-2xl text-muted">
+            <p className="mt-0.5 max-w-2xl text-[13px] text-muted">
               Drop the {month === "2026-09" ? "September" : "October"} bank
               statement, or use the sample. Exact rules first, then memory, then
               the agent.
@@ -67,13 +68,13 @@ export function RunPage() {
             type="button"
             disabled={running}
             onClick={() => void run()}
-            className="rounded-md bg-brand px-4 py-2.5 text-[14px] font-semibold text-white hover:opacity-90 disabled:opacity-60"
+            className="shrink-0 rounded-lg bg-ink px-3.5 py-2 text-[13px] font-medium text-paper hover:opacity-90 disabled:opacity-60"
           >
             {running ? "Running…" : "Run allocation"}
           </button>
         </div>
 
-        <div className="mt-5 grid gap-2 sm:grid-cols-3">
+        <div className="mt-3 flex flex-wrap gap-1.5">
           {(
             [
               ["exact", "Exact rules"],
@@ -89,10 +90,10 @@ export function RunPage() {
             return (
               <div
                 key={key}
-                className={`rounded-md border px-3 py-2 text-[13px] font-medium ${
+                className={`rounded-full border px-2.5 py-1 text-[12px] font-medium ${
                   on
-                    ? "border-brand bg-brand-wash text-brand"
-                    : "border-line text-muted"
+                    ? "border-ink bg-fill text-ink underline decoration-ink decoration-2 underline-offset-4"
+                    : "border-hairline text-muted"
                 }`}
               >
                 {label}
@@ -103,7 +104,7 @@ export function RunPage() {
       </section>
 
       {error ? (
-        <div className="rounded-md border border-danger/30 bg-red-50 px-4 py-3 text-danger">
+        <div className="rounded-lg border border-danger/30 bg-danger-wash px-3 py-2.5 text-[13px] text-danger">
           {error}{" "}
           <button className="underline" type="button" onClick={() => void run()}>
             Retry
@@ -115,7 +116,7 @@ export function RunPage() {
         <EmptyState title="Loading statement…" body="Fetching sample lines." />
       ) : (
         <>
-          <div className="grid gap-3 sm:grid-cols-2 xl:grid-cols-4">
+          <KpiStrip>
             <KpiCard
               label="Receipts"
               value={summary?.total_lines ?? 0}
@@ -135,7 +136,12 @@ export function RunPage() {
             />
             <KpiCard
               label="Unallocated value"
-              value={<Money value={summary?.unallocated_value ?? 0} danger={(summary?.unallocated_value ?? 0) > 0} />}
+              value={
+                <Money
+                  value={summary?.unallocated_value ?? 0}
+                  danger={(summary?.unallocated_value ?? 0) > 0}
+                />
+              }
               accent={(summary?.unallocated_value ?? 0) > 0 ? "red" : undefined}
             />
             {summary?.score ? (
@@ -145,58 +151,60 @@ export function RunPage() {
                 hint={`${summary.score.wrong_allocations} wrong`}
               />
             ) : null}
-          </div>
+          </KpiStrip>
 
           <AllocationBar exact={exact} memory={memory} agent={agent} queue={queue} />
 
           {month === "2026-10" && memoryCount > 0 ? (
-            <div className="rounded-md border-l-4 border-brand bg-ink px-4 py-3 text-paper">
-              <span className="font-semibold text-[#bef264]">
+            <div className="rounded-lg border border-hairline border-l-[3px] border-l-memory bg-sheet px-3 py-2.5 text-[13px]">
+              <span className="font-medium text-ink">
                 {memoryCount} receipts matched from memory
               </span>
-              <span className="text-white/80">
+              <span className="text-muted">
                 {" "}
                 — payers you approved last month.
               </span>
             </div>
           ) : null}
 
-          <section className="rounded-lg border border-line bg-panel">
-            <div className="flex flex-wrap items-center gap-2 border-b border-line px-4 py-3">
-              {(
-                [
-                  ["all", "All"],
-                  ["exact", "Exact"],
-                  ["memory", "Memory"],
-                  ["agent", "Agent"],
-                  ["queue", "In queue"],
-                ] as const
-              ).map(([id, label]) => (
-                <button
-                  key={id}
-                  type="button"
-                  onClick={() => setFilter(id)}
-                  className={`rounded-full px-3 py-1 text-[13px] font-medium ${
-                    filter === id
-                      ? "bg-ink text-paper"
-                      : "bg-line/70 text-ink hover:bg-line"
-                  }`}
-                >
-                  {label}
-                </button>
-              ))}
+          <section className="overflow-hidden rounded-[12px] border border-hairline bg-sheet">
+            <div className="flex flex-wrap items-end gap-x-4 gap-y-2 border-b border-hairline px-3 pt-2">
+              <div className="flex gap-0">
+                {(
+                  [
+                    ["all", "All"],
+                    ["exact", "Exact"],
+                    ["memory", "Memory"],
+                    ["agent", "Agent"],
+                    ["queue", "In queue"],
+                  ] as const
+                ).map(([id, label]) => (
+                  <button
+                    key={id}
+                    type="button"
+                    onClick={() => setFilter(id)}
+                    className={`-mb-px border-b-2 px-2.5 pb-2 text-[13px] font-medium ${
+                      filter === id
+                        ? "border-ink text-ink"
+                        : "border-transparent text-muted hover:text-ink"
+                    }`}
+                  >
+                    {label}
+                  </button>
+                ))}
+              </div>
               <input
                 value={q}
                 onChange={(e) => setQ(e.target.value)}
                 placeholder="Search payer or reference"
-                className="ml-auto min-w-[220px] rounded-md border border-line bg-paper px-3 py-1.5 text-[14px]"
+                className="mb-1.5 ml-auto min-w-[200px] rounded-lg border border-hairline bg-paper px-2.5 py-1 text-[13px]"
               />
             </div>
 
-            <div className="max-h-[520px] overflow-auto">
+            <div className="max-h-[560px] overflow-auto">
               <table className="w-full min-w-[960px] border-collapse text-left">
-                <thead className="sticky top-0 bg-panel">
-                  <tr className="border-b border-line text-[12px] uppercase tracking-[0.06em] text-muted">
+                <thead className="sticky top-0 bg-fill">
+                  <tr className="border-b border-hairline text-[12px] font-medium tracking-[0.04em] text-muted">
                     <th className="px-3 py-2 font-medium">Date</th>
                     <th className="px-3 py-2 font-medium">Payer</th>
                     <th className="px-3 py-2 font-medium">Reference</th>
@@ -214,11 +222,11 @@ export function RunPage() {
                       <tr
                         key={l.id}
                         onClick={() => setSelected(l)}
-                        className="h-11 cursor-pointer border-b border-line/80 hover:bg-brand-wash/40"
+                        className="h-11 cursor-pointer border-b border-hairline hover:bg-fill"
                       >
                         <td className="px-3 text-[13px]">{shortDate(l.date)}</td>
                         <td className="px-3 font-medium">{l.payer_name}</td>
-                        <td className="px-3 font-mono text-[13px]">{l.reference}</td>
+                        <td className="px-3 font-mono text-[12px]">{l.reference}</td>
                         <td className="px-3">
                           <Money value={l.amount} />
                         </td>
@@ -233,7 +241,7 @@ export function RunPage() {
                         <td className="px-3">
                           <ConfidenceMeter value={l.confidence} />
                         </td>
-                        <td className="px-3 capitalize text-[13px] text-muted">
+                        <td className="px-3 text-[13px] capitalize text-muted">
                           {l.status ?? "pending"}
                         </td>
                       </tr>
@@ -247,51 +255,63 @@ export function RunPage() {
       )}
 
       {selected ? (
-        <div className="fixed inset-0 z-40 flex justify-end bg-ink/30" onClick={() => setSelected(null)}>
+        <div
+          className="fixed inset-0 z-40 flex justify-end bg-ink/25"
+          onClick={() => setSelected(null)}
+        >
           <aside
-            className="h-full w-full max-w-md overflow-auto border-l border-line bg-panel p-5 shadow-xl"
+            className="h-full w-full max-w-md overflow-auto border-l border-hairline bg-sheet p-4"
             onClick={(e) => e.stopPropagation()}
           >
             <div className="flex items-start justify-between gap-3">
               <div>
-                <div className="text-[12px] uppercase tracking-[0.08em] text-muted">
+                <div className="text-[12px] font-medium tracking-[0.04em] text-muted">
                   Receipt
                 </div>
-                <h2 className="mt-1 text-[22px] font-semibold">{selected.payer_name}</h2>
-                <div className="mt-1 font-mono text-[13px] text-muted">
+                <h2 className="mt-0.5 text-[20px] font-medium tracking-[-0.02em]">
+                  {selected.payer_name}
+                </h2>
+                <div className="mt-0.5 font-mono text-[12px] text-muted">
                   {selected.reference}
                 </div>
               </div>
-              <button type="button" onClick={() => setSelected(null)} className="text-muted">
+              <button
+                type="button"
+                onClick={() => setSelected(null)}
+                className="text-[13px] text-muted hover:text-ink"
+              >
                 Close
               </button>
             </div>
-            <div className="mt-4">
+            <div className="mt-3">
               <Money value={selected.amount} large />
             </div>
-            <div className="mt-4 flex items-center gap-3">
+            <div className="mt-3 flex items-center gap-3">
               <MethodBadge method={selected.method} status={selected.status} />
               <ConfidenceMeter value={selected.confidence} />
             </div>
             {selected.reasoning ? (
-              <p className="mt-4 text-[16px] leading-relaxed">{selected.reasoning}</p>
+              <p className="mt-3 text-[14px] leading-snug">{selected.reasoning}</p>
             ) : null}
-            <div className="mt-5 space-y-2">
+            <div className="mt-4 space-y-1.5">
               {selected.allocations.map((a) => (
-                <div key={a.charge_id} className="rounded-md border border-line px-3 py-2 text-[13px]">
+                <div
+                  key={a.charge_id}
+                  className="rounded-lg border border-hairline px-2.5 py-2 text-[13px]"
+                >
                   <div className="font-medium">{a.tenant_name}</div>
-                  <div className="text-muted">
+                  <div className="text-[12px] text-muted">
                     {a.charge_id} · {a.charge_type.replace("_", " ")} · {a.period}
                   </div>
-                  <div className="mt-1 flex justify-between">
-                    <span>Allocated</span>
+                  <div className="mt-1 flex justify-between text-[12px]">
+                    <span className="text-muted">Allocated</span>
                     <Money value={a.allocated} />
                   </div>
                 </div>
               ))}
             </div>
-            <div className="mt-5 space-y-3">
-              <div className="text-[12px] font-semibold uppercase tracking-[0.06em] text-muted">
+            <div className="mt-4 space-y-2">
+              <div className="text-[12px] font-medium tracking-[0.04em] text-muted">
                 Evidence
               </div>
               {selected.evidence.map((e, i) => (
@@ -301,7 +321,7 @@ export function RunPage() {
             {selected.status === "proposed" ? (
               <Link
                 href="/exceptions"
-                className="mt-6 inline-flex rounded-md bg-brand px-3 py-2 text-[14px] font-semibold text-white"
+                className="mt-5 inline-flex rounded-lg bg-ink px-3 py-2 text-[13px] font-medium text-paper"
               >
                 Review in Exceptions
               </Link>

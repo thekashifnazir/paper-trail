@@ -14,7 +14,7 @@ export function Money({
 }) {
   return (
     <span
-      className={`money tabular ${large ? "text-[28px] font-semibold leading-none" : ""} ${
+      className={`money tabular ${large ? "text-[22px] font-medium leading-none" : "text-[13px]"} ${
         danger ? "text-danger" : ""
       }`}
     >
@@ -30,9 +30,9 @@ const methodStyle: Record<
   exact: { label: "Exact", fg: "text-exact", bg: "bg-exact-wash" },
   memory: { label: "Memory", fg: "text-memory", bg: "bg-memory-wash" },
   agent: { label: "Agent", fg: "text-agent", bg: "bg-agent-wash" },
-  human: { label: "Human", fg: "text-ink", bg: "bg-line" },
+  human: { label: "Human", fg: "text-ink", bg: "bg-fill" },
   queue: { label: "In queue", fg: "text-queue", bg: "bg-queue-wash" },
-  pending: { label: "Pending", fg: "text-muted", bg: "bg-line" },
+  pending: { label: "Pending", fg: "text-muted", bg: "bg-fill" },
 };
 
 export function MethodBadge({
@@ -43,15 +43,11 @@ export function MethodBadge({
   status?: string | null;
 }) {
   const key =
-    status === "proposed"
-      ? "queue"
-      : method
-        ? method
-        : "pending";
+    status === "proposed" ? "queue" : method ? method : "pending";
   const s = methodStyle[key];
   return (
     <span
-      className={`inline-flex items-center rounded px-2 py-0.5 text-[12px] font-semibold tracking-wide ${s.fg} ${s.bg}`}
+      className={`inline-flex items-center rounded-full px-2 py-0.5 text-[12px] font-medium tracking-[0.04em] ${s.fg} ${s.bg}`}
     >
       {s.label}
     </span>
@@ -61,18 +57,19 @@ export function MethodBadge({
 export function ConfidenceMeter({ value }: { value: number | null }) {
   if (value == null) return <span className="text-muted">—</span>;
   return (
-    <div className="flex min-w-[88px] items-center gap-2">
-      <div className="h-1.5 flex-1 overflow-hidden rounded-full bg-line">
+    <div className="flex min-w-[72px] items-center gap-1.5">
+      <div className="h-1 flex-1 overflow-hidden rounded-full bg-hairline">
         <div
-          className="h-full rounded-full bg-brand"
+          className="h-full rounded-full bg-ink"
           style={{ width: `${Math.round(value * 100)}%` }}
         />
       </div>
-      <span className="money tabular text-[12px] text-muted">{pct(value)}</span>
+      <span className="money tabular text-[11px] text-muted">{pct(value)}</span>
     </div>
   );
 }
 
+/** Metric strip cell — API kept as KpiCard; visual is strip cells, not cards. */
 export function KpiCard({
   label,
   value,
@@ -84,21 +81,33 @@ export function KpiCard({
   hint?: string;
   accent?: "amber" | "red" | "teal";
 }) {
-  const border =
+  const rule =
     accent === "amber"
-      ? "border-queue"
+      ? "border-l-queue"
       : accent === "red"
-        ? "border-danger"
+        ? "border-l-danger"
         : accent === "teal"
-          ? "border-brand"
-          : "border-line";
+          ? "border-l-memory"
+          : "border-l-transparent";
   return (
-    <div className={`rounded-lg border ${border} bg-panel px-4 py-3`}>
-      <div className="text-[12px] font-medium uppercase tracking-[0.08em] text-muted">
+    <div
+      className={`min-w-0 flex-1 border-l-2 px-3 py-2.5 first:pl-3 ${rule}`}
+    >
+      <div className="text-[12px] font-medium tracking-[0.04em] text-muted">
         {label}
       </div>
-      <div className="mt-1 text-[22px] font-semibold leading-tight">{value}</div>
-      {hint ? <div className="mt-1 text-[13px] text-muted">{hint}</div> : null}
+      <div className="mt-0.5 text-[22px] font-medium leading-tight tracking-[-0.02em]">
+        {value}
+      </div>
+      {hint ? <div className="mt-0.5 text-[12px] text-muted">{hint}</div> : null}
+    </div>
+  );
+}
+
+export function KpiStrip({ children }: { children: React.ReactNode }) {
+  return (
+    <div className="flex flex-wrap divide-x divide-hairline overflow-hidden rounded-[12px] border border-hairline bg-sheet">
+      {children}
     </div>
   );
 }
@@ -123,20 +132,22 @@ export function AllocationBar({
   ];
   return (
     <div>
-      <div className="flex h-3 overflow-hidden rounded-full bg-line">
-        {seg.map((s) => (
-          <div
-            key={s.label}
-            className={s.className}
-            style={{ width: `${(s.n / total) * 100}%` }}
-            title={`${s.label}: ${s.n}`}
-          />
-        ))}
+      <div className="flex h-2 overflow-hidden rounded-full bg-hairline">
+        {seg.map((s) =>
+          s.n > 0 ? (
+            <div
+              key={s.label}
+              className={`${s.className} motion-safe:transition-[width] motion-safe:duration-500`}
+              style={{ width: `${(s.n / total) * 100}%` }}
+              title={`${s.label}: ${s.n}`}
+            />
+          ) : null,
+        )}
       </div>
-      <div className="mt-2 flex flex-wrap gap-4 text-[13px]">
+      <div className="mt-1.5 flex flex-wrap gap-x-4 gap-y-1 text-[12px]">
         {seg.map((s) => (
-          <span key={s.label} className="inline-flex items-center gap-2 text-muted">
-            <span className={`h-2.5 w-2.5 rounded-full ${s.className}`} />
+          <span key={s.label} className="inline-flex items-center gap-1.5 text-muted">
+            <span className={`h-2 w-2 rounded-full ${s.className}`} />
             {s.label} · {s.n}
           </span>
         ))}
@@ -147,18 +158,13 @@ export function AllocationBar({
 
 export function EvidenceCard({ item }: { item: Evidence }) {
   return (
-    <figure className="rounded-lg border border-line bg-panel p-3">
-      <figcaption className="mb-2 flex items-center gap-2 text-[12px] font-semibold uppercase tracking-[0.06em] text-muted">
-        <span className="rounded bg-brand-wash px-1.5 py-0.5 text-brand">
-          {item.type.replace("_", " ")}
-        </span>
-        <span className="font-mono normal-case tracking-normal text-ink">
-          {item.ref}
-        </span>
-      </figcaption>
-      <blockquote className="border-l-2 border-brand pl-3 text-[14px] italic leading-relaxed text-ink">
+    <figure className="rounded-lg border border-hairline bg-sheet px-3 py-2">
+      <blockquote className="border-l-2 border-ink pl-2.5 text-[13px] leading-snug text-ink">
         “{item.quote}”
       </blockquote>
+      <figcaption className="mt-1.5 font-mono text-[11px] text-muted">
+        {item.type.replace("_", " ")} · {item.ref}
+      </figcaption>
     </figure>
   );
 }
@@ -171,11 +177,25 @@ export function EmptyState({
   body: string;
 }) {
   return (
-    <div className="rounded-lg border border-dashed border-line bg-panel px-6 py-12 text-center">
-      <div className="font-[family-name:var(--font-display)] text-[22px] text-ink">
+    <div className="rounded-[12px] border border-dashed border-hairline bg-sheet px-5 py-10 text-center">
+      <div className="text-[22px] font-medium tracking-[-0.02em] text-ink">
         {title}
       </div>
-      <p className="mx-auto mt-2 max-w-md text-muted">{body}</p>
+      <p className="mx-auto mt-1.5 max-w-md text-[14px] text-muted">{body}</p>
+    </div>
+  );
+}
+
+export function Skeleton({ rows = 5 }: { rows?: number }) {
+  return (
+    <div className="space-y-1.5" aria-hidden>
+      {Array.from({ length: rows }).map((_, i) => (
+        <div
+          key={i}
+          className="h-11 animate-pulse rounded-md bg-fill"
+          style={{ opacity: 1 - i * 0.08 }}
+        />
+      ))}
     </div>
   );
 }

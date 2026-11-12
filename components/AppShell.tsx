@@ -15,17 +15,17 @@ export function AppShell({ children }: { children: React.ReactNode }) {
   const { month, setMonth, queueCount, reset } = useStore();
 
   return (
-    <div className="min-h-screen lg:grid lg:grid-cols-[220px_1fr]">
-      <aside className="border-b border-line bg-panel lg:border-b-0 lg:border-r">
-        <div className="px-5 py-5">
-          <div className="font-[family-name:var(--font-display)] text-[22px] tracking-tight text-ink">
+    <div className="min-h-screen lg:grid lg:grid-cols-[224px_1fr]">
+      <aside className="border-b border-hairline bg-sheet lg:border-b-0 lg:border-r">
+        <div className="px-4 py-4">
+          <div className="text-[22px] font-medium tracking-[-0.02em] text-ink">
             Paper Trail
           </div>
-          <div className="mt-1 text-[13px] text-muted">
+          <div className="mt-0.5 text-[13px] text-muted">
             Cash application · Wharfside Quarter
           </div>
         </div>
-        <nav className="flex gap-1 px-3 pb-4 lg:flex-col">
+        <nav className="flex gap-1 px-2 pb-3 lg:flex-col">
           {nav.map((item) => {
             const active =
               item.href === "/"
@@ -35,15 +35,15 @@ export function AppShell({ children }: { children: React.ReactNode }) {
               <Link
                 key={item.href}
                 href={item.href}
-                className={`rounded-md px-3 py-2 text-[14px] font-medium ${
+                className={`rounded-lg px-3 py-1.5 text-[14px] font-medium ${
                   active
-                    ? "bg-brand-wash text-brand"
-                    : "text-ink hover:bg-line/60"
+                    ? "bg-fill text-ink"
+                    : "text-ink hover:bg-fill/70"
                 }`}
               >
                 {item.label}
                 {item.href === "/exceptions" && queueCount > 0 ? (
-                  <span className="ml-2 rounded-full bg-queue-wash px-1.5 py-0.5 text-[11px] font-semibold text-queue">
+                  <span className="ml-2 rounded-full bg-queue-wash px-1.5 py-0.5 text-[11px] font-medium text-queue">
                     {queueCount}
                   </span>
                 ) : null}
@@ -54,33 +54,33 @@ export function AppShell({ children }: { children: React.ReactNode }) {
       </aside>
 
       <div className="min-w-0">
-        <header className="sticky top-0 z-20 flex flex-wrap items-center justify-between gap-3 border-b border-line bg-panel/95 px-5 py-3 backdrop-blur">
-          <div className="flex items-center gap-3">
-            <label className="text-[13px] text-muted" htmlFor="month">
+        <header className="sticky top-0 z-20 flex h-12 flex-wrap items-center justify-between gap-2 border-b border-hairline bg-sheet/95 px-4 backdrop-blur">
+          <div className="flex items-center gap-2.5">
+            <label className="text-[12px] text-muted" htmlFor="month">
               Statement month
             </label>
             <select
               id="month"
               value={month}
               onChange={(e) => setMonth(e.target.value)}
-              className="rounded-md border border-line bg-paper px-2 py-1.5"
+              className="rounded-lg border border-hairline bg-paper px-2 py-1 text-[13px]"
             >
               <option value="2026-09">2026-09</option>
               <option value="2026-10">2026-10</option>
             </select>
-            <span className="rounded-full border border-line px-2 py-0.5 text-[12px] font-medium text-muted">
+            <span className="rounded-full border border-hairline px-2 py-0.5 text-[12px] font-medium text-muted">
               Synthetic data
             </span>
           </div>
           <button
             type="button"
             onClick={() => void reset()}
-            className="rounded-md border border-line px-3 py-1.5 text-[13px] font-medium hover:bg-line/50"
+            className="rounded-lg border border-hairline px-2.5 py-1 text-[13px] font-medium text-ink hover:bg-fill"
           >
             Reset
           </button>
         </header>
-        <main className="px-5 py-5">{children}</main>
+        <main className="px-4 py-4">{children}</main>
       </div>
     </div>
   );

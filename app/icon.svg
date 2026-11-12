@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" fill="none" role="img" aria-label="Paper Trail">
+  <rect width="32" height="32" rx="6" fill="#f8f8f6" stroke="#e5e5e3" stroke-width="1"/>
+  <path stroke="#e5e5e3" stroke-linecap="square" d="M6 10.5h20"/>
+  <path
+    fill="#141413"
+    d="M9 12h4.6c1.55 0 2.55.95 2.55 2.35 0 1.25-.85 2.1-2.15 2.28V20H13v-3.02c-.95-.12-1.55-.55-1.85-1.28H10v4.3H9V12zm1.05 3.82h3.15c.72 0 1.15-.38 1.15-.97s-.43-.97-1.15-.97h-3.15v1.94zM16.8 12h5.7v1.05h-2.3v6.95h-1.1v-6.95h-2.3V12z"
+  />
+  <path stroke="#e5e5e3" stroke-linecap="square" d="M6 22.5h20"/>
+</svg>

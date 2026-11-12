@@ -1,4 +1,4 @@
-import { ArrearsPage } from "@/components/ArrearsPage";
+import { ArrearsPage } from "@/components/arrears/ArrearsPage";
 
 export default function Page() {
   return <ArrearsPage />;
