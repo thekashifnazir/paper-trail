@@ -4,9 +4,9 @@ Drop in a bank statement; every receipt lands on the right tenant charge, with e
 
 | Pass | Where | What |
 |---|---|---|
-| 1 exact | `lib/cash/match.ts` | invoice ref in the bank reference and amount = open amount |
+| 1 code | `lib/cash/match.ts` | exact ref + amount (also normalised: `INV2609033S`), then a 7-day duplicate guard, then payer name (cut-off bank names allowed) + subset sum over that tenant's open charges, oldest first |
 | 2 memory | `lib/cash/match.ts` | payer approved before (payer_aliases) -> one charge, or all that tenant's open charges |
-| 3 agent | Grok Bot via the API | reads candidates (`lib/cash/candidates.ts`), proposes; `lib/cash/checkSum.ts` rejects anything off by 1p |
+| 3 agent | `lib/cash/agent.ts`, xAI API | candidates (`lib/cash/candidates.ts`) + company lookup + tenant notes in; JSON proposal out; `lib/cash/checkSum.ts` rejects anything off by 1p, one retry with the reason, then a person |
 
 Money is integer pence everywhere inside the engine. `lib/cash/score.ts` scores against a truth file (match rate, precision, per case).
 
@@ -26,16 +26,19 @@ Money is integer pence everywhere inside the engine. `lib/cash/score.ts` scores 
 Send `x-actor: grok_bot | human | system` on writes; every write lands in the audit log with its actor.
 State is in memory in `lib/cash/service.ts` (`Store`); swap it for Supabase tables of the same shape.
 
-## Data: loaded at runtime, never committed
+## Data
 
-Partner data (Cortile) is for the event only and must not enter this public repo. Put `charges.csv`,
-`bank_lines.csv`, `tenants.csv`, optional `truth.csv` and `aliases.csv` in `data/private/` (git-ignored) or point
-`CASH_DATA_DIR` at a folder. The committed synthetic set in `data/sample/` loads through `lib/cash/sample.ts`.
+`lib/cash/data.ts` reads the team set in `data/sample/` (Sep + Oct for tuning). `data/sample/holdout/` (November)
+is read only with `loadData({ holdout: true })`, once, at the end. Cortile data stays local: `data/private/`
+(git-ignored) holds session 1's CSVs for the `match.py` parity check (`CASH_DATA_DIR=data/private`).
 
 ## Run
 
 ```
 npm install
 npx vitest run          # unit tests always; data tests run when ./data has the CSVs
-npm run compare         # TS engine vs the reference match.py, row by row (MATCH_PY=path)
+npm run score           # pass 1 + 2 on Sep + Oct, per case
+npx tsx scripts/pass3.ts          # pass 1-3 per month as the README results table; XAI_API_KEY in .env (git-ignored)
+npx tsx scripts/pass3.ts --stub   # same path, answers replayed from the key: proves plumbing, not a model result
+CASH_DATA_DIR=data/private npm run compare   # parity with match.py on the local Cortile CSVs
 ```
