@@ -1,9 +1,8 @@
 # Paper Trail
 
-Read `context.md` before editing. It is the source of truth for the product, the branches, the sample data, and the API.
+Read `context.md` for product, data, and the engine API.  
+Read `handoff.md` for what is live and what to do next. **Start with the design section in `handoff.md`.**
 
-Local `main` has no commits. GitHub `origin/main` holds `data/sample` and the Supabase schema. `origin/engine` holds `lib/cash` and `app/api`. Do not commit the uncommitted Next.js scaffold as a new root of `main`.
+Work on `main`. Do not edit `app/api/**`, `lib/cash/**`, or `data/**`. Do not commit `data/private/` or `data/seed/`. Do not show `case_type` or `true_allocations` in the UI.
 
-Do not edit `app/api/**`, `lib/cash/**`, or `data/**`. Do not commit `data/private/` or `data/seed/`. Do not tune on `data/sample/holdout/`. Do not show `case_type` or `true_allocations` in the UI.
-
-Frontend owns `app/(ui)/**`, `components/**`, `lib/api.ts`, `lib/mock.ts`, and `lib/chaser.ts`. Wire the client to the routes in `context.md`, not to a fictional `GET /api/lines`.
+Frontend owns `components/**`, `app/layout.tsx`, `app/page.tsx`, `app/exceptions`, `app/arrears`, `lib/api.ts`, `lib/mock.ts`, `lib/store.tsx`, `lib/chaser.ts`, `lib/types.ts`. Production: https://paper-trail-smoky.vercel.app — Git auto-deploy may be broken; use `vercel deploy --prod` if needed.
