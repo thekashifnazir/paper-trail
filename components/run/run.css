@@ -1,6 +1,6 @@
 .run-screen {
-  height: calc(100dvh - 80px);
-  max-height: calc(100dvh - 80px);
+  height: calc(100dvh - 104px);
+  max-height: calc(100dvh - 104px);
 }
 
 .run-screen .run-bar > div > div:first-child > div {

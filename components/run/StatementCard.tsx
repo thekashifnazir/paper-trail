@@ -55,7 +55,7 @@ export function StatementCard({
   }
 
   return (
-    <section className="rounded-[12px] border border-hairline bg-sheet px-3 py-2.5">
+    <section className="card px-4 py-3">
       <div className="flex flex-wrap items-center justify-between gap-3">
         {showDrop ? (
           <div
@@ -83,10 +83,10 @@ export function StatementCard({
               setDragOver(false);
               onRun();
             }}
-            className={`flex min-h-[48px] min-w-0 flex-1 cursor-pointer items-center rounded-lg border border-dashed px-3 text-[14px] outline-none focus-visible:border-ink ${
+            className={`flex min-h-[48px] min-w-0 flex-1 cursor-pointer items-center rounded-lg border border-dashed px-3 text-[14px] outline-none focus-visible:border-primary ${
               dragOver
-                ? "border-ink bg-fill text-ink"
-                : "border-hairline bg-paper text-ink"
+                ? "border-primary bg-primary/5 text-ink"
+                : "border-hairline bg-canvas text-ink"
             }`}
           >
             Drop the {monthLabel} bank statement, or use the sample
@@ -106,9 +106,9 @@ export function StatementCard({
               const state = stepState(key, visualStage);
               const className =
                 state === "current"
-                  ? "border-brand bg-brand-wash text-brand"
+                  ? "border-primary bg-primary/10 text-primary"
                   : state === "lit"
-                    ? "border-brand text-brand"
+                    ? "border-ok/40 bg-ok-wash text-ok"
                     : "border-hairline text-muted";
               return (
                 <div
@@ -125,7 +125,7 @@ export function StatementCard({
           type="button"
           disabled={running}
           onClick={onRun}
-          className="shrink-0 rounded-lg bg-ink px-3.5 py-2 text-[13px] font-medium text-paper hover:opacity-90 disabled:opacity-60"
+          className="btn-primary shrink-0"
         >
           {running ? "Running…" : "Run allocation"}
         </button>

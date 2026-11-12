@@ -9,6 +9,7 @@ import type { LineView } from "@/lib/types";
 import { KpiRow } from "./KpiRow";
 import { LineDrawer } from "./LineDrawer";
 import { LineTable, type LineFilter } from "./LineTable";
+import { RejectedPanel } from "./RejectedPanel";
 import { StatementCard } from "./StatementCard";
 import "./run.css";
 
@@ -107,20 +108,20 @@ export function RunScreen() {
         onRun={startRun}
       />
       {hasRun && !running ? (
-        <div className="flex items-center gap-3 border-b border-hairline px-1 pb-2 text-[14px]">
+        <div className="flex items-center gap-3 px-1 text-[14px]">
           <span>
             <span className="font-mono tabular-nums">{counts.exact + counts.memory + counts.agent}</span> matched ·{" "}
             <span className="font-mono tabular-nums">{counts.queue}</span> need you
           </span>
           {counts.queue > 0 ? (
-            <Link href="/exceptions" className="font-medium text-ink underline underline-offset-2">
+            <Link href="/exceptions" className="font-medium text-primary underline underline-offset-2">
               Review {counts.queue} →
             </Link>
           ) : null}
         </div>
       ) : null}
       <KpiRow lines={monthLines} started={running || hasRun} score={monthSummary?.score} />
-      <div className="run-bar">
+      <div className="run-bar card px-4 py-3">
         <AllocationBar
           exact={counts.exact}
           memory={counts.memory}
@@ -129,13 +130,16 @@ export function RunScreen() {
         />
       </div>
       {month === "2026-10" && memoryCount > 0 ? (
-        <div className="rounded-md border-l-4 border-[#bef264] bg-ink px-4 py-3 text-[14px] text-paper">
-          <span className="font-semibold text-[#bef264]">
+        <div className="card border-l-4 border-l-memory px-4 py-3 text-[14px]">
+          <span className="font-semibold text-memory">
             {memoryCount} receipts matched from memory
           </span>
-          <span className="text-white/80"> — payers you approved last month.</span>
+          <span className="text-muted"> — payers you approved last month.</span>
         </div>
       ) : null}
+      <div className="shrink-0">
+        <RejectedPanel />
+      </div>
       <LineTable
         lines={monthLines}
         month={month}
