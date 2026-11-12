@@ -130,22 +130,36 @@ function isNewPayerRelationship(args: Args): boolean {
 
 const squash = (x: string) => x.toLowerCase().replace(/[\u2018\u2019]/g, "'").replace(/[\u201c\u201d]/g, '"').replace(/\s+/g, " ").trim();
 
+// The company group lookup (which group pays for which tenant), from the team sample. The reviewer needs it to tie a
+// parent company's payment to its subsidiary.
+function companyLookup(): unknown[] {
+  try {
+    return JSON.parse(readFileSync(join(process.cwd(), "data", "sample", "company_lookup.json"), "utf8"));
+  } catch {
+    return [];
+  }
+}
+
 // Everything a reviewer could legitimately quote for one line: its explain payload plus the reference data.
 function reviewContext(id: string) {
   const s = store();
   const e = exceptions(s);
-  return { line: explain(s, id), tenant_notes: e.tenant_notes, company_lookup: (s as unknown as { companyLookup?: unknown }).companyLookup ?? null, aliases: e.aliases, tenants: e.tenants };
+  return { line: explain(s, id), tenant_notes: e.tenant_notes, company_lookup: companyLookup(), aliases: e.aliases, tenants: e.tenants };
 }
 
 function reviewQueue() {
   const s = store();
   const e = exceptions(s);
   const held = s.holds.map((h) => h.bank_line_id).filter((id, i, a) => a.indexOf(id) === i);
+  // Tenants behind every waiting or held line, with their parent company from the lookup.
+  const ids = new Set([...e.waiting_for_approval.map((w) => (w as { bank_line: { id: string } }).bank_line.id), ...held]);
+  const tids = new Set(s.allocations.filter((a) => ids.has(a.bank_line_id)).map((a) => s.charges.find((c) => c.id === a.charge_id)?.tenant_id));
   return {
     waiting_for_approval: e.waiting_for_approval,
     held: held.map((id) => explain(s, id)),
+    company_lookup: companyLookup(),
+    tenants: s.tenants.filter((t) => tids.has(t.tenant_id)).map(({ tenant_id, tenant_name, parent_company, unit }) => ({ tenant_id, tenant_name, parent_company, unit })),
     tenant_notes: e.tenant_notes,
-    tenants: e.tenants,
     aliases: e.aliases,
   };
 }
@@ -159,7 +173,7 @@ function reviewLine(args: Args) {
   const holds = s.holds.filter((h) => h.bank_line_id === id);
   if (!proposed.length && !holds.length) throw new HttpError(409, `${id} isn't waiting for a person or held`);
   // No source, no figure: every quote must appear in the data for this line.
-  const haystack = squash(JSON.stringify(reviewContext(id)) + JSON.stringify(exceptions(s)));
+  const haystack = squash(JSON.stringify(reviewContext(id)) + JSON.stringify(exceptions(s)) + JSON.stringify(reviewQueue()));
   const quotes = Array.isArray(args.quotes) ? (args.quotes as { source: string; ref: string; quote: string }[]) : [];
   const missing = quotes.filter((q) => !q.quote || !haystack.includes(squash(q.quote)));
   if (!quotes.length || missing.length) {
