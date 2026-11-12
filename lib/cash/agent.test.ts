@@ -45,3 +45,30 @@ describe("pass 3 through the xAI request path (stub)", () => {
     expect(inputs[0].company_lookup.length).toBe(d.companyLookup.length);
   });
 });
+
+describe("POST /api/agent (xAI stubbed)", () => {
+  it("runs pass 3 on the month's open lines through the same proposal check", async () => {
+    const { vi } = await import("vitest");
+    const { POST: statements } = await import("@/app/api/statements/route");
+    const { POST: runPass } = await import("@/app/api/run/route");
+    const { POST: agent } = await import("@/app/api/agent/route");
+    const { readFileSync } = await import("node:fs");
+    const { join } = await import("node:path");
+    const { SAMPLE_DIR } = await import("./data");
+    delete (globalThis as { __cashStore?: unknown }).__cashStore;
+    vi.stubEnv("XAI_API_KEY", "test");
+    vi.stubGlobal("fetch", stubFetch(d.truth));
+    try {
+      const U = "http://app.test";
+      await statements(new Request(U, { method: "POST", headers: { "content-type": "text/csv" }, body: readFileSync(join(SAMPLE_DIR, "bank_2026_09.csv"), "utf8") }));
+      expect(await (await runPass(new Request(`${U}/?month=2026-09`, { method: "POST" }))).json()).toMatchObject({ left_open: 20 });
+      const out = await (await agent(new Request(`${U}/?month=2026-09`, { method: "POST" }))).json();
+      // 20 open: 8 parent payers wait (stub confidence 0.6), 5 short-pays + 3 overpayments allocated, 2 duplicates + 2 unidentifiable held
+      expect(out).toMatchObject({ lines: 20, allocated: 8, waiting_for_approval: 8, held: 4 });
+      expect(out.to_a_person).toEqual([]);
+    } finally {
+      vi.unstubAllGlobals();
+      vi.unstubAllEnvs();
+    }
+  });
+});

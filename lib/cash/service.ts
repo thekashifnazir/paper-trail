@@ -111,9 +111,9 @@ export function openAmounts(s: Store): Map<string, Pence> {
   return open;
 }
 
-export function openLines(s: Store): BankLine[] {
+export function openLines(s: Store, month?: string): BankLine[] {
   const done = new Set([...s.allocations.filter(live).map((a) => a.bank_line_id), ...s.holds.map((h) => h.bank_line_id)]);
-  return s.bankLines.filter((b) => !done.has(b.id));
+  return s.bankLines.filter((b) => !done.has(b.id) && (!month || (b.statement_month ?? b.date.slice(0, 7)) === month));
 }
 
 function line(s: Store, id: string): BankLine {
@@ -132,17 +132,17 @@ export function loadStatement(s: Store, body: unknown, actor: Actor) {
   if (!rows.length) throw new HttpError(400, "send bank_lines as CSV text, {bank_lines: [...]} or {csv: \"...\"}");
   const known = new Set(s.bankLines.map((b) => b.id));
   const added = rows
-    .map((r) => ({ id: String(r.id), date: String(r.date), amount: fmt(toPence(r.amount)), payer_name: String(r.payer_name ?? ""), reference: String(r.reference ?? "") }))
+    .map((r) => ({ id: String(r.id), statement_month: String(r.statement_month || String(r.date).slice(0, 7)), date: String(r.date), amount: fmt(toPence(r.amount)), payer_name: String(r.payer_name ?? ""), reference: String(r.reference ?? "") }))
     .filter((r) => !known.has(r.id));
   s.bankLines.push(...added);
   audit(s, actor, "statement_loaded", { received: rows.length, added: added.length });
   return { received: rows.length, added: added.length, skipped_known: rows.length - added.length, total_lines: s.bankLines.length };
 }
 
-// POST /api/run: pass 1 + pass 2 on open lines
-export function run(s: Store) {
+// POST /api/run: pass 1 + pass 2 on open lines (one statement month, or all)
+export function run(s: Store, month?: string) {
   const aliases = s.aliases.map((a) => ({ payer_name: a.payer_name, tenant_id: a.tenant_id }));
-  const r = allocate(s.charges, openLines(s), aliases, openAmounts(s));
+  const r = allocate(s.charges, openLines(s, month), aliases, openAmounts(s));
   s.allocations.push(...r.allocations);
   const by: Record<string, number> = { exact: 0, memory: 0 };
   for (const id of new Set(r.allocations.map((a) => a.bank_line_id))) by[r.allocations.find((a) => a.bank_line_id === id)!.method]++;
@@ -151,11 +151,11 @@ export function run(s: Store) {
 }
 
 // GET /api/exceptions: open lines with their candidates (amounts in pounds for the agent)
-export function exceptions(s: Store) {
+export function exceptions(s: Store, month?: string) {
   const open = openAmounts(s);
   const aliases = s.aliases.map((a) => ({ payer_name: a.payer_name, tenant_id: a.tenant_id }));
   const proposed = s.allocations.filter((a) => a.status === "proposed");
-  const items = openLines(s).map((b) => {
+  const items = openLines(s, month).map((b) => {
     const c = candidates(b, s.charges, open, s.tenants, aliases, s.bankLines);
     return { ...c, candidates: c.candidates.map((x) => ({ ...x, amount_open: Number(fmt(x.amount_open)) })) };
   });

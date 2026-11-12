@@ -18,6 +18,7 @@ export interface Charge {
 
 export interface BankLine {
   id: string;
+  statement_month?: string;
   date: string;
   amount: string;
   payer_name: string;
