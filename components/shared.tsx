@@ -1,5 +1,15 @@
 "use client";
 
+import {
+  Building2,
+  FileText,
+  Landmark,
+  Link2,
+  ListChecks,
+  Receipt,
+  StickyNote,
+  type LucideIcon,
+} from "lucide-react";
 import type { Evidence, Method, Status } from "@/lib/types";
 import { gbp, pct } from "@/lib/format";
 
@@ -212,14 +222,53 @@ export function AllocationBar({ segments }: { segments: BarSegment[] }) {
 /* Evidence                                                            */
 /* ------------------------------------------------------------------ */
 
-export function EvidenceCard({ item }: { item: Evidence }) {
+type EvidenceType = Evidence["type"];
+
+const EVIDENCE_STYLE: Record<
+  EvidenceType,
+  { label: string; icon: LucideIcon; rule: string; fg: string }
+> = {
+  company_lookup: { label: "Company lookup", icon: Building2, rule: "border-l-agent", fg: "text-agent" },
+  alias: { label: "Known alias", icon: Link2, rule: "border-l-agent", fg: "text-agent" },
+  tenant_note: { label: "Tenant note", icon: StickyNote, rule: "border-l-queue", fg: "text-queue" },
+  charge: { label: "Charge", icon: Receipt, rule: "border-l-exact", fg: "text-exact" },
+  lease: { label: "Lease", icon: FileText, rule: "border-l-exact", fg: "text-exact" },
+  rule: { label: "Rule", icon: ListChecks, rule: "border-l-exact", fg: "text-exact" },
+  bank_line: { label: "Bank line", icon: Landmark, rule: "border-l-ink", fg: "text-ink" },
+};
+
+const FALLBACK_EVIDENCE = {
+  label: "Source",
+  icon: FileText,
+  rule: "border-l-exact",
+  fg: "text-exact",
+};
+
+/** Company lookups, aliases and tenant notes are the decisive evidence. */
+export function isDecisiveEvidence(type: string) {
+  return type === "company_lookup" || type === "alias" || type === "tenant_note";
+}
+
+export function EvidenceCard({ item, className = "" }: { item: Evidence; className?: string }) {
+  const style = EVIDENCE_STYLE[item.type] ?? {
+    ...FALLBACK_EVIDENCE,
+    label: String(item.type).replaceAll("_", " "),
+  };
+  const Icon = style.icon;
   return (
-    <figure className="rounded-[8px] border border-line bg-surface px-3 py-2.5">
-      <div className="label">{item.type.replaceAll("_", " ")}</div>
-      <blockquote className="mono mt-1.5 rounded-[6px] bg-quote px-2.5 py-2 text-[12px] leading-[18px] text-ink">
+    <figure
+      className={`rounded-[8px] border border-l-[3px] border-line bg-surface px-3 py-2.5 ${style.rule} ${className}`}
+    >
+      <div className="label flex items-center gap-1.5">
+        <Icon className={`h-3.5 w-3.5 ${style.fg}`} strokeWidth={1.75} aria-hidden />
+        <span>{style.label}</span>
+      </div>
+      <blockquote className="mono mt-2 rounded-[6px] bg-quote px-2.5 py-2 text-[12px] leading-[18px] text-ink">
         {moneyText(item.quote)}
       </blockquote>
-      <figcaption className="mono mt-1.5 text-[11px] text-muted">{item.ref}</figcaption>
+      <figcaption className="mt-1.5 truncate text-[12px] text-muted" title={item.ref}>
+        {item.ref}
+      </figcaption>
     </figure>
   );
 }

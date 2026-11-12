@@ -1,11 +1,14 @@
 "use client";
 
-import { Check } from "lucide-react";
+import { AlertTriangle, Check, X } from "lucide-react";
 import {
-  ConfidenceMeter,
   EvidenceCard,
+  isDecisiveEvidence,
+  Keycap,
   MethodBadge,
   Money,
+  SegmentMeter,
+  moneyText,
 } from "@/components/shared";
 import { gbp, shortDate } from "@/lib/format";
 import type { Evidence, LineView } from "@/lib/types";
@@ -40,15 +43,94 @@ function keepsUnallocated(line: LineView) {
   );
 }
 
-function receiptBalances(line: LineView) {
-  const allocated = line.allocations.reduce((sum, row) => sum + row.allocated, 0);
-  return Math.abs(allocated + line.unallocated_amount - line.amount) <= 0.01;
+function allocatedTotal(line: LineView) {
+  return line.allocations.reduce((sum, row) => sum + row.allocated, 0);
 }
 
-function receivedEquation(line: LineView) {
-  const parts = line.allocations.map((row) => gbp(row.allocated));
-  if (line.unallocated_amount !== 0) parts.push(gbp(line.unallocated_amount));
-  return `${parts.join(" + ")} = ${gbp(line.amount)} received`;
+function receiptBalances(line: LineView) {
+  return Math.abs(allocatedTotal(line) + line.unallocated_amount - line.amount) <= 0.01;
+}
+
+function BalanceRow({ line }: { line: LineView }) {
+  const balanced = receiptBalances(line);
+  const allocated = allocatedTotal(line);
+  const unallocated =
+    line.unallocated_amount !== 0 ? ` + ${gbp(line.unallocated_amount)} unallocated` : "";
+  const Icon = balanced ? Check : AlertTriangle;
+  return (
+    <div
+      className={`mt-2 flex h-8 items-center gap-2 rounded-[6px] px-2.5 text-[12px] ${
+        balanced ? "bg-memory-tint text-memory" : "bg-risk-tint text-risk"
+      }`}
+    >
+      <Icon className="h-3.5 w-3.5 shrink-0" strokeWidth={2.25} aria-hidden />
+      <span className="font-medium">{balanced ? "Balances:" : "Does not balance:"}</span>
+      <span className="money">
+        {gbp(allocated)} allocated{unallocated} of {gbp(line.amount)} received
+      </span>
+    </div>
+  );
+}
+
+const TH = "label h-8 whitespace-nowrap border-b border-line bg-canvas px-3 text-left align-middle font-medium";
+const TD = "h-10 whitespace-nowrap border-b border-line px-3 align-middle";
+
+function AllocationTable({ line }: { line: LineView }) {
+  return (
+    <div>
+      <div className="label mb-2">Proposed allocation</div>
+      <div className="overflow-auto rounded-[8px] border border-line">
+        <table className="w-full min-w-[640px] border-separate border-spacing-0 text-[13px]">
+          <thead>
+            <tr>
+              <th className={TH}>Tenant</th>
+              <th className={TH}>Charge</th>
+              <th className={`${TH} text-right`}>Outstanding before</th>
+              <th className={`${TH} text-right`}>Allocated</th>
+              <th className={`${TH} text-right`}>Outstanding after</th>
+            </tr>
+          </thead>
+          <tbody className="[&>tr:last-child>td]:border-b-0">
+            {line.allocations.map((row) => (
+              <tr key={row.charge_id}>
+                <td className={TD}>
+                  <span className="font-medium text-ink">{row.tenant_name}</span>
+                  <span className="ml-2 text-[12px] text-muted">{row.unit}</span>
+                </td>
+                <td className={`${TD} whitespace-nowrap`}>
+                  <span className="mono text-[12px] text-ink">{row.charge_id}</span>
+                  <span className="ml-2 text-[12px] text-muted">
+                    {row.charge_type.replaceAll("_", " ")} · {row.period}
+                  </span>
+                </td>
+                <td className={`${TD} text-right`}>
+                  <Money value={row.outstanding_before} tone="muted" />
+                </td>
+                <td className={`${TD} text-right`}>
+                  <Money value={row.allocated} className="font-medium" />
+                </td>
+                <td className={`${TD} text-right`}>
+                  <Money value={row.outstanding_after} tone="muted" />
+                </td>
+              </tr>
+            ))}
+            {line.unallocated_amount !== 0 ? (
+              <tr className="bg-queue-tint/50">
+                <td className={`${TD} font-medium text-queue`} colSpan={3}>
+                  Unallocated
+                </td>
+                <td className={`${TD} text-right`}>
+                  <Money value={line.unallocated_amount} className="font-medium text-queue" />
+                </td>
+                <td className={TD} />
+              </tr>
+            ) : null}
+          </tbody>
+        </table>
+      </div>
+      <BalanceRow line={line} />
+    </div>
+  );
 }
 
 export function DetailPane({
@@ -65,154 +147,102 @@ export function DetailPane({
   const unallocated = keepsUnallocated(line);
   const showLedger = !unallocated && line.allocations.length > 0;
   const evidence = sortEvidence(line.evidence);
-  const balanced = receiptBalances(line);
 
   return (
-    <section className="flex h-full min-h-0 min-w-0 flex-col overflow-hidden rounded-lg border border-line bg-surface">
-      <header className="shrink-0 border-b border-line px-5 py-4">
-        <div className="flex items-start justify-between gap-4">
-          <div className="min-w-0">
-            <h2 className="text-[28px] font-semibold leading-tight tracking-tight text-ink">
-              {line.payer_name}
-            </h2>
-            <div className="mt-1 font-mono text-[14px] text-muted">{line.reference}</div>
-            <div className="mt-1 text-[13px] text-muted">{shortDate(line.date)}</div>
+    <section className="flex h-full min-h-0 min-w-0 flex-col overflow-hidden rounded-[8px] border border-line bg-surface">
+      <header className="flex shrink-0 items-center justify-between gap-6 border-b border-line px-6 py-4">
+        <div className="min-w-0">
+          <h2 className="mono truncate text-[17px] font-medium leading-6 text-ink">
+            {line.payer_name}
+          </h2>
+          <div className="mono mt-0.5 flex gap-2 truncate text-[12px] text-muted">
+            <span className="truncate">{line.reference}</span>
+            <span aria-hidden>·</span>
+            <span className="whitespace-nowrap">{shortDate(line.date)}</span>
           </div>
+        </div>
+        <div className="flex shrink-0 items-center gap-4">
           {line.review_reason ? (
-            <span className="shrink-0 rounded-full bg-queue-tint px-3 py-1 text-[12px] font-semibold text-queue">
+            <span className="inline-flex h-6 items-center rounded-full bg-queue-tint px-2.5 text-[12px] font-medium text-queue">
               {line.review_reason}
             </span>
           ) : null}
+          <Money value={line.amount} size="kpi" />
         </div>
-        <p className="money tabular mt-4 text-[44px] font-semibold leading-none text-ink">
-          {gbp(line.amount)}
-        </p>
       </header>
 
-      <div className="min-h-0 flex-1 space-y-6 overflow-auto overscroll-contain px-5 py-5">
+      <div className="min-h-0 flex-1 space-y-6 overflow-auto overscroll-contain px-6 py-5">
         {unallocated ? (
-          <div className="rounded-md border border-line bg-canvas px-4 py-4">
-            <p className="font-semibold text-ink">Nothing allocated</p>
-            <p className="mt-2 text-[18px] leading-relaxed">
+          <div className="rounded-[8px] border border-line bg-canvas px-4 py-3">
+            <div className="label">Nothing allocated</div>
+            <p className="mt-1.5 text-[16px] leading-relaxed text-ink">
               Nothing was allocated.
-              {line.reasoning ? ` ${line.reasoning}` : ""}
+              {line.reasoning ? ` ${moneyText(line.reasoning)}` : ""}
             </p>
           </div>
         ) : null}
 
-        {showLedger ? (
-          <div>
-            <div className="mb-2 text-[12px] font-semibold uppercase tracking-[0.06em] text-muted">
-              Proposed allocation
-            </div>
-            <div className="overflow-auto rounded-md border border-line">
-              <table className="w-full min-w-[640px] border-collapse text-left text-[13px]">
-                <thead className="bg-canvas text-[11px] uppercase tracking-[0.05em] text-muted">
-                  <tr>
-                    <th className="px-3 py-2 font-medium">Tenant</th>
-                    <th className="px-3 py-2 font-medium">Charge</th>
-                    <th className="px-3 py-2 text-right font-medium">
-                      Outstanding before
-                    </th>
-                    <th className="px-3 py-2 text-right font-medium">Allocated</th>
-                    <th className="px-3 py-2 text-right font-medium">
-                      Outstanding after
-                    </th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {line.allocations.map((row) => (
-                    <tr key={row.charge_id} className="border-t border-line">
-                      <td className="px-3 py-2">
-                        <div className="font-medium">{row.tenant_name}</div>
-                        <div className="text-muted">{row.unit}</div>
-                      </td>
-                      <td className="px-3 py-2">
-                        <div className="font-mono">{row.charge_id}</div>
-                        <div className="text-muted">
-                          {row.charge_type.replaceAll("_", " ")} · {row.period}
-                        </div>
-                      </td>
-                      <td className="px-3 py-2 text-right">
-                        <Money value={row.outstanding_before} />
-                      </td>
-                      <td className="px-3 py-2 text-right">
-                        <Money value={row.allocated} />
-                      </td>
-                      <td className="px-3 py-2 text-right">
-                        <Money value={row.outstanding_after} />
-                      </td>
-                    </tr>
-                  ))}
-                  {line.unallocated_amount !== 0 ? (
-                    <tr className="border-t border-line bg-queue-tint/40">
-                      <td className="px-3 py-2 font-medium" colSpan={3}>
-                        Unallocated
-                      </td>
-                      <td className="px-3 py-2 text-right">
-                        <Money value={line.unallocated_amount} />
-                      </td>
-                      <td />
-                    </tr>
-                  ) : null}
-                </tbody>
-              </table>
-            </div>
-            <p className="mt-2 flex items-center gap-2 text-[13px] text-muted">
-              {balanced ? (
-                <Check className="h-4 w-4 shrink-0 text-ink" aria-hidden />
-              ) : null}
-              <span className="money text-ink">{receivedEquation(line)}</span>
-            </p>
-          </div>
-        ) : null}
+        {showLedger ? <AllocationTable line={line} /> : null}
 
         <section>
-          <h3 className="mb-2 text-[12px] font-semibold uppercase tracking-[0.06em] text-muted">
-            Why
-          </h3>
+          <div className="label mb-2">Why</div>
           <div className="flex flex-wrap items-center gap-3">
             <MethodBadge method={line.method} />
-            <div className="w-[140px]">
-              <ConfidenceMeter value={line.confidence} />
-            </div>
+            <SegmentMeter value={line.confidence} tone={line.method === "agent" ? "agent" : "ink"} />
           </div>
           {!unallocated && line.reasoning ? (
-            <p className="mt-3 text-[18px] leading-relaxed">{line.reasoning}</p>
+            <p className="mt-3 max-w-[72ch] text-[16px] leading-[1.55] text-ink">
+              {moneyText(line.reasoning)}
+            </p>
           ) : null}
         </section>
 
-        <section>
-          <h3 className="mb-3 text-[12px] font-semibold uppercase tracking-[0.06em] text-muted">
-            Evidence · every claim is quoted from a source
-          </h3>
-          <div className="grid grid-cols-2 gap-3">
-            {evidence.map((item, index) => (
-              <EvidenceCard key={`${item.type}-${item.ref}-${index}`} item={item} />
-            ))}
-          </div>
-        </section>
+        {evidence.length > 0 ? (
+          <section>
+            <div className="mb-2 flex items-baseline gap-2">
+              <span className="label">Evidence</span>
+              <span className="text-[12px] text-muted">Every claim is quoted from a source</span>
+            </div>
+            <div className="grid grid-cols-2 gap-3">
+              {evidence.map((item, index) => (
+                <EvidenceCard
+                  key={`${item.type}-${item.ref}-${index}`}
+                  item={item}
+                  className={isDecisiveEvidence(item.type) ? "col-span-2" : ""}
+                />
+              ))}
+            </div>
+          </section>
+        ) : null}
       </div>
 
-      <div className="flex shrink-0 flex-wrap items-center gap-3 border-t border-line bg-surface px-5 py-4">
+      <div className="flex h-14 shrink-0 items-center gap-2 border-t border-line bg-surface px-6">
         <button
           type="button"
           onClick={onApprove}
           disabled={busy}
-          className="rounded-md bg-ink px-4 py-2.5 text-[14px] font-semibold text-surface hover:opacity-90 disabled:opacity-60"
+          className="inline-flex h-9 items-center gap-2 rounded-[8px] bg-approve px-3.5 text-[13px] font-medium text-surface hover:opacity-90 disabled:opacity-60"
         >
+          <Check className="h-4 w-4" strokeWidth={2.25} aria-hidden />
           {unallocated ? "Keep unallocated" : "Approve"}
+          <kbd className="keycap !h-4 !min-w-4 !border-surface/30 !bg-transparent !text-surface">
+            A
+          </kbd>
         </button>
         <button
           type="button"
           onClick={onReject}
           disabled={busy}
-          className="rounded-md border border-line bg-transparent px-4 py-2.5 text-[14px] font-medium text-ink hover:bg-line/40 disabled:opacity-60"
+          className="inline-flex h-9 items-center gap-2 rounded-[8px] border border-line bg-surface px-3.5 text-[13px] font-medium text-ink hover:bg-canvas disabled:opacity-60"
         >
+          <X className="h-4 w-4 text-muted" strokeWidth={2.25} aria-hidden />
           Reject
+          <Keycap>R</Keycap>
         </button>
-        <span className="text-[12px] text-muted">
-          A approve · R reject · J/K next/prev
+        <span className="ml-auto flex items-center gap-1.5 text-[12px] text-muted">
+          <Keycap>J</Keycap>
+          <Keycap>K</Keycap>
+          <span className="ml-1">next / previous</span>
         </span>
       </div>
     </section>

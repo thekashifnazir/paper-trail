@@ -1,14 +1,53 @@
 "use client";
 
 import { useEffect, useRef } from "react";
-import { ConfidenceMeter, Money } from "@/components/shared";
-import { gbp } from "@/lib/format";
+import { Money } from "@/components/shared";
+import { gbp, pct } from "@/lib/format";
 import type { LineView } from "@/lib/types";
 
 export type QueueGroup = {
   reason: string;
   items: LineView[];
 };
+
+function QueueItem({
+  line,
+  selected,
+  leaving,
+  onSelect,
+}: {
+  line: LineView;
+  selected: boolean;
+  leaving: boolean;
+  onSelect: (id: string) => void;
+}) {
+  return (
+    <button
+      type="button"
+      data-line-id={line.id}
+      onClick={() => onSelect(line.id)}
+      aria-current={selected ? "true" : undefined}
+      className={`flex h-14 w-full flex-col justify-center gap-0.5 border-b border-l-2 border-b-line px-4 text-left ${
+        selected ? "border-l-ink bg-canvas" : "border-l-transparent hover:bg-canvas"
+      } ${leaving ? "opacity-0" : ""}`}
+    >
+      <span className="flex items-baseline gap-3">
+        <span className="mono min-w-0 flex-1 truncate text-[13px] font-medium text-ink">
+          {line.payer_name}
+        </span>
+        <Money value={line.amount} className="font-medium" />
+      </span>
+      <span className="flex items-baseline gap-3">
+        <span className="mono min-w-0 flex-1 truncate text-[12px] text-muted">
+          {line.reference}
+        </span>
+        {line.confidence != null ? (
+          <span className="mono text-[11px] text-muted">{pct(line.confidence)}</span>
+        ) : null}
+      </span>
+    </button>
+  );
+}
 
 export function QueuePane({
   count,
@@ -36,53 +75,29 @@ export function QueuePane({
   }, [selectedId]);
 
   return (
-    <section className="flex h-full min-h-0 flex-col overflow-hidden rounded-[12px] border border-line bg-surface">
-      <header className="shrink-0 border-b border-line px-3 py-2.5">
-        <h1 className="text-[20px] font-medium tracking-[-0.02em] text-ink">
-          Exceptions
-        </h1>
-        <p className="mt-0.5 text-[12px] text-muted">
-          {count} to review · {gbp(total)}
-        </p>
+    <section className="flex h-full min-h-0 flex-col overflow-hidden rounded-[8px] border border-line bg-surface">
+      <header className="flex h-11 shrink-0 items-center justify-between gap-3 border-b border-line px-4">
+        <span className="text-[13px] font-medium text-ink">
+          <span className="mono">{count}</span> to review
+        </span>
+        <span className="money text-[12px] text-muted">{gbp(total)}</span>
       </header>
       <div ref={listRef} className="min-h-0 flex-1 overflow-auto overscroll-contain">
         {groups.map((group) => (
           <div key={group.reason}>
-            <div className="sticky top-0 z-10 bg-canvas px-3 py-1.5 text-[12px] font-medium tracking-[0.04em] text-muted">
-              {group.reason} · {group.items.length}
+            <div className="label sticky top-0 z-10 flex h-8 items-center justify-between border-b border-line bg-canvas px-4">
+              <span>{group.reason}</span>
+              <span className="mono">{group.items.length}</span>
             </div>
-            {group.items.map((line) => {
-              const selected = line.id === selectedId;
-              const leaving = line.id === leavingId;
-              return (
-                <button
-                  key={line.id}
-                  type="button"
-                  data-line-id={line.id}
-                  onClick={() => onSelect(line.id)}
-                  className={`flex w-full items-start gap-2 border-b border-l-2 border-b-line px-3 py-2 text-left transition-opacity duration-[160ms] ease-out motion-reduce:transition-none ${
-                    selected
-                      ? "border-l-ink bg-canvas"
-                      : "border-l-transparent hover:bg-canvas/70"
-                  } ${leaving ? "opacity-0" : "opacity-100"}`}
-                >
-                  <div className="min-w-0 flex-1">
-                    <div className="truncate text-[14px] font-medium leading-snug">
-                      {line.payer_name}
-                    </div>
-                    <div className="truncate font-mono text-[11px] text-muted">
-                      {line.reference}
-                    </div>
-                    <div className="mt-1 w-[100px]">
-                      <ConfidenceMeter value={line.confidence} />
-                    </div>
-                  </div>
-                  <div className="shrink-0 pt-0.5">
-                    <Money value={line.amount} />
-                  </div>
-                </button>
-              );
-            })}
+            {group.items.map((line) => (
+              <QueueItem
+                key={line.id}
+                line={line}
+                selected={line.id === selectedId}
+                leaving={line.id === leavingId}
+                onSelect={onSelect}
+              />
+            ))}
           </div>
         ))}
       </div>

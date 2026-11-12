@@ -1,8 +1,9 @@
 "use client";
 
+import Link from "next/link";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { toast } from "sonner";
-import { EmptyState } from "@/components/shared";
+import { EmptyState, ErrorNote, Skeleton } from "@/components/shared";
 import { useStore } from "@/lib/store";
 import type { LineView, ReviewReason } from "@/lib/types";
 import { DetailPane } from "./DetailPane";
@@ -18,7 +19,7 @@ const GROUP_ORDER: Exclude<ReviewReason, null>[] = [
 ];
 
 export function ExceptionsScreen() {
-  const { lines, loading, approve, reject } = useStore();
+  const { lines, loading, error, approve, reject, refresh } = useStore();
   const [selectedId, setSelectedId] = useState<string | null>(null);
   const [leavingId, setLeavingId] = useState<string | null>(null);
   const [inflight, setInflight] = useState(false);
@@ -129,16 +130,32 @@ export function ExceptionsScreen() {
   }, [flat, selectedId, settle]);
 
   if (queue.length === 0) {
-    const notRun =
-      lines.length === 0 || lines.every((line) => line.status === null);
+    if (error) {
+      return <ErrorNote message={error} onRetry={() => void refresh()} />;
+    }
+    if (lines.length === 0 && loading) {
+      return (
+        <div className="grid h-[calc(100dvh-var(--topbar-h)-40px)] grid-cols-[380px_minmax(0,1fr)] gap-4">
+          <div className="overflow-hidden rounded-[8px] border border-line bg-surface">
+            <Skeleton rows={9} height={56} />
+          </div>
+          <div className="rounded-[8px] border border-line bg-surface" />
+        </div>
+      );
+    }
+    const notRun = lines.length === 0 || lines.every((line) => line.status === null);
     if (notRun) {
       return (
         <EmptyState
-          title={lines.length === 0 && loading ? "Loading statement…" : "Run allocation first"}
-          body={
-            lines.length === 0 && loading
-              ? "Fetching the statement."
-              : "Run allocation on Cash application. Receipts that need a decision will queue here."
+          title="Run allocation first"
+          body="Run allocation on Cash application. Receipts that need a decision will queue here."
+          action={
+            <Link
+              href="/"
+              className="inline-flex h-8 items-center rounded-[8px] bg-ink px-3 text-[13px] font-medium text-surface"
+            >
+              Go to Cash application
+            </Link>
           }
         />
       );
@@ -149,7 +166,7 @@ export function ExceptionsScreen() {
     return (
       <EmptyState
         title="Queue clear"
-        body={`${resolved} of ${lines.length} receipts resolved.`}
+        body={`${resolved} of ${lines.length} receipts resolved. Nothing needs a decision.`}
       />
     );
   }
@@ -158,7 +175,9 @@ export function ExceptionsScreen() {
   const total = queue.reduce((sum, line) => sum + line.amount, 0);
 
   return (
-    <div className="grid h-[calc(100dvh-5rem)] min-h-0 grid-cols-[380px_minmax(0,1fr)] gap-4">
+    <div className="flex h-[calc(100dvh-var(--topbar-h)-40px)] min-h-0 flex-col gap-3">
+      {error ? <ErrorNote message={error} onRetry={() => void refresh()} /> : null}
+      <div className="grid min-h-0 flex-1 grid-cols-[380px_minmax(0,1fr)] gap-4">
       <QueuePane
         count={queue.length}
         total={total}
@@ -178,8 +197,11 @@ export function ExceptionsScreen() {
           onReject={() => void settle("reject", selected)}
         />
       ) : (
-        <section className="h-full min-h-0 rounded-lg border border-line bg-surface" />
+        <section className="flex h-full min-h-0 items-center justify-center rounded-[8px] border border-line bg-surface text-[13px] text-muted">
+          Select a receipt to review
+        </section>
       )}
+      </div>
     </div>
   );
 }
