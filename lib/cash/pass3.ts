@@ -1,12 +1,13 @@
-// Pass 3 orchestration. PASS3_MODE=grok (default): every open line goes to Grok.
-// PASS3_MODE=jev_then_grok: Jev first (~0.2 s a line); code allocates what Jev is sure of, sends what Jev is sure
-// nobody fits (or is a duplicate) to a person, and passes only the rest to Grok.
+// Pass 3 orchestration. Default jev_then_grok when TYPESAFE_API_KEY is set: Jev first (~0.2 s a line); code
+// allocates what Jev is sure of, sends what Jev is sure nobody fits (or is a duplicate) to a person, and passes only
+// the rest to Grok. Sep + Oct: 0 wrong, half the xAI calls of grok-only. PASS3_MODE=grok (or no TypeSafe key):
+// every open line goes to Grok.
 import { proposeAll, type AgentConfig, type Pass3Input, type Pass3Result } from "./agent";
 import { askJev, decide, type JevAnswers } from "./jev";
 import type { Pence } from "./types";
 
 export type Pass3Mode = "grok" | "jev_then_grok";
-export const pass3Mode = (): Pass3Mode => (process.env.PASS3_MODE === "jev_then_grok" ? "jev_then_grok" : "grok");
+export const pass3Mode = (): Pass3Mode => (process.env.PASS3_MODE === "grok" || !process.env.TYPESAFE_API_KEY ? "grok" : "jev_then_grok");
 
 export interface RoutedResult extends Pass3Result {
   via: "grok" | "jev" | "jev_person";

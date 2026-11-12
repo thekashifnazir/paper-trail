@@ -1,5 +1,5 @@
 // POST /api/agent?month=2026-09[&concurrency=20][&replay=results/2026-09.json]
-// PASS3_MODE=jev_then_grok asks Jev (TypeSafe, TYPESAFE_API_KEY) first and sends only its unsure lines to Grok.
+// With TYPESAFE_API_KEY set, Jev answers first and only its unsure lines go to Grok (PASS3_MODE=grok turns Jev off).
 // Pass 3 for the month's open lines, live on the xAI API (XAI_API_KEY, server-side only) or replayed from a saved
 // run (instant; also via CASH_AGENT_REPLAY=1, which replays results/<month>.json). Every answer goes through
 // propose(): sum to the penny, known charges, evidence found in its source, confidence threshold.

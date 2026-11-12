@@ -28,7 +28,7 @@ const key = process.env.XAI_API_KEY;
 if (!stub && !key) throw new Error("XAI_API_KEY missing: put it in .env (git-ignored), or run with --stub");
 const cfg: AgentConfig = stub ? { apiKey: "stub", model: "stub", fetch: stubFetch(all.truth) } : { apiKey: key!, model: modelName() };
 const mode = pass3Mode();
-if (save && mode !== "grok") throw new Error("--save writes the README results: run it with PASS3_MODE=grok");
+if (save && mode !== "grok") throw new Error("--save rewrites the README's grok-only results: run it with PASS3_MODE=grok");
 console.log(`pass 3: ${stub ? "STUB (answer key replay, not a model result)" : `xAI ${cfg.model}`}, mode ${mode}, concurrency ${concurrency}\n`);
 const leaseOf = new Map(all.charges.map((c) => [c.tenant_id, c.lease_citation]));
 let evChecked = 0, evRejected = 0;

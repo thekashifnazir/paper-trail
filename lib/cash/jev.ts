@@ -1,7 +1,7 @@
 // Jev (TypeSafe System One) as the matcher before Grok: one request per open line after passes 1 and 2.
 // Jev judges which candidate charge the receipt pays and what shape the payment has; code does the arithmetic
 // (Jev is not a calculator) and decides: allocate, leave open for a person, or fall through to Grok.
-// PASS3_MODE=jev_then_grok turns it on; the default stays grok until this path shows 0 wrong on Sep + Oct.
+// The default pass 3 path when TYPESAFE_API_KEY is set (lib/cash/pass3.ts); PASS3_MODE=grok turns it off.
 import type { Pass3Input } from "./agent";
 import { fmt, toPence } from "./money";
 import type { AgentProposal, Pence } from "./types";
