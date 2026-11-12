@@ -1,5 +1,6 @@
 // Port of cashgen/score.py. A line counts as correct only when its set of (charge_id, amount) equals the truth
-// exactly. Duplicates and unidentifiable lines are correct only when left unallocated.
+// exactly and, when bank amounts are given, the amount left unallocated equals true_unallocated.
+// Duplicates and unidentifiable lines are correct only when left unallocated.
 import { toPence } from "./money";
 import type { Pence } from "./types";
 
@@ -8,6 +9,7 @@ export interface TruthRow {
   case: string;
   true_charge_ids: string;
   true_amounts: string;
+  true_unallocated?: string;
 }
 
 export interface ScoredAllocation {
@@ -29,7 +31,7 @@ export interface Score {
   byMethod: Record<string, number>;
 }
 
-export function score(truth: TruthRow[], allocations: ScoredAllocation[]): Score {
+export function score(truth: TruthRow[], allocations: ScoredAllocation[], bankAmount?: Map<string, Pence>): Score {
   const got = new Map<string, Set<string>>();
   const method = new Map<string, string>();
   for (const a of allocations) {
@@ -54,6 +56,11 @@ export function score(truth: TruthRow[], allocations: ScoredAllocation[]): Score
       ok = want.size === 0; // leaving a line open is right only when the truth is "no allocation"
     } else {
       ok = g.size === want.size && [...g].every((x) => want.has(x));
+      const amt = bankAmount?.get(t.bank_line_id);
+      if (ok && amt !== undefined && t.true_unallocated !== undefined) {
+        const placed = [...g].reduce((x, k) => x + Number(k.split("|")[1]), 0);
+        ok = amt - placed === toPence(t.true_unallocated);
+      }
       if (ok) right += 1;
       else wrong += 1;
     }

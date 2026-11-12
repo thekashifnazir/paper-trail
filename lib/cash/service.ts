@@ -3,7 +3,7 @@
 import { candidates } from "./candidates";
 import { checkProposal } from "./checkSum";
 import { parseCsv } from "./csv";
-import { hasData, loadData } from "./data";
+import { loadData, type TenantNote } from "./data";
 import { allocate } from "./match";
 import { fmt, toPence } from "./money";
 import { score, type TruthRow } from "./score";
@@ -40,6 +40,7 @@ export interface Store {
   aliases: PayerAlias[];
   holds: Hold[];
   reasoning: Map<string, string>; // bank_line_id -> agent reasoning
+  notes: TenantNote[]; // dispute history etc., shown to the agent with the candidates
   audit: AuditRow[];
 }
 
@@ -52,19 +53,16 @@ export class HttpError extends Error {
 const now = () => new Date().toISOString();
 
 export function emptyStore(): Store {
-  return { charges: [], tenants: [], truth: [], bankLines: [], allocations: [], aliases: [], holds: [], reasoning: new Map(), audit: [] };
+  return { charges: [], tenants: [], truth: [], bankLines: [], allocations: [], aliases: [], holds: [], reasoning: new Map(), notes: [], audit: [] };
 }
 
-// One store per server process; reference data comes from CASH_DATA_DIR when present.
+// One store per server process. Reference data (tenants, charges, notes, answer key for Sep + Oct) comes from
+// data/sample; bank lines arrive through POST /api/statements.
 const g = globalThis as unknown as { __cashStore?: Store };
 export function store(): Store {
   if (!g.__cashStore) {
-    const s = emptyStore();
-    if (hasData()) {
-      const d = loadData();
-      Object.assign(s, { charges: d.charges, tenants: d.tenants, truth: d.truth });
-    }
-    g.__cashStore = s;
+    const d = loadData();
+    g.__cashStore = Object.assign(emptyStore(), { charges: d.charges, tenants: d.tenants, truth: d.truth, notes: d.notes });
   }
   return g.__cashStore;
 }
@@ -134,6 +132,7 @@ export function exceptions(s: Store) {
     open_lines: items,
     waiting_for_approval: [...new Set(proposed.map((a) => a.bank_line_id))].map((id) => explain(s, id)),
     tenants: s.tenants.filter((t) => rel.has(t.tenant_id)).map(({ tenant_id, tenant_name, leaseholder_type, parent_company, unit }) => ({ tenant_id, tenant_name, leaseholder_type, parent_company, unit })),
+    tenant_notes: s.notes.filter((n) => rel.has(n.tenant_id)),
     aliases,
   };
 }
@@ -251,9 +250,11 @@ export function metrics(s: Store) {
   const loaded = new Set(s.bankLines.map((b) => b.id));
   const truth = s.truth.filter((t) => loaded.has(t.bank_line_id));
   if (truth.length) {
-    const sc = score(truth, [
-      ...s.allocations.filter((a) => a.status === "approved").map((a) => ({ bank_line_id: a.bank_line_id, charge_id: a.charge_id, amount: a.amount, method: a.method })),
-    ]);
+    const sc = score(
+      truth,
+      s.allocations.filter((a) => a.status === "approved").map((a) => ({ bank_line_id: a.bank_line_id, charge_id: a.charge_id, amount: a.amount, method: a.method })),
+      new Map(s.bankLines.map((b) => [b.id, toPence(b.amount)])),
+    );
     out.against_truth = { allocated: sc.allocated, right: sc.right, wrong: sc.wrong, precision: sc.precision, per_case: sc.perCase };
   }
   return out;
