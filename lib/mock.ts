@@ -671,13 +671,13 @@ export const mockApi = {
     };
 
     emit("exact", 20);
-    await wait(400);
+    await wait(800);
     store.lines[month] = FINALS[month].map((f, i) =>
       f.method === "exact" ? resolve(f) : store.lines[month][i],
     );
 
     emit("memory", 55);
-    await wait(400);
+    await wait(700);
     store.lines[month] = FINALS[month].map((f, i) => {
       const resolved = resolve(f);
       if (resolved.method === "memory") return resolved;
@@ -686,7 +686,7 @@ export const mockApi = {
     });
 
     emit("agent", 85);
-    await wait(600);
+    await wait(1500);
     store.lines[month] = FINALS[month].map((f) => resolve(f));
     store.ran[month] = true;
     emit("done", 100);

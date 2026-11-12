@@ -5,6 +5,7 @@ import { AllocationBar, type BarSegment } from "@/components/shared";
 import { getLines, getMode } from "@/lib/api";
 import { displayLines, useStore } from "@/lib/store";
 import type { LineView } from "@/lib/types";
+import { AgentWorking } from "./AgentWorking";
 import { KpiRow } from "./KpiRow";
 import { LineDrawer } from "./LineDrawer";
 import { LineTable, NO_FILTERS, type LineFilter, type LineFilters } from "./LineTable";
@@ -139,6 +140,13 @@ export function RunScreen() {
         }
         error={error}
         onRun={startRun}
+      />
+      <AgentWorking
+        running={running}
+        stage={progress.stage}
+        monthLabel={monthName(month)}
+        lines={monthLines}
+        live={getMode() === "live"}
       />
       <KpiRow lines={monthLines} started={running || hasRun} score={monthSummary?.score} />
       <section className="rounded-[8px] border border-line bg-surface px-4 py-3.5">
