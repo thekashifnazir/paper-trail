@@ -2,9 +2,10 @@
 // usage: npx tsx scripts/pass3.ts            (xAI; needs XAI_API_KEY in .env; XAI_MODEL, default grok-4.7)
 //        npx tsx scripts/pass3.ts --save     (also writes results/<month>.json: per line method, status, allocations,
 //                                            confidence; no answer-key fields)
+//        npx tsx scripts/pass3.ts --holdout  (once, at the end: Sep + Oct build memory, then November is scored)
 //        npx tsx scripts/pass3.ts --stub     (replays the answer key through the same path; proves plumbing only)
 // Between months a simulated person approves queued proposals that match the answer key and rejects the rest;
-// approvals become aliases, so October runs with September's memory. The November hold-out is never read here.
+// approvals become aliases, so October runs with September's memory. The November hold-out is read only with --holdout.
 import { modelName, pass3Input, stubFetch, type AgentConfig } from "../lib/cash/agent";
 import { pass3Mode, runPass3 } from "../lib/cash/pass3";
 import { candidates } from "../lib/cash/candidates";
@@ -23,7 +24,11 @@ if (onlyMonth === "2026-11") throw new Error("November is the hold-out: score it
 const save = process.argv.includes("--save");
 if (save && stub) throw new Error("--save writes real results; it cannot be combined with --stub");
 try { process.loadEnvFile(".env"); } catch { /* no .env */ }
+const holdout = process.argv.includes("--holdout");
+if (holdout && (onlyMonth || save)) throw new Error("--holdout runs Sep, Oct and Nov in one go and saves nothing");
 const all = loadData();
+const hold = holdout ? loadData({ holdout: true }) : null;
+if (hold) { all.charges.push(...hold.charges); all.notes.push(...hold.notes); }
 const key = process.env.XAI_API_KEY;
 if (!stub && !key) throw new Error("XAI_API_KEY missing: put it in .env (git-ignored), or run with --stub");
 const cfg: AgentConfig = stub ? { apiKey: "stub", model: "stub", fetch: stubFetch(all.truth) } : { apiKey: key!, model: modelName() };
@@ -41,9 +46,9 @@ const wrongLines: string[] = [];
 const raw: unknown[] = [];
 const t0 = Date.now();
 
-for (const month of onlyMonth ? [onlyMonth] : TUNING_MONTHS) {
+for (const month of onlyMonth ? [onlyMonth] : hold ? [...TUNING_MONTHS, "2026-11"] : TUNING_MONTHS) {
   const tm = Date.now();
-  const d = loadData({ months: [month] });
+  const d = month === "2026-11" && hold ? hold : loadData({ months: [month] });
   const r = allocate(all.charges, d.bankLines, aliases, open);
   open = r.openAmount;
   const inputs = r.leftover.map((b) => pass3Input(candidates(b, all.charges, open, all.tenants, aliases, d.bankLines), all.tenants, all.notes, all.companyLookup));

@@ -1,7 +1,8 @@
 "use client";
 
+import Link from "next/link";
 import { useRef, useState } from "react";
-import { ChevronRight, Play, Upload } from "lucide-react";
+import { ArrowRight, ChevronRight, Play, Upload } from "lucide-react";
 import { ErrorNote, METHOD_STYLE } from "@/components/shared";
 import type { RunProgress } from "@/lib/types";
 
@@ -48,6 +49,7 @@ export function StatementCard({
   hasRun,
   stage,
   counts,
+  outcome,
   error,
   onRun,
 }: {
@@ -56,6 +58,7 @@ export function StatementCard({
   hasRun: boolean;
   stage: RunProgress["stage"];
   counts: StepCounts;
+  outcome: { matched: number; queue: number } | null;
   error: string | null;
   onRun: () => void;
 }) {
@@ -117,6 +120,23 @@ export function StatementCard({
             );
           })}
         </ol>
+        {outcome && !running ? (
+          <span className="flex shrink-0 items-center gap-3 text-[13px]">
+            <span className="text-muted">
+              <span className="mono text-ink">{outcome.matched}</span> matched ·{" "}
+              <span className="mono text-ink">{outcome.queue}</span> need you
+            </span>
+            {outcome.queue > 0 ? (
+              <Link
+                href="/exceptions"
+                className="inline-flex h-8 items-center gap-1.5 rounded-[8px] border border-line px-2.5 font-medium text-ink hover:bg-canvas"
+              >
+                Review {outcome.queue}
+                <ArrowRight className="h-3.5 w-3.5" aria-hidden />
+              </Link>
+            ) : null}
+          </span>
+        ) : null}
         {canDrop ? (
           <button
             type="button"

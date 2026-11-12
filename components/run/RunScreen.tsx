@@ -8,6 +8,7 @@ import type { LineView } from "@/lib/types";
 import { KpiRow } from "./KpiRow";
 import { LineDrawer } from "./LineDrawer";
 import { LineTable, type LineFilter } from "./LineTable";
+import { RejectedPanel } from "./RejectedPanel";
 import { StatementCard } from "./StatementCard";
 import "./run.css";
 
@@ -115,6 +116,16 @@ export function RunScreen() {
         hasRun={hasRun}
         stage={progress.stage}
         counts={stepCounts}
+        outcome={
+          hasRun
+            ? {
+                matched: segments
+                  .filter((seg) => seg.key !== "queue")
+                  .reduce((sum, seg) => sum + seg.count, 0),
+                queue: segments.find((seg) => seg.key === "queue")?.count ?? 0,
+              }
+            : null
+        }
         error={error}
         onRun={startRun}
       />
@@ -145,6 +156,7 @@ export function RunScreen() {
         onQuery={setQuery}
         onSelect={setSelectedId}
       />
+      <RejectedPanel />
       <LineDrawer line={selected} onClose={closeDrawer} />
     </div>
   );

@@ -1,4 +1,15 @@
-/* Run screen fills the viewport below the top bar; the table scrolls inside. */
+/* Run screen fills the viewport below the top bar; the table scrolls inside.
+   When the Rejected panel is present the page grows and scrolls instead. */
 .run-screen {
+  min-height: calc(100dvh - var(--topbar-h) - 40px);
   height: calc(100dvh - var(--topbar-h) - 40px);
+}
+
+.run-screen:has(#rejected-panel-title) {
+  height: auto;
+}
+
+.run-screen:has(#rejected-panel-title) .run-table {
+  flex: none;
+  height: 560px;
 }

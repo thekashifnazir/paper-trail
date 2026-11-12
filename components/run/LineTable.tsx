@@ -120,7 +120,7 @@ export function LineTable({
   const initialLoad = loading && lines.length === 0;
 
   return (
-    <section className="flex min-h-0 flex-1 flex-col overflow-hidden rounded-[8px] border border-line bg-surface">
+    <section className="run-table flex min-h-0 flex-1 flex-col overflow-hidden rounded-[8px] border border-line bg-surface">
       <div className="flex h-11 shrink-0 items-center gap-4 border-b border-line px-3">
         <div className="flex h-full items-stretch">
           {FILTERS.map((item) => {

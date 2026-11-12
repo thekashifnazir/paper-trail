@@ -250,16 +250,20 @@ export function ArrearsPage() {
                         )}
                       </td>
                       <td className="h-11 px-3 text-right align-middle">
+                        {chaseSplit(row).demanded.reduce((sum, c) => sum + c.outstanding, 0) > 0 ? (
                         <button
-                          type="button"
-                          onClick={(event) => {
-                            event.stopPropagation();
-                            openChaser(row);
-                          }}
-                          className="rounded-[8px] border border-line bg-surface px-2.5 py-1 text-[12px] font-medium text-ink hover:bg-canvas"
-                        >
-                          Draft chaser
-                        </button>
+                            type="button"
+                            onClick={(event) => {
+                              event.stopPropagation();
+                              openChaser(row);
+                            }}
+                            className="rounded-[8px] border border-line bg-surface px-2.5 py-1 text-[12px] font-medium text-ink hover:bg-canvas"
+                          >
+                            Draft chaser
+                          </button>
+                        ) : (
+                          <span className="text-[12px] text-muted">Nothing to chase</span>
+                        )}
                       </td>
                     </tr>
                     {expanded === row.tenant_id ? (
