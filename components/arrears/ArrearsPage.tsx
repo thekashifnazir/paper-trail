@@ -218,14 +218,23 @@ export function ArrearsPage() {
                       }
                     >
                       <td className="h-11 px-3 align-middle">
-                        <span className="inline-flex items-baseline gap-2 whitespace-nowrap">
+                        <button
+                          type="button"
+                          className="inline-flex items-baseline gap-2 whitespace-nowrap text-left"
+                          onClick={(event) => {
+                            event.stopPropagation();
+                            setExpanded(
+                              expanded === row.tenant_id ? null : row.tenant_id,
+                            );
+                          }}
+                        >
                           <span className="font-medium text-ink">
                             {row.tenant_name}
                           </span>
                           <span className="text-[12px] text-muted">{row.unit}</span>
-                        </span>
+                        </button>
                       </td>
-                      <td className="h-11 px-3 text-right align-middle">
+                      <td className="h-11 px-3 text-right align-middle font-semibold">
                         <Money value={row.outstanding} />
                       </td>
                       <td className="h-11 px-3 align-middle text-[13px]">
