@@ -8,14 +8,22 @@ const key = () => process.env.SUPABASE_SERVICE_ROLE_KEY;
 /** The API routes read and write Supabase when both are set (CASH_DB=0 forces the in-memory engine). */
 export const dbEnabled = () => Boolean(base() && key()) && process.env.CASH_DB !== "0";
 
+/** Round trips and bytes sent since the process started (for the per-request timing line in withDb). */
+export const sbStats = { requests: 0, bytesOut: 0, bytesIn: 0 };
+
 export async function sb<T = unknown>(method: string, path: string, body?: unknown, prefer?: string, extra?: Record<string, string>): Promise<T> {
   const k = key();
   if (!base() || !k) throw new Error("SUPABASE_URL / SUPABASE_SERVICE_ROLE_KEY not set");
   const headers: Record<string, string> = { apikey: k, "Content-Type": "application/json", ...extra };
   if (k.startsWith("eyJ")) headers.Authorization = `Bearer ${k}`; // legacy JWT keys also go in Authorization
   if (prefer) headers.Prefer = prefer;
-  const r = await fetch(`${base()}/rest/v1/${path}`, { method, headers, body: body === undefined ? undefined : JSON.stringify(body), cache: "no-store" });
+  const payload = body === undefined ? undefined : JSON.stringify(body);
+  sbStats.requests += 1;
+  sbStats.bytesOut += payload?.length ?? 0;
+  // A hung request must not hold the write lock (lib/supabase-store.ts) for the rest of the function's life.
+  const r = await fetch(`${base()}/rest/v1/${path}`, { method, headers, body: payload, cache: "no-store", signal: AbortSignal.timeout(Number(process.env.SUPABASE_TIMEOUT_MS ?? 20_000)) });
   const text = await r.text();
+  sbStats.bytesIn += text.length;
   if (!r.ok) throw new Error(`Supabase ${method} ${path.split("?")[0]}: HTTP ${r.status} ${text.slice(0, 300)}`);
   return (text ? JSON.parse(text) : null) as T;
 }

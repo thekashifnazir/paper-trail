@@ -33,7 +33,7 @@ export async function POST(req: Request) {
       if (!month) return run(s);
       ctx.touchMonth(month);
       return runMonth(s, month, ctx.view);
-    }, { write: true });
+    }, month ? { write: true, month, audit: "decisions" } : { write: true });
   }
   return handle(async () => {
     const s = store();

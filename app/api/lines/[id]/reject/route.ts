@@ -10,6 +10,6 @@ function reject(s: Store, id: string, actor: Actor) {
 
 export async function POST(req: Request, ctx: { params: Promise<{ id: string }> }) {
   const { id } = await ctx.params;
-  if (dbEnabled()) return withDb("POST /api/lines/:id/reject", (s) => reject(s, id, actorOf(req)), { write: true });
+  if (dbEnabled()) return withDb("POST /api/lines/:id/reject", (s) => reject(s, id, actorOf(req)), { write: true, lineId: id.split(":")[0], audit: "none" });
   return handle(() => reject(store(), id, actorOf(req)));
 }

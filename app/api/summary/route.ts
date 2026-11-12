@@ -7,6 +7,6 @@ import { dbEnabled, withDb } from "@/lib/supabase-store";
 export const dynamic = "force-dynamic";
 export async function GET(req: Request) {
   const month = new URL(req.url).searchParams.get("month") ?? undefined;
-  if (dbEnabled()) return withDb("GET /api/summary", (_s, ctx) => runSummary(ctx.view(), month));
+  if (dbEnabled()) return withDb("GET /api/summary", (_s, ctx) => runSummary(ctx.view(), month), { month, audit: "decisions" });
   return handle(() => runSummary(store(), month));
 }
