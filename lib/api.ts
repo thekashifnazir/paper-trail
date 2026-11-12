@@ -9,9 +9,41 @@ import type {
   RunSummary,
 } from "@/lib/types";
 
-const useMock =
-  process.env.NEXT_PUBLIC_USE_MOCK === "1" ||
-  process.env.NEXT_PUBLIC_USE_MOCK === undefined;
+export type DataMode = "demo" | "live";
+
+/** Build default: NEXT_PUBLIC_USE_MOCK=0 starts in Live (engine), anything else in Demo (in-browser fixtures). */
+export const DEFAULT_MODE: DataMode = process.env.NEXT_PUBLIC_USE_MOCK === "0" ? "live" : "demo";
+const MODE_KEY = "pt.dataMode";
+
+let mode: DataMode | null = null;
+
+/** ?mode=live|demo wins, then the viewer's last choice, then the build default. */
+export function getMode(): DataMode {
+  if (mode) return mode;
+  mode = DEFAULT_MODE;
+  if (typeof window !== "undefined") {
+    try {
+      const q = new URLSearchParams(window.location.search).get("mode");
+      const saved = window.localStorage.getItem(MODE_KEY);
+      const pick = q ?? saved;
+      if (pick === "demo" || pick === "live") mode = pick;
+    } catch {
+      /* storage unavailable */
+    }
+  }
+  return mode;
+}
+
+export function setMode(next: DataMode) {
+  mode = next;
+  try {
+    window.localStorage.setItem(MODE_KEY, next);
+  } catch {
+    /* storage unavailable */
+  }
+}
+
+const isMock = () => getMode() === "demo";
 
 // Real API (NEXT_PUBLIC_USE_MOCK=0). A failed call is logged and thrown: never a silent fallback to the mock.
 async function json<T>(url: string, init?: RequestInit): Promise<T> {
@@ -44,12 +76,12 @@ async function json<T>(url: string, init?: RequestInit): Promise<T> {
 }
 
 export async function getLines(month: string): Promise<LineView[]> {
-  if (useMock) return mockApi.getLines(month);
+  if (isMock()) return mockApi.getLines(month);
   return json(`/api/lines?month=${month}`);
 }
 
 export async function getSummary(month: string): Promise<RunSummary> {
-  if (useMock) return mockApi.getSummary(month);
+  if (isMock()) return mockApi.getSummary(month);
   return json(`/api/summary?month=${month}`);
 }
 
@@ -57,31 +89,31 @@ export async function runStatement(
   month: string,
   onProgress?: (p: RunProgress) => void,
 ): Promise<RunSummary> {
-  if (useMock) return mockApi.runStatement(month, onProgress);
+  if (isMock()) return mockApi.runStatement(month, onProgress);
   return json(`/api/run?month=${month}`, { method: "POST" });
 }
 
 export async function approveLine(
   id: string,
 ): Promise<{ remembered?: string }> {
-  if (useMock) return mockApi.approveLine(id);
+  if (isMock()) return mockApi.approveLine(id);
   return json(`/api/lines/${id}/approve`, { method: "POST" });
 }
 
 export async function rejectLine(id: string): Promise<void> {
-  if (useMock) return mockApi.rejectLine(id);
+  if (isMock()) return mockApi.rejectLine(id);
   await json(`/api/lines/${id}/reject`, { method: "POST" });
 }
 
 export async function getArrears(): Promise<ArrearsRow[]> {
-  if (useMock) return mockApi.getArrears();
+  if (isMock()) return mockApi.getArrears();
   const data = await json<{ arrears: ArrearsRow[] }>("/api/arrears");
   return data.arrears ?? (data as unknown as ArrearsRow[]);
 }
 
 /** Every charge with something still owed, for matching a receipt by hand. */
 export async function getOpenCharges(month: string): Promise<OpenCharge[]> {
-  if (useMock) return mockApi.getOpenCharges(month);
+  if (isMock()) return mockApi.getOpenCharges(month);
   const data = await json<{ arrears: ArrearsRow[] }>("/api/arrears");
   const rows = data.arrears ?? (data as unknown as ArrearsRow[]);
   return rows.flatMap((row) =>
@@ -108,7 +140,7 @@ export async function manualAllocate(
   unallocated: number,
   reasoning: string,
 ): Promise<{ remembered?: string }> {
-  if (useMock) return mockApi.manualAllocate(lineId, allocations);
+  if (isMock()) return mockApi.manualAllocate(lineId, allocations);
   const res = await json<{ waits_for_person?: boolean }>("/api/proposals", {
     method: "POST",
     body: JSON.stringify({
@@ -125,16 +157,16 @@ export async function manualAllocate(
 }
 
 export async function getAudit(): Promise<AuditRow[]> {
-  if (useMock) return mockApi.getAudit();
+  if (isMock()) return mockApi.getAudit();
   return json("/api/audit");
 }
 
 export async function reset(): Promise<void> {
-  if (useMock) return mockApi.reset();
+  if (isMock()) return mockApi.reset();
   await json("/api/reset", { method: "POST" });
 }
 
 export function getProgress(): RunProgress {
-  if (useMock) return mockApi.getProgress();
+  if (isMock()) return mockApi.getProgress();
   return { stage: "idle", percent: 0 };
 }

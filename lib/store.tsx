@@ -9,7 +9,11 @@ import {
   useState,
 } from "react";
 import {
+  DEFAULT_MODE,
   approveLine,
+  getMode,
+  setMode as setApiMode,
+  type DataMode,
   getArrears,
   getAudit,
   getLines,
@@ -29,6 +33,8 @@ import type {
 } from "@/lib/types";
 
 type Store = {
+  mode: DataMode;
+  setMode: (m: DataMode) => void;
   month: string;
   setMonth: (m: string) => void;
   lines: LineView[];
@@ -99,6 +105,21 @@ function pause(ms: number) {
 
 export function StoreProvider({ children }: { children: React.ReactNode }) {
   const [month, setMonth] = useState("2026-09");
+  const [mode, setModeState] = useState<DataMode>(DEFAULT_MODE);
+
+  useEffect(() => {
+    setModeState(getMode());
+  }, []);
+
+  const setMode = useCallback((m: DataMode) => {
+    setApiMode(m);
+    setLines([]);
+    setSummary(null);
+    setArrears([]);
+    setAudit([]);
+    setProgress({ stage: "idle", percent: 0 });
+    setModeState(m);
+  }, []);
   const [lines, setLines] = useState<LineView[]>([]);
   const [summary, setSummary] = useState<RunSummary | null>(null);
   const [arrears, setArrears] = useState<ArrearsRow[]>([]);
@@ -129,7 +150,7 @@ export function StoreProvider({ children }: { children: React.ReactNode }) {
     } finally {
       setLoading(false);
     }
-  }, [month]);
+  }, [month, mode]);
 
   useEffect(() => {
     void refresh();
@@ -211,6 +232,8 @@ export function StoreProvider({ children }: { children: React.ReactNode }) {
   );
 
   const value: Store = {
+    mode,
+    setMode,
     month,
     setMonth,
     lines,
