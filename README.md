@@ -6,7 +6,17 @@ You upload a bank statement and each receipt gets allocated to the right tenant 
 
 Commercial leases are more complicated, so matching payments takes judgement and slows people down: a parent company pays for its tenant, or a tenant holds back disputed service charge. A payment that looks wrong is often right.
 
-**Video (2 min):** <https://youtu.be/evdDjT1mR58>
+<p align="center">
+  <a href="https://youtu.be/evdDjT1mR58"><img src="docs/media/video-thumbnail.jpg" width="720" alt="Paper Trail demo video (2 min): click to watch on YouTube"></a>
+  <br>
+  <a href="https://youtu.be/evdDjT1mR58"><b>▶ Watch the 2-minute demo</b></a>
+</p>
+
+<p align="center">
+  <a href="https://youtu.be/evdDjT1mR58"><img src="docs/media/demo-preview.gif" width="720" alt="Silent preview: September's statement runs, 188 of 200 receipts are allocated automatically and 12 go to a person"></a>
+  <br>
+  <sub>Silent preview of the September run. <a href="https://youtu.be/evdDjT1mR58">Watch the full video with sound</a>.</sub>
+</p>
 
 ## The problem it solves
 
