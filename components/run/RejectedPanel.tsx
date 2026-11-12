@@ -2,7 +2,8 @@
 
 import { useCallback, useEffect, useMemo, useState, type JSX } from "react";
 import { toast } from "sonner";
-import { RotateCcw } from "lucide-react";
+import { ChevronDown, RotateCcw, Search } from "lucide-react";
+import { useFindMatch } from "@/components/match/FindMatch";
 import { Money, moneyText } from "@/components/shared";
 import { shortDate } from "@/lib/format";
 import { useStore } from "@/lib/store";
@@ -69,9 +70,15 @@ function hhmm(ts: string): string {
 
 type Row = { line: LineView; audit: AuditRow | null; charges: string[] };
 
-export function RejectedPanel(): JSX.Element | null {
+export function RejectedPanel({
+  onShowInTable,
+}: {
+  onShowInTable?: () => void;
+}): JSX.Element | null {
   const { month, lines, audit, run, progress } = useStore();
+  const { openFindMatch } = useFindMatch();
   const [busy, setBusy] = useState(false);
+  const [collapsed, setCollapsed] = useState(false);
   const [reasons, setReasons] = useState<ReasonMap>({});
 
   useEffect(() => {
@@ -137,7 +144,7 @@ export function RejectedPanel(): JSX.Element | null {
 
   const ghost =
     "inline-flex h-8 items-center gap-1.5 whitespace-nowrap rounded-[8px] border border-line bg-surface px-3 text-[13px] font-medium text-ink hover:bg-canvas disabled:cursor-not-allowed disabled:opacity-50";
-  const TH = "label h-9 border-b border-line bg-surface px-3 text-left align-middle";
+  const TH = "label sticky top-0 z-10 h-9 border-b border-line bg-surface px-3 text-left align-middle";
   const TD = "border-b border-line px-3 py-3 align-top";
 
   return (
@@ -145,7 +152,20 @@ export function RejectedPanel(): JSX.Element | null {
       aria-labelledby="rejected-panel-title"
       className="overflow-hidden rounded-[8px] border border-line bg-surface"
     >
-      <header className="flex items-center justify-between gap-3 border-b border-line px-4 py-3">
+      <header
+        className={`flex items-center justify-between gap-3 px-4 py-3 ${collapsed ? "" : "border-b border-line"}`}
+      >
+        <div className="flex items-start gap-2">
+          <button
+            type="button"
+            onClick={() => setCollapsed((v) => !v)}
+            aria-expanded={!collapsed}
+            aria-controls="rejected-panel-body"
+            aria-label={collapsed ? "Expand rejected" : "Collapse rejected"}
+            className="mt-0.5 rounded-[6px] p-0.5 text-muted hover:bg-canvas hover:text-ink"
+          >
+            <ChevronDown className={`h-4 w-4 transition-transform ${collapsed ? "-rotate-90" : ""}`} aria-hidden />
+          </button>
         <div>
           <h2 id="rejected-panel-title" className="flex items-center gap-2 text-[14px] font-semibold text-ink">
             Rejected
@@ -154,9 +174,16 @@ export function RejectedPanel(): JSX.Element | null {
             </span>
           </h2>
           <p className="mt-0.5 text-[12px] text-muted">
-            Proposals you turned down. They post nothing to tenant ledgers.
+            Proposals you turned down. They post nothing to tenant ledgers until you find the right match.
           </p>
         </div>
+        </div>
+        <div className="flex items-center gap-2">
+        {onShowInTable ? (
+          <button type="button" className={ghost} onClick={onShowInTable}>
+            Show in table
+          </button>
+        ) : null}
         <button
           type="button"
           className={ghost}
@@ -167,9 +194,11 @@ export function RejectedPanel(): JSX.Element | null {
           <RotateCcw className="h-3.5 w-3.5 text-muted" aria-hidden />
           {running ? "Returning…" : "Return all to review"}
         </button>
+        </div>
       </header>
 
-      <div className="overflow-x-auto">
+      {collapsed ? null : (
+      <div id="rejected-panel-body" className="max-h-[320px] overflow-auto">
         <table className="w-full border-separate border-spacing-0 text-[13px] [&>tbody>tr:last-child>td]:border-b-0">
           <thead>
             <tr>
@@ -257,6 +286,15 @@ export function RejectedPanel(): JSX.Element | null {
                     </div>
                   </td>
                   <td className={`${TD} whitespace-nowrap text-right`}>
+                    <div className="flex flex-col items-end gap-1.5">
+                    <button
+                      type="button"
+                      className="inline-flex h-8 items-center gap-1.5 whitespace-nowrap rounded-[8px] bg-ink px-3 text-[13px] font-medium text-surface hover:opacity-90"
+                      onClick={() => openFindMatch(line)}
+                    >
+                      <Search className="h-3.5 w-3.5" aria-hidden />
+                      Find match
+                    </button>
                     <button
                       type="button"
                       className={ghost}
@@ -266,6 +304,7 @@ export function RejectedPanel(): JSX.Element | null {
                     >
                       Return to review
                     </button>
+                    </div>
                   </td>
                 </tr>
               );
@@ -273,6 +312,7 @@ export function RejectedPanel(): JSX.Element | null {
           </tbody>
         </table>
       </div>
+      )}
     </section>
   );
 }

@@ -3,7 +3,9 @@ import type {
   ArrearsRow,
   AuditRow,
   LineView,
+  ManualAllocation,
   Method,
+  OpenCharge,
   RunProgress,
   RunSummary,
 } from "@/lib/types";
@@ -739,21 +741,86 @@ export const mockApi = {
     }
   },
 
-  async getArrears(month = "2026-09"): Promise<ArrearsRow[]> {
-    const charges = chargesFor(month);
-    const paid = new Map<string, number>();
-    for (const line of store.lines[month] ?? []) {
-      if (line.status !== "approved") continue;
-      for (const a of line.allocations) {
-        paid.set(a.charge_id, round2((paid.get(a.charge_id) ?? 0) + a.allocated));
+  async getOpenCharges(month: string): Promise<OpenCharge[]> {
+    return openCharges(monthsUpTo(month)).map(({ charge, tenant, outstanding }) => ({
+      charge_id: charge.id,
+      tenant_id: tenant.id,
+      tenant_name: tenant.name,
+      unit: tenant.unit,
+      charge_type: charge.charge_type,
+      period: charge.period,
+      due_date: charge.due_date,
+      outstanding,
+    }));
+  },
+
+  async manualAllocate(
+    id: string,
+    allocations: ManualAllocation[],
+  ): Promise<{ remembered?: string }> {
+    const month = Object.keys(store.lines).find((m) =>
+      store.lines[m].some((l) => l.id === id),
+    );
+    if (!month) throw new Error(`No receipt ${id}`);
+    const line = store.lines[month].find((l) => l.id === id)!;
+    if (line.status === "approved") throw new Error(`${id} is already allocated`);
+    const open = new Map(
+      openCharges(monthsUpTo(month)).map((o) => [o.charge.id, o]),
+    );
+    const pence = (n: number) => Math.round(n * 100);
+    let total = 0;
+    const views: AllocationView[] = [];
+    for (const a of allocations) {
+      const o = open.get(a.charge_id);
+      if (!o) throw new Error(`${a.charge_id} has nothing outstanding`);
+      if (pence(a.amount) <= 0) throw new Error(`Amount for ${a.charge_id} must be positive`);
+      if (pence(a.amount) > pence(o.outstanding)) {
+        throw new Error(`${a.charge_id}: more than the ${o.outstanding.toFixed(2)} outstanding`);
       }
+      total += pence(a.amount);
+      views.push(alloc(o.charge, o.tenant, round2(a.amount), o.outstanding));
     }
-    const asOf = new Date("2026-11-12T00:00:00Z");
+    if (total > pence(line.amount)) throw new Error("Allocations exceed the receipt");
+    const tenants = [...new Set(views.map((v) => v.tenant_name))];
+    line.status = "approved";
+    line.method = "human";
+    line.confidence = 1;
+    line.review_reason = null;
+    line.allocations = views;
+    line.unallocated_amount = round2((pence(line.amount) - total) / 100);
+    line.reasoning = `Matched by hand to ${tenants.join(" and ")}.`;
+    line.evidence = [
+      { type: "rule", ref: "manual", quote: "Allocated by hand by the credit controller" },
+    ];
+    let remembered: string | undefined;
+    const tenantIds = [...new Set(views.map((v) => v.tenant_id))];
+    const t = TENANTS.find((x) => x.id === tenantIds[0]);
+    if (
+      tenantIds.length === 1 &&
+      t &&
+      bankName(t.name) !== bankName(line.payer_name) &&
+      !store.aliases.some((a) => a.payer === line.payer_name)
+    ) {
+      store.aliases.push({ payer: line.payer_name, tenant_id: t.id });
+      remembered = `Remembered: ${line.payer_name} pays for ${t.name}`;
+    }
+    store.audit.unshift({
+      ts: new Date().toISOString(),
+      actor: "human",
+      action: "manual_match",
+      object_id: id,
+      detail: {
+        allocations: views.map((v) => `${id}:${v.charge_id}`),
+        unallocated_amount: line.unallocated_amount,
+        remembered: remembered ?? null,
+      },
+    });
+    return { remembered };
+  },
+
+  async getArrears(month = "2026-09"): Promise<ArrearsRow[]> {
     const rows = new Map<string, ArrearsRow>();
-    for (const c of charges) {
-      const outstanding = round2(c.amount_due - (paid.get(c.id) ?? 0));
-      if (outstanding <= 0) continue;
-      const t = TENANTS.find((x) => x.id === c.tenant_id)!;
+    for (const { charge: c, tenant: t, outstanding } of openCharges([month])) {
       const row =
         rows.get(t.id) ??
         ({
@@ -778,6 +845,7 @@ export const mockApi = {
       });
       rows.set(t.id, row);
     }
+    const asOf = new Date("2026-11-12T00:00:00Z");
     return [...rows.values()]
       .map((r) => {
         const due = new Date(`${r.oldest_due_date}T00:00:00Z`);
@@ -798,6 +866,34 @@ export const mockApi = {
     store = cloneStore();
   },
 };
+
+const MONTHS = ["2026-09", "2026-10"];
+
+function monthsUpTo(month: string): string[] {
+  return MONTHS.filter((m) => m <= month);
+}
+
+/** Charges for these periods with what is still owed after approved receipts (any month). */
+function openCharges(periods: string[]) {
+  const paid = new Map<string, number>();
+  for (const lines of Object.values(store.lines)) {
+    for (const line of lines) {
+      if (line.status !== "approved") continue;
+      for (const a of line.allocations) {
+        paid.set(a.charge_id, round2((paid.get(a.charge_id) ?? 0) + a.allocated));
+      }
+    }
+  }
+  const out: { charge: Charge; tenant: Tenant; outstanding: number }[] = [];
+  for (const period of periods) {
+    for (const charge of chargesFor(period)) {
+      const outstanding = round2(charge.amount_due - (paid.get(charge.id) ?? 0));
+      if (outstanding <= 0) continue;
+      out.push({ charge, tenant: TENANTS.find((t) => t.id === charge.tenant_id)!, outstanding });
+    }
+  }
+  return out;
+}
 
 function wait(ms: number) {
   return new Promise((r) => setTimeout(r, ms));

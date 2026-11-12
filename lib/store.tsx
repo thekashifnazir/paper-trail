@@ -14,6 +14,7 @@ import {
   getAudit,
   getLines,
   getSummary,
+  manualAllocate,
   rejectLine,
   reset as resetApi,
   runStatement,
@@ -22,6 +23,7 @@ import type {
   ArrearsRow,
   AuditRow,
   LineView,
+  ManualAllocation,
   RunProgress,
   RunSummary,
 } from "@/lib/types";
@@ -41,6 +43,12 @@ type Store = {
   run: () => Promise<void>;
   approve: (id: string) => Promise<string | undefined>;
   reject: (id: string) => Promise<void>;
+  manualMatch: (
+    id: string,
+    allocations: ManualAllocation[],
+    unallocated: number,
+    reasoning: string,
+  ) => Promise<string | undefined>;
   reset: () => Promise<void>;
 };
 
@@ -121,6 +129,20 @@ export function StoreProvider({ children }: { children: React.ReactNode }) {
     [refresh],
   );
 
+  const manualMatch = useCallback(
+    async (
+      id: string,
+      allocations: ManualAllocation[],
+      unallocated: number,
+      reasoning: string,
+    ) => {
+      const res = await manualAllocate(id, allocations, unallocated, reasoning);
+      await refresh();
+      return res.remembered;
+    },
+    [refresh],
+  );
+
   const reset = useCallback(async () => {
     await resetApi();
     setProgress({ stage: "idle", percent: 0 });
@@ -147,6 +169,7 @@ export function StoreProvider({ children }: { children: React.ReactNode }) {
     run,
     approve,
     reject,
+    manualMatch,
     reset,
   };
 

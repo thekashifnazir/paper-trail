@@ -3,6 +3,8 @@ import type {
   ArrearsRow,
   AuditRow,
   LineView,
+  ManualAllocation,
+  OpenCharge,
   RunProgress,
   RunSummary,
 } from "@/lib/types";
@@ -75,6 +77,51 @@ export async function getArrears(): Promise<ArrearsRow[]> {
   if (useMock) return mockApi.getArrears();
   const data = await json<{ arrears: ArrearsRow[] }>("/api/arrears");
   return data.arrears ?? (data as unknown as ArrearsRow[]);
+}
+
+/** Every charge with something still owed, for matching a receipt by hand. */
+export async function getOpenCharges(month: string): Promise<OpenCharge[]> {
+  if (useMock) return mockApi.getOpenCharges(month);
+  const data = await json<{ arrears: ArrearsRow[] }>("/api/arrears");
+  const rows = data.arrears ?? (data as unknown as ArrearsRow[]);
+  return rows.flatMap((row) =>
+    row.open_charges.map((c) => ({
+      charge_id: c.charge_id,
+      tenant_id: row.tenant_id,
+      tenant_name: row.tenant_name,
+      unit: row.unit,
+      charge_type: c.charge_type,
+      period: c.period,
+      due_date: null,
+      outstanding: c.outstanding,
+    })),
+  );
+}
+
+/**
+ * Allocate a receipt by hand. Real engine: a human proposal at full confidence,
+ * then an approval if the engine still holds it for a person (new payer).
+ */
+export async function manualAllocate(
+  lineId: string,
+  allocations: ManualAllocation[],
+  unallocated: number,
+  reasoning: string,
+): Promise<{ remembered?: string }> {
+  if (useMock) return mockApi.manualAllocate(lineId, allocations);
+  const res = await json<{ waits_for_person?: boolean }>("/api/proposals", {
+    method: "POST",
+    body: JSON.stringify({
+      bank_line_id: lineId,
+      allocations: allocations.map((a) => ({ charge_id: a.charge_id, amount: a.amount.toFixed(2) })),
+      unallocated_amount: unallocated.toFixed(2),
+      confidence: 1,
+      reasoning,
+      evidence: [],
+    }),
+  });
+  if (res.waits_for_person) return approveLine(lineId);
+  return {};
 }
 
 export async function getAudit(): Promise<AuditRow[]> {
