@@ -50,15 +50,9 @@ export interface AgentConfig {
   fetch?: typeof fetch;
 }
 
-export async function pickModel(apiKey: string, f: typeof fetch = fetch): Promise<string> {
-  if (process.env.XAI_MODEL) return process.env.XAI_MODEL;
-  const r = await f(`${XAI_URL}/models`, { headers: { authorization: `Bearer ${apiKey}` } });
-  if (!r.ok) throw new Error(`xAI /models ${r.status}: ${await r.text()}`);
-  const ids: string[] = ((await r.json()).data ?? []).map((m: { id: string }) => m.id);
-  const pick = ids.find((id) => /grok/i.test(id) && !/image|vision|mini|fast/i.test(id)) ?? ids[0];
-  if (!pick) throw new Error("xAI returned no models");
-  return pick;
-}
+// grok-4.7 on Sep + Oct: 0 wrong of 40 agent lines (309 s). grok-4.20-0309-non-reasoning: 9 wrong (36 s).
+export const DEFAULT_MODEL = "grok-4.7";
+export const modelName = () => process.env.XAI_MODEL ?? DEFAULT_MODEL;
 
 async function chat(cfg: AgentConfig, messages: { role: string; content: string }[]): Promise<string> {
   const f = cfg.fetch ?? fetch;

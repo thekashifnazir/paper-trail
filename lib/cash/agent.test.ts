@@ -30,6 +30,15 @@ describe("pass 3 through the xAI request path (stub)", () => {
     expect(res.rejected).toEqual(["not JSON", "not JSON"]);
   });
 
+  it("never sends the answer key to the model: no case_type or true_* in any request body", async () => {
+    const bodies: string[] = [];
+    const spy = stubFetch(d.truth);
+    const capture = (async (url: string, init?: RequestInit) => { bodies.push(String(init?.body)); return spy(url, init); }) as typeof fetch;
+    await proposeAll({ apiKey: "k", model: "m", fetch: capture }, inputs, r.openAmount);
+    expect(bodies.length).toBe(inputs.length);
+    for (const b of bodies) expect(b).not.toMatch(/case_type|true_allocations|true_unallocated|true_charge|"case"/);
+  });
+
   it("gives the agent the dispute notes for short-pays and the company lookup for parent payers", () => {
     const sp = inputs.find((i) => d.truth.find((t) => t.bank_line_id === i.bank_line.id)!.case === "short_pay")!;
     expect(sp.tenant_notes.length).toBeGreaterThan(0);
