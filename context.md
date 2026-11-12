@@ -69,7 +69,7 @@ Each month, by `case_type`:
 
 Engine code is `lib/cash` on `origin/engine`. Money inside the engine is integer pence. The API speaks pounds, often as decimal strings. Do not do float arithmetic on money. Format for display; keep sums in pence until the edge.
 
-State is in memory in `lib/cash/service.ts`. Writes take header `x-actor: grok_bot | human | system`.
+State is in memory in `lib/cash/service.ts`; payer memory and the audit log persist to Supabase when its keys are set. Writes take header `x-actor: grok_bot | human | system`.
 
 | Call | Behaviour |
 |---|---|
@@ -84,7 +84,17 @@ State is in memory in `lib/cash/service.ts`. Writes take header `x-actor: grok_b
 
 Evidence on the wire: `{ type: "bank_line" \| "charge" \| "tenant" \| "lease" \| "alias", ref, quote }`.
 
-There is no `GET /api/lines`. The earlier UI handoff invented that route. Adapt `lib/api.ts` to the routes above. `NEXT_PUBLIC_USE_MOCK=1` may serve fixtures shaped like these responses, built from `data/sample`, so the screens work before the engine is merged. Do not invent a second portfolio.
+The UI's routes (`lib/api.ts` with mock mode off) are thin adapters over the same service, in the shapes of `lib/types.ts` (Joel, 12 Nov: the engine side adapts, the UI files stay as they are):
+
+| Call | Behaviour |
+|---|---|
+| `POST /api/run?month=2026-09` | Loads that month's statement from `data/sample` if not loaded, runs passes 1, 2 and 3, returns `RunSummary` plus `lines_exact`, `lines_memory`, `left_open` and `agent`. Pass 3 replays `results/<month>.json` when `CASH_AGENT_REPLAY=1` (instant, for the recording), else runs live: Jev first when `TYPESAFE_API_KEY` is set, then Grok on `XAI_API_KEY`. Without `?month` it stays passes 1 and 2. |
+| `GET /api/lines?month=` | `LineView[]`. The queue is `status: "proposed"`; `review_reason` uses the seven UI labels ("New payer relationship" = payer isn't the tenant and not yet in payer memory). |
+| `GET /api/summary?month=` | `RunSummary`; `score` only where the answer key covers the lines. |
+| `POST /api/lines/:id/approve` and `/reject` | Approve returns `{ remembered: "Remembered: {payer} pays for {tenant}" }` when it teaches a payer. Approving a line with nothing allocated (duplicate, unidentified) confirms leaving it open. |
+| `GET /api/audit` | `AuditRow[]`, newest first. |
+
+`GET /api/arrears` also carries the UI's `ArrearsRow` fields (`outstanding`, `oldest_due_date`, `days_overdue`, `disputed`, `dispute_note`, `lease_citation`, `open_charges`) next to the original ones the Grok Bot connector reads. `NEXT_PUBLIC_USE_MOCK=1` may serve fixtures shaped like these responses, built from `data/sample`, so the screens work before the engine is merged. Do not invent a second portfolio.
 
 Approving a parent-company line should toast: `Remembered: {payer_name} pays for {tenant_name}`.
 

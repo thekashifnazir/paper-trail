@@ -61,7 +61,8 @@ describe("POST /api/agent (xAI stubbed)", () => {
     try {
       const U = "http://app.test";
       await statements(new Request(U, { method: "POST", headers: { "content-type": "text/csv" }, body: readFileSync(join(SAMPLE_DIR, "bank_2026_09.csv"), "utf8") }));
-      expect(await (await runPass(new Request(`${U}/?month=2026-09`, { method: "POST" }))).json()).toMatchObject({ left_open: 20 });
+      // plain /api/run is passes 1 and 2 only; /api/run?month= would also run pass 3
+      expect(await (await runPass(new Request(U, { method: "POST" }))).json()).toMatchObject({ left_open: 20 });
       const out = await (await agent(new Request(`${U}/?month=2026-09`, { method: "POST" }))).json();
       // 20 open: 8 parent payers wait (stub confidence 0.6), 5 short-pays + 3 overpayments allocated, 2 duplicates + 2 unidentifiable held
       expect(out).toMatchObject({ lines: 20, allocated: 8, waiting_for_approval: 8, held: 4 });
@@ -85,7 +86,7 @@ describe("POST /api/agent?replay= (saved run, no xAI)", () => {
     delete (globalThis as { __cashStore?: unknown }).__cashStore;
     const U = "http://app.test";
     await statements(new Request(U, { method: "POST", headers: { "content-type": "text/csv" }, body: readFileSync(join(SAMPLE_DIR, "bank_2026_09.csv"), "utf8") }));
-    await runPass(new Request(`${U}/?month=2026-09`, { method: "POST" }));
+    await runPass(new Request(U, { method: "POST" }));
     const out = await (await agent(new Request(`${U}/?month=2026-09&replay=results/2026-09.json`, { method: "POST" }))).json();
     expect(out.source).toBe("replay results/2026-09.json");
     expect(out.lines).toBe(20);

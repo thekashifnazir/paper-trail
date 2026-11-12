@@ -32,6 +32,7 @@ export interface Hold {
   evidence: AgentProposal["evidence"];
   actor: Actor;
   at: string;
+  decided?: { approve: boolean; actor: Actor; at: string }; // a person confirmed (or overruled) leaving it open
 }
 
 export interface Store {
@@ -277,11 +278,27 @@ export function arrears(s: Store, sort: "oldest" | "amount" = "oldest") {
     const t = per.get(c.tenant_id) ?? { tenant_id: c.tenant_id, tenant_name: c.tenant_name, unit: c.unit, open: 0, oldest_due: c.due_date, charges: [] };
     t.open += o;
     if (c.due_date < t.oldest_due) t.oldest_due = c.due_date;
-    t.charges.push({ charge_id: c.id, type: c.type, period: c.period, due_date: c.due_date, invoice_ref: c.invoice_ref, lease_citation: c.lease_citation, amount_open: fmt(o), part_paid: o < toPence(c.amount_due) });
+    t.charges.push({ charge_id: c.id, type: c.type, period: c.period, due_date: c.due_date, invoice_ref: c.invoice_ref, lease_citation: c.lease_citation, amount_open: fmt(o), part_paid: o < toPence(c.amount_due), outstanding_pence: o });
     per.set(c.tenant_id, t);
   }
   const rows = [...per.values()].sort((a, b) => (sort === "amount" ? b.open - a.open : a.oldest_due.localeCompare(b.oldest_due) || b.open - a.open));
-  return { tenants: rows.length, total_open: fmt(rows.reduce((x, r) => x + r.open, 0)), arrears: rows.map((r) => ({ ...r, open: fmt(r.open) })) };
+  // the UI's fields (lib/types.ts ArrearsRow) sit next to the original ones, which the Grok Bot connector reads
+  const asOf = Date.parse(process.env.CASH_AS_OF ?? new Date().toISOString().slice(0, 10));
+  return {
+    tenants: rows.length,
+    total_open: fmt(rows.reduce((x, r) => x + r.open, 0)),
+    arrears: rows.map((r) => {
+      const notes = s.notes.filter((n) => n.tenant_id === r.tenant_id);
+      const charges = r.charges as { charge_id: string; type: string; period: string; lease_citation: string; amount_open: string; outstanding_pence: Pence }[];
+      return {
+        ...r, open: fmt(r.open),
+        outstanding: Number(fmt(r.open)), oldest_due_date: r.oldest_due, days_overdue: Math.max(0, Math.floor((asOf - Date.parse(r.oldest_due)) / 86_400_000)),
+        disputed: notes.length > 0, dispute_note: notes.map((n) => n.note).join(" ") || null, lease_citation: charges[0]?.lease_citation ?? "",
+        open_charges: charges.map((c) => ({ charge_id: c.charge_id, charge_type: c.type, period: c.period, outstanding: Number(fmt(c.outstanding_pence)) })),
+        charges: charges.map(({ outstanding_pence: _, ...c }) => c),
+      };
+    }),
+  };
 }
 
 // GET /api/metrics
@@ -312,4 +329,21 @@ export function metrics(s: Store) {
     out.against_truth = { allocated: sc.allocated, right: sc.right, wrong: sc.wrong, precision: sc.precision, per_case: sc.perCase };
   }
   return out;
+}
+
+// A line sent to a person with nothing allocated (Jev or Grok found no payer, or a possible duplicate).
+export function queueForPerson(s: Store, bankLineId: string, reasoning: string, actor: Actor) {
+  if (s.holds.some((h) => h.bank_line_id === bankLineId)) return;
+  s.holds.push({ bank_line_id: bankLineId, reasoning, confidence: 0, evidence: [], actor, at: now() });
+  audit(s, actor, "queued_for_person", { reasoning }, bankLineId);
+}
+
+// A person confirms leaving a held line open (approve), or sends it back to open (reject).
+export function decideHold(s: Store, bankLineId: string, approve: boolean, actor: Actor) {
+  const h = s.holds.find((x) => x.bank_line_id === bankLineId && !x.decided);
+  if (!h) throw new HttpError(409, `nothing waiting for approval on ${bankLineId}`);
+  if (approve) h.decided = { approve, actor, at: now() };
+  else s.holds = s.holds.filter((x) => x !== h);
+  audit(s, actor, approve ? "hold_confirmed" : "hold_rejected", { reasoning: h.reasoning }, bankLineId);
+  return { bank_line_id: bankLineId, status: approve ? "approved" : "open" };
 }
