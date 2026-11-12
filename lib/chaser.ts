@@ -135,11 +135,11 @@ export function draftChaser(row: ArrearsRow): { subject: string; body: string } 
       ? "Please pay this balance within 7 days, or get in touch."
       : "Please get in touch within 7 days about the amount under review.",
     "",
-    "Wharfside Quarter Property Management",
+    "Paper Trail Property Management",
   );
 
   return {
-    subject: `Outstanding balance — ${row.unit}, Wharfside Quarter`,
+    subject: `Outstanding balance, ${row.unit}`,
     body: lines.join("\n"),
   };
 }

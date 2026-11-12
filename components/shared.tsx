@@ -10,6 +10,7 @@ import {
   Receipt,
   StickyNote,
   type LucideIcon,
+  Bot,
 } from "lucide-react";
 import type { Evidence, Method, Status } from "@/lib/types";
 import { gbp, pct } from "@/lib/format";
@@ -233,6 +234,7 @@ const EVIDENCE_STYLE: Record<
   EvidenceType,
   { label: string; icon: LucideIcon; rule: string; fg: string }
 > = {
+  grok_bot: { label: "Grok Bot review", icon: Bot, rule: "border-l-agent", fg: "text-agent" },
   company_lookup: { label: "Company lookup", icon: Building2, rule: "border-l-agent", fg: "text-agent" },
   alias: { label: "Known alias", icon: Link2, rule: "border-l-agent", fg: "text-agent" },
   tenant_note: { label: "Tenant note", icon: StickyNote, rule: "border-l-queue", fg: "text-queue" },

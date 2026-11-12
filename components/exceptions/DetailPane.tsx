@@ -14,6 +14,7 @@ import { gbp, shortDate } from "@/lib/format";
 import type { Evidence, LineView } from "@/lib/types";
 
 const EVIDENCE_RANK: Record<string, number> = {
+  grok_bot: -1, // Grok Bot's review of the line leads the evidence
   company_lookup: 0,
   alias: 0,
   tenant_note: 1,
@@ -219,7 +220,7 @@ export function DetailPane({
                 <EvidenceCard
                   key={`${item.type}-${item.ref}-${index}`}
                   item={item}
-                  className={isDecisiveEvidence(item.type) ? "col-span-2" : ""}
+                  className={isDecisiveEvidence(item.type) || item.type === "grok_bot" ? "col-span-2" : ""}
                 />
               ))}
             </div>

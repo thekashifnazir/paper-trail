@@ -17,7 +17,8 @@ export type Evidence = {
     | "tenant_note"
     | "company_lookup"
     | "alias"
-    | "rule";
+    | "rule"
+    | "grok_bot";
   ref: string;
   quote: string;
 };
