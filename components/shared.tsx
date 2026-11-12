@@ -1,5 +1,6 @@
 "use client";
 
+import { motion, useReducedMotion } from "framer-motion";
 import {
   Building2,
   FileText,
@@ -192,14 +193,17 @@ export function AllocationBar({ segments }: { segments: BarSegment[] }) {
     1,
   );
   const visible = segments.filter((s) => s.count > 0);
+  const reduced = useReducedMotion();
   return (
     <div>
       <div className="flex h-3 gap-[2px] overflow-hidden rounded-full bg-canvas">
         {visible.map((s) => (
-          <div
+          <motion.div
             key={s.key}
             className={`h-full first:rounded-l-full last:rounded-r-full ${METHOD_STYLE[s.key].dot}`}
-            style={{ width: `${(s.count / total) * 100}%` }}
+            initial={{ width: 0 }}
+            animate={{ width: `${(s.count / total) * 100}%` }}
+            transition={{ duration: reduced ? 0 : 0.25, ease: "easeOut" }}
             title={`${METHOD_STYLE[s.key].label}: ${s.count}`}
           />
         ))}

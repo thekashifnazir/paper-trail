@@ -73,34 +73,43 @@ function BalanceRow({ line }: { line: LineView }) {
 }
 
 const TH = "label h-8 whitespace-nowrap border-b border-line bg-canvas px-3 text-left align-middle font-medium";
-const TD = "h-10 whitespace-nowrap border-b border-line px-3 align-middle";
+const TD = "h-10 whitespace-nowrap border-b border-line px-3 align-middle overflow-hidden";
 
 function AllocationTable({ line }: { line: LineView }) {
   return (
     <div>
       <div className="label mb-2">Proposed allocation</div>
-      <div className="overflow-auto rounded-[8px] border border-line">
-        <table className="w-full min-w-[640px] border-separate border-spacing-0 text-[13px]">
+      <div className="overflow-hidden rounded-[8px] border border-line">
+        <table className="w-full table-fixed border-separate border-spacing-0 text-[13px]">
+          <colgroup>
+            <col style={{ width: "34%" }} />
+            <col style={{ width: "27%" }} />
+            <col style={{ width: "13%" }} />
+            <col style={{ width: "13%" }} />
+            <col style={{ width: "13%" }} />
+          </colgroup>
           <thead>
             <tr>
               <th className={TH}>Tenant</th>
               <th className={TH}>Charge</th>
-              <th className={`${TH} text-right`}>Outstanding before</th>
+              <th className={`${TH} text-right`} title="Outstanding before">Before</th>
               <th className={`${TH} text-right`}>Allocated</th>
-              <th className={`${TH} text-right`}>Outstanding after</th>
+              <th className={`${TH} text-right`} title="Outstanding after">After</th>
             </tr>
           </thead>
           <tbody className="[&>tr:last-child>td]:border-b-0">
             {line.allocations.map((row) => (
               <tr key={row.charge_id}>
-                <td className={TD}>
+                <td className={`${TD} truncate`} title={`${row.tenant_name} · ${row.unit}`}>
                   <span className="font-medium text-ink">{row.tenant_name}</span>
                   <span className="ml-2 text-[12px] text-muted">{row.unit}</span>
                 </td>
-                <td className={`${TD} whitespace-nowrap`}>
-                  <span className="mono text-[12px] text-ink">{row.charge_id}</span>
-                  <span className="ml-2 text-[12px] text-muted">
-                    {row.charge_type.replaceAll("_", " ")} · {row.period}
+                <td className={TD}>
+                  <span className="flex min-w-0 items-baseline gap-2">
+                    <span className="mono shrink-0 text-[12px] text-ink">{row.charge_id}</span>
+                    <span className="truncate text-[12px] text-muted">
+                      {row.charge_type.replaceAll("_", " ")} · {row.period}
+                    </span>
                   </span>
                 </td>
                 <td className={`${TD} text-right`}>

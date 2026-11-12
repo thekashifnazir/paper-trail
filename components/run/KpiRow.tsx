@@ -1,45 +1,33 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import { animate, useReducedMotion } from "framer-motion";
 import { KpiCard, KpiStrip, Money } from "@/components/shared";
 import { gbp, pct } from "@/lib/format";
 import type { LineView, RunSummary } from "@/lib/types";
 
-function useCountUp(target: number, duration = 500) {
+/** 250ms ease-out count-up via Framer Motion; jumps straight to the value under reduced motion. */
+function useCountUp(target: number) {
+  const reduced = useReducedMotion();
   const [display, setDisplay] = useState(target);
-  const displayRef = useRef(target);
-  const reducedRef = useRef(false);
+  const fromRef = useRef(target);
 
   useEffect(() => {
-    const media = window.matchMedia("(prefers-reduced-motion: reduce)");
-    const apply = () => {
-      reducedRef.current = media.matches;
-    };
-    apply();
-    media.addEventListener("change", apply);
-    return () => media.removeEventListener("change", apply);
-  }, []);
-
-  useEffect(() => {
-    const from = displayRef.current;
-    if (reducedRef.current || from === target) {
-      displayRef.current = target;
+    if (reduced || fromRef.current === target) {
+      fromRef.current = target;
       setDisplay(target);
       return;
     }
-    const start = performance.now();
-    let frame = 0;
-    const tick = (now: number) => {
-      const t = Math.min(1, (now - start) / duration);
-      const eased = 1 - (1 - t) ** 3;
-      const next = from + (target - from) * eased;
-      displayRef.current = next;
-      setDisplay(next);
-      if (t < 1) frame = requestAnimationFrame(tick);
-    };
-    frame = requestAnimationFrame(tick);
-    return () => cancelAnimationFrame(frame);
-  }, [target, duration]);
+    const controls = animate(fromRef.current, target, {
+      duration: 0.25,
+      ease: "easeOut",
+      onUpdate: (value) => {
+        fromRef.current = value;
+        setDisplay(value);
+      },
+    });
+    return () => controls.stop();
+  }, [target, reduced]);
 
   return display;
 }

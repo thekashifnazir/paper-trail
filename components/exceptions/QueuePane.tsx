@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef } from "react";
+import { AnimatePresence, motion } from "framer-motion";
 import { Money } from "@/components/shared";
 import { gbp, pct } from "@/lib/format";
 import type { LineView } from "@/lib/types";
@@ -22,14 +23,18 @@ function QueueItem({
   onSelect: (id: string) => void;
 }) {
   return (
-    <button
+    <motion.button
       type="button"
       data-line-id={line.id}
+      initial={false}
+      animate={leaving ? { x: -24, opacity: 0 } : { x: 0, opacity: 1 }}
+      exit={{ height: 0, opacity: 0 }}
+      transition={{ duration: leaving ? 0.16 : 0.15, ease: "easeOut" }}
       onClick={() => onSelect(line.id)}
       aria-current={selected ? "true" : undefined}
-      className={`flex h-14 w-full flex-col justify-center gap-0.5 border-b border-l-2 border-b-line px-4 text-left ${
+      className={`flex h-14 w-full flex-col justify-center gap-0.5 overflow-hidden border-b border-l-2 border-b-line px-4 text-left ${
         selected ? "border-l-ink bg-canvas" : "border-l-transparent hover:bg-canvas"
-      } ${leaving ? "opacity-0" : ""}`}
+      }`}
     >
       <span className="flex items-baseline gap-3">
         <span className="mono min-w-0 flex-1 truncate text-[13px] font-medium text-ink">
@@ -45,7 +50,7 @@ function QueueItem({
           <span className="mono text-[11px] text-muted">{pct(line.confidence)}</span>
         ) : null}
       </span>
-    </button>
+    </motion.button>
   );
 }
 
@@ -89,15 +94,17 @@ export function QueuePane({
               <span>{group.reason}</span>
               <span className="mono">{group.items.length}</span>
             </div>
-            {group.items.map((line) => (
-              <QueueItem
-                key={line.id}
-                line={line}
-                selected={line.id === selectedId}
-                leaving={line.id === leavingId}
-                onSelect={onSelect}
-              />
-            ))}
+            <AnimatePresence initial={false}>
+              {group.items.map((line) => (
+                <QueueItem
+                  key={line.id}
+                  line={line}
+                  selected={line.id === selectedId}
+                  leaving={line.id === leavingId}
+                  onSelect={onSelect}
+                />
+              ))}
+            </AnimatePresence>
           </div>
         ))}
       </div>
