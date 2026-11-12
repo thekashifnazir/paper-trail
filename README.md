@@ -8,6 +8,7 @@
   <a href="https://youtu.be/evdDjT1mR58"><b>▶ 2-min demo</b></a> ·
   <a href="#results"><b>Results</b></a> ·
   <a href="#judges"><b>For judges</b></a> ·
+  <a href="https://paper-trail-smoky.vercel.app/"><b>Live site (demo mode)</b></a> ·
   <a href="docs/grok-bot-credit-controller.md"><b>Grok Bot setup</b></a>
 </p>
 
@@ -135,6 +136,8 @@ Pass 3 is grok-4.7 on the xAI API, concurrency 20. A payer that isn't the tenant
 ## <a name="demo"></a>5. 🎬 Live demo
 
 **About 90 seconds: run September, approve the parent payers, run October.**
+
+**Live site: <https://paper-trail-smoky.vercel.app/> runs in demo mode only.** It plays back a recorded run instantly. A live engine run takes about 80 seconds and the screen gives no progress feedback yet, so run the live engine locally: `npm run dev`, then open `http://localhost:3000/?mode=live`. The figures in Results come from the engine run saved in `results/`.
 
 <details>
 <summary><b>The demo script</b></summary>
