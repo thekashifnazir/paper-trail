@@ -5,6 +5,7 @@ import { checkProposal } from "./checkSum";
 import { parseCsv } from "./csv";
 import { loadData, type TenantNote } from "./data";
 import { allocate } from "./match";
+import { clearMemory, loadAliases, persistEnabled, saveAlias, saveAudit } from "./persist";
 import { fmt, toPence } from "./money";
 import { score, type TruthRow } from "./score";
 import type { AgentProposal, Allocation, BankLine, Charge, PayerAlias, Pence, Tenant } from "./types";
@@ -67,8 +68,39 @@ export function store(): Store {
   return g.__cashStore;
 }
 
+// Payer memory survives a restart: aliases approved in earlier sessions are read back from Supabase once per
+// process, before the first request is handled (lib/cash/http.ts). No-op when Supabase isn't configured.
+const h = globalThis as unknown as { __cashHydrated?: Promise<void> };
+export function hydrate(): Promise<void> {
+  if (!persistEnabled()) return Promise.resolve();
+  h.__cashHydrated ??= loadAliases()
+    .then((rows) => {
+      const s = store();
+      for (const a of rows) {
+        if (!s.aliases.some((x) => x.payer_name.toUpperCase() === a.payer_name.toUpperCase())) s.aliases.push(a);
+      }
+    })
+    .catch((e) => {
+      h.__cashHydrated = undefined; // try again on the next request
+      console.error("[persist] could not load payer memory:", e instanceof Error ? e.message : e);
+    });
+  return h.__cashHydrated;
+}
+
+/** Demo reset: fresh store from data/sample, and forget learned payers and the audit log in Supabase. */
+export async function resetStore() {
+  await clearMemory();
+  g.__cashStore = undefined;
+  h.__cashHydrated = undefined;
+  const s = store();
+  audit(s, "system", "reset", { persisted: persistEnabled() });
+  return { reset: true, persisted: persistEnabled() };
+}
+
 function audit(s: Store, actor: Actor, action: string, detail: unknown, bank_line_id?: string) {
-  s.audit.push({ at: now(), actor, action, bank_line_id, detail });
+  const row = { at: now(), actor, action, bank_line_id, detail };
+  s.audit.push(row);
+  saveAudit(row);
 }
 
 const live = (a: Allocation) => a.status !== "rejected";
@@ -185,6 +217,7 @@ export function decide(s: Store, id: string, approve: boolean, actor: Actor) {
     if (tids.size === 1 && tid && !nameIsTenant && !s.aliases.some((x) => x.payer_name.toUpperCase() === b.payer_name.toUpperCase())) {
       learned = { payer_name: b.payer_name, tenant_id: tid, source: "human", approved_at: now() };
       s.aliases.push(learned);
+      saveAlias(learned);
     }
   }
   audit(s, actor, approve ? "approved" : "rejected", { allocations: hit.map((a) => a.id), learned_alias: learned }, hit[0].bank_line_id);
