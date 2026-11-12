@@ -1,0 +1,76 @@
+@import "tailwindcss";
+
+:root {
+  --paper: #f4f1ea;
+  --ink: #1c1917;
+  --muted: #78716c;
+  --line: #e7e5e4;
+  --panel: #fffcf7;
+  --brand: #0f766e;
+  --brand-wash: #ccfbf1;
+  --danger: #b91c1c;
+  --exact: #57534e;
+  --exact-wash: #f5f5f4;
+  --memory: #0f766e;
+  --memory-wash: #ccfbf1;
+  --agent: #c2410c;
+  --agent-wash: #ffedd5;
+  --queue: #b45309;
+  --queue-wash: #fef3c7;
+  --violet: #6d28d9;
+}
+
+@theme inline {
+  --color-paper: var(--paper);
+  --color-ink: var(--ink);
+  --color-muted: var(--muted);
+  --color-line: var(--line);
+  --color-panel: var(--panel);
+  --color-brand: var(--brand);
+  --color-brand-wash: var(--brand-wash);
+  --color-danger: var(--danger);
+  --color-exact: var(--exact);
+  --color-exact-wash: var(--exact-wash);
+  --color-memory: var(--memory);
+  --color-memory-wash: var(--memory-wash);
+  --color-agent: var(--agent);
+  --color-agent-wash: var(--agent-wash);
+  --color-queue: var(--queue);
+  --color-queue-wash: var(--queue-wash);
+  --font-sans: var(--font-source-sans);
+  --font-display: var(--font-fraunces);
+  --font-mono: var(--font-ibm-plex);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  min-height: 100%;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--font-source-sans), "Source Sans 3", system-ui, sans-serif;
+  font-size: 15px;
+  line-height: 1.45;
+}
+
+button,
+input,
+textarea,
+select {
+  font: inherit;
+}
+
+.tabular {
+  font-variant-numeric: tabular-nums;
+  font-feature-settings: "tnum";
+}
+
+.money {
+  font-family: var(--font-ibm-plex), ui-monospace, monospace;
+  font-variant-numeric: tabular-nums;
+  text-align: right;
+}

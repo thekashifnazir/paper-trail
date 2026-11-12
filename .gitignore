@@ -10,8 +10,11 @@ cortile-*
 msci-*
 
 node_modules/
+.next/
+out/
 .wrangler/
 .DS_Store
+next-env.d.ts
 
 # generated seed data carries Cortile-derived names and ids, never commit
 data/seed/
