@@ -25,6 +25,16 @@ For context, the APQC benchmark puts the median at 45% of receipts auto-applied,
 
 Stack: Next.js (App Router) and TypeScript, Supabase (Postgres), the xAI API for the agent. Grok Bot explains allocations through an MCP connector.
 
+## Setup
+
+You'll need a Supabase project. Put `SUPABASE_URL` and `SUPABASE_SERVICE_ROLE_KEY` in `.env`, which is git-ignored, and never commit it. Then run `supabase/schema.sql` in the Supabase SQL editor and load the public sample:
+
+```
+python3 data/load_supabase.py --dir data/sample --with-bank
+```
+
+Re-running is safe because rows are upserted on their primary key.
+
 ## Test data
 
 `data/sample/` is committed and safe to share, because it was made with fully made-up company names:
