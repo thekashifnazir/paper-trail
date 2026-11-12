@@ -31,28 +31,8 @@ Paper Trail takes that matching off the person and keeps them for the judgement 
 
 ## Architecture
 
-```mermaid
-flowchart TB
-  CSV["Bank statement CSV<br/>about 200 lines a month"] --> P1
-  subgraph APP["Paper Trail app (Next.js + TypeScript)"]
-    P1["Pass 1: rules<br/>ref + amount, duplicates,<br/>name + subset sum"] --> P2["Pass 2: payer memory"]
-    P2 --> P3["Pass 3: agent<br/>proposes split + quotes"]
-    P3 --> CHK{"Code checks<br/>sum to the penny,<br/>quotes found in source"}
-    CHK -->|confident| OK["Allocated"]
-    CHK -->|unsure or new payer| Q["Review queue"]
-    Q --> H["Person approves<br/>in one click"]
-    H --> OK
-    OK --> OUT["Arrears list, chaser drafts,<br/>audit log"]
-  end
-  P3 <--> XAI["xAI API<br/>grok-4.7"]
-  P2 <--> SB[("Supabase<br/>payer aliases + audit log")]
-  H -->|approval = remembered payer| SB
-  GB["Grok Bot desktop<br/>Credit Controller bot"] <-->|MCP connector, 9 tools| Q
-  GB -.->|recommends with quotes, cannot approve| H
-  DATA["data/sample<br/>108 tenants, charges, notes,<br/>company lookup"] --> P1
-```
+![Paper Trail architecture: bank lines go through rules, payer memory and grok-4.7, Grok Bot reviews the unsure lines over MCP, a person approves, and Supabase keeps payer memory and the audit log](docs/architecture.png)
 
-Cursor is where the code was written; it isn't part of the running system.
 
 ## For judges: where to look
 
