@@ -29,7 +29,7 @@ describe("Grok Bot drives the app on the team sample (Sep, then Oct from memory)
 
   // a perfect agent: answers every open line from the answer key; parent payers go in below the threshold
   async function workExceptions() {
-    const ex = await (await exceptions()).json();
+    const ex = await (await exceptions(new Request(U))).json();
     let queued = 0;
     for (const item of ex.open_lines) {
       const t = truth.get(item.bank_line.id)!;
@@ -54,7 +54,7 @@ describe("Grok Bot drives the app on the team sample (Sep, then Oct from memory)
     expect((await (await upload("2026_09")).json()).added).toBe(200);
     // pass 1 settles clean, bad_reference and combined (180); the agent gets parents, short-pays, overpayments,
     // duplicates and unidentifiable payers (20)
-    expect(await (await runPass()).json()).toMatchObject({ lines_exact: 180, lines_memory: 0, left_open: 20 });
+    expect(await (await runPass(new Request(U, { method: "POST" }))).json()).toMatchObject({ lines_exact: 180, lines_memory: 0, left_open: 20 });
 
     // a proposal 1p off is rejected with the reason, and nothing is written
     const sp = d.truth.find((t) => t.case === "overpayment" && t.bank_line_id.startsWith("B2609"))!;
@@ -81,7 +81,7 @@ describe("Grok Bot drives the app on the team sample (Sep, then Oct from memory)
 
     // October: the parent payers now match in pass 2, without the agent
     await upload("2026_10");
-    const oct = await (await runPass()).json();
+    const oct = await (await runPass(new Request(U, { method: "POST" }))).json();
     const octParents = d.truth.filter((t) => t.case === "parent_payer" && t.bank_line_id.startsWith("B2610")).length;
     expect(oct.lines_memory).toBe(octParents);
     await workExceptions();

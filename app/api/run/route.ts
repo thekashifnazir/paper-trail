@@ -12,8 +12,8 @@ import { runSummary } from "@/lib/cash/view";
 
 export const maxDuration = 300;
 
-export async function POST(req?: Request) {
-  const month = req ? new URL(req.url).searchParams.get("month") ?? undefined : undefined;
+export async function POST(req: Request) {
+  const month = new URL(req.url).searchParams.get("month") ?? undefined;
   return handle(async () => {
     const s = store();
     if (!month) return run(s);
