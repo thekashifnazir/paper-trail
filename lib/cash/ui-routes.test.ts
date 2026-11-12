@@ -14,7 +14,8 @@ const human = { method: "POST", headers: { "x-actor": "human" } };
 const get = async <T>(h: (r: Request) => Promise<Response>, q = "") => (await h(new Request(`${U}/${q}`))).json() as Promise<T>;
 
 describe("UI routes over the real engine (replayed pass 3)", () => {
-  beforeEach(() => { vi.stubEnv("CASH_AGENT_REPLAY", "1"); vi.stubEnv("CASH_AS_OF", "2026-11-12"); delete (globalThis as { __cashStore?: unknown }).__cashStore; });
+  // run?month= replays the saved run without any key
+  beforeEach(() => { vi.stubEnv("XAI_API_KEY", ""); vi.stubEnv("CASH_AS_OF", "2026-11-12"); delete (globalThis as { __cashStore?: unknown }).__cashStore; });
   afterEach(() => vi.unstubAllEnvs());
 
   it("reset, run September, approve a parent payer, run October from memory, arrears, audit", async () => {

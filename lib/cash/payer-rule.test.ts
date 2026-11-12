@@ -29,7 +29,7 @@ describe("payer isn't the tenant and not yet in memory -> a person", () => {
 
   it("holds a confident parent-company allocation for a person; the approval makes October match from memory", async () => {
     await upload("2026_09");
-    await runPass(new Request(`${U}/?month=2026-09`, { method: "POST" }));
+    await runPass(new Request(U, { method: "POST" })); // passes 1 and 2 only; ?month= would also replay pass 3
     const parent = d.truth.find((t) => t.case === "parent_payer" && t.bank_line_id.startsWith("B2609"))!;
     const payer = line(parent.bank_line_id).payer_name;
 
@@ -49,7 +49,7 @@ describe("payer isn't the tenant and not yet in memory -> a person", () => {
 
   it("lets a tenant paying under its own (bank-truncated) name through without a person", async () => {
     await upload("2026_09");
-    await runPass(new Request(`${U}/?month=2026-09`, { method: "POST" }));
+    await runPass(new Request(U, { method: "POST" })); // passes 1 and 2 only; ?month= would also replay pass 3
     const over = d.truth.find((t) => t.case === "overpayment" && t.bank_line_id.startsWith("B2609"))!;
     expect(line(over.bank_line_id).payer_name.length).toBeLessThanOrEqual(18);
     const res = await (await proposals(post(sure(over.bank_line_id)))).json();

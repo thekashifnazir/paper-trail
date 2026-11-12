@@ -24,8 +24,8 @@ Local `main` has **no commits**. The working tree is an uncommitted `create-next
 
 | Branch | What is there |
 |---|---|
-| `origin/main` | README, `data/sample/**`, `data/generate.py`, `data/check_seed.py`, `data/load_supabase.py`, `supabase/schema.sql` |
-| `origin/engine` | `lib/cash/**` matching engine, `app/api/**` routes, vitest. No UI. Branched from the data commit. |
+| `origin/main` | README, `data/**`, `supabase/schema.sql`, the UI (`app/` pages, `components/**`, `lib/api.ts`, `lib/mock.ts`, `lib/chaser.ts`), the Grok Bot connector (`/api/mcp`), and the engine as of the last checkpoint merge. |
+| `origin/engine` | `lib/cash/**` matching engine, `app/api/**` routes, `results/**`, vitest. Merged into `main` at the team checkpoints; between them it is ahead of `main`. |
 
 Frontend work bases off `origin/main` and takes the engine from `origin/engine`. Own `app/(ui)/**`, `components/**`, `lib/api.ts`, `lib/mock.ts`, `lib/chaser.ts`. Do not edit `app/api/**`, `lib/cash/**`, or `data/**`.
 
@@ -69,27 +69,30 @@ Each month, by `case_type`:
 
 Engine code is `lib/cash` on `origin/engine`. Money inside the engine is integer pence. The API speaks pounds, often as decimal strings. Do not do float arithmetic on money. Format for display; keep sums in pence until the edge.
 
-State is in memory in `lib/cash/service.ts`; payer memory and the audit log persist to Supabase when its keys are set. Writes take header `x-actor: grok_bot | human | system`.
+State is in memory in `lib/cash/service.ts`. Payer memory (`payer_aliases`) and the audit log (`audit_log`) are also saved to Supabase when `SUPABASE_URL` and `SUPABASE_SERVICE_ROLE_KEY` are set, and payer memory is read back on the first request after a restart (`lib/cash/persist.ts`, 04275be). `CASH_PERSIST=0` turns that off. `POST /api/reset` clears both. Writes take header `x-actor: grok_bot | human | system`.
 
 | Call | Behaviour |
 |---|---|
 | `POST /api/statements` | CSV text, `{ bank_lines }`, or `{ csv }`. Returns `{ received, added, skipped_known, total_lines }`. |
-| `POST /api/run` | Pass 1 and pass 2 only. Returns `{ lines_exact, lines_memory, left_open }`. |
+| `POST /api/run` | Without `?month`: pass 1 and pass 2 on every open line. Returns `{ lines_exact, lines_memory, left_open }`. With `?month`, see the UI routes below. |
+| `POST /api/agent?month=` | Pass 3 live: Jev (TypeSafe, `TYPESAFE_API_KEY`) first, then Grok (`XAI_API_KEY`, `grok-4.7`) on the lines Jev is unsure of; `PASS3_MODE=grok` skips Jev. `?concurrency=` (default 20), `?replay=results/<month>.json` to replay instead. Each answer goes through the same checks as `/api/proposals`. |
 | `GET /api/exceptions` | Open lines with up to 15 candidates, earlier identical lines, relevant tenants, aliases, and `waiting_for_approval` (each item is an explain payload). |
-| `POST /api/proposals` | Pass 3. Body: `{ bank_line_id, allocations: [{ charge_id, amount }], unallocated_amount, confidence, reasoning, evidence }`. 422 if the sum or a charge id is wrong. Confidence under 0.7 stays `proposed`. No allocations holds the line open. |
+| `POST /api/proposals` | Pass 3. Body: `{ bank_line_id, allocations: [{ charge_id, amount }], unallocated_amount, confidence, reasoning, evidence }`. 422 if the sum or a charge id is wrong. It stays `proposed` (waits for a person) when confidence is under 0.7, when an evidence quote isn't found in the source it names, or when the payer isn't the tenant and isn't yet in payer memory. No allocations holds the line open. |
 | `POST /api/allocations/:id/approve` and `/reject` | `:id` is a bank line id or an allocation id. Approve can learn a payer alias when the payer is not the tenant. |
 | `GET /api/allocations/:id/explain` | Bank line, state, allocations, unallocated, reasoning, evidence, who decided, audit trail. |
 | `GET /api/arrears` | `{ tenants, total_open, arrears }`. Default sort oldest due. `?sort=amount` for most money first. |
 | `GET /api/metrics` | Counts by method, `auto_match_rate`, held, waiting. `against_truth` only when a truth file is loaded. |
 
-Evidence on the wire: `{ type: "bank_line" \| "charge" \| "tenant" \| "lease" \| "alias", ref, quote }`.
+Evidence on the wire: `{ type: "bank_line" \| "charge" \| "tenant" \| "note" \| "lease" \| "alias", ref, quote }`. The UI routes rename `note` to `tenant_note` and `tenant` to `company_lookup`.
 
-The UI's routes (`lib/api.ts` with mock mode off) are thin adapters over the same service, in the shapes of `lib/types.ts` (Joel, 12 Nov: the engine side adapts, the UI files stay as they are):
+Grok Bot reaches the engine through `/api/mcp` (also `/api/mcp/<token>`): `run_month`, `list_exceptions`, `propose_allocation`, `explain_line`, `arrears`, `summary`, and for review `list_review_queue` and `review_line` (9c39a7b). Grok Bot can recommend, never approve.
+
+The UI calls these routes (`lib/api.ts` with mock mode off). They are the contract between the UI and the engine: thin adapters over the same service, in the shapes of `lib/types.ts` (Joel, 12 Nov: the engine side adapts, the UI files stay as they are):
 
 | Call | Behaviour |
 |---|---|
-| `POST /api/run?month=2026-09` | Loads that month's statement from `data/sample` if not loaded, runs passes 1, 2 and 3, returns `RunSummary` plus `lines_exact`, `lines_memory`, `left_open` and `agent`. Pass 3 replays `results/<month>.json` when `CASH_AGENT_REPLAY=1` (instant, for the recording), else runs live: Jev first when `TYPESAFE_API_KEY` is set, then Grok on `XAI_API_KEY`. Without `?month` it stays passes 1 and 2. |
-| `GET /api/lines?month=` | `LineView[]`. The queue is `status: "proposed"`; `review_reason` uses the seven UI labels ("New payer relationship" = payer isn't the tenant and not yet in payer memory). |
+| `POST /api/run?month=2026-09` | Loads that month's statement from `data/sample` if not loaded, runs passes 1 and 2, then pass 3 replayed from `results/<month>.json` (the saved real run of Jev then grok-4.7; instant, needs no key) when that file exists. Returns `RunSummary` plus `lines_exact`, `lines_memory`, `left_open` and `agent`. Live pass 3 is `POST /api/agent`. |
+| `GET /api/lines?month=` | `LineView[]`. The queue is `status: "proposed"`. `review_reason` is one of the UI's labels: "New payer relationship" (payer isn't the tenant and not yet in payer memory), "Possible duplicate payment", "Unidentified receipt", "Overpayment", "Short payment", "Low confidence" (also used when an evidence quote isn't found). |
 | `GET /api/summary?month=` | `RunSummary`; `score` only where the answer key covers the lines. |
 | `POST /api/lines/:id/approve` and `/reject` | Approve returns `{ remembered: "Remembered: {payer} pays for {tenant}" }` when it teaches a payer. Approving a line with nothing allocated (duplicate, unidentified) confirms leaving it open. |
 | `GET /api/audit` | `AuditRow[]`, newest first. |
