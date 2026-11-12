@@ -5,7 +5,8 @@
 //        npx tsx scripts/pass3.ts --stub     (replays the answer key through the same path; proves plumbing only)
 // Between months a simulated person approves queued proposals that match the answer key and rejects the rest;
 // approvals become aliases, so October runs with September's memory. The November hold-out is never read here.
-import { modelName, proposeAll, pass3Input, stubFetch, type AgentConfig } from "../lib/cash/agent";
+import { modelName, pass3Input, stubFetch, type AgentConfig } from "../lib/cash/agent";
+import { pass3Mode, runPass3 } from "../lib/cash/pass3";
 import { candidates } from "../lib/cash/candidates";
 import { checkEvidence } from "../lib/cash/evidence";
 import { loadData, TUNING_MONTHS } from "../lib/cash/data";
@@ -26,7 +27,9 @@ const all = loadData();
 const key = process.env.XAI_API_KEY;
 if (!stub && !key) throw new Error("XAI_API_KEY missing: put it in .env (git-ignored), or run with --stub");
 const cfg: AgentConfig = stub ? { apiKey: "stub", model: "stub", fetch: stubFetch(all.truth) } : { apiKey: key!, model: modelName() };
-console.log(`pass 3: ${stub ? "STUB (answer key replay, not a model result)" : `xAI ${cfg.model}`}, concurrency ${concurrency}\n`);
+const mode = pass3Mode();
+if (save && mode !== "grok") throw new Error("--save writes the README results: run it with PASS3_MODE=grok");
+console.log(`pass 3: ${stub ? "STUB (answer key replay, not a model result)" : `xAI ${cfg.model}`}, mode ${mode}, concurrency ${concurrency}\n`);
 const leaseOf = new Map(all.charges.map((c) => [c.tenant_id, c.lease_citation]));
 let evChecked = 0, evRejected = 0;
 
@@ -44,8 +47,9 @@ for (const month of onlyMonth ? [onlyMonth] : TUNING_MONTHS) {
   const r = allocate(all.charges, d.bankLines, aliases, open);
   open = r.openAmount;
   const inputs = r.leftover.map((b) => pass3Input(candidates(b, all.charges, open, all.tenants, aliases, d.bankLines), all.tenants, all.notes, all.companyLookup));
-  const res = await proposeAll(cfg, inputs, open, concurrency);
-  console.log(`${month}: pass 3 on ${inputs.length} lines took ${((Date.now() - tm) / 1000).toFixed(0)}s`);
+  const res = await runPass3(inputs, open, cfg, { mode, jevKey: process.env.TYPESAFE_API_KEY, concurrency });
+  const via = (v: string) => res.filter((x) => x.via === v).length;
+  console.log(`${month}: pass 3 on ${inputs.length} lines took ${((Date.now() - tm) / 1000).toFixed(0)}s${mode === "grok" ? "" : ` · Jev settled ${via("jev")}, Jev to a person ${via("jev_person")}, sent on to Grok ${via("grok")}`}`);
   const evSrc = { bankLines: d.bankLines, charges: all.charges, tenants: all.tenants.map((t) => ({ ...t, lease_citation: leaseOf.get(t.tenant_id) ?? "" })), notes: all.notes, lookup: all.companyLookup, openAmount: open };
 
   const truth = new Map(d.truth.map((t) => [t.bank_line_id, t]));
