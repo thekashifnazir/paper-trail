@@ -196,10 +196,8 @@ function callTool(name: string, args: Args): unknown {
       return { total_open: e.open_lines.length, open_lines: e.open_lines.slice(0, limit), waiting_for_approval: e.waiting_for_approval.length, tenants: e.tenants, tenant_notes: e.tenant_notes, aliases: e.aliases };
     }
     case "propose_allocation": {
-      const gated = isNewPayerRelationship(args) && Number(args.confidence) >= QUEUE_BELOW;
-      const body = gated ? { ...args, confidence: QUEUE_BELOW - 0.01 } : args;
-      const out = propose(s, body as unknown as Parameters<typeof propose>[1], "grok_bot") as Record<string, unknown>;
-      return gated ? { ...out, review_reason: "New payer relationship: a person approves once, then it's remembered", model_confidence: args.confidence } : out;
+      // The engine itself sends a payer who isn't the tenant (and isn't remembered) to a person, with review_reason.
+      return propose(s, args as unknown as Parameters<typeof propose>[1], "grok_bot");
     }
     case "list_review_queue":
       return reviewQueue();

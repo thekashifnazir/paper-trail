@@ -8,6 +8,9 @@ import type { Allocation } from "./types";
 
 const UI_EVIDENCE: Record<string, UiEvidence["type"]> = {
   bank_line: "bank_line", charge: "charge", lease: "lease", alias: "alias", note: "tenant_note", tenant: "company_lookup",
+  // Grok Bot's review of a queued line (lib/mcp/handler.ts review_line): the evidence card shows it as "grok bot".
+  grok_bot: "grok_bot" as UiEvidence["type"],
+  tenant_note: "tenant_note", company_lookup: "company_lookup",
 };
 const evidenceView = (ev: { type: string; ref: string; quote: string }[] = []): UiEvidence[] =>
   ev.map((e) => ({ type: UI_EVIDENCE[e.type] ?? "rule", ref: e.ref, quote: e.quote }));
