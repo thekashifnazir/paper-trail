@@ -24,7 +24,7 @@ A parallel restyle to Alice's mockup (navy bar, "Reconcile" tabs and receipt car
 
 Live production (mock on): **https://paper-trail-smoky.vercel.app**
 
-Local: `npm install && npm run dev` → http://localhost:3000. `NEXT_PUBLIC_USE_MOCK=1` (or unset) uses in-browser mock data.
+Local: `npm install && npm run dev` → http://localhost:3000. Opens in **Live** (engine on `data/sample`, agent pass replayed from `results/`). Top-bar switch or `?mode=demo` for in-browser fixtures; `NEXT_PUBLIC_DEFAULT_MODE=demo` changes the default.
 
 | Surface | Status |
 |---|---|
@@ -32,7 +32,7 @@ Local: `npm install && npm run dev` → http://localhost:3000. `NEXT_PUBLIC_USE_
 | `/exceptions` | 380px queue grouped by review reason (56px two-line items), compact detail header, 40px allocation table + green Balances row, Why with 5-segment confidence meter, typed evidence cards (company lookup / tenant note first, full width), Approve / Reject with A/R/J/K keycaps, Remembered toast. Loading, empty, error states. |
 | `/arrears` | Three KPI cards, open balances (expand for charges), Disputed pill with tooltip, Draft chaser (copy only) or "Nothing to chase", audit log. |
 | Mock data | Deterministic Wharfside Quarter; featured T087 Harbour & Finch + T096 Kestrel Physio; October memory after September parent-payer approve. |
-| Real API | `NEXT_PUBLIC_USE_MOCK=0` uses `/api/*`. With `SUPABASE_URL` + `SUPABASE_SERVICE_ROLE_KEY` set (server only, never `NEXT_PUBLIC_`), routes read and write Supabase via `lib/supabase-store.ts`; `CASH_DB=0` forces the in-memory engine. Real API failures are logged and thrown, never silently mocked. |
+| Real API | Live mode uses `/api/*`. With `SUPABASE_URL` + `SUPABASE_SERVICE_ROLE_KEY` set (server only, never `NEXT_PUBLIC_`), routes read and write Supabase via `lib/supabase-store.ts`; `CASH_DB=0` forces the in-memory engine. Real API failures are logged and thrown, never silently mocked. |
 | Grok Bot | MCP connector in `lib/mcp/` uses the same Supabase-backed store. Setup notes: `docs/grok-bot-credit-controller.md`. |
 | Tests | `npm test` — 35 passed, 5 skipped. |
 
@@ -60,7 +60,7 @@ Verified end to end on mock in a headless browser at 1440×900 and 1920×1080.
 
 ## Deploying (do this after every change Luca wants live)
 
-Production: **https://paper-trail-smoky.vercel.app** — Vercel project `solarolo-technologies/paper-trail`, framework nextjs, `NEXT_PUBLIC_USE_MOCK=1` set for all environments.
+Production: **https://paper-trail-smoky.vercel.app** — Vercel project `solarolo-technologies/paper-trail`, framework nextjs, not Git-linked (pushes do not deploy); deploy with `npx vercel deploy --prod --scope solarolo-technologies`.
 
 GitHub pushes still **do not auto-deploy**. Two ways that work:
 

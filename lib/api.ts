@@ -11,9 +11,12 @@ import type {
 
 export type DataMode = "demo" | "live";
 
-/** Build default: NEXT_PUBLIC_USE_MOCK=0 starts in Live (engine), anything else in Demo (in-browser fixtures). */
-export const DEFAULT_MODE: DataMode = process.env.NEXT_PUBLIC_USE_MOCK === "0" ? "live" : "demo";
-const MODE_KEY = "pt.dataMode";
+/**
+ * Default is Live: the engine on data/sample with the saved agent runs. NEXT_PUBLIC_DEFAULT_MODE=demo
+ * starts in the in-browser fixtures instead. Viewers switch in the top bar or with ?mode=demo|live.
+ */
+export const DEFAULT_MODE: DataMode = process.env.NEXT_PUBLIC_DEFAULT_MODE === "demo" ? "demo" : "live";
+const MODE_KEY = "pt.dataMode.v2";
 
 let mode: DataMode | null = null;
 
@@ -45,7 +48,7 @@ export function setMode(next: DataMode) {
 
 const isMock = () => getMode() === "demo";
 
-// Real API (NEXT_PUBLIC_USE_MOCK=0). A failed call is logged and thrown: never a silent fallback to the mock.
+// Live mode. A failed call is logged and thrown: never a silent fallback to the mock.
 async function json<T>(url: string, init?: RequestInit): Promise<T> {
   const method = init?.method ?? "GET";
   let res: Response;
