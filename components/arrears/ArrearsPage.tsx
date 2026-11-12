@@ -7,6 +7,7 @@ import { useStore } from "@/lib/store";
 import type { ArrearsRow, AuditRow } from "@/lib/types";
 import {
   EmptyState,
+  ErrorNote,
   EvidenceCard,
   KpiCard,
   KpiStrip,
@@ -64,7 +65,7 @@ function DisputeStatus({ note }: { note: string | null }) {
       {note && tip ? (
         <span
           role="tooltip"
-          className="pointer-events-none fixed z-30 w-72 rounded-lg border border-line bg-surface px-3 py-2 text-left text-[12px] font-normal tracking-normal text-ink"
+          className="pointer-events-none fixed z-30 w-72 rounded-[8px] border border-line bg-surface shadow-[var(--shadow-pop)] px-3 py-2 text-left text-[12px] font-normal tracking-normal text-ink"
           style={{
             left: tip.x,
             top: tip.y,
@@ -79,11 +80,7 @@ function DisputeStatus({ note }: { note: string | null }) {
 }
 
 function DangerNote({ message }: { message: string }) {
-  return (
-    <div className="rounded-lg border border-risk/30 bg-risk-tint px-3 py-2.5 text-[13px] text-risk">
-      {message}
-    </div>
-  );
+  return <ErrorNote message={message} />;
 }
 
 export function ArrearsPage() {
@@ -135,11 +132,6 @@ export function ArrearsPage() {
   if (!loading && !error && !ran) {
     return (
       <div className="space-y-3">
-        <header>
-          <h1 className="text-[24px] font-medium tracking-[-0.02em] text-ink">
-            Arrears
-          </h1>
-        </header>
         <EmptyState
           title="No arrears yet"
           body="Arrears appear once a statement has been allocated."
@@ -150,14 +142,7 @@ export function ArrearsPage() {
 
   return (
     <div className="space-y-3">
-      <header>
-        <h1 className="text-[24px] font-medium tracking-[-0.02em] text-ink">
-          Arrears
-        </h1>
-        <p className="mt-0.5 text-[13px] text-muted">
-          Disputed amounts are held back from the chaser.
-        </p>
-      </header>
+      <p className="text-[13px] text-muted">Disputed amounts are held back from the chaser.</p>
 
       {ran || sorted.length > 0 ? (
         <KpiStrip cols={3}>
@@ -174,9 +159,9 @@ export function ArrearsPage() {
         </KpiStrip>
       ) : null}
 
-      <section className="overflow-hidden rounded-[12px] border border-line bg-surface">
+      <section className="overflow-hidden rounded-[8px] border border-line bg-surface">
         <div className="flex items-center justify-between gap-3 border-b border-line px-3 py-2">
-          <h2 className="text-[16px] font-medium tracking-[-0.02em] text-ink">
+          <h2 className="text-[14px] font-semibold text-ink">
             Open balances
           </h2>
           {updating ? (
@@ -198,7 +183,7 @@ export function ArrearsPage() {
         ) : (
           <div className="max-h-[min(560px,56vh)] overflow-auto">
             <table className="w-full text-left">
-              <thead className="sticky top-0 z-10 bg-canvas text-[12px] font-medium tracking-[0.04em] text-muted">
+              <thead className="label sticky top-0 z-10 bg-surface">
                 <tr className="border-b border-line">
                   <th className="px-3 py-2 font-medium">Tenant and unit</th>
                   <th className="px-3 py-2 text-right font-medium">Outstanding</th>
@@ -236,8 +221,8 @@ export function ArrearsPage() {
                           <span className="text-[12px] text-muted">{row.unit}</span>
                         </button>
                       </td>
-                      <td className="h-11 px-3 text-right align-middle font-semibold">
-                        <Money value={row.outstanding} />
+                      <td className="h-11 px-3 text-right align-middle">
+                        <Money value={row.outstanding} className="font-medium" />
                       </td>
                       <td className="h-11 px-3 align-middle text-[13px]">
                         {shortDate(row.oldest_due_date)}
@@ -252,7 +237,7 @@ export function ArrearsPage() {
                               }}
                             />
                           </div>
-                          <span className="font-mono text-[13px] tabular-nums">
+                          <span className="mono text-[13px]">
                             {row.days_overdue}
                           </span>
                         </div>
@@ -271,7 +256,7 @@ export function ArrearsPage() {
                             event.stopPropagation();
                             openChaser(row);
                           }}
-                          className="rounded-lg border border-line bg-surface px-2.5 py-1 text-[12px] font-medium text-ink hover:bg-canvas"
+                          className="rounded-[8px] border border-line bg-surface px-2.5 py-1 text-[12px] font-medium text-ink hover:bg-canvas"
                         >
                           Draft chaser
                         </button>
@@ -287,7 +272,7 @@ export function ArrearsPage() {
                                 className="flex items-baseline justify-between gap-4 text-[13px]"
                               >
                                 <span className="text-muted">
-                                  <span className="font-mono text-ink">
+                                  <span className="mono text-ink">
                                     {charge.charge_id}
                                   </span>
                                   {" · "}
@@ -351,9 +336,9 @@ function AuditLog({
   updating: boolean;
 }) {
   return (
-    <section className="overflow-hidden rounded-[12px] border border-line bg-surface">
+    <section className="overflow-hidden rounded-[8px] border border-line bg-surface">
       <div className="flex items-center justify-between gap-3 border-b border-line px-3 py-2">
-        <h2 className="text-[16px] font-medium tracking-[-0.02em] text-ink">
+        <h2 className="text-[14px] font-semibold text-ink">
           Audit log
         </h2>
         {updating ? (
@@ -374,7 +359,7 @@ function AuditLog({
       ) : (
         <div className="max-h-56 overflow-auto">
           <table className="w-full text-left text-[13px]">
-            <thead className="sticky top-0 bg-canvas text-[12px] font-medium tracking-[0.04em] text-muted">
+            <thead className="label sticky top-0 bg-surface">
               <tr className="border-b border-line">
                 <th className="px-3 py-1.5 font-medium">Time</th>
                 <th className="px-3 py-1.5 font-medium">Actor</th>
@@ -388,7 +373,7 @@ function AuditLog({
                   key={`${entry.ts}-${entry.object_id}-${index}`}
                   className="border-b border-line"
                 >
-                  <td className="px-3 py-1.5 align-middle font-mono text-[11px] text-muted">
+                  <td className="px-3 py-1.5 align-middle mono text-[11px] text-muted">
                     <span
                       className={`mr-2 inline-block h-1.5 w-1.5 rounded-full ${
                         isAgentActor(entry.actor) ? "bg-agent" : "bg-ink"
@@ -407,7 +392,7 @@ function AuditLog({
                   <td className="px-3 py-1.5 align-middle">
                     {sentenceCase(entry.action)}
                   </td>
-                  <td className="px-3 py-1.5 align-middle font-mono text-[11px] text-muted">
+                  <td className="px-3 py-1.5 align-middle mono text-[11px] text-muted">
                     {entry.object_id}
                   </td>
                 </tr>
@@ -448,14 +433,14 @@ function ChaserDialog({
         role="dialog"
         aria-modal="true"
         aria-labelledby="chaser-title"
-        className="flex h-[min(720px,calc(100vh-2rem))] w-full max-w-5xl flex-col overflow-hidden rounded-[12px] border border-line bg-surface"
+        className="flex h-[min(720px,calc(100vh-2rem))] w-full max-w-5xl flex-col overflow-hidden rounded-[8px] border border-line bg-surface"
         onClick={(event) => event.stopPropagation()}
       >
         <div className="grid min-h-0 flex-1 md:grid-cols-2">
           <div className="flex min-h-0 flex-col border-b border-line p-4 md:border-b-0 md:border-r">
             <div
               id="chaser-title"
-              className="text-[12px] font-medium tracking-[0.04em] text-muted"
+              className="label"
             >
               Draft chaser
             </div>
@@ -463,17 +448,17 @@ function ChaserDialog({
               value={subject}
               onChange={(event) => onSubject(event.target.value)}
               aria-label="Subject"
-              className="mt-1.5 rounded-lg border border-line bg-canvas px-2.5 py-1.5 font-medium text-ink"
+              className="mt-1.5 rounded-[8px] border border-line bg-canvas px-2.5 py-1.5 font-medium text-ink"
             />
             <textarea
               value={body}
               onChange={(event) => onBody(event.target.value)}
               aria-label="Letter"
-              className="mt-2 min-h-0 flex-1 resize-none rounded-lg border border-line bg-canvas px-2.5 py-2 leading-relaxed text-ink"
+              className="mt-2 min-h-0 flex-1 resize-none rounded-[8px] border border-line bg-canvas px-2.5 py-2 leading-relaxed text-ink"
             />
           </div>
           <div className="min-h-0 overflow-auto p-4">
-            <div className="text-[12px] font-medium tracking-[0.04em] text-muted">
+            <div className="label">
               Based on
             </div>
             <div className="mt-2 space-y-2">
@@ -501,14 +486,14 @@ function ChaserDialog({
           <button
             type="button"
             onClick={onCopy}
-            className="rounded-lg bg-ink px-3.5 py-2 text-[13px] font-medium text-canvas"
+            className="rounded-[8px] bg-ink px-3.5 py-2 text-[13px] font-medium text-canvas"
           >
             {copied ? "Copied" : "Copy to clipboard"}
           </button>
           <button
             type="button"
             onClick={onClose}
-            className="rounded-lg border border-line bg-surface px-3.5 py-2 text-[13px] font-medium text-ink hover:bg-canvas"
+            className="rounded-[8px] border border-line bg-surface px-3.5 py-2 text-[13px] font-medium text-ink hover:bg-canvas"
           >
             Close
           </button>

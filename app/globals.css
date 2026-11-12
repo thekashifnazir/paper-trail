@@ -41,6 +41,9 @@
   --radius: 8px;
   --sidebar-w: 232px;
   --topbar-h: 52px;
+
+  /* The only shadow: popovers and toasts. */
+  --shadow-pop: 0 8px 24px -12px color-mix(in srgb, var(--ink) 30%, transparent);
 }
 
 @theme inline {
