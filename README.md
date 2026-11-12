@@ -4,6 +4,21 @@ Built at the Grok Bot Real Estate Hackathon London, 12 Nov 2026, Track 4 (operat
 
 You upload a bank statement and each receipt gets allocated to the right tenant charge, with evidence. Lines the agent isn't sure about go to a one-click exceptions queue. When a person approves one, that payer is remembered for next month. The output is an arrears list you can trust, chaser drafts and an audit log.
 
+Commercial leases are more complicated, so matching payments takes judgement and slows people down: a parent company pays for its tenant, or a tenant holds back disputed service charge. A payment that looks wrong is often right.
+
+**Video (2 min):** <https://youtu.be/evdDjT1mR58>
+
+## For judges: where to look
+
+| Criterion | What to look at |
+|---|---|
+| Relevance to a real estate problem | Until cash is allocated, the arrears list is wrong. The test data has the cases that need judgement every month: 8 parent-company payers, 5 combined payments, 5 short payments with service charge withheld, 3 overpayments, 2 duplicates, 2 unidentifiable (`data/sample/`). |
+| Quality of execution | `npm test` (vitest). Money is integer pence inside the engine (`lib/cash/money.ts`); a proposal a penny out is refused (`lib/cash/checkSum.ts`). Results below are reproducible with `PASS3_MODE=grok npx tsx scripts/pass3.ts --save`. |
+| Effective use of Grok Bot | Grok Bot connects to the app through our MCP connector (`lib/mcp/handler.ts`) with 9 tools: `run_month`, `summary`, `list_exceptions`, `list_review_queue`, `review_line`, `propose_allocation`, `explain_line`, `arrears`, `draft_chasers`. It reviews the lines waiting for a person and recommends with quotes; it can't approve. Bot setup: `docs/grok-bot-credit-controller.md`. |
+| Effective use of Cursor | The code was AI-generated under our direction in Cursor, which also reads our Supabase tables through its Supabase connector. |
+| Traceable data | Every allocation carries evidence quotes (bank line, charge, lease, company lookup, tenant note) and every quote is checked against its source, so a made-up quote sends the line to a person. Per-line output with reasoning and evidence: `results/2026-09.json`, `results/2026-10.json`. Every decision is in the audit log, with who made it (`human`, `grok_bot`, `system`). |
+| Practical usefulness | An arrears list a manager can act on, chaser drafts that hold back disputed amounts, and payer memory in Supabase, so next month's parent-company payments match without anyone. |
+
 ## Results
 
 All numbers come from the synthetic test data described below, where we tuned on September and October. November is a hold-out and gets scored once, at the end.
@@ -41,7 +56,7 @@ Approve all 8 before you run October. Lines you didn't approve don't go into mem
 3. **Pass 3, agent.** Grok proposes a split with evidence and code checks that it adds up.
 4. **Exceptions.** Anything low confidence goes to a person. Approving creates an alias, so next month the line matches in pass 2.
 
-Stack: Next.js (App Router) and TypeScript, Supabase (Postgres), the xAI API for the agent. Grok Bot explains allocations through an MCP connector.
+Stack: Next.js (App Router) and TypeScript, Supabase (Postgres) for payer memory and the audit log, the xAI API (grok-4.7) for pass 3. Grok Bot reviews the queue, explains allocations and drafts chasers through our MCP connector.
 
 ## Setup
 
