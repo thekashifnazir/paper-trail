@@ -10,7 +10,7 @@ import { pass3Mode, runPass3 } from "../lib/cash/pass3";
 import { candidates } from "../lib/cash/candidates";
 import { checkEvidence } from "../lib/cash/evidence";
 import { loadData, TUNING_MONTHS } from "../lib/cash/data";
-import { allocate, tenantForPayer } from "../lib/cash/match";
+import { allocate, payerKnown, tenantForPayer } from "../lib/cash/match";
 import { mkdirSync, writeFileSync } from "node:fs";
 import { fmt, toPence } from "../lib/cash/money";
 import { score, type ScoredAllocation } from "../lib/cash/score";
@@ -28,7 +28,7 @@ const key = process.env.XAI_API_KEY;
 if (!stub && !key) throw new Error("XAI_API_KEY missing: put it in .env (git-ignored), or run with --stub");
 const cfg: AgentConfig = stub ? { apiKey: "stub", model: "stub", fetch: stubFetch(all.truth) } : { apiKey: key!, model: modelName() };
 const mode = pass3Mode();
-if (save && mode !== "grok") throw new Error("--save rewrites the README's grok-only results: run it with PASS3_MODE=grok");
+
 console.log(`pass 3: ${stub ? "STUB (answer key replay, not a model result)" : `xAI ${cfg.model}`}, mode ${mode}, concurrency ${concurrency}\n`);
 const leaseOf = new Map(all.charges.map((c) => [c.tenant_id, c.lease_citation]));
 let evChecked = 0, evRejected = 0;
@@ -58,7 +58,10 @@ for (const month of onlyMonth ? [onlyMonth] : TUNING_MONTHS) {
   for (const x of res) {
     const ev = x.proposal ? checkEvidence(x.proposal.evidence ?? [], evSrc) : { checked: 0, rejected: [] };
     evChecked += ev.checked; evRejected += ev.rejected.length;
-    if (!x.proposal || x.proposal.confidence < 0.7 || (ev.rejected.length && x.proposal.allocations.length)) { toPerson.push(x); continue; }
+    const payer = d.bankLines.find((y) => y.id === x.bank_line_id)!.payer_name;
+    const tids = [...new Set((x.proposal?.allocations ?? []).map((a) => all.charges.find((c) => c.id === a.charge_id)?.tenant_id ?? ""))];
+    const payerOk = !x.proposal?.allocations.length || (tids.length === 1 && payerKnown(payer, tids[0], all.charges, aliases));
+    if (!x.proposal || x.proposal.confidence < 0.7 || (ev.rejected.length && x.proposal.allocations.length) || !payerOk) { toPerson.push(x); continue; }
     for (const a of x.proposal.allocations) auto.push({ bank_line_id: x.bank_line_id, charge_id: a.charge_id, amount: toPence(a.amount), method: "agent" });
     if (!x.proposal.allocations.length) auto.push({ bank_line_id: x.bank_line_id, charge_id: "", amount: 0, method: "agent_hold" });
   }
@@ -67,8 +70,9 @@ for (const month of onlyMonth ? [onlyMonth] : TUNING_MONTHS) {
   const autoTruth = d.truth.filter((t) => placedLines.has(t.bank_line_id));
   const s = score(autoTruth, auto, amounts);
   raw.push(...res.map((x) => ({ ...x, case: truth.get(x.bank_line_id)!.case })));
+  const toPersonIds = new Set(toPerson.map((x) => x.bank_line_id));
   for (const x of res) {
-    if (!x.proposal || x.proposal.confidence < 0.7) continue;
+    if (!x.proposal || toPersonIds.has(x.bank_line_id)) continue; // only lines that were auto-approved can be wrong
     const t = truth.get(x.bank_line_id)!;
     const got = auto.filter((a) => a.bank_line_id === x.bank_line_id && a.charge_id);
     const one = score([t], got, amounts);
@@ -98,7 +102,7 @@ for (const month of onlyMonth ? [onlyMonth] : TUNING_MONTHS) {
         reasoning: p?.reasoning ?? null, evidence: p?.evidence ?? [], code_rejections: x.rejected };
     });
     mkdirSync("results", { recursive: true });
-    writeFileSync(`results/${month}.json`, JSON.stringify({ month, model: cfg.model, lines }, null, 1) + "\n");
+    writeFileSync(`results/${month}.json`, JSON.stringify({ month, mode, model: cfg.model, lines }, null, 1) + "\n");
   }
 
   // the simulated person: approve queued proposals that match the key (they become memory), reject the rest

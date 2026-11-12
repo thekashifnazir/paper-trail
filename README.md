@@ -10,11 +10,11 @@ All numbers come from the synthetic test data described below, where we tuned on
 
 | Month | Lines | Auto-approved | Precision of approved | Wrong allocations | To a person |
 |---|---|---|---|---|---|
-| 2026-09 (tuning) | 200 | 196 (98%) | 100.0% | 0 | 4 |
+| 2026-09 (tuning) | 200 | 188 (94%) | 100.0% | 0 | 12 |
 | 2026-10 (tuning, from memory) | 200 | 196 (98%) | 100.0% | 0 | 4 |
 | 2026-11 (hold-out, scored once) | 200 | pending (scored once at 22:15) | | | |
 
-Pass 3 model grok-4.7, concurrency 4, about 30 s per pass-3 line. The 4 lines to a person each month are the 2 duplicates and 2 unidentifiable payers, which the agent left open below the confidence threshold. In this run grok-4.7 approved the 8 parent payers itself (confidence 0.7 or more), so no person approved them, nothing was learned, and October's parent payers went through the agent again, not memory. With grok-4.20 non-reasoning, 9 allocations were wrong. Per-line output: `results/2026-09.json`, `results/2026-10.json`, reproduced by `PASS3_MODE=grok npx tsx scripts/pass3.ts --save`. The app's default pass 3 now asks Jev (TypeSafe) first: on the same two months it also gave 0 wrong and 196/200 auto-approved, with Jev settling 10 lines a month and half the xAI calls (pass 3 87 s for September at concurrency 20, against 114 s grok-only).
+Pass 3: Jev (TypeSafe) first, then grok-4.7 for the lines Jev is unsure of, concurrency 20; 134 s for both months. A payer that isn't the tenant and isn't yet in payer memory always goes to a person, however confident the model is. So in September the 8 parent-company payments wait for approval, alongside 2 duplicates and 2 unidentifiable payers. In October the 8 parent payers, approved in September, match from memory, and the 4 lines to a person are the 2 duplicates and 2 unidentifiable payers. Leaving those 4 open is the right answer. With grok-4.20 non-reasoning in place of grok-4.7, 8 allocations were wrong. Per-line output: `results/2026-09.json`, `results/2026-10.json`, reproduced by `npx tsx scripts/pass3.ts --save` (an approval is simulated between the months: a person approves the queued lines that are right).
 
 For context, the APQC benchmark puts the median at 45% of receipts auto-applied, across 851 companies (as cited by creditpulse.com).
 

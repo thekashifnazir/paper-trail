@@ -28,6 +28,13 @@ export function tenantForPayer(payer: string, charges: Charge[]): string | undef
   return hits.size === 1 ? [...hits][0] : undefined;
 }
 
+// A payer may be allocated to a tenant's charges without a person only when the payer is that tenant (bank name
+// allowing for the 18-character cut) or a person approved that payer for that tenant before (payer memory).
+export function payerKnown(payer: string, tenantId: string, charges: Charge[], aliases: Pick<PayerAlias, "payer_name" | "tenant_id">[]): boolean {
+  if (tenantForPayer(payer, charges) === tenantId) return true;
+  return aliases.some((a) => a.payer_name.toUpperCase() === payer.toUpperCase() && a.tenant_id === tenantId);
+}
+
 export const DUPLICATE_WINDOW_DAYS = 7;
 const days = (a: string, b: string) => (Date.parse(b) - Date.parse(a)) / 86_400_000;
 

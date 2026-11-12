@@ -5,13 +5,14 @@ import { checkProposal } from "./checkSum";
 import { parseCsv } from "./csv";
 import { loadData, type CompanyLookup, type TenantNote } from "./data";
 import { checkEvidence, type EvidenceSources } from "./evidence";
-import { allocate } from "./match";
+import { allocate, payerKnown } from "./match";
 import { clearMemory, loadAliases, persistEnabled, saveAlias, saveAudit } from "./persist";
 import { fmt, toPence } from "./money";
 import { score, type TruthRow } from "./score";
 import type { AgentProposal, Allocation, BankLine, Charge, PayerAlias, Pence, Tenant } from "./types";
 
-export const QUEUE_BELOW = 0.7; // pass 3 proposals under this confidence wait for a person
+export const QUEUE_BELOW = 0.7;
+export const PAYER_NOT_TENANT = "payer is not the tenant and not yet in payer memory"; // pass 3 proposals under this confidence wait for a person
 
 export type Actor = "grok_bot" | "human" | "system";
 
@@ -192,8 +193,12 @@ export function propose(s: Store, body: AgentProposal & { bank_line_id: string }
   }
   // no source, no figure: a quote that is not in the source it names sends the line to a person
   const ev = checkEvidence(evidence, evidenceSources(s));
-  const status = ev.rejected.length || confidence < QUEUE_BELOW ? "proposed" : "approved";
+  // a payer that is not the tenant and not yet in payer memory waits for a person; the approval teaches the app
+  const tids = [...new Set(body.allocations.map((a) => s.charges.find((c) => c.id === a.charge_id)?.tenant_id ?? ""))];
+  const payerOk = tids.length === 1 && payerKnown(b.payer_name, tids[0], s.charges, s.aliases);
+  const status = ev.rejected.length || !payerOk || confidence < QUEUE_BELOW ? "proposed" : "approved";
   if (ev.rejected.length) s.reviewReason.set(b.id, `evidence not found: ${ev.rejected.map((r) => r.ref).join(", ")}`);
+  else if (!payerOk) s.reviewReason.set(b.id, PAYER_NOT_TENANT);
   else if (status === "proposed") s.reviewReason.set(b.id, `confidence ${confidence} below ${QUEUE_BELOW}`);
   for (const a of body.allocations) {
     s.allocations.push({ id: `${b.id}:${a.charge_id}`, bank_line_id: b.id, charge_id: a.charge_id, amount: toPence(a.amount), method: "agent", confidence, evidence, status });
