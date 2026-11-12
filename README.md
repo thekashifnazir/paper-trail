@@ -32,7 +32,7 @@ Paper Trail takes that matching off the person and keeps them for the judgement 
 ## Architecture
 
 ```mermaid
-flowchart LR
+flowchart TB
   CSV["Bank statement CSV<br/>about 200 lines a month"] --> P1
   subgraph APP["Paper Trail app (Next.js + TypeScript)"]
     P1["Pass 1: rules<br/>ref + amount, duplicates,<br/>name + subset sum"] --> P2["Pass 2: payer memory"]
