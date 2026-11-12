@@ -1,6 +1,7 @@
 # secrets
 .env
 .env.*
+!.env.example
 
 # partner data: licensed for the event only, never commit (Cortile, MSCI)
 data/private/
@@ -10,8 +11,11 @@ cortile-*
 msci-*
 
 node_modules/
+.next/
+out/
 .wrangler/
 .DS_Store
+next-env.d.ts
 
 # generated seed data carries Cortile-derived names and ids, never commit
 data/seed/
