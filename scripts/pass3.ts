@@ -1,5 +1,7 @@
 // Pass 1 + 2 + 3 per month on the team sample, scored like the README results table.
 // usage: npx tsx scripts/pass3.ts            (xAI; needs XAI_API_KEY in .env; XAI_MODEL, default grok-4.7)
+//        npx tsx scripts/pass3.ts --save     (also writes results/<month>.json: per line method, status, allocations,
+//                                            confidence; no answer-key fields)
 //        npx tsx scripts/pass3.ts --stub     (replays the answer key through the same path; proves plumbing only)
 // Between months a simulated person approves queued proposals that match the answer key and rejects the rest;
 // approvals become aliases, so October runs with September's memory. The November hold-out is never read here.
@@ -7,10 +9,13 @@ import { modelName, proposeAll, pass3Input, stubFetch, type AgentConfig } from "
 import { candidates } from "../lib/cash/candidates";
 import { loadData, TUNING_MONTHS } from "../lib/cash/data";
 import { allocate, tenantForPayer } from "../lib/cash/match";
-import { toPence } from "../lib/cash/money";
+import { mkdirSync, writeFileSync } from "node:fs";
+import { fmt, toPence } from "../lib/cash/money";
 import { score, type ScoredAllocation } from "../lib/cash/score";
 
 const stub = process.argv.includes("--stub");
+const save = process.argv.includes("--save");
+if (save && stub) throw new Error("--save writes real results; it cannot be combined with --stub");
 try { process.loadEnvFile(".env"); } catch { /* no .env */ }
 const all = loadData();
 const key = process.env.XAI_API_KEY;
@@ -60,6 +65,25 @@ for (const month of TUNING_MONTHS) {
   perCase[month] = Object.entries(s.perCase).map(([c, v]) => `${c} ${v.right}/${v.n}`).join(", ") + ` · to a person: ${toPerson.map((x) => truth.get(x.bank_line_id)!.case).join(", ") || "none"}`;
   const retried = res.filter((x) => x.rejected.length);
   if (retried.length) perCase[month] += ` · code rejected ${retried.length} first answers (${retried.flatMap((x) => x.rejected).slice(0, 3).join("; ")})`;
+
+  if (save) {
+    const agentBy = new Map(res.map((x) => [x.bank_line_id, x]));
+    const person = new Set(toPerson.map((x) => x.bank_line_id));
+    const lines = d.bankLines.map((b) => {
+      const p12 = r.allocations.filter((a) => a.bank_line_id === b.id);
+      if (p12.length) {
+        return { bank_line_id: b.id, method: p12[0].method, status: "approved", confidence: 1,
+          allocations: p12.map((a) => ({ charge_id: a.charge_id, amount: Number(fmt(a.amount)) })), unallocated_amount: Number(fmt(toPence(b.amount) - p12.reduce((x, a) => x + a.amount, 0))) };
+      }
+      const x = agentBy.get(b.id)!;
+      const p = x.proposal;
+      return { bank_line_id: b.id, method: "agent", status: person.has(b.id) ? "to_a_person" : p!.allocations.length ? "approved" : "held",
+        confidence: p?.confidence ?? null, allocations: p?.allocations ?? [], unallocated_amount: p?.unallocated_amount ?? Number(b.amount),
+        reasoning: p?.reasoning ?? null, evidence: p?.evidence ?? [], code_rejections: x.rejected };
+    });
+    mkdirSync("results", { recursive: true });
+    writeFileSync(`results/${month}.json`, JSON.stringify({ month, model: cfg.model, lines }, null, 1) + "\n");
+  }
 
   // the simulated person: approve queued proposals that match the key (they become memory), reject the rest
   for (const x of toPerson) {

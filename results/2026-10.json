@@ -1,0 +1,3041 @@
+{
+ "month": "2026-10",
+ "model": "grok-4.7",
+ "lines": [
+  {
+   "bank_line_id": "B2610-001",
+   "method": "exact",
+   "status": "approved",
+   "confidence": 1,
+   "allocations": [
+    {
+     "charge_id": "INV-2610-093-R",
+     "amount": 6587.5
+    },
+    {
+     "charge_id": "INV-2610-093-S",
+     "amount": 872.18
+    }
+   ],
+   "unallocated_amount": 0
+  },
+  {
+   "bank_line_id": "B2610-002",
+   "method": "exact",
+   "status": "approved",
+   "confidence": 1,
+   "allocations": [
+    {
+     "charge_id": "INV-2610-007-R",
+     "amount": 2383.33
+    }
+   ],
+   "unallocated_amount": 0
+  },
+  {
+   "bank_line_id": "B2610-003",
+   "method": "exact",
+   "status": "approved",
+   "confidence": 1,
+   "allocations": [
+    {
+     "charge_id": "INV-2610-073-S",
+     "amount": 287.34
+    }
+   ],
+   "unallocated_amount": 0
+  },
+  {
+   "bank_line_id": "B2610-004",
+   "method": "exact",
+   "status": "approved",
+   "confidence": 1,
+   "allocations": [
+    {
+     "charge_id": "INV-2610-033-S",
+     "amount": 377.24
+    }
+   ],
+   "unallocated_amount": 0
+  },
+  {
+   "bank_line_id": "B2610-005",
+   "method": "exact",
+   "status": "approved",
+   "confidence": 1,
+   "allocations": [
+    {
+     "charge_id": "INV-2610-009-R",
+     "amount": 4708.33
+    }
+   ],
+   "unallocated_amount": 0
+  },
+  {
+   "bank_line_id": "B2610-006",
+   "method": "exact",
+   "status": "approved",
+   "confidence": 1,
+   "allocations": [
+    {
+     "charge_id": "INV-2610-058-R",
+     "amount": 4358.33
+    }
+   ],
+   "unallocated_amount": 0
+  },
+  {
+   "bank_line_id": "B2610-007",
+   "method": "exact",
+   "status": "approved",
+   "confidence": 1,
+   "allocations": [
+    {
+     "charge_id": "INV-2610-101-S",
+     "amount": 693.09
+    }
+   ],
+   "unallocated_amount": 0
+  },
+  {
+   "bank_line_id": "B2610-008",
+   "method": "exact",
+   "status": "approved",
+   "confidence": 1,
+   "allocations": [
+    {
+     "charge_id": "INV-2610-076-R",
+     "amount": 2958.33
+    }
+   ],
+   "unallocated_amount": 0
+  },
+  {
+   "bank_line_id": "B2610-009",
+   "method": "exact",
+   "status": "approved",
+   "confidence": 1,
+   "allocations": [
+    {
+     "charge_id": "INV-2610-009-S",
+     "amount": 506.1
+    }
+   ],
+   "unallocated_amount": 0
+  },
+  {
+   "bank_line_id": "B2610-010",
+   "method": "exact",
+   "status": "approved",
+   "confidence": 1,
+   "allocations": [
+    {
+     "charge_id": "INV-2610-010-R",
+     "amount": 2541.67
+    }
+   ],
+   "unallocated_amount": 0
+  },
+  {
+   "bank_line_id": "B2610-011",
+   "method": "exact",
+   "status": "approved",
+   "confidence": 1,
+   "allocations": [
+    {
+     "charge_id": "INV-2610-010-S",
+     "amount": 297.04
+    }
+   ],
+   "unallocated_amount": 0
+  },
+  {
+   "bank_line_id": "B2610-012",
+   "method": "exact",
+   "status": "approved",
+   "confidence": 1,
+   "allocations": [
+    {
+     "charge_id": "INV-2610-007-S",
+     "amount": 331.77
+    }
+   ],
+   "unallocated_amount": 0
+  },
+  {
+   "bank_line_id": "B2610-013",
+   "method": "exact",
+   "status": "approved",
+   "confidence": 1,
+   "allocations": [
+    {
+     "charge_id": "INV-2610-079-R",
+     "amount": 1975
+    }
+   ],
+   "unallocated_amount": 0
+  },
+  {
+   "bank_line_id": "B2610-014",
+   "method": "exact",
+   "status": "approved",
+   "confidence": 1,
+   "allocations": [
+    {
+     "charge_id": "INV-2610-005-R",
+     "amount": 5454.17
+    }
+   ],
+   "unallocated_amount": 0
+  },
+  {
+   "bank_line_id": "B2610-015",
+   "method": "exact",
+   "status": "approved",
+   "confidence": 1,
+   "allocations": [
+    {
+     "charge_id": "INV-2610-016-S",
+     "amount": 560.12
+    }
+   ],
+   "unallocated_amount": 0
+  },
+  {
+   "bank_line_id": "B2610-016",
+   "method": "exact",
+   "status": "approved",
+   "confidence": 1,
+   "allocations": [
+    {
+     "charge_id": "INV-2610-073-R",
+     "amount": 3304.17
+    }
+   ],
+   "unallocated_amount": 0
+  },
+  {
+   "bank_line_id": "B2610-017",
+   "method": "exact",
+   "status": "approved",
+   "confidence": 1,
+   "allocations": [
+    {
+     "charge_id": "INV-2610-018-R",
+     "amount": 4058.33
+    }
+   ],
+   "unallocated_amount": 0
+  },
+  {
+   "bank_line_id": "B2610-018",
+   "method": "exact",
+   "status": "approved",
+   "confidence": 1,
+   "allocations": [
+    {
+     "charge_id": "INV-2610-018-S",
+     "amount": 509.96
+    }
+   ],
+   "unallocated_amount": 0
+  },
+  {
+   "bank_line_id": "B2610-019",
+   "method": "exact",
+   "status": "approved",
+   "confidence": 1,
+   "allocations": [
+    {
+     "charge_id": "INV-2610-083-S",
+     "amount": 757.07
+    }
+   ],
+   "unallocated_amount": 0
+  },
+  {
+   "bank_line_id": "B2610-020",
+   "method": "exact",
+   "status": "approved",
+   "confidence": 1,
+   "allocations": [
+    {
+     "charge_id": "INV-2610-016-R",
+     "amount": 5583.33
+    }
+   ],
+   "unallocated_amount": 0
+  },
+  {
+   "bank_line_id": "B2610-021",
+   "method": "exact",
+   "status": "approved",
+   "confidence": 1,
+   "allocations": [
+    {
+     "charge_id": "INV-2610-023-R",
+     "amount": 4587.5
+    }
+   ],
+   "unallocated_amount": 0
+  },
+  {
+   "bank_line_id": "B2610-022",
+   "method": "exact",
+   "status": "approved",
+   "confidence": 1,
+   "allocations": [
+    {
+     "charge_id": "INV-2610-023-S",
+     "amount": 495.82
+    }
+   ],
+   "unallocated_amount": 0
+  },
+  {
+   "bank_line_id": "B2610-023",
+   "method": "exact",
+   "status": "approved",
+   "confidence": 1,
+   "allocations": [
+    {
+     "charge_id": "INV-2610-034-R",
+     "amount": 2508.33
+    }
+   ],
+   "unallocated_amount": 0
+  },
+  {
+   "bank_line_id": "B2610-024",
+   "method": "exact",
+   "status": "approved",
+   "confidence": 1,
+   "allocations": [
+    {
+     "charge_id": "INV-2610-015-R",
+     "amount": 2500
+    }
+   ],
+   "unallocated_amount": 0
+  },
+  {
+   "bank_line_id": "B2610-025",
+   "method": "exact",
+   "status": "approved",
+   "confidence": 1,
+   "allocations": [
+    {
+     "charge_id": "INV-2610-015-S",
+     "amount": 281.67
+    }
+   ],
+   "unallocated_amount": 0
+  },
+  {
+   "bank_line_id": "B2610-026",
+   "method": "exact",
+   "status": "approved",
+   "confidence": 1,
+   "allocations": [
+    {
+     "charge_id": "INV-2610-031-S",
+     "amount": 469.39
+    }
+   ],
+   "unallocated_amount": 0
+  },
+  {
+   "bank_line_id": "B2610-027",
+   "method": "exact",
+   "status": "approved",
+   "confidence": 1,
+   "allocations": [
+    {
+     "charge_id": "INV-2610-031-R",
+     "amount": 3370.83
+    }
+   ],
+   "unallocated_amount": 0
+  },
+  {
+   "bank_line_id": "B2610-028",
+   "method": "exact",
+   "status": "approved",
+   "confidence": 1,
+   "allocations": [
+    {
+     "charge_id": "INV-2610-005-S",
+     "amount": 671
+    }
+   ],
+   "unallocated_amount": 0
+  },
+  {
+   "bank_line_id": "B2610-029",
+   "method": "exact",
+   "status": "approved",
+   "confidence": 1,
+   "allocations": [
+    {
+     "charge_id": "INV-2610-081-S",
+     "amount": 414.25
+    }
+   ],
+   "unallocated_amount": 0
+  },
+  {
+   "bank_line_id": "B2610-030",
+   "method": "agent",
+   "status": "to_a_person",
+   "confidence": 0,
+   "allocations": [],
+   "unallocated_amount": 4125.52,
+   "reasoning": "No tenant, company lookup row, or note matches payer D K MENSAH, and there are no open charges, so the receipt is left unallocated.",
+   "evidence": [
+    {
+     "type": "bank_line",
+     "ref": "B2610-030",
+     "quote": "payer_name D K MENSAH amount 4125.52 reference empty"
+    }
+   ],
+   "code_rejections": []
+  },
+  {
+   "bank_line_id": "B2610-031",
+   "method": "exact",
+   "status": "approved",
+   "confidence": 1,
+   "allocations": [
+    {
+     "charge_id": "INV-2610-019-S",
+     "amount": 281.55
+    }
+   ],
+   "unallocated_amount": 0
+  },
+  {
+   "bank_line_id": "B2610-032",
+   "method": "exact",
+   "status": "approved",
+   "confidence": 1,
+   "allocations": [
+    {
+     "charge_id": "INV-2610-028-S",
+     "amount": 447.07
+    }
+   ],
+   "unallocated_amount": 0
+  },
+  {
+   "bank_line_id": "B2610-033",
+   "method": "agent",
+   "status": "approved",
+   "confidence": 0.95,
+   "allocations": [
+    {
+     "charge_id": "INV-2610-089-S",
+     "amount": 567.63
+    }
+   ],
+   "unallocated_amount": 0,
+   "reasoning": "BEACON GRP PLC may pay Beacon Property Holdings Ltd per the company lookup row, and reference OCT SC plus the exact amount match the October service charge.",
+   "evidence": [
+    {
+     "type": "bank_line",
+     "ref": "B2610-033",
+     "quote": "BEACON GRP PLC OCT SC 567.63"
+    },
+    {
+     "type": "charge",
+     "ref": "INV-2610-089-S",
+     "quote": "service_charge 2026-10 amount_open 567.63"
+    },
+    {
+     "type": "tenant",
+     "ref": "T089",
+     "quote": "Beacon Property Holdings Ltd parent_company BEACON GRP PLC; lookup BEACON GRP PLC group_members Beacon Property Holdings Ltd"
+    }
+   ],
+   "code_rejections": []
+  },
+  {
+   "bank_line_id": "B2610-034",
+   "method": "exact",
+   "status": "approved",
+   "confidence": 1,
+   "allocations": [
+    {
+     "charge_id": "INV-2610-019-R",
+     "amount": 2525
+    }
+   ],
+   "unallocated_amount": 0
+  },
+  {
+   "bank_line_id": "B2610-035",
+   "method": "agent",
+   "status": "approved",
+   "confidence": 0.95,
+   "allocations": [
+    {
+     "charge_id": "INV-2610-089-R",
+     "amount": 4158.34
+    }
+   ],
+   "unallocated_amount": 0,
+   "reasoning": "BEACON GRP PLC may pay Beacon Property Holdings Ltd charges per the company lookup row for that payer. The reference names October rent and the amount matches INV-2610-089-R exactly, so the service charge is left open.",
+   "evidence": [
+    {
+     "type": "bank_line",
+     "ref": "B2610-035",
+     "quote": "BEACON GRP PLC RENT OCT 4158.34"
+    },
+    {
+     "type": "tenant",
+     "ref": "T089",
+     "quote": "Beacon Property Holdings Ltd parent_company BEACON GRP PLC; lookup group_members Beacon Property Holdings Ltd"
+    },
+    {
+     "type": "charge",
+     "ref": "INV-2610-089-R",
+     "quote": "rent 2026-10 amount_open 4158.34 due 2026-10-01"
+    }
+   ],
+   "code_rejections": []
+  },
+  {
+   "bank_line_id": "B2610-036",
+   "method": "exact",
+   "status": "approved",
+   "confidence": 1,
+   "allocations": [
+    {
+     "charge_id": "INV-2610-028-R",
+     "amount": 3758.33
+    }
+   ],
+   "unallocated_amount": 0
+  },
+  {
+   "bank_line_id": "B2610-037",
+   "method": "exact",
+   "status": "approved",
+   "confidence": 1,
+   "allocations": [
+    {
+     "charge_id": "INV-2610-011-R",
+     "amount": 2312.5
+    }
+   ],
+   "unallocated_amount": 0
+  },
+  {
+   "bank_line_id": "B2610-038",
+   "method": "exact",
+   "status": "approved",
+   "confidence": 1,
+   "allocations": [
+    {
+     "charge_id": "INV-2610-058-S",
+     "amount": 431.6
+    }
+   ],
+   "unallocated_amount": 0
+  },
+  {
+   "bank_line_id": "B2610-039",
+   "method": "exact",
+   "status": "approved",
+   "confidence": 1,
+   "allocations": [
+    {
+     "charge_id": "INV-2610-085-S",
+     "amount": 677.46
+    }
+   ],
+   "unallocated_amount": 0
+  },
+  {
+   "bank_line_id": "B2610-040",
+   "method": "exact",
+   "status": "approved",
+   "confidence": 1,
+   "allocations": [
+    {
+     "charge_id": "INV-2610-032-R",
+     "amount": 2829.17
+    }
+   ],
+   "unallocated_amount": 0
+  },
+  {
+   "bank_line_id": "B2610-041",
+   "method": "exact",
+   "status": "approved",
+   "confidence": 1,
+   "allocations": [
+    {
+     "charge_id": "INV-2610-085-R",
+     "amount": 5175
+    }
+   ],
+   "unallocated_amount": 0
+  },
+  {
+   "bank_line_id": "B2610-042",
+   "method": "exact",
+   "status": "approved",
+   "confidence": 1,
+   "allocations": [
+    {
+     "charge_id": "INV-2610-052-S",
+     "amount": 1197.26
+    }
+   ],
+   "unallocated_amount": 0
+  },
+  {
+   "bank_line_id": "B2610-043",
+   "method": "exact",
+   "status": "approved",
+   "confidence": 1,
+   "allocations": [
+    {
+     "charge_id": "INV-2610-044-R",
+     "amount": 4166.67
+    }
+   ],
+   "unallocated_amount": 0
+  },
+  {
+   "bank_line_id": "B2610-044",
+   "method": "exact",
+   "status": "approved",
+   "confidence": 1,
+   "allocations": [
+    {
+     "charge_id": "INV-2610-052-R",
+     "amount": 8983.33
+    }
+   ],
+   "unallocated_amount": 0
+  },
+  {
+   "bank_line_id": "B2610-045",
+   "method": "exact",
+   "status": "approved",
+   "confidence": 1,
+   "allocations": [
+    {
+     "charge_id": "INV-2610-078-R",
+     "amount": 5783.33
+    }
+   ],
+   "unallocated_amount": 0
+  },
+  {
+   "bank_line_id": "B2610-046",
+   "method": "exact",
+   "status": "approved",
+   "confidence": 1,
+   "allocations": [
+    {
+     "charge_id": "INV-2610-078-S",
+     "amount": 629.74
+    }
+   ],
+   "unallocated_amount": 0
+  },
+  {
+   "bank_line_id": "B2610-047",
+   "method": "exact",
+   "status": "approved",
+   "confidence": 1,
+   "allocations": [
+    {
+     "charge_id": "INV-2610-011-S",
+     "amount": 306.52
+    }
+   ],
+   "unallocated_amount": 0
+  },
+  {
+   "bank_line_id": "B2610-048",
+   "method": "exact",
+   "status": "approved",
+   "confidence": 1,
+   "allocations": [
+    {
+     "charge_id": "INV-2610-032-S",
+     "amount": 376.09
+    }
+   ],
+   "unallocated_amount": 0
+  },
+  {
+   "bank_line_id": "B2610-049",
+   "method": "exact",
+   "status": "approved",
+   "confidence": 1,
+   "allocations": [
+    {
+     "charge_id": "INV-2610-050-R",
+     "amount": 6158.33
+    }
+   ],
+   "unallocated_amount": 0
+  },
+  {
+   "bank_line_id": "B2610-050",
+   "method": "agent",
+   "status": "approved",
+   "confidence": 0.95,
+   "allocations": [
+    {
+     "charge_id": "INV-2610-086-R",
+     "amount": 5995.83
+    }
+   ],
+   "unallocated_amount": 0,
+   "reasoning": "FAIRWAY GROUP PLC may pay Fairway Lettings Ltd per the company lookup (and is that tenant's parent). Reference RENT OCT and the amount match the October rent charge exactly, so the service charge is left open.",
+   "evidence": [
+    {
+     "type": "bank_line",
+     "ref": "B2610-050",
+     "quote": "FAIRWAY GROUP PLC 5995.83 reference RENT OCT"
+    },
+    {
+     "type": "tenant",
+     "ref": "FAIRWAY GROUP PLC",
+     "quote": "company lookup: group_members include Fairway Lettings Ltd; tenant T086 parent_company FAIRWAY GROUP PLC"
+    },
+    {
+     "type": "charge",
+     "ref": "INV-2610-086-R",
+     "quote": "Fairway Lettings Ltd rent 2026-10 due 2026-10-01 amount_open 5995.83"
+    }
+   ],
+   "code_rejections": []
+  },
+  {
+   "bank_line_id": "B2610-051",
+   "method": "exact",
+   "status": "approved",
+   "confidence": 1,
+   "allocations": [
+    {
+     "charge_id": "INV-2610-003-R",
+     "amount": 5000
+    }
+   ],
+   "unallocated_amount": 0
+  },
+  {
+   "bank_line_id": "B2610-052",
+   "method": "exact",
+   "status": "approved",
+   "confidence": 1,
+   "allocations": [
+    {
+     "charge_id": "INV-2610-036-S",
+     "amount": 531.62
+    }
+   ],
+   "unallocated_amount": 0
+  },
+  {
+   "bank_line_id": "B2610-053",
+   "method": "exact",
+   "status": "approved",
+   "confidence": 1,
+   "allocations": [
+    {
+     "charge_id": "INV-2610-068-R",
+     "amount": 3745.84
+    }
+   ],
+   "unallocated_amount": 0
+  },
+  {
+   "bank_line_id": "B2610-054",
+   "method": "exact",
+   "status": "approved",
+   "confidence": 1,
+   "allocations": [
+    {
+     "charge_id": "INV-2610-037-S",
+     "amount": 527.82
+    }
+   ],
+   "unallocated_amount": 0
+  },
+  {
+   "bank_line_id": "B2610-055",
+   "method": "exact",
+   "status": "approved",
+   "confidence": 1,
+   "allocations": [
+    {
+     "charge_id": "INV-2610-006-R",
+     "amount": 4854.17
+    }
+   ],
+   "unallocated_amount": 0
+  },
+  {
+   "bank_line_id": "B2610-056",
+   "method": "agent",
+   "status": "approved",
+   "confidence": 0.96,
+   "allocations": [
+    {
+     "charge_id": "INV-2610-086-S",
+     "amount": 587.33
+    }
+   ],
+   "unallocated_amount": 0,
+   "reasoning": "FAIRWAY GROUP PLC may pay Fairway Lettings Ltd charges per the company lookup, and reference SERVICE CHG OCT plus the exact amount match the October service charge.",
+   "evidence": [
+    {
+     "type": "bank_line",
+     "ref": "B2610-056",
+     "quote": "FAIRWAY GROUP PLC SERVICE CHG OCT 587.33"
+    },
+    {
+     "type": "charge",
+     "ref": "INV-2610-086-S",
+     "quote": "service_charge 2026-10 amount_open 587.33 Fairway Lettings Ltd"
+    },
+    {
+     "type": "tenant",
+     "ref": "T086",
+     "quote": "Fairway Lettings Ltd parent_company FAIRWAY GROUP PLC; lookup group_members Fairway Lettings Ltd"
+    }
+   ],
+   "code_rejections": []
+  },
+  {
+   "bank_line_id": "B2610-057",
+   "method": "agent",
+   "status": "approved",
+   "confidence": 0.84,
+   "allocations": [
+    {
+     "charge_id": "INV-2610-104-R",
+     "amount": 6525
+    }
+   ],
+   "unallocated_amount": 250,
+   "reasoning": "Payer LIBERTY DEVELOPMEN is a truncated match to Liberty Developments Ltd, and the reference names INV-2610-104-R; that rent charge is allocated in full and the 250.00 excess is left unallocated as credit on account.",
+   "evidence": [
+    {
+     "type": "bank_line",
+     "ref": "B2610-057",
+     "quote": "LIBERTY DEVELOPMEN INV-2610-104-R OCT RENT 6775.00"
+    },
+    {
+     "type": "charge",
+     "ref": "INV-2610-104-R",
+     "quote": "Liberty Developments Ltd rent 2026-10 amount_open 6525 due 2026-10-01"
+    },
+    {
+     "type": "tenant",
+     "ref": "T104",
+     "quote": "Liberty Developments Ltd"
+    }
+   ],
+   "code_rejections": []
+  },
+  {
+   "bank_line_id": "B2610-058",
+   "method": "exact",
+   "status": "approved",
+   "confidence": 1,
+   "allocations": [
+    {
+     "charge_id": "INV-2610-039-S",
+     "amount": 683.21
+    }
+   ],
+   "unallocated_amount": 0
+  },
+  {
+   "bank_line_id": "B2610-059",
+   "method": "exact",
+   "status": "approved",
+   "confidence": 1,
+   "allocations": [
+    {
+     "charge_id": "INV-2610-037-R",
+     "amount": 3791.67
+    }
+   ],
+   "unallocated_amount": 0
+  },
+  {
+   "bank_line_id": "B2610-060",
+   "method": "exact",
+   "status": "approved",
+   "confidence": 1,
+   "allocations": [
+    {
+     "charge_id": "INV-2610-036-R",
+     "amount": 3929.17
+    }
+   ],
+   "unallocated_amount": 0
+  },
+  {
+   "bank_line_id": "B2610-061",
+   "method": "exact",
+   "status": "approved",
+   "confidence": 1,
+   "allocations": [
+    {
+     "charge_id": "INV-2610-068-S",
+     "amount": 485.42
+    }
+   ],
+   "unallocated_amount": 0
+  },
+  {
+   "bank_line_id": "B2610-062",
+   "method": "exact",
+   "status": "approved",
+   "confidence": 1,
+   "allocations": [
+    {
+     "charge_id": "INV-2610-039-R",
+     "amount": 5704.17
+    }
+   ],
+   "unallocated_amount": 0
+  },
+  {
+   "bank_line_id": "B2610-063",
+   "method": "exact",
+   "status": "approved",
+   "confidence": 1,
+   "allocations": [
+    {
+     "charge_id": "INV-2610-055-R",
+     "amount": 3691.67
+    }
+   ],
+   "unallocated_amount": 0
+  },
+  {
+   "bank_line_id": "B2610-064",
+   "method": "exact",
+   "status": "approved",
+   "confidence": 1,
+   "allocations": [
+    {
+     "charge_id": "INV-2610-055-S",
+     "amount": 462.82
+    }
+   ],
+   "unallocated_amount": 0
+  },
+  {
+   "bank_line_id": "B2610-065",
+   "method": "exact",
+   "status": "approved",
+   "confidence": 1,
+   "allocations": [
+    {
+     "charge_id": "INV-2610-064-R",
+     "amount": 4529.17
+    }
+   ],
+   "unallocated_amount": 0
+  },
+  {
+   "bank_line_id": "B2610-066",
+   "method": "exact",
+   "status": "approved",
+   "confidence": 1,
+   "allocations": [
+    {
+     "charge_id": "INV-2610-061-S",
+     "amount": 445.81
+    }
+   ],
+   "unallocated_amount": 0
+  },
+  {
+   "bank_line_id": "B2610-067",
+   "method": "exact",
+   "status": "approved",
+   "confidence": 1,
+   "allocations": [
+    {
+     "charge_id": "INV-2610-100-R",
+     "amount": 4933.33
+    }
+   ],
+   "unallocated_amount": 0
+  },
+  {
+   "bank_line_id": "B2610-068",
+   "method": "exact",
+   "status": "approved",
+   "confidence": 1,
+   "allocations": [
+    {
+     "charge_id": "INV-2610-061-R",
+     "amount": 5020.83
+    }
+   ],
+   "unallocated_amount": 0
+  },
+  {
+   "bank_line_id": "B2610-069",
+   "method": "agent",
+   "status": "to_a_person",
+   "confidence": 0,
+   "allocations": [],
+   "unallocated_amount": 5399.06,
+   "reasoning": "No tenant, company lookup row, or note matches payer MR T HALLORAN, and there are no open charges, so the receipt is left unallocated.",
+   "evidence": [
+    {
+     "type": "bank_line",
+     "ref": "B2610-069",
+     "quote": "MR T HALLORAN 5399.06"
+    }
+   ],
+   "code_rejections": []
+  },
+  {
+   "bank_line_id": "B2610-070",
+   "method": "exact",
+   "status": "approved",
+   "confidence": 1,
+   "allocations": [
+    {
+     "charge_id": "INV-2610-064-S",
+     "amount": 642.13
+    }
+   ],
+   "unallocated_amount": 0
+  },
+  {
+   "bank_line_id": "B2610-071",
+   "method": "exact",
+   "status": "approved",
+   "confidence": 1,
+   "allocations": [
+    {
+     "charge_id": "INV-2610-069-R",
+     "amount": 2800
+    }
+   ],
+   "unallocated_amount": 0
+  },
+  {
+   "bank_line_id": "B2610-072",
+   "method": "exact",
+   "status": "approved",
+   "confidence": 1,
+   "allocations": [
+    {
+     "charge_id": "INV-2610-035-R",
+     "amount": 4941.67
+    }
+   ],
+   "unallocated_amount": 0
+  },
+  {
+   "bank_line_id": "B2610-073",
+   "method": "exact",
+   "status": "approved",
+   "confidence": 1,
+   "allocations": [
+    {
+     "charge_id": "INV-2610-069-S",
+     "amount": 308.41
+    }
+   ],
+   "unallocated_amount": 0
+  },
+  {
+   "bank_line_id": "B2610-074",
+   "method": "exact",
+   "status": "approved",
+   "confidence": 1,
+   "allocations": [
+    {
+     "charge_id": "INV-2610-035-S",
+     "amount": 633.8
+    }
+   ],
+   "unallocated_amount": 0
+  },
+  {
+   "bank_line_id": "B2610-075",
+   "method": "exact",
+   "status": "approved",
+   "confidence": 1,
+   "allocations": [
+    {
+     "charge_id": "INV-2610-059-R",
+     "amount": 2241.67
+    }
+   ],
+   "unallocated_amount": 0
+  },
+  {
+   "bank_line_id": "B2610-076",
+   "method": "exact",
+   "status": "approved",
+   "confidence": 1,
+   "allocations": [
+    {
+     "charge_id": "INV-2610-059-S",
+     "amount": 309.47
+    }
+   ],
+   "unallocated_amount": 0
+  },
+  {
+   "bank_line_id": "B2610-077",
+   "method": "exact",
+   "status": "approved",
+   "confidence": 1,
+   "allocations": [
+    {
+     "charge_id": "INV-2610-042-R",
+     "amount": 7008.33
+    }
+   ],
+   "unallocated_amount": 0
+  },
+  {
+   "bank_line_id": "B2610-078",
+   "method": "exact",
+   "status": "approved",
+   "confidence": 1,
+   "allocations": [
+    {
+     "charge_id": "INV-2610-084-R",
+     "amount": 3462.5
+    }
+   ],
+   "unallocated_amount": 0
+  },
+  {
+   "bank_line_id": "B2610-079",
+   "method": "exact",
+   "status": "approved",
+   "confidence": 1,
+   "allocations": [
+    {
+     "charge_id": "INV-2610-020-R",
+     "amount": 3608.33
+    }
+   ],
+   "unallocated_amount": 0
+  },
+  {
+   "bank_line_id": "B2610-080",
+   "method": "exact",
+   "status": "approved",
+   "confidence": 1,
+   "allocations": [
+    {
+     "charge_id": "INV-2610-084-S",
+     "amount": 411.6
+    }
+   ],
+   "unallocated_amount": 0
+  },
+  {
+   "bank_line_id": "B2610-081",
+   "method": "exact",
+   "status": "approved",
+   "confidence": 1,
+   "allocations": [
+    {
+     "charge_id": "INV-2610-082-R",
+     "amount": 3508.33
+    }
+   ],
+   "unallocated_amount": 0
+  },
+  {
+   "bank_line_id": "B2610-082",
+   "method": "exact",
+   "status": "approved",
+   "confidence": 1,
+   "allocations": [
+    {
+     "charge_id": "INV-2610-063-R",
+     "amount": 2766.67
+    }
+   ],
+   "unallocated_amount": 0
+  },
+  {
+   "bank_line_id": "B2610-083",
+   "method": "exact",
+   "status": "approved",
+   "confidence": 1,
+   "allocations": [
+    {
+     "charge_id": "INV-2610-062-S",
+     "amount": 392.52
+    }
+   ],
+   "unallocated_amount": 0
+  },
+  {
+   "bank_line_id": "B2610-084",
+   "method": "exact",
+   "status": "approved",
+   "confidence": 1,
+   "allocations": [
+    {
+     "charge_id": "INV-2610-083-R",
+     "amount": 7600
+    }
+   ],
+   "unallocated_amount": 0
+  },
+  {
+   "bank_line_id": "B2610-085",
+   "method": "exact",
+   "status": "approved",
+   "confidence": 1,
+   "allocations": [
+    {
+     "charge_id": "INV-2610-063-S",
+     "amount": 302.94
+    }
+   ],
+   "unallocated_amount": 0
+  },
+  {
+   "bank_line_id": "B2610-086",
+   "method": "exact",
+   "status": "approved",
+   "confidence": 1,
+   "allocations": [
+    {
+     "charge_id": "INV-2610-045-S",
+     "amount": 360.67
+    }
+   ],
+   "unallocated_amount": 0
+  },
+  {
+   "bank_line_id": "B2610-087",
+   "method": "exact",
+   "status": "approved",
+   "confidence": 1,
+   "allocations": [
+    {
+     "charge_id": "INV-2610-044-S",
+     "amount": 582.54
+    }
+   ],
+   "unallocated_amount": 0
+  },
+  {
+   "bank_line_id": "B2610-088",
+   "method": "exact",
+   "status": "approved",
+   "confidence": 1,
+   "allocations": [
+    {
+     "charge_id": "INV-2610-062-R",
+     "amount": 2812.5
+    }
+   ],
+   "unallocated_amount": 0
+  },
+  {
+   "bank_line_id": "B2610-089",
+   "method": "agent",
+   "status": "approved",
+   "confidence": 0.86,
+   "allocations": [
+    {
+     "charge_id": "INV-2610-103-R",
+     "amount": 4687.5
+    }
+   ],
+   "unallocated_amount": 250,
+   "reasoning": "Payer HARBOUR INVESTMENT matches tenant Harbour Investments Ltd and the reference names INV-2610-103-R; the payment exceeds that rent by 250.00, so the excess is left unallocated as credit on account.",
+   "evidence": [
+    {
+     "type": "bank_line",
+     "ref": "B2610-089",
+     "quote": "HARBOUR INVESTMENT INV-2610-103-R OCT RENT 4937.50"
+    },
+    {
+     "type": "tenant",
+     "ref": "T103",
+     "quote": "Harbour Investments Ltd"
+    },
+    {
+     "type": "charge",
+     "ref": "INV-2610-103-R",
+     "quote": "Harbour Investments Ltd rent 2026-10 amount_open 4687.50"
+    }
+   ],
+   "code_rejections": []
+  },
+  {
+   "bank_line_id": "B2610-090",
+   "method": "exact",
+   "status": "approved",
+   "confidence": 1,
+   "allocations": [
+    {
+     "charge_id": "INV-2610-038-R",
+     "amount": 2891.67
+    }
+   ],
+   "unallocated_amount": 0
+  },
+  {
+   "bank_line_id": "B2610-091",
+   "method": "exact",
+   "status": "approved",
+   "confidence": 1,
+   "allocations": [
+    {
+     "charge_id": "INV-2610-080-R",
+     "amount": 2079.17
+    }
+   ],
+   "unallocated_amount": 0
+  },
+  {
+   "bank_line_id": "B2610-092",
+   "method": "exact",
+   "status": "approved",
+   "confidence": 1,
+   "allocations": [
+    {
+     "charge_id": "INV-2610-043-R",
+     "amount": 4650
+    }
+   ],
+   "unallocated_amount": 0
+  },
+  {
+   "bank_line_id": "B2610-093",
+   "method": "exact",
+   "status": "approved",
+   "confidence": 1,
+   "allocations": [
+    {
+     "charge_id": "INV-2610-006-S",
+     "amount": 541.83
+    }
+   ],
+   "unallocated_amount": 0
+  },
+  {
+   "bank_line_id": "B2610-094",
+   "method": "exact",
+   "status": "approved",
+   "confidence": 1,
+   "allocations": [
+    {
+     "charge_id": "INV-2610-077-R",
+     "amount": 4533.33
+    }
+   ],
+   "unallocated_amount": 0
+  },
+  {
+   "bank_line_id": "B2610-095",
+   "method": "exact",
+   "status": "approved",
+   "confidence": 1,
+   "allocations": [
+    {
+     "charge_id": "INV-2610-047-R",
+     "amount": 3216.67
+    }
+   ],
+   "unallocated_amount": 0
+  },
+  {
+   "bank_line_id": "B2610-096",
+   "method": "exact",
+   "status": "approved",
+   "confidence": 1,
+   "allocations": [
+    {
+     "charge_id": "INV-2610-047-S",
+     "amount": 417.5
+    }
+   ],
+   "unallocated_amount": 0
+  },
+  {
+   "bank_line_id": "B2610-097",
+   "method": "agent",
+   "status": "to_a_person",
+   "confidence": 0.55,
+   "allocations": [],
+   "unallocated_amount": 5000,
+   "reasoning": "possible duplicate of B2610-051",
+   "evidence": [
+    {
+     "type": "bank_line",
+     "ref": "B2610-097",
+     "quote": "ANCHOR RETAIL LTD INV-2610-003-R 5000.00"
+    }
+   ],
+   "code_rejections": []
+  },
+  {
+   "bank_line_id": "B2610-098",
+   "method": "exact",
+   "status": "approved",
+   "confidence": 1,
+   "allocations": [
+    {
+     "charge_id": "INV-2610-026-S",
+     "amount": 306.43
+    }
+   ],
+   "unallocated_amount": 0
+  },
+  {
+   "bank_line_id": "B2610-099",
+   "method": "exact",
+   "status": "approved",
+   "confidence": 1,
+   "allocations": [
+    {
+     "charge_id": "INV-2610-043-S",
+     "amount": 666.3
+    }
+   ],
+   "unallocated_amount": 0
+  },
+  {
+   "bank_line_id": "B2610-100",
+   "method": "exact",
+   "status": "approved",
+   "confidence": 1,
+   "allocations": [
+    {
+     "charge_id": "INV-2610-077-S",
+     "amount": 651.31
+    }
+   ],
+   "unallocated_amount": 0
+  },
+  {
+   "bank_line_id": "B2610-101",
+   "method": "exact",
+   "status": "approved",
+   "confidence": 1,
+   "allocations": [
+    {
+     "charge_id": "INV-2610-080-S",
+     "amount": 233.46
+    }
+   ],
+   "unallocated_amount": 0
+  },
+  {
+   "bank_line_id": "B2610-102",
+   "method": "exact",
+   "status": "approved",
+   "confidence": 1,
+   "allocations": [
+    {
+     "charge_id": "INV-2610-034-S",
+     "amount": 306.65
+    }
+   ],
+   "unallocated_amount": 0
+  },
+  {
+   "bank_line_id": "B2610-103",
+   "method": "exact",
+   "status": "approved",
+   "confidence": 1,
+   "allocations": [
+    {
+     "charge_id": "INV-2610-026-R",
+     "amount": 2983.33
+    }
+   ],
+   "unallocated_amount": 0
+  },
+  {
+   "bank_line_id": "B2610-104",
+   "method": "exact",
+   "status": "approved",
+   "confidence": 1,
+   "allocations": [
+    {
+     "charge_id": "INV-2610-076-S",
+     "amount": 373.17
+    }
+   ],
+   "unallocated_amount": 0
+  },
+  {
+   "bank_line_id": "B2610-105",
+   "method": "agent",
+   "status": "approved",
+   "confidence": 0.95,
+   "allocations": [
+    {
+     "charge_id": "INV-2610-097-R",
+     "amount": 1979.17
+    },
+    {
+     "charge_id": "INV-2610-097-S",
+     "amount": 153.84
+    }
+   ],
+   "unallocated_amount": 0,
+   "reasoning": "SHIELD COMMERCIAL matches Shield Commercial Ltd. Reference RENT+SC OCT PART pays October rent in full and October service charge less the £70.94 dispute, which equals the receipt to the penny.",
+   "evidence": [
+    {
+     "type": "bank_line",
+     "ref": "B2610-105",
+     "quote": "SHIELD COMMERCIAL RENT+SC OCT PART 2133.01"
+    },
+    {
+     "type": "tenant",
+     "ref": "T097",
+     "quote": "Shield Commercial Ltd"
+    },
+    {
+     "type": "charge",
+     "ref": "INV-2610-097-R",
+     "quote": "rent 2026-10 amount_open 1979.17"
+    },
+    {
+     "type": "charge",
+     "ref": "INV-2610-097-S",
+     "quote": "service_charge 2026-10 amount_open 224.78"
+    },
+    {
+     "type": "note",
+     "ref": "T097",
+     "quote": "Disputing £70.94 of October service charge, email of 29 September 2026."
+    }
+   ],
+   "code_rejections": []
+  },
+  {
+   "bank_line_id": "B2610-106",
+   "method": "exact",
+   "status": "approved",
+   "confidence": 1,
+   "allocations": [
+    {
+     "charge_id": "INV-2610-065-R",
+     "amount": 1637.5
+    }
+   ],
+   "unallocated_amount": 0
+  },
+  {
+   "bank_line_id": "B2610-107",
+   "method": "exact",
+   "status": "approved",
+   "confidence": 1,
+   "allocations": [
+    {
+     "charge_id": "INV-2610-065-S",
+     "amount": 187.59
+    }
+   ],
+   "unallocated_amount": 0
+  },
+  {
+   "bank_line_id": "B2610-108",
+   "method": "exact",
+   "status": "approved",
+   "confidence": 1,
+   "allocations": [
+    {
+     "charge_id": "INV-2610-090-R",
+     "amount": 5325
+    },
+    {
+     "charge_id": "INV-2610-090-S",
+     "amount": 494.16
+    }
+   ],
+   "unallocated_amount": 0
+  },
+  {
+   "bank_line_id": "B2610-109",
+   "method": "agent",
+   "status": "to_a_person",
+   "confidence": 0.6,
+   "allocations": [],
+   "unallocated_amount": 3791.67,
+   "reasoning": "possible duplicate of B2610-059",
+   "evidence": [
+    {
+     "type": "bank_line",
+     "ref": "B2610-109",
+     "quote": "CENTRAL RETAIL LTD inv2610037r 3791.67"
+    }
+   ],
+   "code_rejections": []
+  },
+  {
+   "bank_line_id": "B2610-110",
+   "method": "agent",
+   "status": "approved",
+   "confidence": 0.95,
+   "allocations": [
+    {
+     "charge_id": "INV-2610-088-S",
+     "amount": 316.88
+    }
+   ],
+   "unallocated_amount": 0,
+   "reasoning": "PREMIER GROUP PLC may pay Premier Ventures Ltd charges per the company lookup (group member Premier Ventures Ltd). Reference OCT SC and amount 316.88 match the October service charge INV-2610-088-S in full.",
+   "evidence": [
+    {
+     "type": "tenant",
+     "ref": "T088",
+     "quote": "parent_company PREMIER GROUP PLC; company lookup payer PREMIER GROUP PLC group_members Premier Ventures Ltd"
+    },
+    {
+     "type": "bank_line",
+     "ref": "B2610-110",
+     "quote": "PREMIER GROUP PLC OCT SC 316.88"
+    },
+    {
+     "type": "charge",
+     "ref": "INV-2610-088-S",
+     "quote": "service_charge 2026-10 amount_open 316.88"
+    }
+   ],
+   "code_rejections": []
+  },
+  {
+   "bank_line_id": "B2610-111",
+   "method": "agent",
+   "status": "approved",
+   "confidence": 0.96,
+   "allocations": [
+    {
+     "charge_id": "INV-2610-088-R",
+     "amount": 2279.17
+    }
+   ],
+   "unallocated_amount": 0,
+   "reasoning": "PREMIER GROUP PLC may pay Premier Ventures Ltd charges per the company lookup, and 2279.17 matches the October rent charge exactly; the reference names rent, so the service charge is left open.",
+   "evidence": [
+    {
+     "type": "bank_line",
+     "ref": "B2610-111",
+     "quote": "PREMIER GROUP PLC OCT RENT 2279.17"
+    },
+    {
+     "type": "tenant",
+     "ref": "T088",
+     "quote": "Premier Ventures Ltd parent_company PREMIER GROUP PLC"
+    },
+    {
+     "type": "lease",
+     "ref": "company_lookup:PREMIER GROUP PLC",
+     "quote": "PREMIER GROUP PLC group_members Premier Ventures Ltd"
+    },
+    {
+     "type": "charge",
+     "ref": "INV-2610-088-R",
+     "quote": "rent 2026-10 amount_open 2279.17 due 2026-10-01"
+    }
+   ],
+   "code_rejections": []
+  },
+  {
+   "bank_line_id": "B2610-112",
+   "method": "exact",
+   "status": "approved",
+   "confidence": 1,
+   "allocations": [
+    {
+     "charge_id": "INV-2610-021-S",
+     "amount": 956.85
+    }
+   ],
+   "unallocated_amount": 0
+  },
+  {
+   "bank_line_id": "B2610-113",
+   "method": "exact",
+   "status": "approved",
+   "confidence": 1,
+   "allocations": [
+    {
+     "charge_id": "INV-2610-014-S",
+     "amount": 762.33
+    }
+   ],
+   "unallocated_amount": 0
+  },
+  {
+   "bank_line_id": "B2610-114",
+   "method": "exact",
+   "status": "approved",
+   "confidence": 1,
+   "allocations": [
+    {
+     "charge_id": "INV-2610-041-S",
+     "amount": 379.81
+    }
+   ],
+   "unallocated_amount": 0
+  },
+  {
+   "bank_line_id": "B2610-115",
+   "method": "agent",
+   "status": "approved",
+   "confidence": 0.86,
+   "allocations": [
+    {
+     "charge_id": "INV-2610-105-R",
+     "amount": 6762.5
+    }
+   ],
+   "unallocated_amount": 250,
+   "reasoning": "PIONEER COMMERCIAL matches tenant Pioneer Commercial Ltd and the reference names INV-2610-105-R. That rent charge is allocated in full; the 250.00 excess does not match any other open charge and is left unallocated.",
+   "evidence": [
+    {
+     "type": "bank_line",
+     "ref": "B2610-115",
+     "quote": "PIONEER COMMERCIAL INV-2610-105-R OCT RENT 7012.50"
+    },
+    {
+     "type": "tenant",
+     "ref": "T105",
+     "quote": "Pioneer Commercial Ltd"
+    },
+    {
+     "type": "charge",
+     "ref": "INV-2610-105-R",
+     "quote": "rent 2026-10 amount_open 6762.50 due 2026-10-01"
+    }
+   ],
+   "code_rejections": []
+  },
+  {
+   "bank_line_id": "B2610-116",
+   "method": "exact",
+   "status": "approved",
+   "confidence": 1,
+   "allocations": [
+    {
+     "charge_id": "INV-2610-041-R",
+     "amount": 2925
+    }
+   ],
+   "unallocated_amount": 0
+  },
+  {
+   "bank_line_id": "B2610-117",
+   "method": "exact",
+   "status": "approved",
+   "confidence": 1,
+   "allocations": [
+    {
+     "charge_id": "INV-2610-014-R",
+     "amount": 5454.18
+    }
+   ],
+   "unallocated_amount": 0
+  },
+  {
+   "bank_line_id": "B2610-118",
+   "method": "exact",
+   "status": "approved",
+   "confidence": 1,
+   "allocations": [
+    {
+     "charge_id": "INV-2610-030-R",
+     "amount": 3891.67
+    }
+   ],
+   "unallocated_amount": 0
+  },
+  {
+   "bank_line_id": "B2610-119",
+   "method": "agent",
+   "status": "approved",
+   "confidence": 0.95,
+   "allocations": [
+    {
+     "charge_id": "INV-2610-096-R",
+     "amount": 3058.33
+    },
+    {
+     "charge_id": "INV-2610-096-S",
+     "amount": 259.71
+    }
+   ],
+   "unallocated_amount": 0,
+   "reasoning": "METRO VENTURES matches Metro Ventures Ltd. £3,318.04 equals October rent in full plus the undisputed part of the October service charge (£356.49 − £96.78); the disputed September service charge (£177.56) and £96.78 of October service charge are left unpaid per the notes.",
+   "evidence": [
+    {
+     "type": "bank_line",
+     "ref": "B2610-119",
+     "quote": "payer_name METRO VENTURES, amount 3318.04, reference SEE EMAIL RE SC"
+    },
+    {
+     "type": "tenant",
+     "ref": "T096",
+     "quote": "Metro Ventures Ltd"
+    },
+    {
+     "type": "charge",
+     "ref": "INV-2610-096-R",
+     "quote": "rent 2026-10 amount_open 3058.33 due 2026-10-01"
+    },
+    {
+     "type": "charge",
+     "ref": "INV-2610-096-S",
+     "quote": "service_charge 2026-10 amount_open 356.49 due 2026-10-01"
+    },
+    {
+     "type": "charge",
+     "ref": "INV-2609-096-S",
+     "quote": "service_charge 2026-09 amount_open 177.56 due 2026-09-01"
+    },
+    {
+     "type": "note",
+     "ref": "T096/2026-09-09",
+     "quote": "Disputing £177.56 of September service charge, email of 9 September 2026."
+    },
+    {
+     "type": "note",
+     "ref": "T096/2026-10-03",
+     "quote": "Disputing £96.78 of October service charge, email of 3 October 2026."
+    }
+   ],
+   "code_rejections": []
+  },
+  {
+   "bank_line_id": "B2610-120",
+   "method": "exact",
+   "status": "approved",
+   "confidence": 1,
+   "allocations": [
+    {
+     "charge_id": "INV-2610-030-S",
+     "amount": 472.39
+    }
+   ],
+   "unallocated_amount": 0
+  },
+  {
+   "bank_line_id": "B2610-121",
+   "method": "exact",
+   "status": "approved",
+   "confidence": 1,
+   "allocations": [
+    {
+     "charge_id": "INV-2610-040-S",
+     "amount": 377.08
+    }
+   ],
+   "unallocated_amount": 0
+  },
+  {
+   "bank_line_id": "B2610-122",
+   "method": "agent",
+   "status": "approved",
+   "confidence": 0.94,
+   "allocations": [
+    {
+     "charge_id": "INV-2610-098-R",
+     "amount": 4533.34
+    },
+    {
+     "charge_id": "INV-2610-098-S",
+     "amount": 305.62
+    }
+   ],
+   "unallocated_amount": 0,
+   "reasoning": "HARBOUR ESTATES LI is Harbour Estates Ltd truncated, and £4838.96 equals October rent in full plus October service charge less the £219.31 dispute. The fully disputed September service charge is left open.",
+   "evidence": [
+    {
+     "type": "bank_line",
+     "ref": "B2610-122",
+     "quote": "HARBOUR ESTATES LI OCT RENT LESS DISPUTE 4838.96"
+    },
+    {
+     "type": "tenant",
+     "ref": "T098",
+     "quote": "Harbour Estates Ltd"
+    },
+    {
+     "type": "note",
+     "ref": "T098",
+     "quote": "Disputing £219.31 of October service charge, email of 2 October 2026."
+    },
+    {
+     "type": "note",
+     "ref": "T098",
+     "quote": "Disputing £108.10 of September service charge, email of 31 August 2026."
+    },
+    {
+     "type": "charge",
+     "ref": "INV-2610-098-R",
+     "quote": "rent 2026-10 amount_open 4533.34"
+    },
+    {
+     "type": "charge",
+     "ref": "INV-2610-098-S",
+     "quote": "service_charge 2026-10 amount_open 524.93"
+    }
+   ],
+   "code_rejections": []
+  },
+  {
+   "bank_line_id": "B2610-123",
+   "method": "exact",
+   "status": "approved",
+   "confidence": 1,
+   "allocations": [
+    {
+     "charge_id": "INV-2610-042-S",
+     "amount": 651.28
+    }
+   ],
+   "unallocated_amount": 0
+  },
+  {
+   "bank_line_id": "B2610-124",
+   "method": "exact",
+   "status": "approved",
+   "confidence": 1,
+   "allocations": [
+    {
+     "charge_id": "INV-2610-020-S",
+     "amount": 433.92
+    }
+   ],
+   "unallocated_amount": 0
+  },
+  {
+   "bank_line_id": "B2610-125",
+   "method": "exact",
+   "status": "approved",
+   "confidence": 1,
+   "allocations": [
+    {
+     "charge_id": "INV-2610-033-R",
+     "amount": 3554.17
+    }
+   ],
+   "unallocated_amount": 0
+  },
+  {
+   "bank_line_id": "B2610-126",
+   "method": "agent",
+   "status": "approved",
+   "confidence": 0.95,
+   "allocations": [
+    {
+     "charge_id": "INV-2610-087-R",
+     "amount": 2312.51
+    }
+   ],
+   "unallocated_amount": 0,
+   "reasoning": "CENTRAL GROUP PLC may pay Central Developments Ltd under the company lookup, and the OCT RENT reference and amount match the October rent charge exactly.",
+   "evidence": [
+    {
+     "type": "tenant",
+     "ref": "T087",
+     "quote": "parent_company CENTRAL GROUP PLC; company lookup CENTRAL GROUP PLC group_members Central Developments Ltd"
+    },
+    {
+     "type": "bank_line",
+     "ref": "B2610-126",
+     "quote": "OCT RENT 2312.51"
+    },
+    {
+     "type": "charge",
+     "ref": "INV-2610-087-R",
+     "quote": "rent 2026-10 amount_open 2312.51 due 2026-10-01"
+    }
+   ],
+   "code_rejections": []
+  },
+  {
+   "bank_line_id": "B2610-127",
+   "method": "exact",
+   "status": "approved",
+   "confidence": 1,
+   "allocations": [
+    {
+     "charge_id": "INV-2610-025-S",
+     "amount": 400.79
+    }
+   ],
+   "unallocated_amount": 0
+  },
+  {
+   "bank_line_id": "B2610-128",
+   "method": "exact",
+   "status": "approved",
+   "confidence": 1,
+   "allocations": [
+    {
+     "charge_id": "INV-2610-025-R",
+     "amount": 3354.18
+    }
+   ],
+   "unallocated_amount": 0
+  },
+  {
+   "bank_line_id": "B2610-129",
+   "method": "exact",
+   "status": "approved",
+   "confidence": 1,
+   "allocations": [
+    {
+     "charge_id": "INV-2610-057-R",
+     "amount": 5945.83
+    }
+   ],
+   "unallocated_amount": 0
+  },
+  {
+   "bank_line_id": "B2610-130",
+   "method": "exact",
+   "status": "approved",
+   "confidence": 1,
+   "allocations": [
+    {
+     "charge_id": "INV-2610-057-S",
+     "amount": 840.84
+    }
+   ],
+   "unallocated_amount": 0
+  },
+  {
+   "bank_line_id": "B2610-131",
+   "method": "exact",
+   "status": "approved",
+   "confidence": 1,
+   "allocations": [
+    {
+     "charge_id": "INV-2610-092-R",
+     "amount": 7475
+    },
+    {
+     "charge_id": "INV-2610-092-S",
+     "amount": 646.94
+    }
+   ],
+   "unallocated_amount": 0
+  },
+  {
+   "bank_line_id": "B2610-132",
+   "method": "exact",
+   "status": "approved",
+   "confidence": 1,
+   "allocations": [
+    {
+     "charge_id": "INV-2610-040-R",
+     "amount": 4170.83
+    }
+   ],
+   "unallocated_amount": 0
+  },
+  {
+   "bank_line_id": "B2610-133",
+   "method": "exact",
+   "status": "approved",
+   "confidence": 1,
+   "allocations": [
+    {
+     "charge_id": "INV-2610-051-S",
+     "amount": 538.64
+    }
+   ],
+   "unallocated_amount": 0
+  },
+  {
+   "bank_line_id": "B2610-134",
+   "method": "exact",
+   "status": "approved",
+   "confidence": 1,
+   "allocations": [
+    {
+     "charge_id": "INV-2610-050-S",
+     "amount": 841.28
+    }
+   ],
+   "unallocated_amount": 0
+  },
+  {
+   "bank_line_id": "B2610-135",
+   "method": "exact",
+   "status": "approved",
+   "confidence": 1,
+   "allocations": [
+    {
+     "charge_id": "INV-2610-004-S",
+     "amount": 829.55
+    }
+   ],
+   "unallocated_amount": 0
+  },
+  {
+   "bank_line_id": "B2610-136",
+   "method": "exact",
+   "status": "approved",
+   "confidence": 1,
+   "allocations": [
+    {
+     "charge_id": "INV-2610-004-R",
+     "amount": 7470.83
+    }
+   ],
+   "unallocated_amount": 0
+  },
+  {
+   "bank_line_id": "B2610-137",
+   "method": "exact",
+   "status": "approved",
+   "confidence": 1,
+   "allocations": [
+    {
+     "charge_id": "INV-2610-082-S",
+     "amount": 302.7
+    }
+   ],
+   "unallocated_amount": 0
+  },
+  {
+   "bank_line_id": "B2610-138",
+   "method": "exact",
+   "status": "approved",
+   "confidence": 1,
+   "allocations": [
+    {
+     "charge_id": "INV-2610-012-R",
+     "amount": 1741.67
+    }
+   ],
+   "unallocated_amount": 0
+  },
+  {
+   "bank_line_id": "B2610-139",
+   "method": "exact",
+   "status": "approved",
+   "confidence": 1,
+   "allocations": [
+    {
+     "charge_id": "INV-2610-012-S",
+     "amount": 156.29
+    }
+   ],
+   "unallocated_amount": 0
+  },
+  {
+   "bank_line_id": "B2610-140",
+   "method": "exact",
+   "status": "approved",
+   "confidence": 1,
+   "allocations": [
+    {
+     "charge_id": "INV-2610-081-R",
+     "amount": 3354.19
+    }
+   ],
+   "unallocated_amount": 0
+  },
+  {
+   "bank_line_id": "B2610-141",
+   "method": "exact",
+   "status": "approved",
+   "confidence": 1,
+   "allocations": [
+    {
+     "charge_id": "INV-2610-074-R",
+     "amount": 8141.67
+    }
+   ],
+   "unallocated_amount": 0
+  },
+  {
+   "bank_line_id": "B2610-142",
+   "method": "exact",
+   "status": "approved",
+   "confidence": 1,
+   "allocations": [
+    {
+     "charge_id": "INV-2610-029-R",
+     "amount": 3379.17
+    }
+   ],
+   "unallocated_amount": 0
+  },
+  {
+   "bank_line_id": "B2610-143",
+   "method": "exact",
+   "status": "approved",
+   "confidence": 1,
+   "allocations": [
+    {
+     "charge_id": "INV-2610-053-R",
+     "amount": 5720.83
+    }
+   ],
+   "unallocated_amount": 0
+  },
+  {
+   "bank_line_id": "B2610-144",
+   "method": "exact",
+   "status": "approved",
+   "confidence": 1,
+   "allocations": [
+    {
+     "charge_id": "INV-2610-022-S",
+     "amount": 455.22
+    }
+   ],
+   "unallocated_amount": 0
+  },
+  {
+   "bank_line_id": "B2610-145",
+   "method": "exact",
+   "status": "approved",
+   "confidence": 1,
+   "allocations": [
+    {
+     "charge_id": "INV-2610-002-S",
+     "amount": 562.13
+    }
+   ],
+   "unallocated_amount": 0
+  },
+  {
+   "bank_line_id": "B2610-146",
+   "method": "exact",
+   "status": "approved",
+   "confidence": 1,
+   "allocations": [
+    {
+     "charge_id": "INV-2610-027-S",
+     "amount": 321.61
+    }
+   ],
+   "unallocated_amount": 0
+  },
+  {
+   "bank_line_id": "B2610-147",
+   "method": "exact",
+   "status": "approved",
+   "confidence": 1,
+   "allocations": [
+    {
+     "charge_id": "INV-2610-066-S",
+     "amount": 271.86
+    }
+   ],
+   "unallocated_amount": 0
+  },
+  {
+   "bank_line_id": "B2610-148",
+   "method": "exact",
+   "status": "approved",
+   "confidence": 1,
+   "allocations": [
+    {
+     "charge_id": "INV-2610-021-R",
+     "amount": 8662.5
+    }
+   ],
+   "unallocated_amount": 0
+  },
+  {
+   "bank_line_id": "B2610-149",
+   "method": "agent",
+   "status": "approved",
+   "confidence": 0.95,
+   "allocations": [
+    {
+     "charge_id": "INV-2610-087-S",
+     "amount": 242.15
+    }
+   ],
+   "unallocated_amount": 0,
+   "reasoning": "CENTRAL GROUP PLC may pay Central Developments Ltd charges (company lookup: group member Central Developments Ltd; tenant parent CENTRAL GROUP PLC). Reference SERVICE CHG OCT and the amount match the October service charge exactly.",
+   "evidence": [
+    {
+     "type": "bank_line",
+     "ref": "B2610-149",
+     "quote": "CENTRAL GROUP PLC 242.15 SERVICE CHG OCT"
+    },
+    {
+     "type": "tenant",
+     "ref": "T087",
+     "quote": "Central Developments Ltd parent_company CENTRAL GROUP PLC"
+    },
+    {
+     "type": "charge",
+     "ref": "INV-2610-087-S",
+     "quote": "service_charge 2026-10 amount_open 242.15"
+    }
+   ],
+   "code_rejections": []
+  },
+  {
+   "bank_line_id": "B2610-150",
+   "method": "exact",
+   "status": "approved",
+   "confidence": 1,
+   "allocations": [
+    {
+     "charge_id": "INV-2610-051-R",
+     "amount": 3745.83
+    }
+   ],
+   "unallocated_amount": 0
+  },
+  {
+   "bank_line_id": "B2610-151",
+   "method": "exact",
+   "status": "approved",
+   "confidence": 1,
+   "allocations": [
+    {
+     "charge_id": "INV-2610-066-R",
+     "amount": 1966.67
+    }
+   ],
+   "unallocated_amount": 0
+  },
+  {
+   "bank_line_id": "B2610-152",
+   "method": "exact",
+   "status": "approved",
+   "confidence": 1,
+   "allocations": [
+    {
+     "charge_id": "INV-2610-048-S",
+     "amount": 414.74
+    }
+   ],
+   "unallocated_amount": 0
+  },
+  {
+   "bank_line_id": "B2610-153",
+   "method": "exact",
+   "status": "approved",
+   "confidence": 1,
+   "allocations": [
+    {
+     "charge_id": "INV-2610-027-R",
+     "amount": 2583.33
+    }
+   ],
+   "unallocated_amount": 0
+  },
+  {
+   "bank_line_id": "B2610-154",
+   "method": "exact",
+   "status": "approved",
+   "confidence": 1,
+   "allocations": [
+    {
+     "charge_id": "INV-2610-013-S",
+     "amount": 1004.44
+    }
+   ],
+   "unallocated_amount": 0
+  },
+  {
+   "bank_line_id": "B2610-155",
+   "method": "exact",
+   "status": "approved",
+   "confidence": 1,
+   "allocations": [
+    {
+     "charge_id": "INV-2610-053-S",
+     "amount": 757.67
+    }
+   ],
+   "unallocated_amount": 0
+  },
+  {
+   "bank_line_id": "B2610-156",
+   "method": "exact",
+   "status": "approved",
+   "confidence": 1,
+   "allocations": [
+    {
+     "charge_id": "INV-2610-022-R",
+     "amount": 3354.17
+    }
+   ],
+   "unallocated_amount": 0
+  },
+  {
+   "bank_line_id": "B2610-157",
+   "method": "exact",
+   "status": "approved",
+   "confidence": 1,
+   "allocations": [
+    {
+     "charge_id": "INV-2610-048-R",
+     "amount": 4512.5
+    }
+   ],
+   "unallocated_amount": 0
+  },
+  {
+   "bank_line_id": "B2610-158",
+   "method": "exact",
+   "status": "approved",
+   "confidence": 1,
+   "allocations": [
+    {
+     "charge_id": "INV-2610-002-R",
+     "amount": 4575
+    }
+   ],
+   "unallocated_amount": 0
+  },
+  {
+   "bank_line_id": "B2610-159",
+   "method": "exact",
+   "status": "approved",
+   "confidence": 1,
+   "allocations": [
+    {
+     "charge_id": "INV-2610-029-S",
+     "amount": 438.21
+    }
+   ],
+   "unallocated_amount": 0
+  },
+  {
+   "bank_line_id": "B2610-160",
+   "method": "exact",
+   "status": "approved",
+   "confidence": 1,
+   "allocations": [
+    {
+     "charge_id": "INV-2610-013-R",
+     "amount": 8220.83
+    }
+   ],
+   "unallocated_amount": 0
+  },
+  {
+   "bank_line_id": "B2610-161",
+   "method": "exact",
+   "status": "approved",
+   "confidence": 1,
+   "allocations": [
+    {
+     "charge_id": "INV-2610-046-S",
+     "amount": 273.39
+    }
+   ],
+   "unallocated_amount": 0
+  },
+  {
+   "bank_line_id": "B2610-162",
+   "method": "exact",
+   "status": "approved",
+   "confidence": 1,
+   "allocations": [
+    {
+     "charge_id": "INV-2610-017-R",
+     "amount": 5670.83
+    }
+   ],
+   "unallocated_amount": 0
+  },
+  {
+   "bank_line_id": "B2610-163",
+   "method": "exact",
+   "status": "approved",
+   "confidence": 1,
+   "allocations": [
+    {
+     "charge_id": "INV-2610-070-R",
+     "amount": 6062.5
+    }
+   ],
+   "unallocated_amount": 0
+  },
+  {
+   "bank_line_id": "B2610-164",
+   "method": "agent",
+   "status": "approved",
+   "confidence": 0.95,
+   "allocations": [
+    {
+     "charge_id": "INV-2610-099-R",
+     "amount": 3308.33
+    },
+    {
+     "charge_id": "INV-2610-099-S",
+     "amount": 305.24
+    }
+   ],
+   "unallocated_amount": 0,
+   "reasoning": "PIONEER RETAIL LIM matches Pioneer Retail Ltd. £3613.57 equals October rent £3308.33 plus October service charge £381.22 less the £75.98 dispute in the 3 October 2026 note, matching reference OCT RENT LESS DISPUTE.",
+   "evidence": [
+    {
+     "type": "bank_line",
+     "ref": "B2610-164",
+     "quote": "PIONEER RETAIL LIM OCT RENT LESS DISPUTE 3613.57"
+    },
+    {
+     "type": "tenant",
+     "ref": "T099",
+     "quote": "Pioneer Retail Ltd"
+    },
+    {
+     "type": "charge",
+     "ref": "INV-2610-099-R",
+     "quote": "rent 2026-10 amount_open 3308.33 due 2026-10-01"
+    },
+    {
+     "type": "charge",
+     "ref": "INV-2610-099-S",
+     "quote": "service_charge 2026-10 amount_open 381.22 due 2026-10-01"
+    },
+    {
+     "type": "note",
+     "ref": "T099",
+     "quote": "Disputing £75.98 of October service charge, email of 3 October 2026."
+    }
+   ],
+   "code_rejections": []
+  },
+  {
+   "bank_line_id": "B2610-165",
+   "method": "exact",
+   "status": "approved",
+   "confidence": 1,
+   "allocations": [
+    {
+     "charge_id": "INV-2610-046-R",
+     "amount": 2400
+    }
+   ],
+   "unallocated_amount": 0
+  },
+  {
+   "bank_line_id": "B2610-166",
+   "method": "exact",
+   "status": "approved",
+   "confidence": 1,
+   "allocations": [
+    {
+     "charge_id": "INV-2610-049-R",
+     "amount": 5483.33
+    }
+   ],
+   "unallocated_amount": 0
+  },
+  {
+   "bank_line_id": "B2610-167",
+   "method": "exact",
+   "status": "approved",
+   "confidence": 1,
+   "allocations": [
+    {
+     "charge_id": "INV-2610-024-S",
+     "amount": 417.6
+    }
+   ],
+   "unallocated_amount": 0
+  },
+  {
+   "bank_line_id": "B2610-168",
+   "method": "exact",
+   "status": "approved",
+   "confidence": 1,
+   "allocations": [
+    {
+     "charge_id": "INV-2610-075-R",
+     "amount": 4158.33
+    }
+   ],
+   "unallocated_amount": 0
+  },
+  {
+   "bank_line_id": "B2610-169",
+   "method": "exact",
+   "status": "approved",
+   "confidence": 1,
+   "allocations": [
+    {
+     "charge_id": "INV-2610-070-S",
+     "amount": 571.52
+    }
+   ],
+   "unallocated_amount": 0
+  },
+  {
+   "bank_line_id": "B2610-170",
+   "method": "exact",
+   "status": "approved",
+   "confidence": 1,
+   "allocations": [
+    {
+     "charge_id": "INV-2610-102-R",
+     "amount": 4783.33
+    }
+   ],
+   "unallocated_amount": 0
+  },
+  {
+   "bank_line_id": "B2610-171",
+   "method": "exact",
+   "status": "approved",
+   "confidence": 1,
+   "allocations": [
+    {
+     "charge_id": "INV-2610-024-R",
+     "amount": 4208.33
+    }
+   ],
+   "unallocated_amount": 0
+  },
+  {
+   "bank_line_id": "B2610-172",
+   "method": "exact",
+   "status": "approved",
+   "confidence": 1,
+   "allocations": [
+    {
+     "charge_id": "INV-2610-001-S",
+     "amount": 757.51
+    }
+   ],
+   "unallocated_amount": 0
+  },
+  {
+   "bank_line_id": "B2610-173",
+   "method": "exact",
+   "status": "approved",
+   "confidence": 1,
+   "allocations": [
+    {
+     "charge_id": "INV-2610-049-S",
+     "amount": 512.39
+    }
+   ],
+   "unallocated_amount": 0
+  },
+  {
+   "bank_line_id": "B2610-174",
+   "method": "exact",
+   "status": "approved",
+   "confidence": 1,
+   "allocations": [
+    {
+     "charge_id": "INV-2610-017-S",
+     "amount": 755.8
+    }
+   ],
+   "unallocated_amount": 0
+  },
+  {
+   "bank_line_id": "B2610-175",
+   "method": "exact",
+   "status": "approved",
+   "confidence": 1,
+   "allocations": [
+    {
+     "charge_id": "INV-2610-001-R",
+     "amount": 8691.67
+    }
+   ],
+   "unallocated_amount": 0
+  },
+  {
+   "bank_line_id": "B2610-176",
+   "method": "exact",
+   "status": "approved",
+   "confidence": 1,
+   "allocations": [
+    {
+     "charge_id": "INV-2610-067-S",
+     "amount": 966.95
+    }
+   ],
+   "unallocated_amount": 0
+  },
+  {
+   "bank_line_id": "B2610-177",
+   "method": "exact",
+   "status": "approved",
+   "confidence": 1,
+   "allocations": [
+    {
+     "charge_id": "INV-2610-100-S",
+     "amount": 432.17
+    }
+   ],
+   "unallocated_amount": 0
+  },
+  {
+   "bank_line_id": "B2610-178",
+   "method": "exact",
+   "status": "approved",
+   "confidence": 1,
+   "allocations": [
+    {
+     "charge_id": "INV-2610-045-R",
+     "amount": 3591.67
+    }
+   ],
+   "unallocated_amount": 0
+  },
+  {
+   "bank_line_id": "B2610-179",
+   "method": "exact",
+   "status": "approved",
+   "confidence": 1,
+   "allocations": [
+    {
+     "charge_id": "INV-2610-060-S",
+     "amount": 655.27
+    }
+   ],
+   "unallocated_amount": 0
+  },
+  {
+   "bank_line_id": "B2610-180",
+   "method": "agent",
+   "status": "approved",
+   "confidence": 0.95,
+   "allocations": [
+    {
+     "charge_id": "INV-2610-095-R",
+     "amount": 2137.5
+    },
+    {
+     "charge_id": "INV-2610-095-S",
+     "amount": 104.26
+    }
+   ],
+   "unallocated_amount": 0,
+   "reasoning": "LIBERTY LETTINGS L matches Liberty Lettings Ltd, and OCT RENT SC NET £2241.76 equals October rent in full plus October service charge net of the £84.15 dispute; the fully disputed September service charge is left unpaid.",
+   "evidence": [
+    {
+     "type": "bank_line",
+     "ref": "B2610-180",
+     "quote": "LIBERTY LETTINGS L OCT RENT SC NET 2241.76"
+    },
+    {
+     "type": "tenant",
+     "ref": "T095",
+     "quote": "Liberty Lettings Ltd"
+    },
+    {
+     "type": "charge",
+     "ref": "INV-2610-095-R",
+     "quote": "rent 2026-10 amount_open 2137.50 due 2026-10-01"
+    },
+    {
+     "type": "charge",
+     "ref": "INV-2610-095-S",
+     "quote": "service_charge 2026-10 amount_open 188.41 due 2026-10-01"
+    },
+    {
+     "type": "note",
+     "ref": "T095",
+     "quote": "Disputing £84.15 of October service charge, email of 6 October 2026."
+    },
+    {
+     "type": "note",
+     "ref": "T095",
+     "quote": "Disputing £71.75 of September service charge, email of 2 September 2026."
+    }
+   ],
+   "code_rejections": []
+  },
+  {
+   "bank_line_id": "B2610-181",
+   "method": "exact",
+   "status": "approved",
+   "confidence": 1,
+   "allocations": [
+    {
+     "charge_id": "INV-2610-075-S",
+     "amount": 566.89
+    }
+   ],
+   "unallocated_amount": 0
+  },
+  {
+   "bank_line_id": "B2610-182",
+   "method": "exact",
+   "status": "approved",
+   "confidence": 1,
+   "allocations": [
+    {
+     "charge_id": "INV-2610-079-S",
+     "amount": 182.35
+    }
+   ],
+   "unallocated_amount": 0
+  },
+  {
+   "bank_line_id": "B2610-183",
+   "method": "exact",
+   "status": "approved",
+   "confidence": 1,
+   "allocations": [
+    {
+     "charge_id": "INV-2610-060-R",
+     "amount": 4683.33
+    }
+   ],
+   "unallocated_amount": 0
+  },
+  {
+   "bank_line_id": "B2610-184",
+   "method": "exact",
+   "status": "approved",
+   "confidence": 1,
+   "allocations": [
+    {
+     "charge_id": "INV-2610-101-R",
+     "amount": 5058.33
+    }
+   ],
+   "unallocated_amount": 0
+  },
+  {
+   "bank_line_id": "B2610-185",
+   "method": "exact",
+   "status": "approved",
+   "confidence": 1,
+   "allocations": [
+    {
+     "charge_id": "INV-2610-094-R",
+     "amount": 5075
+    },
+    {
+     "charge_id": "INV-2610-094-S",
+     "amount": 529.96
+    }
+   ],
+   "unallocated_amount": 0
+  },
+  {
+   "bank_line_id": "B2610-186",
+   "method": "exact",
+   "status": "approved",
+   "confidence": 1,
+   "allocations": [
+    {
+     "charge_id": "INV-2610-067-R",
+     "amount": 8616.67
+    }
+   ],
+   "unallocated_amount": 0
+  },
+  {
+   "bank_line_id": "B2610-187",
+   "method": "exact",
+   "status": "approved",
+   "confidence": 1,
+   "allocations": [
+    {
+     "charge_id": "INV-2610-091-R",
+     "amount": 1825
+    },
+    {
+     "charge_id": "INV-2610-091-S",
+     "amount": 174.23
+    }
+   ],
+   "unallocated_amount": 0
+  },
+  {
+   "bank_line_id": "B2610-188",
+   "method": "exact",
+   "status": "approved",
+   "confidence": 1,
+   "allocations": [
+    {
+     "charge_id": "INV-2610-072-S",
+     "amount": 376.36
+    }
+   ],
+   "unallocated_amount": 0
+  },
+  {
+   "bank_line_id": "B2610-189",
+   "method": "exact",
+   "status": "approved",
+   "confidence": 1,
+   "allocations": [
+    {
+     "charge_id": "INV-2610-054-R",
+     "amount": 8504.17
+    }
+   ],
+   "unallocated_amount": 0
+  },
+  {
+   "bank_line_id": "B2610-190",
+   "method": "exact",
+   "status": "approved",
+   "confidence": 1,
+   "allocations": [
+    {
+     "charge_id": "INV-2610-074-S",
+     "amount": 908.63
+    }
+   ],
+   "unallocated_amount": 0
+  },
+  {
+   "bank_line_id": "B2610-191",
+   "method": "exact",
+   "status": "approved",
+   "confidence": 1,
+   "allocations": [
+    {
+     "charge_id": "INV-2610-071-R",
+     "amount": 4312.5
+    }
+   ],
+   "unallocated_amount": 0
+  },
+  {
+   "bank_line_id": "B2610-192",
+   "method": "exact",
+   "status": "approved",
+   "confidence": 1,
+   "allocations": [
+    {
+     "charge_id": "INV-2610-071-S",
+     "amount": 392.18
+    }
+   ],
+   "unallocated_amount": 0
+  },
+  {
+   "bank_line_id": "B2610-193",
+   "method": "exact",
+   "status": "approved",
+   "confidence": 1,
+   "allocations": [
+    {
+     "charge_id": "INV-2610-056-S",
+     "amount": 422.76
+    }
+   ],
+   "unallocated_amount": 0
+  },
+  {
+   "bank_line_id": "B2610-194",
+   "method": "exact",
+   "status": "approved",
+   "confidence": 1,
+   "allocations": [
+    {
+     "charge_id": "INV-2610-008-S",
+     "amount": 446.99
+    }
+   ],
+   "unallocated_amount": 0
+  },
+  {
+   "bank_line_id": "B2610-195",
+   "method": "exact",
+   "status": "approved",
+   "confidence": 1,
+   "allocations": [
+    {
+     "charge_id": "INV-2610-003-S",
+     "amount": 724.23
+    }
+   ],
+   "unallocated_amount": 0
+  },
+  {
+   "bank_line_id": "B2610-196",
+   "method": "exact",
+   "status": "approved",
+   "confidence": 1,
+   "allocations": [
+    {
+     "charge_id": "INV-2610-038-S",
+     "amount": 299.39
+    }
+   ],
+   "unallocated_amount": 0
+  },
+  {
+   "bank_line_id": "B2610-197",
+   "method": "exact",
+   "status": "approved",
+   "confidence": 1,
+   "allocations": [
+    {
+     "charge_id": "INV-2610-056-R",
+     "amount": 3520.83
+    }
+   ],
+   "unallocated_amount": 0
+  },
+  {
+   "bank_line_id": "B2610-198",
+   "method": "exact",
+   "status": "approved",
+   "confidence": 1,
+   "allocations": [
+    {
+     "charge_id": "INV-2610-054-S",
+     "amount": 996.64
+    }
+   ],
+   "unallocated_amount": 0
+  },
+  {
+   "bank_line_id": "B2610-199",
+   "method": "exact",
+   "status": "approved",
+   "confidence": 1,
+   "allocations": [
+    {
+     "charge_id": "INV-2610-008-R",
+     "amount": 3366.67
+    }
+   ],
+   "unallocated_amount": 0
+  },
+  {
+   "bank_line_id": "B2610-200",
+   "method": "exact",
+   "status": "approved",
+   "confidence": 1,
+   "allocations": [
+    {
+     "charge_id": "INV-2610-072-R",
+     "amount": 3437.5
+    }
+   ],
+   "unallocated_amount": 0
+  }
+ ]
+}

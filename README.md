@@ -10,9 +10,11 @@ All numbers come from the synthetic test data described below, where we tuned on
 
 | Month | Lines | Auto-approved | Precision of approved | Wrong allocations | To a person |
 |---|---|---|---|---|---|
-| 2026-09 (tuning) | 200 | pending | pending | pending | pending |
-| 2026-10 (tuning, from memory) | 200 | pending | pending | pending | pending |
-| 2026-11 (hold-out, scored once) | 200 | pending | pending | pending | pending |
+| 2026-09 (tuning) | 200 | 196 (98%) | 100.0% | 0 | 4 |
+| 2026-10 (tuning, from memory) | 200 | 196 (98%) | 100.0% | 0 | 4 |
+| 2026-11 (hold-out, scored once) | 200 | pending (scored once at 22:15) | | | |
+
+Pass 3 model grok-4.7, concurrency 4, about 30 s per pass-3 line. The 4 lines to a person each month are the 2 duplicates and 2 unidentifiable payers, which the agent left open below the confidence threshold. In this run grok-4.7 approved the 8 parent payers itself (confidence 0.7 or more), so no person approved them, nothing was learned, and October's parent payers went through the agent again, not memory. With grok-4.20 non-reasoning, 9 allocations were wrong. Per-line output: `results/2026-09.json`, `results/2026-10.json`, reproduced by `npx tsx scripts/pass3.ts --save`.
 
 For context, the APQC benchmark puts the median at 45% of receipts auto-applied, across 851 companies (as cited by creditpulse.com).
 
