@@ -245,6 +245,51 @@ export function decide(s: Store, id: string, approve: boolean, actor: Actor) {
   return { bank_line_id: hit[0].bank_line_id, status: approve ? "approved" : "rejected", allocations: hit.length, learned_alias: learned ?? null };
 }
 
+const monthOf = (b: BankLine) => b.statement_month ?? b.date.slice(0, 7);
+
+// POST /api/lines/{id}/approve: a person approves what waits on a line (an allocation, or a held line left open).
+// When the approval teaches the app a payer, pass 2 (memory) runs again on that month so the payer's other waiting
+// lines clear now, not next month: { remembered: "Remembered: <payer> pays for <tenant>", cleared: [line ids] }.
+export function approveLine(s: Store, id: string, actor: Actor) {
+  if (!s.allocations.some((a) => a.bank_line_id === id && a.status === "proposed")) return { ...decideHold(s, id, true, actor), remembered: undefined as string | undefined, cleared: [] as string[] };
+  const res = decide(s, id, true, actor);
+  const a = res.learned_alias;
+  const tenant = a ? s.tenants.find((t) => t.tenant_id === a.tenant_id)?.tenant_name ?? a.tenant_id : null;
+  const cleared = a ? rerunMemory(s, monthOf(line(s, res.bank_line_id)), a, res.bank_line_id) : [];
+  return { ...res, remembered: a ? `Remembered: ${a.payer_name} pays for ${tenant}` : undefined, cleared };
+}
+
+// Pass 2 again on one month after a person taught the app a payer. Candidates: the month's open lines, plus lines
+// whose agent proposal waits only because the payer was not yet in payer memory (PAYER_NOT_TENANT), from that payer,
+// for that tenant. Those proposals are withdrawn, passes 1-2 run with the new alias, and a withdrawn line pass 2 does
+// not place gets its proposal back untouched. Returns the ids of the waiting lines memory cleared.
+export function rerunMemory(s: Store, month: string, alias: PayerAlias, learnedFrom?: string): string[] {
+  const name = alias.payer_name.toUpperCase();
+  const tenantOf = new Map(s.charges.map((c) => [c.id, c.tenant_id]));
+  const withdrawn = new Map<string, Allocation[]>();
+  for (const b of s.bankLines) {
+    if (monthOf(b) !== month || b.payer_name.toUpperCase() !== name || s.reviewReason.get(b.id) !== PAYER_NOT_TENANT) continue;
+    const mine = s.allocations.filter((a) => a.bank_line_id === b.id && live(a));
+    if (mine.length && mine.every((a) => a.status === "proposed" && a.method === "agent" && tenantOf.get(a.charge_id) === alias.tenant_id)) withdrawn.set(b.id, mine);
+  }
+  if (withdrawn.size) s.allocations = s.allocations.filter((a) => !withdrawn.get(a.bank_line_id)?.includes(a));
+  const aliases = s.aliases.map((a) => ({ payer_name: a.payer_name, tenant_id: a.tenant_id }));
+  const r = allocate(s.charges, openLines(s, month), aliases, openAmounts(s));
+  s.allocations.push(...r.allocations);
+  const placed = new Set(r.allocations.map((a) => a.bank_line_id));
+  const cleared: string[] = [];
+  for (const [id, original] of withdrawn) {
+    if (!placed.has(id)) { s.allocations.push(...original); continue; }
+    cleared.push(id);
+    s.reviewReason.delete(id);
+    s.reasoning.delete(id); // the line now reads as pass 2 did it: its evidence is the payer memory row
+    audit(s, "system", "memory_cleared", { payer: alias.payer_name, tenant_id: alias.tenant_id, learned_from: learnedFrom ?? null, replaced_agent_proposal: original.map((a) => ({ charge_id: a.charge_id, amount: fmt(a.amount) })), allocations: r.allocations.filter((a) => a.bank_line_id === id).map((a) => ({ charge_id: a.charge_id, amount: fmt(a.amount) })) }, id);
+  }
+  const others = [...placed].filter((id) => !withdrawn.has(id));
+  if (withdrawn.size || others.length) audit(s, "system", "memory_rerun", { month, payer: alias.payer_name, cleared, newly_placed_open_lines: others, still_waiting: [...withdrawn.keys()].filter((id) => !placed.has(id)) });
+  return cleared;
+}
+
 // GET /api/allocations/{id}/explain
 export function explain(s: Store, id: string) {
   const b = s.bankLines.find((x) => x.id === id) ?? line(s, s.allocations.find((a) => a.id === id)?.bank_line_id ?? id);
@@ -281,6 +326,18 @@ export function arrears(s: Store, sort: "oldest" | "amount" = "oldest") {
     t.charges.push({ charge_id: c.id, type: c.type, period: c.period, due_date: c.due_date, invoice_ref: c.invoice_ref, lease_citation: c.lease_citation, amount_open: fmt(o), part_paid: o < toPence(c.amount_due), outstanding_pence: o });
     per.set(c.tenant_id, t);
   }
+  // payments allocated to a tenant's charges but still waiting for a person: don't chase that tenant yet
+  const tenantOf = new Map(s.charges.map((c) => [c.id, c.tenant_id]));
+  const pending = new Map<string, { amount: Pence; lines: Set<string> }>();
+  for (const a of s.allocations) {
+    if (a.status !== "proposed") continue;
+    const tid = tenantOf.get(a.charge_id);
+    if (!tid) continue;
+    const p = pending.get(tid) ?? { amount: 0, lines: new Set<string>() };
+    p.amount += a.amount;
+    p.lines.add(a.bank_line_id);
+    pending.set(tid, p);
+  }
   const rows = [...per.values()].sort((a, b) => (sort === "amount" ? b.open - a.open : a.oldest_due.localeCompare(b.oldest_due) || b.open - a.open));
   // the UI's fields (lib/types.ts ArrearsRow) sit next to the original ones, which the Grok Bot connector reads
   const asOf = Date.parse(process.env.CASH_AS_OF ?? new Date().toISOString().slice(0, 10));
@@ -296,6 +353,9 @@ export function arrears(s: Store, sort: "oldest" | "amount" = "oldest") {
         disputed: notes.length > 0, dispute_note: notes.map((n) => n.note).join(" ") || null, lease_citation: charges[0]?.lease_citation ?? "",
         open_charges: charges.map((c) => ({ charge_id: c.charge_id, charge_type: c.type, period: c.period, outstanding: Number(fmt(c.outstanding_pence)) })),
         charges: charges.map(({ outstanding_pence: _, ...c }) => c),
+        payment_pending: pending.has(r.tenant_id),
+        pending_amount: Number(fmt(pending.get(r.tenant_id)?.amount ?? 0)),
+        pending_lines: [...(pending.get(r.tenant_id)?.lines ?? [])],
       };
     }),
   };

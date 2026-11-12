@@ -16,11 +16,14 @@ const evidenceView = (ev: { type: string; ref: string; quote: string }[] = []): 
   ev.map((e) => ({ type: UI_EVIDENCE[e.type] ?? "rule", ref: e.ref, quote: e.quote }));
 
 const pounds = (p: number) => Number(fmt(p));
+const DUPLICATE = /duplicate|already (allocated|matched)/i;
+const HUMAN_DECISIONS = new Set(["approved", "hold_confirmed", "manual_match"]);
 const monthOf = (b: { statement_month?: string; date: string }) => b.statement_month ?? b.date.slice(0, 7);
 
 export function lineViews(s: Store, month?: string): LineView[] {
   const open = openAmounts(s);
   const charge = new Map(s.charges.map((c) => [c.id, c]));
+  const byPerson = new Set(s.audit.filter((a) => a.actor === "human" && HUMAN_DECISIONS.has(a.action)).map((a) => a.bank_line_id));
   return s.bankLines.filter((b) => !month || monthOf(b) === month).map((b): LineView => {
     const mine = s.allocations.filter((a) => a.bank_line_id === b.id);
     const live = mine.filter((a) => a.status !== "rejected");
@@ -49,12 +52,28 @@ export function lineViews(s: Store, month?: string): LineView[] {
       else if (allocations.some((a) => a.outstanding_after > 0)) review_reason = "Short payment";
       else review_reason = "Low confidence";
     }
+    // who decided: a person's approval reads "human"; a line held as a possible duplicate reads "rule"
+    const duplicate = !live.length && Boolean(hold) && (DUPLICATE.test(hold!.reasoning) || DUPLICATE.test(s.reviewReason.get(b.id) ?? ""));
+    const method: LineView["method"] =
+      duplicate ? "rule"
+      : status === "approved" && byPerson.has(b.id) ? "human"
+      : live[0]?.method ?? (hold ? "agent" : null);
+    const evidence = evidenceView(hold?.evidence ?? live[0]?.evidence);
+    // a parent company or group payer: show each allocated tenant's lease next to the lookup row that links them
+    if (evidence.some((e) => e.type === "company_lookup")) {
+      for (const a of live) {
+        const c = charge.get(a.charge_id);
+        if (c?.lease_citation && !evidence.some((e) => e.type === "lease" && e.quote === c.lease_citation)) {
+          evidence.push({ type: "lease", ref: `${c.tenant_name} (${c.tenant_id})`, quote: c.lease_citation });
+        }
+      }
+    }
     return {
       id: b.id, statement_month: monthOf(b), date: b.date, amount: pounds(amount), payer_name: b.payer_name, reference: b.reference,
-      method: live[0]?.method ?? (hold ? "agent" : null), status,
+      method, status,
       confidence: live[0]?.confidence ?? (hold ? hold.confidence : null), review_reason,
       reasoning: hold?.reasoning ?? s.reasoning.get(b.id) ?? (live[0] && live[0].method !== "agent" ? live[0].evidence.map((e) => e.quote).join(" · ") : null),
-      unallocated_amount: pounds(amount - placed), allocations, evidence: evidenceView(hold?.evidence ?? live[0]?.evidence),
+      unallocated_amount: pounds(amount - placed), allocations, evidence,
     };
   });
 }
