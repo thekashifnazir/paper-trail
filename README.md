@@ -18,6 +18,22 @@ Pass 3: Jev (TypeSafe) first, then grok-4.7 for the lines Jev is unsure of, conc
 
 For context, the APQC benchmark puts the median at 45% of receipts auto-applied, across 851 companies (as cited by creditpulse.com).
 
+## Live demo (about 90 seconds)
+
+Reset first (`POST /api/reset`), so September isn't already loaded.
+
+| Step | In the app | Say |
+|---|---|---|
+| 1 | Run September | "200 bank lines. 188 matched automatically, 0 wrong. 12 need me." |
+| 2 | Review 12, open a parent payer (e.g. PREMIER GROUP PLC) | "A group company pays for its tenant. It's a new payer, so a person approves it the first time. The evidence is the lease and the group lookup." |
+| 3 | Approve. The toast reads "Remembered: PREMIER GROUP PLC → ..." | "Now it remembers." |
+| 4 | Approve the other parent payers: 8 lines from 4 groups, two lines each | |
+| 5 | Show the 4 left: 2 duplicates, 2 unidentifiable | "These you should always look at yourself. No guess." |
+| 6 | Run October | "196 matched, 8 of them from memory. 4 need me, and those are the right 4." |
+| 7 | | "We held out November and scored it once at the end: 98%, 0 wrong." |
+
+Approve all 8 before you run October. Lines you didn't approve don't go into memory, and October will show more than 4. Checked through the API on 12 Nov, 22:30: after the 8 approvals, October showed 8 from memory and 4 in the queue.
+
 ## How it works
 
 1. **Pass 1, code.** Exact reference and amount, then a duplicate guard, then payer name plus a subset sum over that tenant's open charges.
