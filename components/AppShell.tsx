@@ -137,52 +137,9 @@ function MonthSwitch({
   );
 }
 
-const MODES = [
-  { value: "demo" as const, label: "Demo", hint: "In-browser demo data. Nothing leaves the page." },
-  { value: "live" as const, label: "Live engine", hint: "The matching engine via /api: real passes, payer memory and audit." },
-];
-
-function ModeSwitch({
-  mode,
-  onChange,
-}: {
-  mode: "demo" | "live";
-  onChange: (value: "demo" | "live") => void;
-}) {
-  return (
-    <div
-      role="radiogroup"
-      aria-label="Data source"
-      className="inline-flex h-8 items-center rounded-[8px] border border-line bg-canvas p-0.5"
-    >
-      {MODES.map((m) => {
-        const on = m.value === mode;
-        return (
-          <button
-            key={m.value}
-            type="button"
-            role="radio"
-            aria-checked={on}
-            title={m.hint}
-            onClick={() => !on && onChange(m.value)}
-            className={`inline-flex h-full items-center gap-1.5 rounded-[6px] border px-3 text-[13px] font-medium ${
-              on ? "border-line bg-surface text-ink" : "border-transparent text-muted hover:text-ink"
-            }`}
-          >
-            {m.value === "live" ? (
-              <span className={`h-1.5 w-1.5 rounded-full ${on ? "bg-memory" : "bg-line"}`} aria-hidden />
-            ) : null}
-            {m.label}
-          </button>
-        );
-      })}
-    </div>
-  );
-}
-
 export function AppShell({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
-  const { month, setMonth, mode, setMode, queueCount, reset } = useStore();
+  const { month, setMonth, queueCount, reset } = useStore();
   const title = nav.find((item) => isActive(pathname, item.href))?.label ?? "";
 
   return (
@@ -195,13 +152,10 @@ export function AppShell({ children }: { children: React.ReactNode }) {
             <h1 className="text-[15px] font-semibold tracking-[-0.01em] text-ink">{title}</h1>
             <span className="h-4 w-px bg-line" aria-hidden />
             <MonthSwitch month={month} onChange={setMonth} />
-            <div className="ml-auto">
-              <ModeSwitch mode={mode} onChange={setMode} />
-            </div>
             <button
               type="button"
               onClick={() => void reset()}
-              className=" inline-flex h-8 items-center gap-1.5 rounded-[8px] border border-line bg-surface px-3 text-[13px] font-medium text-ink hover:bg-canvas"
+              className="ml-auto  inline-flex h-8 items-center gap-1.5 rounded-[8px] border border-line bg-surface px-3 text-[13px] font-medium text-ink hover:bg-canvas"
             >
               <RotateCcw className="h-3.5 w-3.5 text-muted" aria-hidden />
               Reset

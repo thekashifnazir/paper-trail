@@ -15,20 +15,19 @@ export type DataMode = "demo" | "live";
  * Default is Live: the engine on data/sample with the saved agent runs. NEXT_PUBLIC_DEFAULT_MODE=demo
  * starts in the in-browser fixtures instead. Viewers switch in the top bar or with ?mode=demo|live.
  */
-export const DEFAULT_MODE: DataMode = process.env.NEXT_PUBLIC_DEFAULT_MODE === "demo" ? "demo" : "live";
+export const DEFAULT_MODE: DataMode = process.env.NEXT_PUBLIC_DEFAULT_MODE === "live" ? "live" : "demo";
 const MODE_KEY = "pt.dataMode.v2";
 
 let mode: DataMode | null = null;
 
-/** ?mode=live|demo wins, then the viewer's last choice, then the build default. */
+/** ?mode=live|demo wins, else the build default (Demo). */
 export function getMode(): DataMode {
   if (mode) return mode;
   mode = DEFAULT_MODE;
   if (typeof window !== "undefined") {
     try {
-      const q = new URLSearchParams(window.location.search).get("mode");
-      const saved = window.localStorage.getItem(MODE_KEY);
-      const pick = q ?? saved;
+      // Demo only on screen; ?mode=live still reaches the engine for the team.
+      const pick = new URLSearchParams(window.location.search).get("mode");
       if (pick === "demo" || pick === "live") mode = pick;
     } catch {
       /* storage unavailable */
