@@ -32,7 +32,7 @@ export function LineDrawer({
         role="dialog"
         aria-modal="true"
         aria-label={line.payer_name}
-        className="h-full w-full max-w-[420px] overflow-auto border-l border-hairline bg-sheet p-5"
+        className="h-full w-full max-w-[420px] overflow-auto border-l border-line bg-surface p-5"
         onClick={(event) => event.stopPropagation()}
       >
         <div className="flex items-start justify-between gap-3">
@@ -56,7 +56,7 @@ export function LineDrawer({
           </button>
         </div>
         <div className="mt-3">
-          <Money value={line.amount} large />
+          <Money value={line.amount} size="kpi" />
         </div>
         <div className="mt-3 flex items-center gap-3">
           <MethodBadge method={line.method} />
@@ -70,7 +70,7 @@ export function LineDrawer({
             {line.allocations.map((allocation) => (
               <div
                 key={allocation.charge_id}
-                className="rounded-lg border border-hairline px-2.5 py-2 text-[13px]"
+                className="rounded-lg border border-line px-2.5 py-2 text-[13px]"
               >
                 <div className="font-medium">{allocation.tenant_name}</div>
                 <div className="text-[12px] text-muted">
@@ -97,7 +97,7 @@ export function LineDrawer({
         {line.status === "proposed" ? (
           <Link
             href="/exceptions"
-            className="mt-5 inline-flex rounded-lg bg-ink px-3 py-2 text-[13px] font-medium text-paper"
+            className="mt-5 inline-flex rounded-lg bg-ink px-3 py-2 text-[13px] font-medium text-canvas"
           >
             Review in Exceptions
           </Link>

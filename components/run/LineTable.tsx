@@ -155,8 +155,8 @@ export function LineTable({
   const slice = rows.slice(start, end);
 
   return (
-    <section className="flex min-h-0 flex-1 flex-col overflow-hidden rounded-[12px] border border-hairline bg-sheet">
-      <div className="flex flex-wrap items-end gap-x-4 gap-y-2 border-b border-hairline px-3 pt-2">
+    <section className="flex min-h-0 flex-1 flex-col overflow-hidden rounded-[12px] border border-line bg-surface">
+      <div className="flex flex-wrap items-end gap-x-4 gap-y-2 border-b border-line px-3 pt-2">
         <div className="flex gap-0">
           {FILTERS.map((item) => (
             <button
@@ -178,7 +178,7 @@ export function LineTable({
           onChange={(event) => onQuery(event.target.value)}
           placeholder="Search payer or reference"
           aria-label="Search payer or reference"
-          className="mb-1.5 ml-auto min-w-[200px] rounded-lg border border-hairline bg-paper px-2.5 py-1 text-[13px]"
+          className="mb-1.5 ml-auto min-w-[200px] rounded-lg border border-line bg-canvas px-2.5 py-1 text-[13px]"
         />
       </div>
       <div
@@ -188,20 +188,20 @@ export function LineTable({
       >
         <table className="w-full min-w-[960px] table-fixed border-separate border-spacing-0 text-left">
           <ColGroup />
-          <thead ref={theadRef} className="sticky top-0 z-10 bg-fill">
+          <thead ref={theadRef} className="sticky top-0 z-10 bg-canvas">
             <tr className="text-[12px] font-medium tracking-[0.04em] text-muted">
-              <th className="border-b border-hairline px-3 py-2 font-medium">Date</th>
-              <th className="border-b border-hairline px-3 py-2 font-medium">Payer</th>
-              <th className="border-b border-hairline px-3 py-2 font-medium">Reference</th>
-              <th className="border-b border-hairline px-3 py-2 text-right font-medium">
+              <th className="border-b border-line px-3 py-2 font-medium">Date</th>
+              <th className="border-b border-line px-3 py-2 font-medium">Payer</th>
+              <th className="border-b border-line px-3 py-2 font-medium">Reference</th>
+              <th className="border-b border-line px-3 py-2 text-right font-medium">
                 Amount
               </th>
-              <th className="border-b border-hairline px-3 py-2 font-medium">
+              <th className="border-b border-line px-3 py-2 font-medium">
                 Allocated to
               </th>
-              <th className="border-b border-hairline px-3 py-2 font-medium">Method</th>
-              <th className="border-b border-hairline px-3 py-2 font-medium">Confidence</th>
-              <th className="border-b border-hairline px-3 py-2 font-medium">Status</th>
+              <th className="border-b border-line px-3 py-2 font-medium">Method</th>
+              <th className="border-b border-line px-3 py-2 font-medium">Confidence</th>
+              <th className="border-b border-line px-3 py-2 font-medium">Status</th>
             </tr>
           </thead>
           <tbody>
@@ -218,42 +218,42 @@ export function LineTable({
                   key={line.id}
                   data-line-id={line.id}
                   onClick={() => onSelect(line.id)}
-                  className={`cursor-pointer hover:bg-fill ${
+                  className={`cursor-pointer hover:bg-canvas ${
                     resolving.has(line.id) ? "run-row-resolve" : ""
-                  } ${selected ? "bg-fill" : ""}`}
+                  } ${selected ? "bg-canvas" : ""}`}
                   style={{ height: ROW_HEIGHT }}
                 >
-                  <td className="h-11 whitespace-nowrap px-3 text-[13px] shadow-[inset_0_-1px_0_var(--hairline)]">
+                  <td className="h-11 whitespace-nowrap px-3 text-[13px] shadow-[inset_0_-1px_0_var(--line)]">
                     {shortDate(line.date)}
                   </td>
                   <td
-                    className="h-11 max-w-0 truncate px-3 font-medium shadow-[inset_0_-1px_0_var(--hairline)]"
+                    className="h-11 max-w-0 truncate px-3 font-medium shadow-[inset_0_-1px_0_var(--line)]"
                     title={line.payer_name}
                   >
                     {line.payer_name}
                   </td>
                   <td
-                    className="h-11 max-w-0 truncate px-3 font-mono text-[12px] shadow-[inset_0_-1px_0_var(--hairline)]"
+                    className="h-11 max-w-0 truncate px-3 font-mono text-[12px] shadow-[inset_0_-1px_0_var(--line)]"
                     title={line.reference}
                   >
                     {line.reference}
                   </td>
-                  <td className="h-11 px-3 text-right shadow-[inset_0_-1px_0_var(--hairline)]">
+                  <td className="h-11 px-3 text-right shadow-[inset_0_-1px_0_var(--line)]">
                     <Money value={line.amount} />
                   </td>
                   <td
-                    className="h-11 max-w-0 truncate px-3 text-[13px] text-muted shadow-[inset_0_-1px_0_var(--hairline)]"
+                    className="h-11 max-w-0 truncate px-3 text-[13px] text-muted shadow-[inset_0_-1px_0_var(--line)]"
                     title={allocated}
                   >
                     {allocated}
                   </td>
-                  <td className="h-11 whitespace-nowrap px-3 shadow-[inset_0_-1px_0_var(--hairline)]">
+                  <td className="h-11 whitespace-nowrap px-3 shadow-[inset_0_-1px_0_var(--line)]">
                     <MethodBadge method={line.method} />
                   </td>
-                  <td className="h-11 px-3 shadow-[inset_0_-1px_0_var(--hairline)]">
+                  <td className="h-11 px-3 shadow-[inset_0_-1px_0_var(--line)]">
                     <ConfidenceMeter value={line.confidence} />
                   </td>
-                  <td className="h-11 whitespace-nowrap px-3 shadow-[inset_0_-1px_0_var(--hairline)]">
+                  <td className="h-11 whitespace-nowrap px-3 shadow-[inset_0_-1px_0_var(--line)]">
                     <StatusCell status={line.status} />
                   </td>
                 </tr>

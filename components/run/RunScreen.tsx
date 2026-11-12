@@ -1,7 +1,7 @@
 "use client";
 
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
-import { AllocationBar } from "@/components/shared";
+import { AllocationBar, type BarSegment } from "@/components/shared";
 import { getLines } from "@/lib/api";
 import { useStore } from "@/lib/store";
 import type { LineView } from "@/lib/types";
@@ -17,19 +17,22 @@ function monthName(month: string) {
   return month;
 }
 
-function barCounts(lines: LineView[]) {
-  let exact = 0;
-  let memory = 0;
-  let agent = 0;
-  let queue = 0;
+function barSegments(lines: LineView[]): BarSegment[] {
+  const seg: Record<BarSegment["key"], BarSegment> = {
+    exact: { key: "exact", count: 0, value: 0 },
+    memory: { key: "memory", count: 0, value: 0 },
+    agent: { key: "agent", count: 0, value: 0 },
+    queue: { key: "queue", count: 0, value: 0 },
+  };
   for (const line of lines) {
-    if (line.status === "proposed") queue += 1;
-    if (line.status !== "approved") continue;
-    if (line.method === "exact") exact += 1;
-    else if (line.method === "memory") memory += 1;
-    else if (line.method === "agent") agent += 1;
+    let key: BarSegment["key"] | null = null;
+    if (line.status === "proposed") key = "queue";
+    else if (line.status === "approved" && line.method && line.method !== "human") key = line.method;
+    if (!key) continue;
+    seg[key].count += 1;
+    seg[key].value += line.amount;
   }
-  return { exact, memory, agent, queue };
+  return [seg.exact, seg.memory, seg.agent, seg.queue];
 }
 
 export function RunScreen() {
@@ -87,7 +90,7 @@ export function RunScreen() {
     return source.filter((line) => line.statement_month === month);
   }, [running, polled, lines, month]);
 
-  const counts = useMemo(() => barCounts(monthLines), [monthLines]);
+  const segments = useMemo(() => barSegments(monthLines), [monthLines]);
   const memoryCount = useMemo(
     () => monthLines.filter((line) => line.method === "memory").length,
     [monthLines],
@@ -107,19 +110,14 @@ export function RunScreen() {
       />
       <KpiRow lines={monthLines} started={running || hasRun} score={monthSummary?.score} />
       <div className="run-bar">
-        <AllocationBar
-          exact={counts.exact}
-          memory={counts.memory}
-          agent={counts.agent}
-          queue={counts.queue}
-        />
+        <AllocationBar segments={segments} />
       </div>
       {month === "2026-10" && memoryCount > 0 ? (
-        <div className="rounded-md border-l-4 border-[#bef264] bg-ink px-4 py-3 text-[14px] text-paper">
-          <span className="font-semibold text-[#bef264]">
+        <div className="flex items-center gap-2.5 rounded-[8px] border border-line border-l-[3px] border-l-lime bg-surface px-3.5 py-2.5 text-[14px]">
+          <span className="font-medium text-memory">
             {memoryCount} receipts matched from memory
           </span>
-          <span className="text-white/80"> — payers you approved last month.</span>
+          <span className="text-muted"> — payers you approved last month.</span>
         </div>
       ) : null}
       <LineTable

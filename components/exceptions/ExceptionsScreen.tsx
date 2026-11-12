@@ -178,7 +178,7 @@ export function ExceptionsScreen() {
           onReject={() => void settle("reject", selected)}
         />
       ) : (
-        <section className="h-full min-h-0 rounded-lg border border-line bg-panel" />
+        <section className="h-full min-h-0 rounded-lg border border-line bg-surface" />
       )}
     </div>
   );

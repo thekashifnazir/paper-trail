@@ -36,8 +36,8 @@ export function QueuePane({
   }, [selectedId]);
 
   return (
-    <section className="flex h-full min-h-0 flex-col overflow-hidden rounded-[12px] border border-hairline bg-sheet">
-      <header className="shrink-0 border-b border-hairline px-3 py-2.5">
+    <section className="flex h-full min-h-0 flex-col overflow-hidden rounded-[12px] border border-line bg-surface">
+      <header className="shrink-0 border-b border-line px-3 py-2.5">
         <h1 className="text-[20px] font-medium tracking-[-0.02em] text-ink">
           Exceptions
         </h1>
@@ -48,7 +48,7 @@ export function QueuePane({
       <div ref={listRef} className="min-h-0 flex-1 overflow-auto overscroll-contain">
         {groups.map((group) => (
           <div key={group.reason}>
-            <div className="sticky top-0 z-10 bg-fill px-3 py-1.5 text-[12px] font-medium tracking-[0.04em] text-muted">
+            <div className="sticky top-0 z-10 bg-canvas px-3 py-1.5 text-[12px] font-medium tracking-[0.04em] text-muted">
               {group.reason} · {group.items.length}
             </div>
             {group.items.map((line) => {
@@ -60,10 +60,10 @@ export function QueuePane({
                   type="button"
                   data-line-id={line.id}
                   onClick={() => onSelect(line.id)}
-                  className={`flex w-full items-start gap-2 border-b border-l-2 border-b-hairline px-3 py-2 text-left transition-opacity duration-[160ms] ease-out motion-reduce:transition-none ${
+                  className={`flex w-full items-start gap-2 border-b border-l-2 border-b-line px-3 py-2 text-left transition-opacity duration-[160ms] ease-out motion-reduce:transition-none ${
                     selected
-                      ? "border-l-ink bg-fill"
-                      : "border-l-transparent hover:bg-fill/70"
+                      ? "border-l-ink bg-canvas"
+                      : "border-l-transparent hover:bg-canvas/70"
                   } ${leaving ? "opacity-0" : "opacity-100"}`}
                 >
                   <div className="min-w-0 flex-1">

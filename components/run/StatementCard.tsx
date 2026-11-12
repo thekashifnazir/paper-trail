@@ -55,7 +55,7 @@ export function StatementCard({
   }
 
   return (
-    <section className="rounded-[12px] border border-hairline bg-sheet px-3 py-2.5">
+    <section className="rounded-[12px] border border-line bg-surface px-3 py-2.5">
       <div className="flex flex-wrap items-center justify-between gap-3">
         {showDrop ? (
           <div
@@ -85,8 +85,8 @@ export function StatementCard({
             }}
             className={`flex min-h-[48px] min-w-0 flex-1 cursor-pointer items-center rounded-lg border border-dashed px-3 text-[14px] outline-none focus-visible:border-ink ${
               dragOver
-                ? "border-ink bg-fill text-ink"
-                : "border-hairline bg-paper text-ink"
+                ? "border-ink bg-canvas text-ink"
+                : "border-line bg-canvas text-ink"
             }`}
           >
             Drop the {monthLabel} bank statement, or use the sample
@@ -106,10 +106,10 @@ export function StatementCard({
               const state = stepState(key, visualStage);
               const className =
                 state === "current"
-                  ? "border-brand bg-brand-wash text-brand"
+                  ? "border-ink bg-ink-tint text-ink"
                   : state === "lit"
-                    ? "border-brand text-brand"
-                    : "border-hairline text-muted";
+                    ? "border-ink text-ink"
+                    : "border-line text-muted";
               return (
                 <div
                   key={key}
@@ -125,13 +125,13 @@ export function StatementCard({
           type="button"
           disabled={running}
           onClick={onRun}
-          className="shrink-0 rounded-lg bg-ink px-3.5 py-2 text-[13px] font-medium text-paper hover:opacity-90 disabled:opacity-60"
+          className="shrink-0 rounded-lg bg-ink px-3.5 py-2 text-[13px] font-medium text-canvas hover:opacity-90 disabled:opacity-60"
         >
           {running ? "Running…" : "Run allocation"}
         </button>
       </div>
       {error ? (
-        <div className="mt-2.5 rounded-lg border border-danger/30 bg-danger-wash px-3 py-2 text-[13px] text-danger">
+        <div className="mt-2.5 rounded-lg border border-risk/30 bg-risk-tint px-3 py-2 text-[13px] text-risk">
           {error}{" "}
           <button type="button" className="font-medium underline" onClick={onRun}>
             Retry

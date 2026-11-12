@@ -57,14 +57,14 @@ function DisputeStatus({ note }: { note: string | null }) {
     >
       <span
         title={note ?? undefined}
-        className="inline-flex items-center rounded-full bg-queue-wash px-2 py-0.5 text-[12px] font-medium text-queue"
+        className="inline-flex items-center rounded-full bg-queue-tint px-2 py-0.5 text-[12px] font-medium text-queue"
       >
         Disputed
       </span>
       {note && tip ? (
         <span
           role="tooltip"
-          className="pointer-events-none fixed z-30 w-72 rounded-lg border border-hairline bg-sheet px-3 py-2 text-left text-[12px] font-normal tracking-normal text-ink"
+          className="pointer-events-none fixed z-30 w-72 rounded-lg border border-line bg-surface px-3 py-2 text-left text-[12px] font-normal tracking-normal text-ink"
           style={{
             left: tip.x,
             top: tip.y,
@@ -80,7 +80,7 @@ function DisputeStatus({ note }: { note: string | null }) {
 
 function DangerNote({ message }: { message: string }) {
   return (
-    <div className="rounded-lg border border-danger/30 bg-danger-wash px-3 py-2.5 text-[13px] text-danger">
+    <div className="rounded-lg border border-risk/30 bg-risk-tint px-3 py-2.5 text-[13px] text-risk">
       {message}
     </div>
   );
@@ -160,20 +160,22 @@ export function ArrearsPage() {
       </header>
 
       {ran || sorted.length > 0 ? (
-        <KpiStrip>
-          <KpiCard label="Total arrears" value={<Money value={total} />} />
-          <KpiCard label="Tenants in arrears" value={sorted.length} />
+        <KpiStrip cols={3}>
+          <KpiCard label="Total arrears" value={<Money value={total} size="kpi" />} />
+          <KpiCard
+            label="Tenants in arrears"
+            value={<span className="money tracking-[-0.03em]">{sorted.length}</span>}
+          />
           <KpiCard
             label="Disputed and held back"
-            value={<Money value={held} />}
+            value={<Money value={held} size="kpi" />}
             hint="not chased"
-            accent="amber"
           />
         </KpiStrip>
       ) : null}
 
-      <section className="overflow-hidden rounded-[12px] border border-hairline bg-sheet">
-        <div className="flex items-center justify-between gap-3 border-b border-hairline px-3 py-2">
+      <section className="overflow-hidden rounded-[12px] border border-line bg-surface">
+        <div className="flex items-center justify-between gap-3 border-b border-line px-3 py-2">
           <h2 className="text-[16px] font-medium tracking-[-0.02em] text-ink">
             Open balances
           </h2>
@@ -196,8 +198,8 @@ export function ArrearsPage() {
         ) : (
           <div className="max-h-[min(560px,56vh)] overflow-auto">
             <table className="w-full text-left">
-              <thead className="sticky top-0 z-10 bg-fill text-[12px] font-medium tracking-[0.04em] text-muted">
-                <tr className="border-b border-hairline">
+              <thead className="sticky top-0 z-10 bg-canvas text-[12px] font-medium tracking-[0.04em] text-muted">
+                <tr className="border-b border-line">
                   <th className="px-3 py-2 font-medium">Tenant and unit</th>
                   <th className="px-3 py-2 text-right font-medium">Outstanding</th>
                   <th className="px-3 py-2 font-medium">Oldest due date</th>
@@ -210,7 +212,7 @@ export function ArrearsPage() {
                 {sorted.map((row) => (
                   <Fragment key={row.tenant_id}>
                     <tr
-                      className="cursor-pointer border-b border-hairline hover:bg-fill"
+                      className="cursor-pointer border-b border-line hover:bg-canvas"
                       onClick={() =>
                         setExpanded(
                           expanded === row.tenant_id ? null : row.tenant_id,
@@ -242,7 +244,7 @@ export function ArrearsPage() {
                       </td>
                       <td className="h-11 px-3 align-middle">
                         <div className="flex items-center gap-2">
-                          <div className="h-1 w-16 overflow-hidden rounded-full bg-hairline">
+                          <div className="h-1 w-16 overflow-hidden rounded-full bg-line">
                             <div
                               className="h-full bg-queue"
                               style={{
@@ -269,14 +271,14 @@ export function ArrearsPage() {
                             event.stopPropagation();
                             openChaser(row);
                           }}
-                          className="rounded-lg border border-hairline bg-sheet px-2.5 py-1 text-[12px] font-medium text-ink hover:bg-fill"
+                          className="rounded-lg border border-line bg-surface px-2.5 py-1 text-[12px] font-medium text-ink hover:bg-canvas"
                         >
                           Draft chaser
                         </button>
                       </td>
                     </tr>
                     {expanded === row.tenant_id ? (
-                      <tr className="border-b border-hairline bg-paper">
+                      <tr className="border-b border-line bg-canvas">
                         <td colSpan={6} className="px-3 py-2.5">
                           <ul className="space-y-1">
                             {row.open_charges.map((charge) => (
@@ -349,8 +351,8 @@ function AuditLog({
   updating: boolean;
 }) {
   return (
-    <section className="overflow-hidden rounded-[12px] border border-hairline bg-sheet">
-      <div className="flex items-center justify-between gap-3 border-b border-hairline px-3 py-2">
+    <section className="overflow-hidden rounded-[12px] border border-line bg-surface">
+      <div className="flex items-center justify-between gap-3 border-b border-line px-3 py-2">
         <h2 className="text-[16px] font-medium tracking-[-0.02em] text-ink">
           Audit log
         </h2>
@@ -372,8 +374,8 @@ function AuditLog({
       ) : (
         <div className="max-h-56 overflow-auto">
           <table className="w-full text-left text-[13px]">
-            <thead className="sticky top-0 bg-fill text-[12px] font-medium tracking-[0.04em] text-muted">
-              <tr className="border-b border-hairline">
+            <thead className="sticky top-0 bg-canvas text-[12px] font-medium tracking-[0.04em] text-muted">
+              <tr className="border-b border-line">
                 <th className="px-3 py-1.5 font-medium">Time</th>
                 <th className="px-3 py-1.5 font-medium">Actor</th>
                 <th className="px-3 py-1.5 font-medium">Action</th>
@@ -384,7 +386,7 @@ function AuditLog({
               {audit.map((entry, index) => (
                 <tr
                   key={`${entry.ts}-${entry.object_id}-${index}`}
-                  className="border-b border-hairline"
+                  className="border-b border-line"
                 >
                   <td className="px-3 py-1.5 align-middle font-mono text-[11px] text-muted">
                     <span
@@ -446,11 +448,11 @@ function ChaserDialog({
         role="dialog"
         aria-modal="true"
         aria-labelledby="chaser-title"
-        className="flex h-[min(720px,calc(100vh-2rem))] w-full max-w-5xl flex-col overflow-hidden rounded-[12px] border border-hairline bg-sheet"
+        className="flex h-[min(720px,calc(100vh-2rem))] w-full max-w-5xl flex-col overflow-hidden rounded-[12px] border border-line bg-surface"
         onClick={(event) => event.stopPropagation()}
       >
         <div className="grid min-h-0 flex-1 md:grid-cols-2">
-          <div className="flex min-h-0 flex-col border-b border-hairline p-4 md:border-b-0 md:border-r">
+          <div className="flex min-h-0 flex-col border-b border-line p-4 md:border-b-0 md:border-r">
             <div
               id="chaser-title"
               className="text-[12px] font-medium tracking-[0.04em] text-muted"
@@ -461,13 +463,13 @@ function ChaserDialog({
               value={subject}
               onChange={(event) => onSubject(event.target.value)}
               aria-label="Subject"
-              className="mt-1.5 rounded-lg border border-hairline bg-paper px-2.5 py-1.5 font-medium text-ink"
+              className="mt-1.5 rounded-lg border border-line bg-canvas px-2.5 py-1.5 font-medium text-ink"
             />
             <textarea
               value={body}
               onChange={(event) => onBody(event.target.value)}
               aria-label="Letter"
-              className="mt-2 min-h-0 flex-1 resize-none rounded-lg border border-hairline bg-paper px-2.5 py-2 leading-relaxed text-ink"
+              className="mt-2 min-h-0 flex-1 resize-none rounded-lg border border-line bg-canvas px-2.5 py-2 leading-relaxed text-ink"
             />
           </div>
           <div className="min-h-0 overflow-auto p-4">
@@ -495,18 +497,18 @@ function ChaserDialog({
             </div>
           </div>
         </div>
-        <div className="flex flex-wrap items-center gap-2 border-t border-hairline px-4 py-2.5">
+        <div className="flex flex-wrap items-center gap-2 border-t border-line px-4 py-2.5">
           <button
             type="button"
             onClick={onCopy}
-            className="rounded-lg bg-ink px-3.5 py-2 text-[13px] font-medium text-paper"
+            className="rounded-lg bg-ink px-3.5 py-2 text-[13px] font-medium text-canvas"
           >
             {copied ? "Copied" : "Copy to clipboard"}
           </button>
           <button
             type="button"
             onClick={onClose}
-            className="rounded-lg border border-hairline bg-sheet px-3.5 py-2 text-[13px] font-medium text-ink hover:bg-fill"
+            className="rounded-lg border border-line bg-surface px-3.5 py-2 text-[13px] font-medium text-ink hover:bg-canvas"
           >
             Close
           </button>

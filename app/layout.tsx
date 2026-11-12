@@ -1,16 +1,10 @@
 import type { Metadata } from "next";
 import { GeistSans } from "geist/font/sans";
-import { IBM_Plex_Mono } from "next/font/google";
+import { GeistMono } from "geist/font/mono";
 import { Toaster } from "sonner";
 import { StoreProvider } from "@/lib/store";
 import { AppShell } from "@/components/AppShell";
 import "./globals.css";
-
-const plex = IBM_Plex_Mono({
-  subsets: ["latin"],
-  weight: ["400", "500", "600"],
-  variable: "--font-ibm-plex",
-});
 
 export const metadata: Metadata = {
   title: "Paper Trail — Cash application",
@@ -23,7 +17,7 @@ export default function RootLayout({
   return (
     <html lang="en-GB">
       <body
-        className={`${GeistSans.variable} ${plex.variable} font-sans antialiased`}
+        className={`${GeistSans.variable} ${GeistMono.variable} font-sans antialiased`}
       >
         <StoreProvider>
           <AppShell>{children}</AppShell>
@@ -31,7 +25,7 @@ export default function RootLayout({
             position="bottom-right"
             closeButton
             toastOptions={{
-              className: "border-hairline! bg-sheet! text-ink! shadow-none!",
+              className: "border-line! bg-surface! text-ink!",
               descriptionClassName: "text-muted!",
             }}
           />

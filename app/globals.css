@@ -1,56 +1,74 @@
 @import "tailwindcss";
 
+/*
+ * Paper Trail tokens. Every colour in the UI comes from here.
+ * Components use the Tailwind names in @theme (bg-surface, text-muted, border-line …).
+ */
 :root {
-  --paper: oklch(0.976 0.001 106);
-  --sheet: oklch(1 0 0);
-  --ink: oklch(0.191 0.002 107);
-  --muted: oklch(0.538 0.008 97);
-  --hairline: oklch(0.918 0.004 107);
-  --fill: oklch(0.964 0.003 106);
+  /* Surfaces */
+  --canvas: #f7f7f5;
+  --surface: #ffffff;
+  --line: #e7e5e0;
+  --ink: #111312;
+  --muted: #6b7270;
+  --quote: #fafaf8;
 
-  --brand: var(--ink);
-  --brand-wash: var(--fill);
+  /* Sidebar */
+  --side: #0f1211;
+  --side-ink: #e7eae8;
+  --side-muted: #8a918e;
+  --side-active: #1c2220;
 
-  --danger: oklch(0.505 0.19 27);
-  --danger-wash: oklch(0.96 0.02 25);
+  /* Highlight: active nav indicator and "matched from memory" moments only */
+  --lime: #c8f250;
 
-  --exact: oklch(0.45 0.01 100);
-  --exact-wash: oklch(0.96 0.005 100);
-  --memory: oklch(0.45 0.08 180);
-  --memory-wash: oklch(0.95 0.03 180);
-  --agent: oklch(0.62 0.12 55);
-  --agent-wash: oklch(0.95 0.04 70);
-  --queue: oklch(0.55 0.14 70);
-  --queue-wash: oklch(0.96 0.05 90);
+  /* Method pairs: text / tinted background. Always shown with a label. */
+  --exact: #52525b;
+  --exact-tint: #f4f4f5;
+  --memory: #0f7b55;
+  --memory-tint: #e3f6ec;
+  --agent: #5b3fe0;
+  --agent-tint: #eeeafe;
+  --queue: #a15c07;
+  --queue-tint: #fef3d6;
+  --risk: #b42318;
+  --risk-tint: #fee4e2;
 
-  /* Legacy aliases — prefer hairline / sheet in new code */
-  --line: var(--hairline);
-  --panel: var(--sheet);
+  /* Actions */
+  --approve: #0f7b55;
+
+  /* Layout */
+  --radius: 8px;
+  --sidebar-w: 232px;
+  --topbar-h: 52px;
 }
 
 @theme inline {
-  --color-paper: var(--paper);
-  --color-sheet: var(--sheet);
+  --color-canvas: var(--canvas);
+  --color-surface: var(--surface);
+  --color-line: var(--line);
   --color-ink: var(--ink);
   --color-muted: var(--muted);
-  --color-hairline: var(--hairline);
-  --color-fill: var(--fill);
-  --color-line: var(--hairline);
-  --color-panel: var(--sheet);
-  --color-brand: var(--brand);
-  --color-brand-wash: var(--brand-wash);
-  --color-danger: var(--danger);
-  --color-danger-wash: var(--danger-wash);
+  --color-quote: var(--quote);
+  --color-side: var(--side);
+  --color-side-ink: var(--side-ink);
+  --color-side-muted: var(--side-muted);
+  --color-side-active: var(--side-active);
+  --color-lime: var(--lime);
   --color-exact: var(--exact);
-  --color-exact-wash: var(--exact-wash);
+  --color-exact-tint: var(--exact-tint);
   --color-memory: var(--memory);
-  --color-memory-wash: var(--memory-wash);
+  --color-memory-tint: var(--memory-tint);
   --color-agent: var(--agent);
-  --color-agent-wash: var(--agent-wash);
+  --color-agent-tint: var(--agent-tint);
   --color-queue: var(--queue);
-  --color-queue-wash: var(--queue-wash);
+  --color-queue-tint: var(--queue-tint);
+  --color-risk: var(--risk);
+  --color-risk-tint: var(--risk-tint);
+  --color-approve: var(--approve);
   --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-ibm-plex);
+  --font-mono: var(--font-geist-mono);
+  --radius-ui: var(--radius);
 }
 
 * {
@@ -61,10 +79,10 @@ html,
 body {
   margin: 0;
   min-height: 100%;
-  background: var(--paper);
+  background: var(--canvas);
   color: var(--ink);
   font-family: var(--font-geist-sans), ui-sans-serif, system-ui, sans-serif;
-  font-size: 15px;
+  font-size: 14px;
   line-height: 1.45;
 }
 
@@ -75,15 +93,57 @@ select {
   font: inherit;
 }
 
-.tabular {
+::selection {
+  background: var(--ink);
+  color: var(--surface);
+}
+
+:focus-visible {
+  outline: 2px solid var(--ink);
+  outline-offset: 2px;
+}
+
+/* Raw bank data: payer, reference, amounts, invoice ids, evidence quotes. */
+.mono,
+.money {
+  font-family: var(--font-geist-mono), ui-monospace, monospace;
   font-variant-numeric: tabular-nums;
-  font-feature-settings: "tnum";
+  font-feature-settings: "tnum", "zero" 0;
 }
 
 .money {
-  font-family: var(--font-ibm-plex), ui-monospace, monospace;
+  white-space: nowrap;
+}
+
+.tabular {
   font-variant-numeric: tabular-nums;
-  text-align: right;
+}
+
+/* 12px uppercase label with 0.04em tracking. */
+.label {
+  font-size: 12px;
+  line-height: 16px;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--muted);
+}
+
+kbd.keycap {
+  display: inline-flex;
+  min-width: 18px;
+  height: 18px;
+  align-items: center;
+  justify-content: center;
+  padding: 0 4px;
+  border: 1px solid var(--line);
+  border-bottom-width: 2px;
+  border-radius: 4px;
+  background: var(--surface);
+  font-family: var(--font-geist-mono), ui-monospace, monospace;
+  font-size: 11px;
+  line-height: 1;
+  color: var(--muted);
 }
 
 @media (prefers-reduced-motion: reduce) {

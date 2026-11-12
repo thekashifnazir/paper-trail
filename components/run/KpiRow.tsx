@@ -92,23 +92,20 @@ export function KpiRow({
           </span>
         }
         hint="no human touch"
-        accent="teal"
       />
       <KpiCard
         label="In queue"
         value={<span className="tabular">{Math.round(queueN)}</span>}
-        accent={queue > 0 ? "amber" : undefined}
       />
       <KpiCard
         label="Unallocated value"
         value={
           started ? (
-            <Money value={unallocatedN} danger={unallocated > 0.004} />
+            <Money value={unallocatedN} tone={unallocated > 0.004 ? "risk" : undefined} />
           ) : (
             <span className="tabular text-muted">—</span>
           )
         }
-        accent={started && unallocated > 0.004 ? "red" : undefined}
       />
       {score ? (
         <KpiCard

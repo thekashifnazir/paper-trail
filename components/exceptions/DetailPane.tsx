@@ -68,7 +68,7 @@ export function DetailPane({
   const balanced = receiptBalances(line);
 
   return (
-    <section className="flex h-full min-h-0 min-w-0 flex-col overflow-hidden rounded-lg border border-line bg-panel">
+    <section className="flex h-full min-h-0 min-w-0 flex-col overflow-hidden rounded-lg border border-line bg-surface">
       <header className="shrink-0 border-b border-line px-5 py-4">
         <div className="flex items-start justify-between gap-4">
           <div className="min-w-0">
@@ -79,7 +79,7 @@ export function DetailPane({
             <div className="mt-1 text-[13px] text-muted">{shortDate(line.date)}</div>
           </div>
           {line.review_reason ? (
-            <span className="shrink-0 rounded-full bg-queue-wash px-3 py-1 text-[12px] font-semibold text-queue">
+            <span className="shrink-0 rounded-full bg-queue-tint px-3 py-1 text-[12px] font-semibold text-queue">
               {line.review_reason}
             </span>
           ) : null}
@@ -91,7 +91,7 @@ export function DetailPane({
 
       <div className="min-h-0 flex-1 space-y-6 overflow-auto overscroll-contain px-5 py-5">
         {unallocated ? (
-          <div className="rounded-md border border-line bg-paper px-4 py-4">
+          <div className="rounded-md border border-line bg-canvas px-4 py-4">
             <p className="font-semibold text-ink">Nothing allocated</p>
             <p className="mt-2 text-[18px] leading-relaxed">
               Nothing was allocated.
@@ -107,7 +107,7 @@ export function DetailPane({
             </div>
             <div className="overflow-auto rounded-md border border-line">
               <table className="w-full min-w-[640px] border-collapse text-left text-[13px]">
-                <thead className="bg-paper text-[11px] uppercase tracking-[0.05em] text-muted">
+                <thead className="bg-canvas text-[11px] uppercase tracking-[0.05em] text-muted">
                   <tr>
                     <th className="px-3 py-2 font-medium">Tenant</th>
                     <th className="px-3 py-2 font-medium">Charge</th>
@@ -145,7 +145,7 @@ export function DetailPane({
                     </tr>
                   ))}
                   {line.unallocated_amount !== 0 ? (
-                    <tr className="border-t border-line bg-queue-wash/40">
+                    <tr className="border-t border-line bg-queue-tint/40">
                       <td className="px-3 py-2 font-medium" colSpan={3}>
                         Unallocated
                       </td>
@@ -160,7 +160,7 @@ export function DetailPane({
             </div>
             <p className="mt-2 flex items-center gap-2 text-[13px] text-muted">
               {balanced ? (
-                <Check className="h-4 w-4 shrink-0 text-brand" aria-hidden />
+                <Check className="h-4 w-4 shrink-0 text-ink" aria-hidden />
               ) : null}
               <span className="money text-ink">{receivedEquation(line)}</span>
             </p>
@@ -194,12 +194,12 @@ export function DetailPane({
         </section>
       </div>
 
-      <div className="flex shrink-0 flex-wrap items-center gap-3 border-t border-line bg-panel px-5 py-4">
+      <div className="flex shrink-0 flex-wrap items-center gap-3 border-t border-line bg-surface px-5 py-4">
         <button
           type="button"
           onClick={onApprove}
           disabled={busy}
-          className="rounded-md bg-brand px-4 py-2.5 text-[14px] font-semibold text-white hover:opacity-90 disabled:opacity-60"
+          className="rounded-md bg-ink px-4 py-2.5 text-[14px] font-semibold text-surface hover:opacity-90 disabled:opacity-60"
         >
           {unallocated ? "Keep unallocated" : "Approve"}
         </button>
