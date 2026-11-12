@@ -1,0 +1,4322 @@
+[
+  {
+    "id": "INV-2609-001-R",
+    "tenant_id": "T001",
+    "type": "rent",
+    "period": "2026-09",
+    "amount_due": 8691.67,
+    "amount_paid": 0,
+    "due_date": "2026-09-01",
+    "invoice_ref": "INV-2609-001-R"
+  },
+  {
+    "id": "INV-2609-001-S",
+    "tenant_id": "T001",
+    "type": "service_charge",
+    "period": "2026-09",
+    "amount_due": 757.51,
+    "amount_paid": 0,
+    "due_date": "2026-09-01",
+    "invoice_ref": "INV-2609-001-S"
+  },
+  {
+    "id": "INV-2609-002-R",
+    "tenant_id": "T002",
+    "type": "rent",
+    "period": "2026-09",
+    "amount_due": 4575.0,
+    "amount_paid": 0,
+    "due_date": "2026-09-01",
+    "invoice_ref": "INV-2609-002-R"
+  },
+  {
+    "id": "INV-2609-002-S",
+    "tenant_id": "T002",
+    "type": "service_charge",
+    "period": "2026-09",
+    "amount_due": 562.13,
+    "amount_paid": 0,
+    "due_date": "2026-09-01",
+    "invoice_ref": "INV-2609-002-S"
+  },
+  {
+    "id": "INV-2609-003-R",
+    "tenant_id": "T003",
+    "type": "rent",
+    "period": "2026-09",
+    "amount_due": 5000.0,
+    "amount_paid": 0,
+    "due_date": "2026-09-01",
+    "invoice_ref": "INV-2609-003-R"
+  },
+  {
+    "id": "INV-2609-003-S",
+    "tenant_id": "T003",
+    "type": "service_charge",
+    "period": "2026-09",
+    "amount_due": 724.23,
+    "amount_paid": 0,
+    "due_date": "2026-09-01",
+    "invoice_ref": "INV-2609-003-S"
+  },
+  {
+    "id": "INV-2609-004-R",
+    "tenant_id": "T004",
+    "type": "rent",
+    "period": "2026-09",
+    "amount_due": 7470.83,
+    "amount_paid": 0,
+    "due_date": "2026-09-01",
+    "invoice_ref": "INV-2609-004-R"
+  },
+  {
+    "id": "INV-2609-004-S",
+    "tenant_id": "T004",
+    "type": "service_charge",
+    "period": "2026-09",
+    "amount_due": 829.55,
+    "amount_paid": 0,
+    "due_date": "2026-09-01",
+    "invoice_ref": "INV-2609-004-S"
+  },
+  {
+    "id": "INV-2609-005-R",
+    "tenant_id": "T005",
+    "type": "rent",
+    "period": "2026-09",
+    "amount_due": 5454.17,
+    "amount_paid": 0,
+    "due_date": "2026-09-01",
+    "invoice_ref": "INV-2609-005-R"
+  },
+  {
+    "id": "INV-2609-005-S",
+    "tenant_id": "T005",
+    "type": "service_charge",
+    "period": "2026-09",
+    "amount_due": 671.0,
+    "amount_paid": 0,
+    "due_date": "2026-09-01",
+    "invoice_ref": "INV-2609-005-S"
+  },
+  {
+    "id": "INV-2609-006-R",
+    "tenant_id": "T006",
+    "type": "rent",
+    "period": "2026-09",
+    "amount_due": 4854.17,
+    "amount_paid": 0,
+    "due_date": "2026-09-01",
+    "invoice_ref": "INV-2609-006-R"
+  },
+  {
+    "id": "INV-2609-006-S",
+    "tenant_id": "T006",
+    "type": "service_charge",
+    "period": "2026-09",
+    "amount_due": 541.83,
+    "amount_paid": 0,
+    "due_date": "2026-09-01",
+    "invoice_ref": "INV-2609-006-S"
+  },
+  {
+    "id": "INV-2609-007-R",
+    "tenant_id": "T007",
+    "type": "rent",
+    "period": "2026-09",
+    "amount_due": 2383.33,
+    "amount_paid": 0,
+    "due_date": "2026-09-01",
+    "invoice_ref": "INV-2609-007-R"
+  },
+  {
+    "id": "INV-2609-007-S",
+    "tenant_id": "T007",
+    "type": "service_charge",
+    "period": "2026-09",
+    "amount_due": 331.77,
+    "amount_paid": 0,
+    "due_date": "2026-09-01",
+    "invoice_ref": "INV-2609-007-S"
+  },
+  {
+    "id": "INV-2609-008-R",
+    "tenant_id": "T008",
+    "type": "rent",
+    "period": "2026-09",
+    "amount_due": 3366.67,
+    "amount_paid": 0,
+    "due_date": "2026-09-01",
+    "invoice_ref": "INV-2609-008-R"
+  },
+  {
+    "id": "INV-2609-008-S",
+    "tenant_id": "T008",
+    "type": "service_charge",
+    "period": "2026-09",
+    "amount_due": 446.99,
+    "amount_paid": 0,
+    "due_date": "2026-09-01",
+    "invoice_ref": "INV-2609-008-S"
+  },
+  {
+    "id": "INV-2609-009-R",
+    "tenant_id": "T009",
+    "type": "rent",
+    "period": "2026-09",
+    "amount_due": 4708.33,
+    "amount_paid": 0,
+    "due_date": "2026-09-01",
+    "invoice_ref": "INV-2609-009-R"
+  },
+  {
+    "id": "INV-2609-009-S",
+    "tenant_id": "T009",
+    "type": "service_charge",
+    "period": "2026-09",
+    "amount_due": 506.1,
+    "amount_paid": 0,
+    "due_date": "2026-09-01",
+    "invoice_ref": "INV-2609-009-S"
+  },
+  {
+    "id": "INV-2609-010-R",
+    "tenant_id": "T010",
+    "type": "rent",
+    "period": "2026-09",
+    "amount_due": 2541.67,
+    "amount_paid": 0,
+    "due_date": "2026-09-01",
+    "invoice_ref": "INV-2609-010-R"
+  },
+  {
+    "id": "INV-2609-010-S",
+    "tenant_id": "T010",
+    "type": "service_charge",
+    "period": "2026-09",
+    "amount_due": 297.04,
+    "amount_paid": 0,
+    "due_date": "2026-09-01",
+    "invoice_ref": "INV-2609-010-S"
+  },
+  {
+    "id": "INV-2609-011-R",
+    "tenant_id": "T011",
+    "type": "rent",
+    "period": "2026-09",
+    "amount_due": 2312.5,
+    "amount_paid": 0,
+    "due_date": "2026-09-01",
+    "invoice_ref": "INV-2609-011-R"
+  },
+  {
+    "id": "INV-2609-011-S",
+    "tenant_id": "T011",
+    "type": "service_charge",
+    "period": "2026-09",
+    "amount_due": 306.52,
+    "amount_paid": 0,
+    "due_date": "2026-09-01",
+    "invoice_ref": "INV-2609-011-S"
+  },
+  {
+    "id": "INV-2609-012-R",
+    "tenant_id": "T012",
+    "type": "rent",
+    "period": "2026-09",
+    "amount_due": 1741.67,
+    "amount_paid": 0,
+    "due_date": "2026-09-01",
+    "invoice_ref": "INV-2609-012-R"
+  },
+  {
+    "id": "INV-2609-012-S",
+    "tenant_id": "T012",
+    "type": "service_charge",
+    "period": "2026-09",
+    "amount_due": 156.29,
+    "amount_paid": 0,
+    "due_date": "2026-09-01",
+    "invoice_ref": "INV-2609-012-S"
+  },
+  {
+    "id": "INV-2609-013-R",
+    "tenant_id": "T013",
+    "type": "rent",
+    "period": "2026-09",
+    "amount_due": 8220.83,
+    "amount_paid": 0,
+    "due_date": "2026-09-01",
+    "invoice_ref": "INV-2609-013-R"
+  },
+  {
+    "id": "INV-2609-013-S",
+    "tenant_id": "T013",
+    "type": "service_charge",
+    "period": "2026-09",
+    "amount_due": 1004.44,
+    "amount_paid": 0,
+    "due_date": "2026-09-01",
+    "invoice_ref": "INV-2609-013-S"
+  },
+  {
+    "id": "INV-2609-014-R",
+    "tenant_id": "T014",
+    "type": "rent",
+    "period": "2026-09",
+    "amount_due": 5454.18,
+    "amount_paid": 0,
+    "due_date": "2026-09-01",
+    "invoice_ref": "INV-2609-014-R"
+  },
+  {
+    "id": "INV-2609-014-S",
+    "tenant_id": "T014",
+    "type": "service_charge",
+    "period": "2026-09",
+    "amount_due": 762.33,
+    "amount_paid": 0,
+    "due_date": "2026-09-01",
+    "invoice_ref": "INV-2609-014-S"
+  },
+  {
+    "id": "INV-2609-015-R",
+    "tenant_id": "T015",
+    "type": "rent",
+    "period": "2026-09",
+    "amount_due": 2500.0,
+    "amount_paid": 0,
+    "due_date": "2026-09-01",
+    "invoice_ref": "INV-2609-015-R"
+  },
+  {
+    "id": "INV-2609-015-S",
+    "tenant_id": "T015",
+    "type": "service_charge",
+    "period": "2026-09",
+    "amount_due": 281.67,
+    "amount_paid": 0,
+    "due_date": "2026-09-01",
+    "invoice_ref": "INV-2609-015-S"
+  },
+  {
+    "id": "INV-2609-016-R",
+    "tenant_id": "T016",
+    "type": "rent",
+    "period": "2026-09",
+    "amount_due": 5583.33,
+    "amount_paid": 0,
+    "due_date": "2026-09-01",
+    "invoice_ref": "INV-2609-016-R"
+  },
+  {
+    "id": "INV-2609-016-S",
+    "tenant_id": "T016",
+    "type": "service_charge",
+    "period": "2026-09",
+    "amount_due": 560.12,
+    "amount_paid": 0,
+    "due_date": "2026-09-01",
+    "invoice_ref": "INV-2609-016-S"
+  },
+  {
+    "id": "INV-2609-017-R",
+    "tenant_id": "T017",
+    "type": "rent",
+    "period": "2026-09",
+    "amount_due": 5670.83,
+    "amount_paid": 0,
+    "due_date": "2026-09-01",
+    "invoice_ref": "INV-2609-017-R"
+  },
+  {
+    "id": "INV-2609-017-S",
+    "tenant_id": "T017",
+    "type": "service_charge",
+    "period": "2026-09",
+    "amount_due": 755.8,
+    "amount_paid": 0,
+    "due_date": "2026-09-01",
+    "invoice_ref": "INV-2609-017-S"
+  },
+  {
+    "id": "INV-2609-018-R",
+    "tenant_id": "T018",
+    "type": "rent",
+    "period": "2026-09",
+    "amount_due": 4058.33,
+    "amount_paid": 0,
+    "due_date": "2026-09-01",
+    "invoice_ref": "INV-2609-018-R"
+  },
+  {
+    "id": "INV-2609-018-S",
+    "tenant_id": "T018",
+    "type": "service_charge",
+    "period": "2026-09",
+    "amount_due": 509.96,
+    "amount_paid": 0,
+    "due_date": "2026-09-01",
+    "invoice_ref": "INV-2609-018-S"
+  },
+  {
+    "id": "INV-2609-019-R",
+    "tenant_id": "T019",
+    "type": "rent",
+    "period": "2026-09",
+    "amount_due": 2525.0,
+    "amount_paid": 0,
+    "due_date": "2026-09-01",
+    "invoice_ref": "INV-2609-019-R"
+  },
+  {
+    "id": "INV-2609-019-S",
+    "tenant_id": "T019",
+    "type": "service_charge",
+    "period": "2026-09",
+    "amount_due": 281.55,
+    "amount_paid": 0,
+    "due_date": "2026-09-01",
+    "invoice_ref": "INV-2609-019-S"
+  },
+  {
+    "id": "INV-2609-020-R",
+    "tenant_id": "T020",
+    "type": "rent",
+    "period": "2026-09",
+    "amount_due": 3608.33,
+    "amount_paid": 0,
+    "due_date": "2026-09-01",
+    "invoice_ref": "INV-2609-020-R"
+  },
+  {
+    "id": "INV-2609-020-S",
+    "tenant_id": "T020",
+    "type": "service_charge",
+    "period": "2026-09",
+    "amount_due": 433.92,
+    "amount_paid": 0,
+    "due_date": "2026-09-01",
+    "invoice_ref": "INV-2609-020-S"
+  },
+  {
+    "id": "INV-2609-021-R",
+    "tenant_id": "T021",
+    "type": "rent",
+    "period": "2026-09",
+    "amount_due": 8662.5,
+    "amount_paid": 0,
+    "due_date": "2026-09-01",
+    "invoice_ref": "INV-2609-021-R"
+  },
+  {
+    "id": "INV-2609-021-S",
+    "tenant_id": "T021",
+    "type": "service_charge",
+    "period": "2026-09",
+    "amount_due": 956.85,
+    "amount_paid": 0,
+    "due_date": "2026-09-01",
+    "invoice_ref": "INV-2609-021-S"
+  },
+  {
+    "id": "INV-2609-022-R",
+    "tenant_id": "T022",
+    "type": "rent",
+    "period": "2026-09",
+    "amount_due": 3354.17,
+    "amount_paid": 0,
+    "due_date": "2026-09-01",
+    "invoice_ref": "INV-2609-022-R"
+  },
+  {
+    "id": "INV-2609-022-S",
+    "tenant_id": "T022",
+    "type": "service_charge",
+    "period": "2026-09",
+    "amount_due": 455.22,
+    "amount_paid": 0,
+    "due_date": "2026-09-01",
+    "invoice_ref": "INV-2609-022-S"
+  },
+  {
+    "id": "INV-2609-023-R",
+    "tenant_id": "T023",
+    "type": "rent",
+    "period": "2026-09",
+    "amount_due": 4587.5,
+    "amount_paid": 0,
+    "due_date": "2026-09-01",
+    "invoice_ref": "INV-2609-023-R"
+  },
+  {
+    "id": "INV-2609-023-S",
+    "tenant_id": "T023",
+    "type": "service_charge",
+    "period": "2026-09",
+    "amount_due": 495.82,
+    "amount_paid": 0,
+    "due_date": "2026-09-01",
+    "invoice_ref": "INV-2609-023-S"
+  },
+  {
+    "id": "INV-2609-024-R",
+    "tenant_id": "T024",
+    "type": "rent",
+    "period": "2026-09",
+    "amount_due": 4208.33,
+    "amount_paid": 0,
+    "due_date": "2026-09-01",
+    "invoice_ref": "INV-2609-024-R"
+  },
+  {
+    "id": "INV-2609-024-S",
+    "tenant_id": "T024",
+    "type": "service_charge",
+    "period": "2026-09",
+    "amount_due": 417.6,
+    "amount_paid": 0,
+    "due_date": "2026-09-01",
+    "invoice_ref": "INV-2609-024-S"
+  },
+  {
+    "id": "INV-2609-025-R",
+    "tenant_id": "T025",
+    "type": "rent",
+    "period": "2026-09",
+    "amount_due": 3354.18,
+    "amount_paid": 0,
+    "due_date": "2026-09-01",
+    "invoice_ref": "INV-2609-025-R"
+  },
+  {
+    "id": "INV-2609-025-S",
+    "tenant_id": "T025",
+    "type": "service_charge",
+    "period": "2026-09",
+    "amount_due": 400.79,
+    "amount_paid": 0,
+    "due_date": "2026-09-01",
+    "invoice_ref": "INV-2609-025-S"
+  },
+  {
+    "id": "INV-2609-026-R",
+    "tenant_id": "T026",
+    "type": "rent",
+    "period": "2026-09",
+    "amount_due": 2983.33,
+    "amount_paid": 0,
+    "due_date": "2026-09-01",
+    "invoice_ref": "INV-2609-026-R"
+  },
+  {
+    "id": "INV-2609-026-S",
+    "tenant_id": "T026",
+    "type": "service_charge",
+    "period": "2026-09",
+    "amount_due": 306.43,
+    "amount_paid": 0,
+    "due_date": "2026-09-01",
+    "invoice_ref": "INV-2609-026-S"
+  },
+  {
+    "id": "INV-2609-027-R",
+    "tenant_id": "T027",
+    "type": "rent",
+    "period": "2026-09",
+    "amount_due": 2583.33,
+    "amount_paid": 0,
+    "due_date": "2026-09-01",
+    "invoice_ref": "INV-2609-027-R"
+  },
+  {
+    "id": "INV-2609-027-S",
+    "tenant_id": "T027",
+    "type": "service_charge",
+    "period": "2026-09",
+    "amount_due": 321.61,
+    "amount_paid": 0,
+    "due_date": "2026-09-01",
+    "invoice_ref": "INV-2609-027-S"
+  },
+  {
+    "id": "INV-2609-028-R",
+    "tenant_id": "T028",
+    "type": "rent",
+    "period": "2026-09",
+    "amount_due": 3758.33,
+    "amount_paid": 0,
+    "due_date": "2026-09-01",
+    "invoice_ref": "INV-2609-028-R"
+  },
+  {
+    "id": "INV-2609-028-S",
+    "tenant_id": "T028",
+    "type": "service_charge",
+    "period": "2026-09",
+    "amount_due": 447.07,
+    "amount_paid": 0,
+    "due_date": "2026-09-01",
+    "invoice_ref": "INV-2609-028-S"
+  },
+  {
+    "id": "INV-2609-029-R",
+    "tenant_id": "T029",
+    "type": "rent",
+    "period": "2026-09",
+    "amount_due": 3379.17,
+    "amount_paid": 0,
+    "due_date": "2026-09-01",
+    "invoice_ref": "INV-2609-029-R"
+  },
+  {
+    "id": "INV-2609-029-S",
+    "tenant_id": "T029",
+    "type": "service_charge",
+    "period": "2026-09",
+    "amount_due": 438.21,
+    "amount_paid": 0,
+    "due_date": "2026-09-01",
+    "invoice_ref": "INV-2609-029-S"
+  },
+  {
+    "id": "INV-2609-030-R",
+    "tenant_id": "T030",
+    "type": "rent",
+    "period": "2026-09",
+    "amount_due": 3891.67,
+    "amount_paid": 0,
+    "due_date": "2026-09-01",
+    "invoice_ref": "INV-2609-030-R"
+  },
+  {
+    "id": "INV-2609-030-S",
+    "tenant_id": "T030",
+    "type": "service_charge",
+    "period": "2026-09",
+    "amount_due": 472.39,
+    "amount_paid": 0,
+    "due_date": "2026-09-01",
+    "invoice_ref": "INV-2609-030-S"
+  },
+  {
+    "id": "INV-2609-031-R",
+    "tenant_id": "T031",
+    "type": "rent",
+    "period": "2026-09",
+    "amount_due": 3370.83,
+    "amount_paid": 0,
+    "due_date": "2026-09-01",
+    "invoice_ref": "INV-2609-031-R"
+  },
+  {
+    "id": "INV-2609-031-S",
+    "tenant_id": "T031",
+    "type": "service_charge",
+    "period": "2026-09",
+    "amount_due": 469.39,
+    "amount_paid": 0,
+    "due_date": "2026-09-01",
+    "invoice_ref": "INV-2609-031-S"
+  },
+  {
+    "id": "INV-2609-032-R",
+    "tenant_id": "T032",
+    "type": "rent",
+    "period": "2026-09",
+    "amount_due": 2829.17,
+    "amount_paid": 0,
+    "due_date": "2026-09-01",
+    "invoice_ref": "INV-2609-032-R"
+  },
+  {
+    "id": "INV-2609-032-S",
+    "tenant_id": "T032",
+    "type": "service_charge",
+    "period": "2026-09",
+    "amount_due": 376.09,
+    "amount_paid": 0,
+    "due_date": "2026-09-01",
+    "invoice_ref": "INV-2609-032-S"
+  },
+  {
+    "id": "INV-2609-033-R",
+    "tenant_id": "T033",
+    "type": "rent",
+    "period": "2026-09",
+    "amount_due": 3554.17,
+    "amount_paid": 0,
+    "due_date": "2026-09-01",
+    "invoice_ref": "INV-2609-033-R"
+  },
+  {
+    "id": "INV-2609-033-S",
+    "tenant_id": "T033",
+    "type": "service_charge",
+    "period": "2026-09",
+    "amount_due": 377.24,
+    "amount_paid": 0,
+    "due_date": "2026-09-01",
+    "invoice_ref": "INV-2609-033-S"
+  },
+  {
+    "id": "INV-2609-034-R",
+    "tenant_id": "T034",
+    "type": "rent",
+    "period": "2026-09",
+    "amount_due": 2508.33,
+    "amount_paid": 0,
+    "due_date": "2026-09-01",
+    "invoice_ref": "INV-2609-034-R"
+  },
+  {
+    "id": "INV-2609-034-S",
+    "tenant_id": "T034",
+    "type": "service_charge",
+    "period": "2026-09",
+    "amount_due": 306.65,
+    "amount_paid": 0,
+    "due_date": "2026-09-01",
+    "invoice_ref": "INV-2609-034-S"
+  },
+  {
+    "id": "INV-2609-035-R",
+    "tenant_id": "T035",
+    "type": "rent",
+    "period": "2026-09",
+    "amount_due": 4941.67,
+    "amount_paid": 0,
+    "due_date": "2026-09-01",
+    "invoice_ref": "INV-2609-035-R"
+  },
+  {
+    "id": "INV-2609-035-S",
+    "tenant_id": "T035",
+    "type": "service_charge",
+    "period": "2026-09",
+    "amount_due": 633.8,
+    "amount_paid": 0,
+    "due_date": "2026-09-01",
+    "invoice_ref": "INV-2609-035-S"
+  },
+  {
+    "id": "INV-2609-036-R",
+    "tenant_id": "T036",
+    "type": "rent",
+    "period": "2026-09",
+    "amount_due": 3929.17,
+    "amount_paid": 0,
+    "due_date": "2026-09-01",
+    "invoice_ref": "INV-2609-036-R"
+  },
+  {
+    "id": "INV-2609-036-S",
+    "tenant_id": "T036",
+    "type": "service_charge",
+    "period": "2026-09",
+    "amount_due": 531.62,
+    "amount_paid": 0,
+    "due_date": "2026-09-01",
+    "invoice_ref": "INV-2609-036-S"
+  },
+  {
+    "id": "INV-2609-037-R",
+    "tenant_id": "T037",
+    "type": "rent",
+    "period": "2026-09",
+    "amount_due": 3791.67,
+    "amount_paid": 0,
+    "due_date": "2026-09-01",
+    "invoice_ref": "INV-2609-037-R"
+  },
+  {
+    "id": "INV-2609-037-S",
+    "tenant_id": "T037",
+    "type": "service_charge",
+    "period": "2026-09",
+    "amount_due": 527.82,
+    "amount_paid": 0,
+    "due_date": "2026-09-01",
+    "invoice_ref": "INV-2609-037-S"
+  },
+  {
+    "id": "INV-2609-038-R",
+    "tenant_id": "T038",
+    "type": "rent",
+    "period": "2026-09",
+    "amount_due": 2891.67,
+    "amount_paid": 0,
+    "due_date": "2026-09-01",
+    "invoice_ref": "INV-2609-038-R"
+  },
+  {
+    "id": "INV-2609-038-S",
+    "tenant_id": "T038",
+    "type": "service_charge",
+    "period": "2026-09",
+    "amount_due": 299.39,
+    "amount_paid": 0,
+    "due_date": "2026-09-01",
+    "invoice_ref": "INV-2609-038-S"
+  },
+  {
+    "id": "INV-2609-039-R",
+    "tenant_id": "T039",
+    "type": "rent",
+    "period": "2026-09",
+    "amount_due": 5704.17,
+    "amount_paid": 0,
+    "due_date": "2026-09-01",
+    "invoice_ref": "INV-2609-039-R"
+  },
+  {
+    "id": "INV-2609-039-S",
+    "tenant_id": "T039",
+    "type": "service_charge",
+    "period": "2026-09",
+    "amount_due": 683.21,
+    "amount_paid": 0,
+    "due_date": "2026-09-01",
+    "invoice_ref": "INV-2609-039-S"
+  },
+  {
+    "id": "INV-2609-040-R",
+    "tenant_id": "T040",
+    "type": "rent",
+    "period": "2026-09",
+    "amount_due": 4170.83,
+    "amount_paid": 0,
+    "due_date": "2026-09-01",
+    "invoice_ref": "INV-2609-040-R"
+  },
+  {
+    "id": "INV-2609-040-S",
+    "tenant_id": "T040",
+    "type": "service_charge",
+    "period": "2026-09",
+    "amount_due": 377.08,
+    "amount_paid": 0,
+    "due_date": "2026-09-01",
+    "invoice_ref": "INV-2609-040-S"
+  },
+  {
+    "id": "INV-2609-041-R",
+    "tenant_id": "T041",
+    "type": "rent",
+    "period": "2026-09",
+    "amount_due": 2925.0,
+    "amount_paid": 0,
+    "due_date": "2026-09-01",
+    "invoice_ref": "INV-2609-041-R"
+  },
+  {
+    "id": "INV-2609-041-S",
+    "tenant_id": "T041",
+    "type": "service_charge",
+    "period": "2026-09",
+    "amount_due": 379.81,
+    "amount_paid": 0,
+    "due_date": "2026-09-01",
+    "invoice_ref": "INV-2609-041-S"
+  },
+  {
+    "id": "INV-2609-042-R",
+    "tenant_id": "T042",
+    "type": "rent",
+    "period": "2026-09",
+    "amount_due": 7008.33,
+    "amount_paid": 0,
+    "due_date": "2026-09-01",
+    "invoice_ref": "INV-2609-042-R"
+  },
+  {
+    "id": "INV-2609-042-S",
+    "tenant_id": "T042",
+    "type": "service_charge",
+    "period": "2026-09",
+    "amount_due": 651.28,
+    "amount_paid": 0,
+    "due_date": "2026-09-01",
+    "invoice_ref": "INV-2609-042-S"
+  },
+  {
+    "id": "INV-2609-043-R",
+    "tenant_id": "T043",
+    "type": "rent",
+    "period": "2026-09",
+    "amount_due": 4650.0,
+    "amount_paid": 0,
+    "due_date": "2026-09-01",
+    "invoice_ref": "INV-2609-043-R"
+  },
+  {
+    "id": "INV-2609-043-S",
+    "tenant_id": "T043",
+    "type": "service_charge",
+    "period": "2026-09",
+    "amount_due": 666.3,
+    "amount_paid": 0,
+    "due_date": "2026-09-01",
+    "invoice_ref": "INV-2609-043-S"
+  },
+  {
+    "id": "INV-2609-044-R",
+    "tenant_id": "T044",
+    "type": "rent",
+    "period": "2026-09",
+    "amount_due": 4166.67,
+    "amount_paid": 0,
+    "due_date": "2026-09-01",
+    "invoice_ref": "INV-2609-044-R"
+  },
+  {
+    "id": "INV-2609-044-S",
+    "tenant_id": "T044",
+    "type": "service_charge",
+    "period": "2026-09",
+    "amount_due": 582.54,
+    "amount_paid": 0,
+    "due_date": "2026-09-01",
+    "invoice_ref": "INV-2609-044-S"
+  },
+  {
+    "id": "INV-2609-045-R",
+    "tenant_id": "T045",
+    "type": "rent",
+    "period": "2026-09",
+    "amount_due": 3591.67,
+    "amount_paid": 0,
+    "due_date": "2026-09-01",
+    "invoice_ref": "INV-2609-045-R"
+  },
+  {
+    "id": "INV-2609-045-S",
+    "tenant_id": "T045",
+    "type": "service_charge",
+    "period": "2026-09",
+    "amount_due": 360.67,
+    "amount_paid": 0,
+    "due_date": "2026-09-01",
+    "invoice_ref": "INV-2609-045-S"
+  },
+  {
+    "id": "INV-2609-046-R",
+    "tenant_id": "T046",
+    "type": "rent",
+    "period": "2026-09",
+    "amount_due": 2400.0,
+    "amount_paid": 0,
+    "due_date": "2026-09-01",
+    "invoice_ref": "INV-2609-046-R"
+  },
+  {
+    "id": "INV-2609-046-S",
+    "tenant_id": "T046",
+    "type": "service_charge",
+    "period": "2026-09",
+    "amount_due": 273.39,
+    "amount_paid": 0,
+    "due_date": "2026-09-01",
+    "invoice_ref": "INV-2609-046-S"
+  },
+  {
+    "id": "INV-2609-047-R",
+    "tenant_id": "T047",
+    "type": "rent",
+    "period": "2026-09",
+    "amount_due": 3216.67,
+    "amount_paid": 0,
+    "due_date": "2026-09-01",
+    "invoice_ref": "INV-2609-047-R"
+  },
+  {
+    "id": "INV-2609-047-S",
+    "tenant_id": "T047",
+    "type": "service_charge",
+    "period": "2026-09",
+    "amount_due": 417.5,
+    "amount_paid": 0,
+    "due_date": "2026-09-01",
+    "invoice_ref": "INV-2609-047-S"
+  },
+  {
+    "id": "INV-2609-048-R",
+    "tenant_id": "T048",
+    "type": "rent",
+    "period": "2026-09",
+    "amount_due": 4512.5,
+    "amount_paid": 0,
+    "due_date": "2026-09-01",
+    "invoice_ref": "INV-2609-048-R"
+  },
+  {
+    "id": "INV-2609-048-S",
+    "tenant_id": "T048",
+    "type": "service_charge",
+    "period": "2026-09",
+    "amount_due": 414.74,
+    "amount_paid": 0,
+    "due_date": "2026-09-01",
+    "invoice_ref": "INV-2609-048-S"
+  },
+  {
+    "id": "INV-2609-049-R",
+    "tenant_id": "T049",
+    "type": "rent",
+    "period": "2026-09",
+    "amount_due": 5483.33,
+    "amount_paid": 0,
+    "due_date": "2026-09-01",
+    "invoice_ref": "INV-2609-049-R"
+  },
+  {
+    "id": "INV-2609-049-S",
+    "tenant_id": "T049",
+    "type": "service_charge",
+    "period": "2026-09",
+    "amount_due": 512.39,
+    "amount_paid": 0,
+    "due_date": "2026-09-01",
+    "invoice_ref": "INV-2609-049-S"
+  },
+  {
+    "id": "INV-2609-050-R",
+    "tenant_id": "T050",
+    "type": "rent",
+    "period": "2026-09",
+    "amount_due": 6158.33,
+    "amount_paid": 0,
+    "due_date": "2026-09-01",
+    "invoice_ref": "INV-2609-050-R"
+  },
+  {
+    "id": "INV-2609-050-S",
+    "tenant_id": "T050",
+    "type": "service_charge",
+    "period": "2026-09",
+    "amount_due": 841.28,
+    "amount_paid": 0,
+    "due_date": "2026-09-01",
+    "invoice_ref": "INV-2609-050-S"
+  },
+  {
+    "id": "INV-2609-051-R",
+    "tenant_id": "T051",
+    "type": "rent",
+    "period": "2026-09",
+    "amount_due": 3745.83,
+    "amount_paid": 0,
+    "due_date": "2026-09-01",
+    "invoice_ref": "INV-2609-051-R"
+  },
+  {
+    "id": "INV-2609-051-S",
+    "tenant_id": "T051",
+    "type": "service_charge",
+    "period": "2026-09",
+    "amount_due": 538.64,
+    "amount_paid": 0,
+    "due_date": "2026-09-01",
+    "invoice_ref": "INV-2609-051-S"
+  },
+  {
+    "id": "INV-2609-052-R",
+    "tenant_id": "T052",
+    "type": "rent",
+    "period": "2026-09",
+    "amount_due": 8983.33,
+    "amount_paid": 0,
+    "due_date": "2026-09-01",
+    "invoice_ref": "INV-2609-052-R"
+  },
+  {
+    "id": "INV-2609-052-S",
+    "tenant_id": "T052",
+    "type": "service_charge",
+    "period": "2026-09",
+    "amount_due": 1197.26,
+    "amount_paid": 0,
+    "due_date": "2026-09-01",
+    "invoice_ref": "INV-2609-052-S"
+  },
+  {
+    "id": "INV-2609-053-R",
+    "tenant_id": "T053",
+    "type": "rent",
+    "period": "2026-09",
+    "amount_due": 5720.83,
+    "amount_paid": 0,
+    "due_date": "2026-09-01",
+    "invoice_ref": "INV-2609-053-R"
+  },
+  {
+    "id": "INV-2609-053-S",
+    "tenant_id": "T053",
+    "type": "service_charge",
+    "period": "2026-09",
+    "amount_due": 757.67,
+    "amount_paid": 0,
+    "due_date": "2026-09-01",
+    "invoice_ref": "INV-2609-053-S"
+  },
+  {
+    "id": "INV-2609-054-R",
+    "tenant_id": "T054",
+    "type": "rent",
+    "period": "2026-09",
+    "amount_due": 8504.17,
+    "amount_paid": 0,
+    "due_date": "2026-09-01",
+    "invoice_ref": "INV-2609-054-R"
+  },
+  {
+    "id": "INV-2609-054-S",
+    "tenant_id": "T054",
+    "type": "service_charge",
+    "period": "2026-09",
+    "amount_due": 996.64,
+    "amount_paid": 0,
+    "due_date": "2026-09-01",
+    "invoice_ref": "INV-2609-054-S"
+  },
+  {
+    "id": "INV-2609-055-R",
+    "tenant_id": "T055",
+    "type": "rent",
+    "period": "2026-09",
+    "amount_due": 3691.67,
+    "amount_paid": 0,
+    "due_date": "2026-09-01",
+    "invoice_ref": "INV-2609-055-R"
+  },
+  {
+    "id": "INV-2609-055-S",
+    "tenant_id": "T055",
+    "type": "service_charge",
+    "period": "2026-09",
+    "amount_due": 462.82,
+    "amount_paid": 0,
+    "due_date": "2026-09-01",
+    "invoice_ref": "INV-2609-055-S"
+  },
+  {
+    "id": "INV-2609-056-R",
+    "tenant_id": "T056",
+    "type": "rent",
+    "period": "2026-09",
+    "amount_due": 3520.83,
+    "amount_paid": 0,
+    "due_date": "2026-09-01",
+    "invoice_ref": "INV-2609-056-R"
+  },
+  {
+    "id": "INV-2609-056-S",
+    "tenant_id": "T056",
+    "type": "service_charge",
+    "period": "2026-09",
+    "amount_due": 422.76,
+    "amount_paid": 0,
+    "due_date": "2026-09-01",
+    "invoice_ref": "INV-2609-056-S"
+  },
+  {
+    "id": "INV-2609-057-R",
+    "tenant_id": "T057",
+    "type": "rent",
+    "period": "2026-09",
+    "amount_due": 5945.83,
+    "amount_paid": 0,
+    "due_date": "2026-09-01",
+    "invoice_ref": "INV-2609-057-R"
+  },
+  {
+    "id": "INV-2609-057-S",
+    "tenant_id": "T057",
+    "type": "service_charge",
+    "period": "2026-09",
+    "amount_due": 840.84,
+    "amount_paid": 0,
+    "due_date": "2026-09-01",
+    "invoice_ref": "INV-2609-057-S"
+  },
+  {
+    "id": "INV-2609-058-R",
+    "tenant_id": "T058",
+    "type": "rent",
+    "period": "2026-09",
+    "amount_due": 4358.33,
+    "amount_paid": 0,
+    "due_date": "2026-09-01",
+    "invoice_ref": "INV-2609-058-R"
+  },
+  {
+    "id": "INV-2609-058-S",
+    "tenant_id": "T058",
+    "type": "service_charge",
+    "period": "2026-09",
+    "amount_due": 431.6,
+    "amount_paid": 0,
+    "due_date": "2026-09-01",
+    "invoice_ref": "INV-2609-058-S"
+  },
+  {
+    "id": "INV-2609-059-R",
+    "tenant_id": "T059",
+    "type": "rent",
+    "period": "2026-09",
+    "amount_due": 2241.67,
+    "amount_paid": 0,
+    "due_date": "2026-09-01",
+    "invoice_ref": "INV-2609-059-R"
+  },
+  {
+    "id": "INV-2609-059-S",
+    "tenant_id": "T059",
+    "type": "service_charge",
+    "period": "2026-09",
+    "amount_due": 309.47,
+    "amount_paid": 0,
+    "due_date": "2026-09-01",
+    "invoice_ref": "INV-2609-059-S"
+  },
+  {
+    "id": "INV-2609-060-R",
+    "tenant_id": "T060",
+    "type": "rent",
+    "period": "2026-09",
+    "amount_due": 4683.33,
+    "amount_paid": 0,
+    "due_date": "2026-09-01",
+    "invoice_ref": "INV-2609-060-R"
+  },
+  {
+    "id": "INV-2609-060-S",
+    "tenant_id": "T060",
+    "type": "service_charge",
+    "period": "2026-09",
+    "amount_due": 655.27,
+    "amount_paid": 0,
+    "due_date": "2026-09-01",
+    "invoice_ref": "INV-2609-060-S"
+  },
+  {
+    "id": "INV-2609-061-R",
+    "tenant_id": "T061",
+    "type": "rent",
+    "period": "2026-09",
+    "amount_due": 5020.83,
+    "amount_paid": 0,
+    "due_date": "2026-09-01",
+    "invoice_ref": "INV-2609-061-R"
+  },
+  {
+    "id": "INV-2609-061-S",
+    "tenant_id": "T061",
+    "type": "service_charge",
+    "period": "2026-09",
+    "amount_due": 445.81,
+    "amount_paid": 0,
+    "due_date": "2026-09-01",
+    "invoice_ref": "INV-2609-061-S"
+  },
+  {
+    "id": "INV-2609-062-R",
+    "tenant_id": "T062",
+    "type": "rent",
+    "period": "2026-09",
+    "amount_due": 2812.5,
+    "amount_paid": 0,
+    "due_date": "2026-09-01",
+    "invoice_ref": "INV-2609-062-R"
+  },
+  {
+    "id": "INV-2609-062-S",
+    "tenant_id": "T062",
+    "type": "service_charge",
+    "period": "2026-09",
+    "amount_due": 392.52,
+    "amount_paid": 0,
+    "due_date": "2026-09-01",
+    "invoice_ref": "INV-2609-062-S"
+  },
+  {
+    "id": "INV-2609-063-R",
+    "tenant_id": "T063",
+    "type": "rent",
+    "period": "2026-09",
+    "amount_due": 2766.67,
+    "amount_paid": 0,
+    "due_date": "2026-09-01",
+    "invoice_ref": "INV-2609-063-R"
+  },
+  {
+    "id": "INV-2609-063-S",
+    "tenant_id": "T063",
+    "type": "service_charge",
+    "period": "2026-09",
+    "amount_due": 302.94,
+    "amount_paid": 0,
+    "due_date": "2026-09-01",
+    "invoice_ref": "INV-2609-063-S"
+  },
+  {
+    "id": "INV-2609-064-R",
+    "tenant_id": "T064",
+    "type": "rent",
+    "period": "2026-09",
+    "amount_due": 4529.17,
+    "amount_paid": 0,
+    "due_date": "2026-09-01",
+    "invoice_ref": "INV-2609-064-R"
+  },
+  {
+    "id": "INV-2609-064-S",
+    "tenant_id": "T064",
+    "type": "service_charge",
+    "period": "2026-09",
+    "amount_due": 642.13,
+    "amount_paid": 0,
+    "due_date": "2026-09-01",
+    "invoice_ref": "INV-2609-064-S"
+  },
+  {
+    "id": "INV-2609-065-R",
+    "tenant_id": "T065",
+    "type": "rent",
+    "period": "2026-09",
+    "amount_due": 1637.5,
+    "amount_paid": 0,
+    "due_date": "2026-09-01",
+    "invoice_ref": "INV-2609-065-R"
+  },
+  {
+    "id": "INV-2609-065-S",
+    "tenant_id": "T065",
+    "type": "service_charge",
+    "period": "2026-09",
+    "amount_due": 187.59,
+    "amount_paid": 0,
+    "due_date": "2026-09-01",
+    "invoice_ref": "INV-2609-065-S"
+  },
+  {
+    "id": "INV-2609-066-R",
+    "tenant_id": "T066",
+    "type": "rent",
+    "period": "2026-09",
+    "amount_due": 1966.67,
+    "amount_paid": 0,
+    "due_date": "2026-09-01",
+    "invoice_ref": "INV-2609-066-R"
+  },
+  {
+    "id": "INV-2609-066-S",
+    "tenant_id": "T066",
+    "type": "service_charge",
+    "period": "2026-09",
+    "amount_due": 271.86,
+    "amount_paid": 0,
+    "due_date": "2026-09-01",
+    "invoice_ref": "INV-2609-066-S"
+  },
+  {
+    "id": "INV-2609-067-R",
+    "tenant_id": "T067",
+    "type": "rent",
+    "period": "2026-09",
+    "amount_due": 8616.67,
+    "amount_paid": 0,
+    "due_date": "2026-09-01",
+    "invoice_ref": "INV-2609-067-R"
+  },
+  {
+    "id": "INV-2609-067-S",
+    "tenant_id": "T067",
+    "type": "service_charge",
+    "period": "2026-09",
+    "amount_due": 966.95,
+    "amount_paid": 0,
+    "due_date": "2026-09-01",
+    "invoice_ref": "INV-2609-067-S"
+  },
+  {
+    "id": "INV-2609-068-R",
+    "tenant_id": "T068",
+    "type": "rent",
+    "period": "2026-09",
+    "amount_due": 3745.84,
+    "amount_paid": 0,
+    "due_date": "2026-09-01",
+    "invoice_ref": "INV-2609-068-R"
+  },
+  {
+    "id": "INV-2609-068-S",
+    "tenant_id": "T068",
+    "type": "service_charge",
+    "period": "2026-09",
+    "amount_due": 485.42,
+    "amount_paid": 0,
+    "due_date": "2026-09-01",
+    "invoice_ref": "INV-2609-068-S"
+  },
+  {
+    "id": "INV-2609-069-R",
+    "tenant_id": "T069",
+    "type": "rent",
+    "period": "2026-09",
+    "amount_due": 2800.0,
+    "amount_paid": 0,
+    "due_date": "2026-09-01",
+    "invoice_ref": "INV-2609-069-R"
+  },
+  {
+    "id": "INV-2609-069-S",
+    "tenant_id": "T069",
+    "type": "service_charge",
+    "period": "2026-09",
+    "amount_due": 308.41,
+    "amount_paid": 0,
+    "due_date": "2026-09-01",
+    "invoice_ref": "INV-2609-069-S"
+  },
+  {
+    "id": "INV-2609-070-R",
+    "tenant_id": "T070",
+    "type": "rent",
+    "period": "2026-09",
+    "amount_due": 6062.5,
+    "amount_paid": 0,
+    "due_date": "2026-09-01",
+    "invoice_ref": "INV-2609-070-R"
+  },
+  {
+    "id": "INV-2609-070-S",
+    "tenant_id": "T070",
+    "type": "service_charge",
+    "period": "2026-09",
+    "amount_due": 571.52,
+    "amount_paid": 0,
+    "due_date": "2026-09-01",
+    "invoice_ref": "INV-2609-070-S"
+  },
+  {
+    "id": "INV-2609-071-R",
+    "tenant_id": "T071",
+    "type": "rent",
+    "period": "2026-09",
+    "amount_due": 4312.5,
+    "amount_paid": 0,
+    "due_date": "2026-09-01",
+    "invoice_ref": "INV-2609-071-R"
+  },
+  {
+    "id": "INV-2609-071-S",
+    "tenant_id": "T071",
+    "type": "service_charge",
+    "period": "2026-09",
+    "amount_due": 392.18,
+    "amount_paid": 0,
+    "due_date": "2026-09-01",
+    "invoice_ref": "INV-2609-071-S"
+  },
+  {
+    "id": "INV-2609-072-R",
+    "tenant_id": "T072",
+    "type": "rent",
+    "period": "2026-09",
+    "amount_due": 3437.5,
+    "amount_paid": 0,
+    "due_date": "2026-09-01",
+    "invoice_ref": "INV-2609-072-R"
+  },
+  {
+    "id": "INV-2609-072-S",
+    "tenant_id": "T072",
+    "type": "service_charge",
+    "period": "2026-09",
+    "amount_due": 376.36,
+    "amount_paid": 0,
+    "due_date": "2026-09-01",
+    "invoice_ref": "INV-2609-072-S"
+  },
+  {
+    "id": "INV-2609-073-R",
+    "tenant_id": "T073",
+    "type": "rent",
+    "period": "2026-09",
+    "amount_due": 3304.17,
+    "amount_paid": 0,
+    "due_date": "2026-09-01",
+    "invoice_ref": "INV-2609-073-R"
+  },
+  {
+    "id": "INV-2609-073-S",
+    "tenant_id": "T073",
+    "type": "service_charge",
+    "period": "2026-09",
+    "amount_due": 287.34,
+    "amount_paid": 0,
+    "due_date": "2026-09-01",
+    "invoice_ref": "INV-2609-073-S"
+  },
+  {
+    "id": "INV-2609-074-R",
+    "tenant_id": "T074",
+    "type": "rent",
+    "period": "2026-09",
+    "amount_due": 8141.67,
+    "amount_paid": 0,
+    "due_date": "2026-09-01",
+    "invoice_ref": "INV-2609-074-R"
+  },
+  {
+    "id": "INV-2609-074-S",
+    "tenant_id": "T074",
+    "type": "service_charge",
+    "period": "2026-09",
+    "amount_due": 908.63,
+    "amount_paid": 0,
+    "due_date": "2026-09-01",
+    "invoice_ref": "INV-2609-074-S"
+  },
+  {
+    "id": "INV-2609-075-R",
+    "tenant_id": "T075",
+    "type": "rent",
+    "period": "2026-09",
+    "amount_due": 4158.33,
+    "amount_paid": 0,
+    "due_date": "2026-09-01",
+    "invoice_ref": "INV-2609-075-R"
+  },
+  {
+    "id": "INV-2609-075-S",
+    "tenant_id": "T075",
+    "type": "service_charge",
+    "period": "2026-09",
+    "amount_due": 566.89,
+    "amount_paid": 0,
+    "due_date": "2026-09-01",
+    "invoice_ref": "INV-2609-075-S"
+  },
+  {
+    "id": "INV-2609-076-R",
+    "tenant_id": "T076",
+    "type": "rent",
+    "period": "2026-09",
+    "amount_due": 2958.33,
+    "amount_paid": 0,
+    "due_date": "2026-09-01",
+    "invoice_ref": "INV-2609-076-R"
+  },
+  {
+    "id": "INV-2609-076-S",
+    "tenant_id": "T076",
+    "type": "service_charge",
+    "period": "2026-09",
+    "amount_due": 373.17,
+    "amount_paid": 0,
+    "due_date": "2026-09-01",
+    "invoice_ref": "INV-2609-076-S"
+  },
+  {
+    "id": "INV-2609-077-R",
+    "tenant_id": "T077",
+    "type": "rent",
+    "period": "2026-09",
+    "amount_due": 4533.33,
+    "amount_paid": 0,
+    "due_date": "2026-09-01",
+    "invoice_ref": "INV-2609-077-R"
+  },
+  {
+    "id": "INV-2609-077-S",
+    "tenant_id": "T077",
+    "type": "service_charge",
+    "period": "2026-09",
+    "amount_due": 651.31,
+    "amount_paid": 0,
+    "due_date": "2026-09-01",
+    "invoice_ref": "INV-2609-077-S"
+  },
+  {
+    "id": "INV-2609-078-R",
+    "tenant_id": "T078",
+    "type": "rent",
+    "period": "2026-09",
+    "amount_due": 5783.33,
+    "amount_paid": 0,
+    "due_date": "2026-09-01",
+    "invoice_ref": "INV-2609-078-R"
+  },
+  {
+    "id": "INV-2609-078-S",
+    "tenant_id": "T078",
+    "type": "service_charge",
+    "period": "2026-09",
+    "amount_due": 629.74,
+    "amount_paid": 0,
+    "due_date": "2026-09-01",
+    "invoice_ref": "INV-2609-078-S"
+  },
+  {
+    "id": "INV-2609-079-R",
+    "tenant_id": "T079",
+    "type": "rent",
+    "period": "2026-09",
+    "amount_due": 1975.0,
+    "amount_paid": 0,
+    "due_date": "2026-09-01",
+    "invoice_ref": "INV-2609-079-R"
+  },
+  {
+    "id": "INV-2609-079-S",
+    "tenant_id": "T079",
+    "type": "service_charge",
+    "period": "2026-09",
+    "amount_due": 182.35,
+    "amount_paid": 0,
+    "due_date": "2026-09-01",
+    "invoice_ref": "INV-2609-079-S"
+  },
+  {
+    "id": "INV-2609-080-R",
+    "tenant_id": "T080",
+    "type": "rent",
+    "period": "2026-09",
+    "amount_due": 2079.17,
+    "amount_paid": 0,
+    "due_date": "2026-09-01",
+    "invoice_ref": "INV-2609-080-R"
+  },
+  {
+    "id": "INV-2609-080-S",
+    "tenant_id": "T080",
+    "type": "service_charge",
+    "period": "2026-09",
+    "amount_due": 233.46,
+    "amount_paid": 0,
+    "due_date": "2026-09-01",
+    "invoice_ref": "INV-2609-080-S"
+  },
+  {
+    "id": "INV-2609-081-R",
+    "tenant_id": "T081",
+    "type": "rent",
+    "period": "2026-09",
+    "amount_due": 3354.19,
+    "amount_paid": 0,
+    "due_date": "2026-09-01",
+    "invoice_ref": "INV-2609-081-R"
+  },
+  {
+    "id": "INV-2609-081-S",
+    "tenant_id": "T081",
+    "type": "service_charge",
+    "period": "2026-09",
+    "amount_due": 414.25,
+    "amount_paid": 0,
+    "due_date": "2026-09-01",
+    "invoice_ref": "INV-2609-081-S"
+  },
+  {
+    "id": "INV-2609-082-R",
+    "tenant_id": "T082",
+    "type": "rent",
+    "period": "2026-09",
+    "amount_due": 3508.33,
+    "amount_paid": 0,
+    "due_date": "2026-09-01",
+    "invoice_ref": "INV-2609-082-R"
+  },
+  {
+    "id": "INV-2609-082-S",
+    "tenant_id": "T082",
+    "type": "service_charge",
+    "period": "2026-09",
+    "amount_due": 302.7,
+    "amount_paid": 0,
+    "due_date": "2026-09-01",
+    "invoice_ref": "INV-2609-082-S"
+  },
+  {
+    "id": "INV-2609-083-R",
+    "tenant_id": "T083",
+    "type": "rent",
+    "period": "2026-09",
+    "amount_due": 7600.0,
+    "amount_paid": 0,
+    "due_date": "2026-09-01",
+    "invoice_ref": "INV-2609-083-R"
+  },
+  {
+    "id": "INV-2609-083-S",
+    "tenant_id": "T083",
+    "type": "service_charge",
+    "period": "2026-09",
+    "amount_due": 757.07,
+    "amount_paid": 0,
+    "due_date": "2026-09-01",
+    "invoice_ref": "INV-2609-083-S"
+  },
+  {
+    "id": "INV-2609-084-R",
+    "tenant_id": "T084",
+    "type": "rent",
+    "period": "2026-09",
+    "amount_due": 3462.5,
+    "amount_paid": 0,
+    "due_date": "2026-09-01",
+    "invoice_ref": "INV-2609-084-R"
+  },
+  {
+    "id": "INV-2609-084-S",
+    "tenant_id": "T084",
+    "type": "service_charge",
+    "period": "2026-09",
+    "amount_due": 411.6,
+    "amount_paid": 0,
+    "due_date": "2026-09-01",
+    "invoice_ref": "INV-2609-084-S"
+  },
+  {
+    "id": "INV-2609-085-R",
+    "tenant_id": "T085",
+    "type": "rent",
+    "period": "2026-09",
+    "amount_due": 5175.0,
+    "amount_paid": 0,
+    "due_date": "2026-09-01",
+    "invoice_ref": "INV-2609-085-R"
+  },
+  {
+    "id": "INV-2609-085-S",
+    "tenant_id": "T085",
+    "type": "service_charge",
+    "period": "2026-09",
+    "amount_due": 677.46,
+    "amount_paid": 0,
+    "due_date": "2026-09-01",
+    "invoice_ref": "INV-2609-085-S"
+  },
+  {
+    "id": "INV-2609-086-R",
+    "tenant_id": "T086",
+    "type": "rent",
+    "period": "2026-09",
+    "amount_due": 5995.83,
+    "amount_paid": 0,
+    "due_date": "2026-09-01",
+    "invoice_ref": "INV-2609-086-R"
+  },
+  {
+    "id": "INV-2609-086-S",
+    "tenant_id": "T086",
+    "type": "service_charge",
+    "period": "2026-09",
+    "amount_due": 587.33,
+    "amount_paid": 0,
+    "due_date": "2026-09-01",
+    "invoice_ref": "INV-2609-086-S"
+  },
+  {
+    "id": "INV-2609-087-R",
+    "tenant_id": "T087",
+    "type": "rent",
+    "period": "2026-09",
+    "amount_due": 2312.51,
+    "amount_paid": 0,
+    "due_date": "2026-09-01",
+    "invoice_ref": "INV-2609-087-R"
+  },
+  {
+    "id": "INV-2609-087-S",
+    "tenant_id": "T087",
+    "type": "service_charge",
+    "period": "2026-09",
+    "amount_due": 242.15,
+    "amount_paid": 0,
+    "due_date": "2026-09-01",
+    "invoice_ref": "INV-2609-087-S"
+  },
+  {
+    "id": "INV-2609-088-R",
+    "tenant_id": "T088",
+    "type": "rent",
+    "period": "2026-09",
+    "amount_due": 2279.17,
+    "amount_paid": 0,
+    "due_date": "2026-09-01",
+    "invoice_ref": "INV-2609-088-R"
+  },
+  {
+    "id": "INV-2609-088-S",
+    "tenant_id": "T088",
+    "type": "service_charge",
+    "period": "2026-09",
+    "amount_due": 316.88,
+    "amount_paid": 0,
+    "due_date": "2026-09-01",
+    "invoice_ref": "INV-2609-088-S"
+  },
+  {
+    "id": "INV-2609-089-R",
+    "tenant_id": "T089",
+    "type": "rent",
+    "period": "2026-09",
+    "amount_due": 4158.34,
+    "amount_paid": 0,
+    "due_date": "2026-09-01",
+    "invoice_ref": "INV-2609-089-R"
+  },
+  {
+    "id": "INV-2609-089-S",
+    "tenant_id": "T089",
+    "type": "service_charge",
+    "period": "2026-09",
+    "amount_due": 567.63,
+    "amount_paid": 0,
+    "due_date": "2026-09-01",
+    "invoice_ref": "INV-2609-089-S"
+  },
+  {
+    "id": "INV-2609-090-R",
+    "tenant_id": "T090",
+    "type": "rent",
+    "period": "2026-09",
+    "amount_due": 5325.0,
+    "amount_paid": 0,
+    "due_date": "2026-09-01",
+    "invoice_ref": "INV-2609-090-R"
+  },
+  {
+    "id": "INV-2609-090-S",
+    "tenant_id": "T090",
+    "type": "service_charge",
+    "period": "2026-09",
+    "amount_due": 494.16,
+    "amount_paid": 0,
+    "due_date": "2026-09-01",
+    "invoice_ref": "INV-2609-090-S"
+  },
+  {
+    "id": "INV-2609-091-R",
+    "tenant_id": "T091",
+    "type": "rent",
+    "period": "2026-09",
+    "amount_due": 1825.0,
+    "amount_paid": 0,
+    "due_date": "2026-09-01",
+    "invoice_ref": "INV-2609-091-R"
+  },
+  {
+    "id": "INV-2609-091-S",
+    "tenant_id": "T091",
+    "type": "service_charge",
+    "period": "2026-09",
+    "amount_due": 174.23,
+    "amount_paid": 0,
+    "due_date": "2026-09-01",
+    "invoice_ref": "INV-2609-091-S"
+  },
+  {
+    "id": "INV-2609-092-R",
+    "tenant_id": "T092",
+    "type": "rent",
+    "period": "2026-09",
+    "amount_due": 7475.0,
+    "amount_paid": 0,
+    "due_date": "2026-09-01",
+    "invoice_ref": "INV-2609-092-R"
+  },
+  {
+    "id": "INV-2609-092-S",
+    "tenant_id": "T092",
+    "type": "service_charge",
+    "period": "2026-09",
+    "amount_due": 646.94,
+    "amount_paid": 0,
+    "due_date": "2026-09-01",
+    "invoice_ref": "INV-2609-092-S"
+  },
+  {
+    "id": "INV-2609-093-R",
+    "tenant_id": "T093",
+    "type": "rent",
+    "period": "2026-09",
+    "amount_due": 6587.5,
+    "amount_paid": 0,
+    "due_date": "2026-09-01",
+    "invoice_ref": "INV-2609-093-R"
+  },
+  {
+    "id": "INV-2609-093-S",
+    "tenant_id": "T093",
+    "type": "service_charge",
+    "period": "2026-09",
+    "amount_due": 872.18,
+    "amount_paid": 0,
+    "due_date": "2026-09-01",
+    "invoice_ref": "INV-2609-093-S"
+  },
+  {
+    "id": "INV-2609-094-R",
+    "tenant_id": "T094",
+    "type": "rent",
+    "period": "2026-09",
+    "amount_due": 5075.0,
+    "amount_paid": 0,
+    "due_date": "2026-09-01",
+    "invoice_ref": "INV-2609-094-R"
+  },
+  {
+    "id": "INV-2609-094-S",
+    "tenant_id": "T094",
+    "type": "service_charge",
+    "period": "2026-09",
+    "amount_due": 529.96,
+    "amount_paid": 0,
+    "due_date": "2026-09-01",
+    "invoice_ref": "INV-2609-094-S"
+  },
+  {
+    "id": "INV-2609-095-R",
+    "tenant_id": "T095",
+    "type": "rent",
+    "period": "2026-09",
+    "amount_due": 2137.5,
+    "amount_paid": 0,
+    "due_date": "2026-09-01",
+    "invoice_ref": "INV-2609-095-R"
+  },
+  {
+    "id": "INV-2609-095-S",
+    "tenant_id": "T095",
+    "type": "service_charge",
+    "period": "2026-09",
+    "amount_due": 188.41,
+    "amount_paid": 0,
+    "due_date": "2026-09-01",
+    "invoice_ref": "INV-2609-095-S"
+  },
+  {
+    "id": "INV-2609-096-R",
+    "tenant_id": "T096",
+    "type": "rent",
+    "period": "2026-09",
+    "amount_due": 3058.33,
+    "amount_paid": 0,
+    "due_date": "2026-09-01",
+    "invoice_ref": "INV-2609-096-R"
+  },
+  {
+    "id": "INV-2609-096-S",
+    "tenant_id": "T096",
+    "type": "service_charge",
+    "period": "2026-09",
+    "amount_due": 356.49,
+    "amount_paid": 0,
+    "due_date": "2026-09-01",
+    "invoice_ref": "INV-2609-096-S"
+  },
+  {
+    "id": "INV-2609-097-R",
+    "tenant_id": "T097",
+    "type": "rent",
+    "period": "2026-09",
+    "amount_due": 1979.17,
+    "amount_paid": 0,
+    "due_date": "2026-09-01",
+    "invoice_ref": "INV-2609-097-R"
+  },
+  {
+    "id": "INV-2609-097-S",
+    "tenant_id": "T097",
+    "type": "service_charge",
+    "period": "2026-09",
+    "amount_due": 224.78,
+    "amount_paid": 0,
+    "due_date": "2026-09-01",
+    "invoice_ref": "INV-2609-097-S"
+  },
+  {
+    "id": "INV-2609-098-R",
+    "tenant_id": "T098",
+    "type": "rent",
+    "period": "2026-09",
+    "amount_due": 4533.34,
+    "amount_paid": 0,
+    "due_date": "2026-09-01",
+    "invoice_ref": "INV-2609-098-R"
+  },
+  {
+    "id": "INV-2609-098-S",
+    "tenant_id": "T098",
+    "type": "service_charge",
+    "period": "2026-09",
+    "amount_due": 524.93,
+    "amount_paid": 0,
+    "due_date": "2026-09-01",
+    "invoice_ref": "INV-2609-098-S"
+  },
+  {
+    "id": "INV-2609-099-R",
+    "tenant_id": "T099",
+    "type": "rent",
+    "period": "2026-09",
+    "amount_due": 3308.33,
+    "amount_paid": 0,
+    "due_date": "2026-09-01",
+    "invoice_ref": "INV-2609-099-R"
+  },
+  {
+    "id": "INV-2609-099-S",
+    "tenant_id": "T099",
+    "type": "service_charge",
+    "period": "2026-09",
+    "amount_due": 381.22,
+    "amount_paid": 0,
+    "due_date": "2026-09-01",
+    "invoice_ref": "INV-2609-099-S"
+  },
+  {
+    "id": "INV-2609-100-R",
+    "tenant_id": "T100",
+    "type": "rent",
+    "period": "2026-09",
+    "amount_due": 4933.33,
+    "amount_paid": 0,
+    "due_date": "2026-09-01",
+    "invoice_ref": "INV-2609-100-R"
+  },
+  {
+    "id": "INV-2609-100-S",
+    "tenant_id": "T100",
+    "type": "service_charge",
+    "period": "2026-09",
+    "amount_due": 432.17,
+    "amount_paid": 0,
+    "due_date": "2026-09-01",
+    "invoice_ref": "INV-2609-100-S"
+  },
+  {
+    "id": "INV-2609-101-R",
+    "tenant_id": "T101",
+    "type": "rent",
+    "period": "2026-09",
+    "amount_due": 5058.33,
+    "amount_paid": 0,
+    "due_date": "2026-09-01",
+    "invoice_ref": "INV-2609-101-R"
+  },
+  {
+    "id": "INV-2609-101-S",
+    "tenant_id": "T101",
+    "type": "service_charge",
+    "period": "2026-09",
+    "amount_due": 693.09,
+    "amount_paid": 0,
+    "due_date": "2026-09-01",
+    "invoice_ref": "INV-2609-101-S"
+  },
+  {
+    "id": "INV-2609-102-R",
+    "tenant_id": "T102",
+    "type": "rent",
+    "period": "2026-09",
+    "amount_due": 4783.33,
+    "amount_paid": 0,
+    "due_date": "2026-09-01",
+    "invoice_ref": "INV-2609-102-R"
+  },
+  {
+    "id": "INV-2609-102-S",
+    "tenant_id": "T102",
+    "type": "service_charge",
+    "period": "2026-09",
+    "amount_due": 538.04,
+    "amount_paid": 0,
+    "due_date": "2026-09-01",
+    "invoice_ref": "INV-2609-102-S"
+  },
+  {
+    "id": "INV-2609-103-R",
+    "tenant_id": "T103",
+    "type": "rent",
+    "period": "2026-09",
+    "amount_due": 4687.5,
+    "amount_paid": 0,
+    "due_date": "2026-09-01",
+    "invoice_ref": "INV-2609-103-R"
+  },
+  {
+    "id": "INV-2609-103-S",
+    "tenant_id": "T103",
+    "type": "service_charge",
+    "period": "2026-09",
+    "amount_due": 415.54,
+    "amount_paid": 0,
+    "due_date": "2026-09-01",
+    "invoice_ref": "INV-2609-103-S"
+  },
+  {
+    "id": "INV-2609-104-R",
+    "tenant_id": "T104",
+    "type": "rent",
+    "period": "2026-09",
+    "amount_due": 6525.0,
+    "amount_paid": 0,
+    "due_date": "2026-09-01",
+    "invoice_ref": "INV-2609-104-R"
+  },
+  {
+    "id": "INV-2609-104-S",
+    "tenant_id": "T104",
+    "type": "service_charge",
+    "period": "2026-09",
+    "amount_due": 711.86,
+    "amount_paid": 0,
+    "due_date": "2026-09-01",
+    "invoice_ref": "INV-2609-104-S"
+  },
+  {
+    "id": "INV-2609-105-R",
+    "tenant_id": "T105",
+    "type": "rent",
+    "period": "2026-09",
+    "amount_due": 6762.5,
+    "amount_paid": 0,
+    "due_date": "2026-09-01",
+    "invoice_ref": "INV-2609-105-R"
+  },
+  {
+    "id": "INV-2609-105-S",
+    "tenant_id": "T105",
+    "type": "service_charge",
+    "period": "2026-09",
+    "amount_due": 773.74,
+    "amount_paid": 0,
+    "due_date": "2026-09-01",
+    "invoice_ref": "INV-2609-105-S"
+  },
+  {
+    "id": "INV-2609-106-R",
+    "tenant_id": "T106",
+    "type": "rent",
+    "period": "2026-09",
+    "amount_due": 2195.83,
+    "amount_paid": 0,
+    "due_date": "2026-09-01",
+    "invoice_ref": "INV-2609-106-R"
+  },
+  {
+    "id": "INV-2609-106-S",
+    "tenant_id": "T106",
+    "type": "service_charge",
+    "period": "2026-09",
+    "amount_due": 196.33,
+    "amount_paid": 0,
+    "due_date": "2026-09-01",
+    "invoice_ref": "INV-2609-106-S"
+  },
+  {
+    "id": "INV-2609-107-R",
+    "tenant_id": "T107",
+    "type": "rent",
+    "period": "2026-09",
+    "amount_due": 1979.18,
+    "amount_paid": 0,
+    "due_date": "2026-09-01",
+    "invoice_ref": "INV-2609-107-R"
+  },
+  {
+    "id": "INV-2609-107-S",
+    "tenant_id": "T107",
+    "type": "service_charge",
+    "period": "2026-09",
+    "amount_due": 240.47,
+    "amount_paid": 0,
+    "due_date": "2026-09-01",
+    "invoice_ref": "INV-2609-107-S"
+  },
+  {
+    "id": "INV-2609-108-R",
+    "tenant_id": "T108",
+    "type": "rent",
+    "period": "2026-09",
+    "amount_due": 2250.0,
+    "amount_paid": 0,
+    "due_date": "2026-09-01",
+    "invoice_ref": "INV-2609-108-R"
+  },
+  {
+    "id": "INV-2609-108-S",
+    "tenant_id": "T108",
+    "type": "service_charge",
+    "period": "2026-09",
+    "amount_due": 228.38,
+    "amount_paid": 0,
+    "due_date": "2026-09-01",
+    "invoice_ref": "INV-2609-108-S"
+  },
+  {
+    "id": "INV-2610-001-R",
+    "tenant_id": "T001",
+    "type": "rent",
+    "period": "2026-10",
+    "amount_due": 8691.67,
+    "amount_paid": 0,
+    "due_date": "2026-10-01",
+    "invoice_ref": "INV-2610-001-R"
+  },
+  {
+    "id": "INV-2610-001-S",
+    "tenant_id": "T001",
+    "type": "service_charge",
+    "period": "2026-10",
+    "amount_due": 757.51,
+    "amount_paid": 0,
+    "due_date": "2026-10-01",
+    "invoice_ref": "INV-2610-001-S"
+  },
+  {
+    "id": "INV-2610-002-R",
+    "tenant_id": "T002",
+    "type": "rent",
+    "period": "2026-10",
+    "amount_due": 4575.0,
+    "amount_paid": 0,
+    "due_date": "2026-10-01",
+    "invoice_ref": "INV-2610-002-R"
+  },
+  {
+    "id": "INV-2610-002-S",
+    "tenant_id": "T002",
+    "type": "service_charge",
+    "period": "2026-10",
+    "amount_due": 562.13,
+    "amount_paid": 0,
+    "due_date": "2026-10-01",
+    "invoice_ref": "INV-2610-002-S"
+  },
+  {
+    "id": "INV-2610-003-R",
+    "tenant_id": "T003",
+    "type": "rent",
+    "period": "2026-10",
+    "amount_due": 5000.0,
+    "amount_paid": 0,
+    "due_date": "2026-10-01",
+    "invoice_ref": "INV-2610-003-R"
+  },
+  {
+    "id": "INV-2610-003-S",
+    "tenant_id": "T003",
+    "type": "service_charge",
+    "period": "2026-10",
+    "amount_due": 724.23,
+    "amount_paid": 0,
+    "due_date": "2026-10-01",
+    "invoice_ref": "INV-2610-003-S"
+  },
+  {
+    "id": "INV-2610-004-R",
+    "tenant_id": "T004",
+    "type": "rent",
+    "period": "2026-10",
+    "amount_due": 7470.83,
+    "amount_paid": 0,
+    "due_date": "2026-10-01",
+    "invoice_ref": "INV-2610-004-R"
+  },
+  {
+    "id": "INV-2610-004-S",
+    "tenant_id": "T004",
+    "type": "service_charge",
+    "period": "2026-10",
+    "amount_due": 829.55,
+    "amount_paid": 0,
+    "due_date": "2026-10-01",
+    "invoice_ref": "INV-2610-004-S"
+  },
+  {
+    "id": "INV-2610-005-R",
+    "tenant_id": "T005",
+    "type": "rent",
+    "period": "2026-10",
+    "amount_due": 5454.17,
+    "amount_paid": 0,
+    "due_date": "2026-10-01",
+    "invoice_ref": "INV-2610-005-R"
+  },
+  {
+    "id": "INV-2610-005-S",
+    "tenant_id": "T005",
+    "type": "service_charge",
+    "period": "2026-10",
+    "amount_due": 671.0,
+    "amount_paid": 0,
+    "due_date": "2026-10-01",
+    "invoice_ref": "INV-2610-005-S"
+  },
+  {
+    "id": "INV-2610-006-R",
+    "tenant_id": "T006",
+    "type": "rent",
+    "period": "2026-10",
+    "amount_due": 4854.17,
+    "amount_paid": 0,
+    "due_date": "2026-10-01",
+    "invoice_ref": "INV-2610-006-R"
+  },
+  {
+    "id": "INV-2610-006-S",
+    "tenant_id": "T006",
+    "type": "service_charge",
+    "period": "2026-10",
+    "amount_due": 541.83,
+    "amount_paid": 0,
+    "due_date": "2026-10-01",
+    "invoice_ref": "INV-2610-006-S"
+  },
+  {
+    "id": "INV-2610-007-R",
+    "tenant_id": "T007",
+    "type": "rent",
+    "period": "2026-10",
+    "amount_due": 2383.33,
+    "amount_paid": 0,
+    "due_date": "2026-10-01",
+    "invoice_ref": "INV-2610-007-R"
+  },
+  {
+    "id": "INV-2610-007-S",
+    "tenant_id": "T007",
+    "type": "service_charge",
+    "period": "2026-10",
+    "amount_due": 331.77,
+    "amount_paid": 0,
+    "due_date": "2026-10-01",
+    "invoice_ref": "INV-2610-007-S"
+  },
+  {
+    "id": "INV-2610-008-R",
+    "tenant_id": "T008",
+    "type": "rent",
+    "period": "2026-10",
+    "amount_due": 3366.67,
+    "amount_paid": 0,
+    "due_date": "2026-10-01",
+    "invoice_ref": "INV-2610-008-R"
+  },
+  {
+    "id": "INV-2610-008-S",
+    "tenant_id": "T008",
+    "type": "service_charge",
+    "period": "2026-10",
+    "amount_due": 446.99,
+    "amount_paid": 0,
+    "due_date": "2026-10-01",
+    "invoice_ref": "INV-2610-008-S"
+  },
+  {
+    "id": "INV-2610-009-R",
+    "tenant_id": "T009",
+    "type": "rent",
+    "period": "2026-10",
+    "amount_due": 4708.33,
+    "amount_paid": 0,
+    "due_date": "2026-10-01",
+    "invoice_ref": "INV-2610-009-R"
+  },
+  {
+    "id": "INV-2610-009-S",
+    "tenant_id": "T009",
+    "type": "service_charge",
+    "period": "2026-10",
+    "amount_due": 506.1,
+    "amount_paid": 0,
+    "due_date": "2026-10-01",
+    "invoice_ref": "INV-2610-009-S"
+  },
+  {
+    "id": "INV-2610-010-R",
+    "tenant_id": "T010",
+    "type": "rent",
+    "period": "2026-10",
+    "amount_due": 2541.67,
+    "amount_paid": 0,
+    "due_date": "2026-10-01",
+    "invoice_ref": "INV-2610-010-R"
+  },
+  {
+    "id": "INV-2610-010-S",
+    "tenant_id": "T010",
+    "type": "service_charge",
+    "period": "2026-10",
+    "amount_due": 297.04,
+    "amount_paid": 0,
+    "due_date": "2026-10-01",
+    "invoice_ref": "INV-2610-010-S"
+  },
+  {
+    "id": "INV-2610-011-R",
+    "tenant_id": "T011",
+    "type": "rent",
+    "period": "2026-10",
+    "amount_due": 2312.5,
+    "amount_paid": 0,
+    "due_date": "2026-10-01",
+    "invoice_ref": "INV-2610-011-R"
+  },
+  {
+    "id": "INV-2610-011-S",
+    "tenant_id": "T011",
+    "type": "service_charge",
+    "period": "2026-10",
+    "amount_due": 306.52,
+    "amount_paid": 0,
+    "due_date": "2026-10-01",
+    "invoice_ref": "INV-2610-011-S"
+  },
+  {
+    "id": "INV-2610-012-R",
+    "tenant_id": "T012",
+    "type": "rent",
+    "period": "2026-10",
+    "amount_due": 1741.67,
+    "amount_paid": 0,
+    "due_date": "2026-10-01",
+    "invoice_ref": "INV-2610-012-R"
+  },
+  {
+    "id": "INV-2610-012-S",
+    "tenant_id": "T012",
+    "type": "service_charge",
+    "period": "2026-10",
+    "amount_due": 156.29,
+    "amount_paid": 0,
+    "due_date": "2026-10-01",
+    "invoice_ref": "INV-2610-012-S"
+  },
+  {
+    "id": "INV-2610-013-R",
+    "tenant_id": "T013",
+    "type": "rent",
+    "period": "2026-10",
+    "amount_due": 8220.83,
+    "amount_paid": 0,
+    "due_date": "2026-10-01",
+    "invoice_ref": "INV-2610-013-R"
+  },
+  {
+    "id": "INV-2610-013-S",
+    "tenant_id": "T013",
+    "type": "service_charge",
+    "period": "2026-10",
+    "amount_due": 1004.44,
+    "amount_paid": 0,
+    "due_date": "2026-10-01",
+    "invoice_ref": "INV-2610-013-S"
+  },
+  {
+    "id": "INV-2610-014-R",
+    "tenant_id": "T014",
+    "type": "rent",
+    "period": "2026-10",
+    "amount_due": 5454.18,
+    "amount_paid": 0,
+    "due_date": "2026-10-01",
+    "invoice_ref": "INV-2610-014-R"
+  },
+  {
+    "id": "INV-2610-014-S",
+    "tenant_id": "T014",
+    "type": "service_charge",
+    "period": "2026-10",
+    "amount_due": 762.33,
+    "amount_paid": 0,
+    "due_date": "2026-10-01",
+    "invoice_ref": "INV-2610-014-S"
+  },
+  {
+    "id": "INV-2610-015-R",
+    "tenant_id": "T015",
+    "type": "rent",
+    "period": "2026-10",
+    "amount_due": 2500.0,
+    "amount_paid": 0,
+    "due_date": "2026-10-01",
+    "invoice_ref": "INV-2610-015-R"
+  },
+  {
+    "id": "INV-2610-015-S",
+    "tenant_id": "T015",
+    "type": "service_charge",
+    "period": "2026-10",
+    "amount_due": 281.67,
+    "amount_paid": 0,
+    "due_date": "2026-10-01",
+    "invoice_ref": "INV-2610-015-S"
+  },
+  {
+    "id": "INV-2610-016-R",
+    "tenant_id": "T016",
+    "type": "rent",
+    "period": "2026-10",
+    "amount_due": 5583.33,
+    "amount_paid": 0,
+    "due_date": "2026-10-01",
+    "invoice_ref": "INV-2610-016-R"
+  },
+  {
+    "id": "INV-2610-016-S",
+    "tenant_id": "T016",
+    "type": "service_charge",
+    "period": "2026-10",
+    "amount_due": 560.12,
+    "amount_paid": 0,
+    "due_date": "2026-10-01",
+    "invoice_ref": "INV-2610-016-S"
+  },
+  {
+    "id": "INV-2610-017-R",
+    "tenant_id": "T017",
+    "type": "rent",
+    "period": "2026-10",
+    "amount_due": 5670.83,
+    "amount_paid": 0,
+    "due_date": "2026-10-01",
+    "invoice_ref": "INV-2610-017-R"
+  },
+  {
+    "id": "INV-2610-017-S",
+    "tenant_id": "T017",
+    "type": "service_charge",
+    "period": "2026-10",
+    "amount_due": 755.8,
+    "amount_paid": 0,
+    "due_date": "2026-10-01",
+    "invoice_ref": "INV-2610-017-S"
+  },
+  {
+    "id": "INV-2610-018-R",
+    "tenant_id": "T018",
+    "type": "rent",
+    "period": "2026-10",
+    "amount_due": 4058.33,
+    "amount_paid": 0,
+    "due_date": "2026-10-01",
+    "invoice_ref": "INV-2610-018-R"
+  },
+  {
+    "id": "INV-2610-018-S",
+    "tenant_id": "T018",
+    "type": "service_charge",
+    "period": "2026-10",
+    "amount_due": 509.96,
+    "amount_paid": 0,
+    "due_date": "2026-10-01",
+    "invoice_ref": "INV-2610-018-S"
+  },
+  {
+    "id": "INV-2610-019-R",
+    "tenant_id": "T019",
+    "type": "rent",
+    "period": "2026-10",
+    "amount_due": 2525.0,
+    "amount_paid": 0,
+    "due_date": "2026-10-01",
+    "invoice_ref": "INV-2610-019-R"
+  },
+  {
+    "id": "INV-2610-019-S",
+    "tenant_id": "T019",
+    "type": "service_charge",
+    "period": "2026-10",
+    "amount_due": 281.55,
+    "amount_paid": 0,
+    "due_date": "2026-10-01",
+    "invoice_ref": "INV-2610-019-S"
+  },
+  {
+    "id": "INV-2610-020-R",
+    "tenant_id": "T020",
+    "type": "rent",
+    "period": "2026-10",
+    "amount_due": 3608.33,
+    "amount_paid": 0,
+    "due_date": "2026-10-01",
+    "invoice_ref": "INV-2610-020-R"
+  },
+  {
+    "id": "INV-2610-020-S",
+    "tenant_id": "T020",
+    "type": "service_charge",
+    "period": "2026-10",
+    "amount_due": 433.92,
+    "amount_paid": 0,
+    "due_date": "2026-10-01",
+    "invoice_ref": "INV-2610-020-S"
+  },
+  {
+    "id": "INV-2610-021-R",
+    "tenant_id": "T021",
+    "type": "rent",
+    "period": "2026-10",
+    "amount_due": 8662.5,
+    "amount_paid": 0,
+    "due_date": "2026-10-01",
+    "invoice_ref": "INV-2610-021-R"
+  },
+  {
+    "id": "INV-2610-021-S",
+    "tenant_id": "T021",
+    "type": "service_charge",
+    "period": "2026-10",
+    "amount_due": 956.85,
+    "amount_paid": 0,
+    "due_date": "2026-10-01",
+    "invoice_ref": "INV-2610-021-S"
+  },
+  {
+    "id": "INV-2610-022-R",
+    "tenant_id": "T022",
+    "type": "rent",
+    "period": "2026-10",
+    "amount_due": 3354.17,
+    "amount_paid": 0,
+    "due_date": "2026-10-01",
+    "invoice_ref": "INV-2610-022-R"
+  },
+  {
+    "id": "INV-2610-022-S",
+    "tenant_id": "T022",
+    "type": "service_charge",
+    "period": "2026-10",
+    "amount_due": 455.22,
+    "amount_paid": 0,
+    "due_date": "2026-10-01",
+    "invoice_ref": "INV-2610-022-S"
+  },
+  {
+    "id": "INV-2610-023-R",
+    "tenant_id": "T023",
+    "type": "rent",
+    "period": "2026-10",
+    "amount_due": 4587.5,
+    "amount_paid": 0,
+    "due_date": "2026-10-01",
+    "invoice_ref": "INV-2610-023-R"
+  },
+  {
+    "id": "INV-2610-023-S",
+    "tenant_id": "T023",
+    "type": "service_charge",
+    "period": "2026-10",
+    "amount_due": 495.82,
+    "amount_paid": 0,
+    "due_date": "2026-10-01",
+    "invoice_ref": "INV-2610-023-S"
+  },
+  {
+    "id": "INV-2610-024-R",
+    "tenant_id": "T024",
+    "type": "rent",
+    "period": "2026-10",
+    "amount_due": 4208.33,
+    "amount_paid": 0,
+    "due_date": "2026-10-01",
+    "invoice_ref": "INV-2610-024-R"
+  },
+  {
+    "id": "INV-2610-024-S",
+    "tenant_id": "T024",
+    "type": "service_charge",
+    "period": "2026-10",
+    "amount_due": 417.6,
+    "amount_paid": 0,
+    "due_date": "2026-10-01",
+    "invoice_ref": "INV-2610-024-S"
+  },
+  {
+    "id": "INV-2610-025-R",
+    "tenant_id": "T025",
+    "type": "rent",
+    "period": "2026-10",
+    "amount_due": 3354.18,
+    "amount_paid": 0,
+    "due_date": "2026-10-01",
+    "invoice_ref": "INV-2610-025-R"
+  },
+  {
+    "id": "INV-2610-025-S",
+    "tenant_id": "T025",
+    "type": "service_charge",
+    "period": "2026-10",
+    "amount_due": 400.79,
+    "amount_paid": 0,
+    "due_date": "2026-10-01",
+    "invoice_ref": "INV-2610-025-S"
+  },
+  {
+    "id": "INV-2610-026-R",
+    "tenant_id": "T026",
+    "type": "rent",
+    "period": "2026-10",
+    "amount_due": 2983.33,
+    "amount_paid": 0,
+    "due_date": "2026-10-01",
+    "invoice_ref": "INV-2610-026-R"
+  },
+  {
+    "id": "INV-2610-026-S",
+    "tenant_id": "T026",
+    "type": "service_charge",
+    "period": "2026-10",
+    "amount_due": 306.43,
+    "amount_paid": 0,
+    "due_date": "2026-10-01",
+    "invoice_ref": "INV-2610-026-S"
+  },
+  {
+    "id": "INV-2610-027-R",
+    "tenant_id": "T027",
+    "type": "rent",
+    "period": "2026-10",
+    "amount_due": 2583.33,
+    "amount_paid": 0,
+    "due_date": "2026-10-01",
+    "invoice_ref": "INV-2610-027-R"
+  },
+  {
+    "id": "INV-2610-027-S",
+    "tenant_id": "T027",
+    "type": "service_charge",
+    "period": "2026-10",
+    "amount_due": 321.61,
+    "amount_paid": 0,
+    "due_date": "2026-10-01",
+    "invoice_ref": "INV-2610-027-S"
+  },
+  {
+    "id": "INV-2610-028-R",
+    "tenant_id": "T028",
+    "type": "rent",
+    "period": "2026-10",
+    "amount_due": 3758.33,
+    "amount_paid": 0,
+    "due_date": "2026-10-01",
+    "invoice_ref": "INV-2610-028-R"
+  },
+  {
+    "id": "INV-2610-028-S",
+    "tenant_id": "T028",
+    "type": "service_charge",
+    "period": "2026-10",
+    "amount_due": 447.07,
+    "amount_paid": 0,
+    "due_date": "2026-10-01",
+    "invoice_ref": "INV-2610-028-S"
+  },
+  {
+    "id": "INV-2610-029-R",
+    "tenant_id": "T029",
+    "type": "rent",
+    "period": "2026-10",
+    "amount_due": 3379.17,
+    "amount_paid": 0,
+    "due_date": "2026-10-01",
+    "invoice_ref": "INV-2610-029-R"
+  },
+  {
+    "id": "INV-2610-029-S",
+    "tenant_id": "T029",
+    "type": "service_charge",
+    "period": "2026-10",
+    "amount_due": 438.21,
+    "amount_paid": 0,
+    "due_date": "2026-10-01",
+    "invoice_ref": "INV-2610-029-S"
+  },
+  {
+    "id": "INV-2610-030-R",
+    "tenant_id": "T030",
+    "type": "rent",
+    "period": "2026-10",
+    "amount_due": 3891.67,
+    "amount_paid": 0,
+    "due_date": "2026-10-01",
+    "invoice_ref": "INV-2610-030-R"
+  },
+  {
+    "id": "INV-2610-030-S",
+    "tenant_id": "T030",
+    "type": "service_charge",
+    "period": "2026-10",
+    "amount_due": 472.39,
+    "amount_paid": 0,
+    "due_date": "2026-10-01",
+    "invoice_ref": "INV-2610-030-S"
+  },
+  {
+    "id": "INV-2610-031-R",
+    "tenant_id": "T031",
+    "type": "rent",
+    "period": "2026-10",
+    "amount_due": 3370.83,
+    "amount_paid": 0,
+    "due_date": "2026-10-01",
+    "invoice_ref": "INV-2610-031-R"
+  },
+  {
+    "id": "INV-2610-031-S",
+    "tenant_id": "T031",
+    "type": "service_charge",
+    "period": "2026-10",
+    "amount_due": 469.39,
+    "amount_paid": 0,
+    "due_date": "2026-10-01",
+    "invoice_ref": "INV-2610-031-S"
+  },
+  {
+    "id": "INV-2610-032-R",
+    "tenant_id": "T032",
+    "type": "rent",
+    "period": "2026-10",
+    "amount_due": 2829.17,
+    "amount_paid": 0,
+    "due_date": "2026-10-01",
+    "invoice_ref": "INV-2610-032-R"
+  },
+  {
+    "id": "INV-2610-032-S",
+    "tenant_id": "T032",
+    "type": "service_charge",
+    "period": "2026-10",
+    "amount_due": 376.09,
+    "amount_paid": 0,
+    "due_date": "2026-10-01",
+    "invoice_ref": "INV-2610-032-S"
+  },
+  {
+    "id": "INV-2610-033-R",
+    "tenant_id": "T033",
+    "type": "rent",
+    "period": "2026-10",
+    "amount_due": 3554.17,
+    "amount_paid": 0,
+    "due_date": "2026-10-01",
+    "invoice_ref": "INV-2610-033-R"
+  },
+  {
+    "id": "INV-2610-033-S",
+    "tenant_id": "T033",
+    "type": "service_charge",
+    "period": "2026-10",
+    "amount_due": 377.24,
+    "amount_paid": 0,
+    "due_date": "2026-10-01",
+    "invoice_ref": "INV-2610-033-S"
+  },
+  {
+    "id": "INV-2610-034-R",
+    "tenant_id": "T034",
+    "type": "rent",
+    "period": "2026-10",
+    "amount_due": 2508.33,
+    "amount_paid": 0,
+    "due_date": "2026-10-01",
+    "invoice_ref": "INV-2610-034-R"
+  },
+  {
+    "id": "INV-2610-034-S",
+    "tenant_id": "T034",
+    "type": "service_charge",
+    "period": "2026-10",
+    "amount_due": 306.65,
+    "amount_paid": 0,
+    "due_date": "2026-10-01",
+    "invoice_ref": "INV-2610-034-S"
+  },
+  {
+    "id": "INV-2610-035-R",
+    "tenant_id": "T035",
+    "type": "rent",
+    "period": "2026-10",
+    "amount_due": 4941.67,
+    "amount_paid": 0,
+    "due_date": "2026-10-01",
+    "invoice_ref": "INV-2610-035-R"
+  },
+  {
+    "id": "INV-2610-035-S",
+    "tenant_id": "T035",
+    "type": "service_charge",
+    "period": "2026-10",
+    "amount_due": 633.8,
+    "amount_paid": 0,
+    "due_date": "2026-10-01",
+    "invoice_ref": "INV-2610-035-S"
+  },
+  {
+    "id": "INV-2610-036-R",
+    "tenant_id": "T036",
+    "type": "rent",
+    "period": "2026-10",
+    "amount_due": 3929.17,
+    "amount_paid": 0,
+    "due_date": "2026-10-01",
+    "invoice_ref": "INV-2610-036-R"
+  },
+  {
+    "id": "INV-2610-036-S",
+    "tenant_id": "T036",
+    "type": "service_charge",
+    "period": "2026-10",
+    "amount_due": 531.62,
+    "amount_paid": 0,
+    "due_date": "2026-10-01",
+    "invoice_ref": "INV-2610-036-S"
+  },
+  {
+    "id": "INV-2610-037-R",
+    "tenant_id": "T037",
+    "type": "rent",
+    "period": "2026-10",
+    "amount_due": 3791.67,
+    "amount_paid": 0,
+    "due_date": "2026-10-01",
+    "invoice_ref": "INV-2610-037-R"
+  },
+  {
+    "id": "INV-2610-037-S",
+    "tenant_id": "T037",
+    "type": "service_charge",
+    "period": "2026-10",
+    "amount_due": 527.82,
+    "amount_paid": 0,
+    "due_date": "2026-10-01",
+    "invoice_ref": "INV-2610-037-S"
+  },
+  {
+    "id": "INV-2610-038-R",
+    "tenant_id": "T038",
+    "type": "rent",
+    "period": "2026-10",
+    "amount_due": 2891.67,
+    "amount_paid": 0,
+    "due_date": "2026-10-01",
+    "invoice_ref": "INV-2610-038-R"
+  },
+  {
+    "id": "INV-2610-038-S",
+    "tenant_id": "T038",
+    "type": "service_charge",
+    "period": "2026-10",
+    "amount_due": 299.39,
+    "amount_paid": 0,
+    "due_date": "2026-10-01",
+    "invoice_ref": "INV-2610-038-S"
+  },
+  {
+    "id": "INV-2610-039-R",
+    "tenant_id": "T039",
+    "type": "rent",
+    "period": "2026-10",
+    "amount_due": 5704.17,
+    "amount_paid": 0,
+    "due_date": "2026-10-01",
+    "invoice_ref": "INV-2610-039-R"
+  },
+  {
+    "id": "INV-2610-039-S",
+    "tenant_id": "T039",
+    "type": "service_charge",
+    "period": "2026-10",
+    "amount_due": 683.21,
+    "amount_paid": 0,
+    "due_date": "2026-10-01",
+    "invoice_ref": "INV-2610-039-S"
+  },
+  {
+    "id": "INV-2610-040-R",
+    "tenant_id": "T040",
+    "type": "rent",
+    "period": "2026-10",
+    "amount_due": 4170.83,
+    "amount_paid": 0,
+    "due_date": "2026-10-01",
+    "invoice_ref": "INV-2610-040-R"
+  },
+  {
+    "id": "INV-2610-040-S",
+    "tenant_id": "T040",
+    "type": "service_charge",
+    "period": "2026-10",
+    "amount_due": 377.08,
+    "amount_paid": 0,
+    "due_date": "2026-10-01",
+    "invoice_ref": "INV-2610-040-S"
+  },
+  {
+    "id": "INV-2610-041-R",
+    "tenant_id": "T041",
+    "type": "rent",
+    "period": "2026-10",
+    "amount_due": 2925.0,
+    "amount_paid": 0,
+    "due_date": "2026-10-01",
+    "invoice_ref": "INV-2610-041-R"
+  },
+  {
+    "id": "INV-2610-041-S",
+    "tenant_id": "T041",
+    "type": "service_charge",
+    "period": "2026-10",
+    "amount_due": 379.81,
+    "amount_paid": 0,
+    "due_date": "2026-10-01",
+    "invoice_ref": "INV-2610-041-S"
+  },
+  {
+    "id": "INV-2610-042-R",
+    "tenant_id": "T042",
+    "type": "rent",
+    "period": "2026-10",
+    "amount_due": 7008.33,
+    "amount_paid": 0,
+    "due_date": "2026-10-01",
+    "invoice_ref": "INV-2610-042-R"
+  },
+  {
+    "id": "INV-2610-042-S",
+    "tenant_id": "T042",
+    "type": "service_charge",
+    "period": "2026-10",
+    "amount_due": 651.28,
+    "amount_paid": 0,
+    "due_date": "2026-10-01",
+    "invoice_ref": "INV-2610-042-S"
+  },
+  {
+    "id": "INV-2610-043-R",
+    "tenant_id": "T043",
+    "type": "rent",
+    "period": "2026-10",
+    "amount_due": 4650.0,
+    "amount_paid": 0,
+    "due_date": "2026-10-01",
+    "invoice_ref": "INV-2610-043-R"
+  },
+  {
+    "id": "INV-2610-043-S",
+    "tenant_id": "T043",
+    "type": "service_charge",
+    "period": "2026-10",
+    "amount_due": 666.3,
+    "amount_paid": 0,
+    "due_date": "2026-10-01",
+    "invoice_ref": "INV-2610-043-S"
+  },
+  {
+    "id": "INV-2610-044-R",
+    "tenant_id": "T044",
+    "type": "rent",
+    "period": "2026-10",
+    "amount_due": 4166.67,
+    "amount_paid": 0,
+    "due_date": "2026-10-01",
+    "invoice_ref": "INV-2610-044-R"
+  },
+  {
+    "id": "INV-2610-044-S",
+    "tenant_id": "T044",
+    "type": "service_charge",
+    "period": "2026-10",
+    "amount_due": 582.54,
+    "amount_paid": 0,
+    "due_date": "2026-10-01",
+    "invoice_ref": "INV-2610-044-S"
+  },
+  {
+    "id": "INV-2610-045-R",
+    "tenant_id": "T045",
+    "type": "rent",
+    "period": "2026-10",
+    "amount_due": 3591.67,
+    "amount_paid": 0,
+    "due_date": "2026-10-01",
+    "invoice_ref": "INV-2610-045-R"
+  },
+  {
+    "id": "INV-2610-045-S",
+    "tenant_id": "T045",
+    "type": "service_charge",
+    "period": "2026-10",
+    "amount_due": 360.67,
+    "amount_paid": 0,
+    "due_date": "2026-10-01",
+    "invoice_ref": "INV-2610-045-S"
+  },
+  {
+    "id": "INV-2610-046-R",
+    "tenant_id": "T046",
+    "type": "rent",
+    "period": "2026-10",
+    "amount_due": 2400.0,
+    "amount_paid": 0,
+    "due_date": "2026-10-01",
+    "invoice_ref": "INV-2610-046-R"
+  },
+  {
+    "id": "INV-2610-046-S",
+    "tenant_id": "T046",
+    "type": "service_charge",
+    "period": "2026-10",
+    "amount_due": 273.39,
+    "amount_paid": 0,
+    "due_date": "2026-10-01",
+    "invoice_ref": "INV-2610-046-S"
+  },
+  {
+    "id": "INV-2610-047-R",
+    "tenant_id": "T047",
+    "type": "rent",
+    "period": "2026-10",
+    "amount_due": 3216.67,
+    "amount_paid": 0,
+    "due_date": "2026-10-01",
+    "invoice_ref": "INV-2610-047-R"
+  },
+  {
+    "id": "INV-2610-047-S",
+    "tenant_id": "T047",
+    "type": "service_charge",
+    "period": "2026-10",
+    "amount_due": 417.5,
+    "amount_paid": 0,
+    "due_date": "2026-10-01",
+    "invoice_ref": "INV-2610-047-S"
+  },
+  {
+    "id": "INV-2610-048-R",
+    "tenant_id": "T048",
+    "type": "rent",
+    "period": "2026-10",
+    "amount_due": 4512.5,
+    "amount_paid": 0,
+    "due_date": "2026-10-01",
+    "invoice_ref": "INV-2610-048-R"
+  },
+  {
+    "id": "INV-2610-048-S",
+    "tenant_id": "T048",
+    "type": "service_charge",
+    "period": "2026-10",
+    "amount_due": 414.74,
+    "amount_paid": 0,
+    "due_date": "2026-10-01",
+    "invoice_ref": "INV-2610-048-S"
+  },
+  {
+    "id": "INV-2610-049-R",
+    "tenant_id": "T049",
+    "type": "rent",
+    "period": "2026-10",
+    "amount_due": 5483.33,
+    "amount_paid": 0,
+    "due_date": "2026-10-01",
+    "invoice_ref": "INV-2610-049-R"
+  },
+  {
+    "id": "INV-2610-049-S",
+    "tenant_id": "T049",
+    "type": "service_charge",
+    "period": "2026-10",
+    "amount_due": 512.39,
+    "amount_paid": 0,
+    "due_date": "2026-10-01",
+    "invoice_ref": "INV-2610-049-S"
+  },
+  {
+    "id": "INV-2610-050-R",
+    "tenant_id": "T050",
+    "type": "rent",
+    "period": "2026-10",
+    "amount_due": 6158.33,
+    "amount_paid": 0,
+    "due_date": "2026-10-01",
+    "invoice_ref": "INV-2610-050-R"
+  },
+  {
+    "id": "INV-2610-050-S",
+    "tenant_id": "T050",
+    "type": "service_charge",
+    "period": "2026-10",
+    "amount_due": 841.28,
+    "amount_paid": 0,
+    "due_date": "2026-10-01",
+    "invoice_ref": "INV-2610-050-S"
+  },
+  {
+    "id": "INV-2610-051-R",
+    "tenant_id": "T051",
+    "type": "rent",
+    "period": "2026-10",
+    "amount_due": 3745.83,
+    "amount_paid": 0,
+    "due_date": "2026-10-01",
+    "invoice_ref": "INV-2610-051-R"
+  },
+  {
+    "id": "INV-2610-051-S",
+    "tenant_id": "T051",
+    "type": "service_charge",
+    "period": "2026-10",
+    "amount_due": 538.64,
+    "amount_paid": 0,
+    "due_date": "2026-10-01",
+    "invoice_ref": "INV-2610-051-S"
+  },
+  {
+    "id": "INV-2610-052-R",
+    "tenant_id": "T052",
+    "type": "rent",
+    "period": "2026-10",
+    "amount_due": 8983.33,
+    "amount_paid": 0,
+    "due_date": "2026-10-01",
+    "invoice_ref": "INV-2610-052-R"
+  },
+  {
+    "id": "INV-2610-052-S",
+    "tenant_id": "T052",
+    "type": "service_charge",
+    "period": "2026-10",
+    "amount_due": 1197.26,
+    "amount_paid": 0,
+    "due_date": "2026-10-01",
+    "invoice_ref": "INV-2610-052-S"
+  },
+  {
+    "id": "INV-2610-053-R",
+    "tenant_id": "T053",
+    "type": "rent",
+    "period": "2026-10",
+    "amount_due": 5720.83,
+    "amount_paid": 0,
+    "due_date": "2026-10-01",
+    "invoice_ref": "INV-2610-053-R"
+  },
+  {
+    "id": "INV-2610-053-S",
+    "tenant_id": "T053",
+    "type": "service_charge",
+    "period": "2026-10",
+    "amount_due": 757.67,
+    "amount_paid": 0,
+    "due_date": "2026-10-01",
+    "invoice_ref": "INV-2610-053-S"
+  },
+  {
+    "id": "INV-2610-054-R",
+    "tenant_id": "T054",
+    "type": "rent",
+    "period": "2026-10",
+    "amount_due": 8504.17,
+    "amount_paid": 0,
+    "due_date": "2026-10-01",
+    "invoice_ref": "INV-2610-054-R"
+  },
+  {
+    "id": "INV-2610-054-S",
+    "tenant_id": "T054",
+    "type": "service_charge",
+    "period": "2026-10",
+    "amount_due": 996.64,
+    "amount_paid": 0,
+    "due_date": "2026-10-01",
+    "invoice_ref": "INV-2610-054-S"
+  },
+  {
+    "id": "INV-2610-055-R",
+    "tenant_id": "T055",
+    "type": "rent",
+    "period": "2026-10",
+    "amount_due": 3691.67,
+    "amount_paid": 0,
+    "due_date": "2026-10-01",
+    "invoice_ref": "INV-2610-055-R"
+  },
+  {
+    "id": "INV-2610-055-S",
+    "tenant_id": "T055",
+    "type": "service_charge",
+    "period": "2026-10",
+    "amount_due": 462.82,
+    "amount_paid": 0,
+    "due_date": "2026-10-01",
+    "invoice_ref": "INV-2610-055-S"
+  },
+  {
+    "id": "INV-2610-056-R",
+    "tenant_id": "T056",
+    "type": "rent",
+    "period": "2026-10",
+    "amount_due": 3520.83,
+    "amount_paid": 0,
+    "due_date": "2026-10-01",
+    "invoice_ref": "INV-2610-056-R"
+  },
+  {
+    "id": "INV-2610-056-S",
+    "tenant_id": "T056",
+    "type": "service_charge",
+    "period": "2026-10",
+    "amount_due": 422.76,
+    "amount_paid": 0,
+    "due_date": "2026-10-01",
+    "invoice_ref": "INV-2610-056-S"
+  },
+  {
+    "id": "INV-2610-057-R",
+    "tenant_id": "T057",
+    "type": "rent",
+    "period": "2026-10",
+    "amount_due": 5945.83,
+    "amount_paid": 0,
+    "due_date": "2026-10-01",
+    "invoice_ref": "INV-2610-057-R"
+  },
+  {
+    "id": "INV-2610-057-S",
+    "tenant_id": "T057",
+    "type": "service_charge",
+    "period": "2026-10",
+    "amount_due": 840.84,
+    "amount_paid": 0,
+    "due_date": "2026-10-01",
+    "invoice_ref": "INV-2610-057-S"
+  },
+  {
+    "id": "INV-2610-058-R",
+    "tenant_id": "T058",
+    "type": "rent",
+    "period": "2026-10",
+    "amount_due": 4358.33,
+    "amount_paid": 0,
+    "due_date": "2026-10-01",
+    "invoice_ref": "INV-2610-058-R"
+  },
+  {
+    "id": "INV-2610-058-S",
+    "tenant_id": "T058",
+    "type": "service_charge",
+    "period": "2026-10",
+    "amount_due": 431.6,
+    "amount_paid": 0,
+    "due_date": "2026-10-01",
+    "invoice_ref": "INV-2610-058-S"
+  },
+  {
+    "id": "INV-2610-059-R",
+    "tenant_id": "T059",
+    "type": "rent",
+    "period": "2026-10",
+    "amount_due": 2241.67,
+    "amount_paid": 0,
+    "due_date": "2026-10-01",
+    "invoice_ref": "INV-2610-059-R"
+  },
+  {
+    "id": "INV-2610-059-S",
+    "tenant_id": "T059",
+    "type": "service_charge",
+    "period": "2026-10",
+    "amount_due": 309.47,
+    "amount_paid": 0,
+    "due_date": "2026-10-01",
+    "invoice_ref": "INV-2610-059-S"
+  },
+  {
+    "id": "INV-2610-060-R",
+    "tenant_id": "T060",
+    "type": "rent",
+    "period": "2026-10",
+    "amount_due": 4683.33,
+    "amount_paid": 0,
+    "due_date": "2026-10-01",
+    "invoice_ref": "INV-2610-060-R"
+  },
+  {
+    "id": "INV-2610-060-S",
+    "tenant_id": "T060",
+    "type": "service_charge",
+    "period": "2026-10",
+    "amount_due": 655.27,
+    "amount_paid": 0,
+    "due_date": "2026-10-01",
+    "invoice_ref": "INV-2610-060-S"
+  },
+  {
+    "id": "INV-2610-061-R",
+    "tenant_id": "T061",
+    "type": "rent",
+    "period": "2026-10",
+    "amount_due": 5020.83,
+    "amount_paid": 0,
+    "due_date": "2026-10-01",
+    "invoice_ref": "INV-2610-061-R"
+  },
+  {
+    "id": "INV-2610-061-S",
+    "tenant_id": "T061",
+    "type": "service_charge",
+    "period": "2026-10",
+    "amount_due": 445.81,
+    "amount_paid": 0,
+    "due_date": "2026-10-01",
+    "invoice_ref": "INV-2610-061-S"
+  },
+  {
+    "id": "INV-2610-062-R",
+    "tenant_id": "T062",
+    "type": "rent",
+    "period": "2026-10",
+    "amount_due": 2812.5,
+    "amount_paid": 0,
+    "due_date": "2026-10-01",
+    "invoice_ref": "INV-2610-062-R"
+  },
+  {
+    "id": "INV-2610-062-S",
+    "tenant_id": "T062",
+    "type": "service_charge",
+    "period": "2026-10",
+    "amount_due": 392.52,
+    "amount_paid": 0,
+    "due_date": "2026-10-01",
+    "invoice_ref": "INV-2610-062-S"
+  },
+  {
+    "id": "INV-2610-063-R",
+    "tenant_id": "T063",
+    "type": "rent",
+    "period": "2026-10",
+    "amount_due": 2766.67,
+    "amount_paid": 0,
+    "due_date": "2026-10-01",
+    "invoice_ref": "INV-2610-063-R"
+  },
+  {
+    "id": "INV-2610-063-S",
+    "tenant_id": "T063",
+    "type": "service_charge",
+    "period": "2026-10",
+    "amount_due": 302.94,
+    "amount_paid": 0,
+    "due_date": "2026-10-01",
+    "invoice_ref": "INV-2610-063-S"
+  },
+  {
+    "id": "INV-2610-064-R",
+    "tenant_id": "T064",
+    "type": "rent",
+    "period": "2026-10",
+    "amount_due": 4529.17,
+    "amount_paid": 0,
+    "due_date": "2026-10-01",
+    "invoice_ref": "INV-2610-064-R"
+  },
+  {
+    "id": "INV-2610-064-S",
+    "tenant_id": "T064",
+    "type": "service_charge",
+    "period": "2026-10",
+    "amount_due": 642.13,
+    "amount_paid": 0,
+    "due_date": "2026-10-01",
+    "invoice_ref": "INV-2610-064-S"
+  },
+  {
+    "id": "INV-2610-065-R",
+    "tenant_id": "T065",
+    "type": "rent",
+    "period": "2026-10",
+    "amount_due": 1637.5,
+    "amount_paid": 0,
+    "due_date": "2026-10-01",
+    "invoice_ref": "INV-2610-065-R"
+  },
+  {
+    "id": "INV-2610-065-S",
+    "tenant_id": "T065",
+    "type": "service_charge",
+    "period": "2026-10",
+    "amount_due": 187.59,
+    "amount_paid": 0,
+    "due_date": "2026-10-01",
+    "invoice_ref": "INV-2610-065-S"
+  },
+  {
+    "id": "INV-2610-066-R",
+    "tenant_id": "T066",
+    "type": "rent",
+    "period": "2026-10",
+    "amount_due": 1966.67,
+    "amount_paid": 0,
+    "due_date": "2026-10-01",
+    "invoice_ref": "INV-2610-066-R"
+  },
+  {
+    "id": "INV-2610-066-S",
+    "tenant_id": "T066",
+    "type": "service_charge",
+    "period": "2026-10",
+    "amount_due": 271.86,
+    "amount_paid": 0,
+    "due_date": "2026-10-01",
+    "invoice_ref": "INV-2610-066-S"
+  },
+  {
+    "id": "INV-2610-067-R",
+    "tenant_id": "T067",
+    "type": "rent",
+    "period": "2026-10",
+    "amount_due": 8616.67,
+    "amount_paid": 0,
+    "due_date": "2026-10-01",
+    "invoice_ref": "INV-2610-067-R"
+  },
+  {
+    "id": "INV-2610-067-S",
+    "tenant_id": "T067",
+    "type": "service_charge",
+    "period": "2026-10",
+    "amount_due": 966.95,
+    "amount_paid": 0,
+    "due_date": "2026-10-01",
+    "invoice_ref": "INV-2610-067-S"
+  },
+  {
+    "id": "INV-2610-068-R",
+    "tenant_id": "T068",
+    "type": "rent",
+    "period": "2026-10",
+    "amount_due": 3745.84,
+    "amount_paid": 0,
+    "due_date": "2026-10-01",
+    "invoice_ref": "INV-2610-068-R"
+  },
+  {
+    "id": "INV-2610-068-S",
+    "tenant_id": "T068",
+    "type": "service_charge",
+    "period": "2026-10",
+    "amount_due": 485.42,
+    "amount_paid": 0,
+    "due_date": "2026-10-01",
+    "invoice_ref": "INV-2610-068-S"
+  },
+  {
+    "id": "INV-2610-069-R",
+    "tenant_id": "T069",
+    "type": "rent",
+    "period": "2026-10",
+    "amount_due": 2800.0,
+    "amount_paid": 0,
+    "due_date": "2026-10-01",
+    "invoice_ref": "INV-2610-069-R"
+  },
+  {
+    "id": "INV-2610-069-S",
+    "tenant_id": "T069",
+    "type": "service_charge",
+    "period": "2026-10",
+    "amount_due": 308.41,
+    "amount_paid": 0,
+    "due_date": "2026-10-01",
+    "invoice_ref": "INV-2610-069-S"
+  },
+  {
+    "id": "INV-2610-070-R",
+    "tenant_id": "T070",
+    "type": "rent",
+    "period": "2026-10",
+    "amount_due": 6062.5,
+    "amount_paid": 0,
+    "due_date": "2026-10-01",
+    "invoice_ref": "INV-2610-070-R"
+  },
+  {
+    "id": "INV-2610-070-S",
+    "tenant_id": "T070",
+    "type": "service_charge",
+    "period": "2026-10",
+    "amount_due": 571.52,
+    "amount_paid": 0,
+    "due_date": "2026-10-01",
+    "invoice_ref": "INV-2610-070-S"
+  },
+  {
+    "id": "INV-2610-071-R",
+    "tenant_id": "T071",
+    "type": "rent",
+    "period": "2026-10",
+    "amount_due": 4312.5,
+    "amount_paid": 0,
+    "due_date": "2026-10-01",
+    "invoice_ref": "INV-2610-071-R"
+  },
+  {
+    "id": "INV-2610-071-S",
+    "tenant_id": "T071",
+    "type": "service_charge",
+    "period": "2026-10",
+    "amount_due": 392.18,
+    "amount_paid": 0,
+    "due_date": "2026-10-01",
+    "invoice_ref": "INV-2610-071-S"
+  },
+  {
+    "id": "INV-2610-072-R",
+    "tenant_id": "T072",
+    "type": "rent",
+    "period": "2026-10",
+    "amount_due": 3437.5,
+    "amount_paid": 0,
+    "due_date": "2026-10-01",
+    "invoice_ref": "INV-2610-072-R"
+  },
+  {
+    "id": "INV-2610-072-S",
+    "tenant_id": "T072",
+    "type": "service_charge",
+    "period": "2026-10",
+    "amount_due": 376.36,
+    "amount_paid": 0,
+    "due_date": "2026-10-01",
+    "invoice_ref": "INV-2610-072-S"
+  },
+  {
+    "id": "INV-2610-073-R",
+    "tenant_id": "T073",
+    "type": "rent",
+    "period": "2026-10",
+    "amount_due": 3304.17,
+    "amount_paid": 0,
+    "due_date": "2026-10-01",
+    "invoice_ref": "INV-2610-073-R"
+  },
+  {
+    "id": "INV-2610-073-S",
+    "tenant_id": "T073",
+    "type": "service_charge",
+    "period": "2026-10",
+    "amount_due": 287.34,
+    "amount_paid": 0,
+    "due_date": "2026-10-01",
+    "invoice_ref": "INV-2610-073-S"
+  },
+  {
+    "id": "INV-2610-074-R",
+    "tenant_id": "T074",
+    "type": "rent",
+    "period": "2026-10",
+    "amount_due": 8141.67,
+    "amount_paid": 0,
+    "due_date": "2026-10-01",
+    "invoice_ref": "INV-2610-074-R"
+  },
+  {
+    "id": "INV-2610-074-S",
+    "tenant_id": "T074",
+    "type": "service_charge",
+    "period": "2026-10",
+    "amount_due": 908.63,
+    "amount_paid": 0,
+    "due_date": "2026-10-01",
+    "invoice_ref": "INV-2610-074-S"
+  },
+  {
+    "id": "INV-2610-075-R",
+    "tenant_id": "T075",
+    "type": "rent",
+    "period": "2026-10",
+    "amount_due": 4158.33,
+    "amount_paid": 0,
+    "due_date": "2026-10-01",
+    "invoice_ref": "INV-2610-075-R"
+  },
+  {
+    "id": "INV-2610-075-S",
+    "tenant_id": "T075",
+    "type": "service_charge",
+    "period": "2026-10",
+    "amount_due": 566.89,
+    "amount_paid": 0,
+    "due_date": "2026-10-01",
+    "invoice_ref": "INV-2610-075-S"
+  },
+  {
+    "id": "INV-2610-076-R",
+    "tenant_id": "T076",
+    "type": "rent",
+    "period": "2026-10",
+    "amount_due": 2958.33,
+    "amount_paid": 0,
+    "due_date": "2026-10-01",
+    "invoice_ref": "INV-2610-076-R"
+  },
+  {
+    "id": "INV-2610-076-S",
+    "tenant_id": "T076",
+    "type": "service_charge",
+    "period": "2026-10",
+    "amount_due": 373.17,
+    "amount_paid": 0,
+    "due_date": "2026-10-01",
+    "invoice_ref": "INV-2610-076-S"
+  },
+  {
+    "id": "INV-2610-077-R",
+    "tenant_id": "T077",
+    "type": "rent",
+    "period": "2026-10",
+    "amount_due": 4533.33,
+    "amount_paid": 0,
+    "due_date": "2026-10-01",
+    "invoice_ref": "INV-2610-077-R"
+  },
+  {
+    "id": "INV-2610-077-S",
+    "tenant_id": "T077",
+    "type": "service_charge",
+    "period": "2026-10",
+    "amount_due": 651.31,
+    "amount_paid": 0,
+    "due_date": "2026-10-01",
+    "invoice_ref": "INV-2610-077-S"
+  },
+  {
+    "id": "INV-2610-078-R",
+    "tenant_id": "T078",
+    "type": "rent",
+    "period": "2026-10",
+    "amount_due": 5783.33,
+    "amount_paid": 0,
+    "due_date": "2026-10-01",
+    "invoice_ref": "INV-2610-078-R"
+  },
+  {
+    "id": "INV-2610-078-S",
+    "tenant_id": "T078",
+    "type": "service_charge",
+    "period": "2026-10",
+    "amount_due": 629.74,
+    "amount_paid": 0,
+    "due_date": "2026-10-01",
+    "invoice_ref": "INV-2610-078-S"
+  },
+  {
+    "id": "INV-2610-079-R",
+    "tenant_id": "T079",
+    "type": "rent",
+    "period": "2026-10",
+    "amount_due": 1975.0,
+    "amount_paid": 0,
+    "due_date": "2026-10-01",
+    "invoice_ref": "INV-2610-079-R"
+  },
+  {
+    "id": "INV-2610-079-S",
+    "tenant_id": "T079",
+    "type": "service_charge",
+    "period": "2026-10",
+    "amount_due": 182.35,
+    "amount_paid": 0,
+    "due_date": "2026-10-01",
+    "invoice_ref": "INV-2610-079-S"
+  },
+  {
+    "id": "INV-2610-080-R",
+    "tenant_id": "T080",
+    "type": "rent",
+    "period": "2026-10",
+    "amount_due": 2079.17,
+    "amount_paid": 0,
+    "due_date": "2026-10-01",
+    "invoice_ref": "INV-2610-080-R"
+  },
+  {
+    "id": "INV-2610-080-S",
+    "tenant_id": "T080",
+    "type": "service_charge",
+    "period": "2026-10",
+    "amount_due": 233.46,
+    "amount_paid": 0,
+    "due_date": "2026-10-01",
+    "invoice_ref": "INV-2610-080-S"
+  },
+  {
+    "id": "INV-2610-081-R",
+    "tenant_id": "T081",
+    "type": "rent",
+    "period": "2026-10",
+    "amount_due": 3354.19,
+    "amount_paid": 0,
+    "due_date": "2026-10-01",
+    "invoice_ref": "INV-2610-081-R"
+  },
+  {
+    "id": "INV-2610-081-S",
+    "tenant_id": "T081",
+    "type": "service_charge",
+    "period": "2026-10",
+    "amount_due": 414.25,
+    "amount_paid": 0,
+    "due_date": "2026-10-01",
+    "invoice_ref": "INV-2610-081-S"
+  },
+  {
+    "id": "INV-2610-082-R",
+    "tenant_id": "T082",
+    "type": "rent",
+    "period": "2026-10",
+    "amount_due": 3508.33,
+    "amount_paid": 0,
+    "due_date": "2026-10-01",
+    "invoice_ref": "INV-2610-082-R"
+  },
+  {
+    "id": "INV-2610-082-S",
+    "tenant_id": "T082",
+    "type": "service_charge",
+    "period": "2026-10",
+    "amount_due": 302.7,
+    "amount_paid": 0,
+    "due_date": "2026-10-01",
+    "invoice_ref": "INV-2610-082-S"
+  },
+  {
+    "id": "INV-2610-083-R",
+    "tenant_id": "T083",
+    "type": "rent",
+    "period": "2026-10",
+    "amount_due": 7600.0,
+    "amount_paid": 0,
+    "due_date": "2026-10-01",
+    "invoice_ref": "INV-2610-083-R"
+  },
+  {
+    "id": "INV-2610-083-S",
+    "tenant_id": "T083",
+    "type": "service_charge",
+    "period": "2026-10",
+    "amount_due": 757.07,
+    "amount_paid": 0,
+    "due_date": "2026-10-01",
+    "invoice_ref": "INV-2610-083-S"
+  },
+  {
+    "id": "INV-2610-084-R",
+    "tenant_id": "T084",
+    "type": "rent",
+    "period": "2026-10",
+    "amount_due": 3462.5,
+    "amount_paid": 0,
+    "due_date": "2026-10-01",
+    "invoice_ref": "INV-2610-084-R"
+  },
+  {
+    "id": "INV-2610-084-S",
+    "tenant_id": "T084",
+    "type": "service_charge",
+    "period": "2026-10",
+    "amount_due": 411.6,
+    "amount_paid": 0,
+    "due_date": "2026-10-01",
+    "invoice_ref": "INV-2610-084-S"
+  },
+  {
+    "id": "INV-2610-085-R",
+    "tenant_id": "T085",
+    "type": "rent",
+    "period": "2026-10",
+    "amount_due": 5175.0,
+    "amount_paid": 0,
+    "due_date": "2026-10-01",
+    "invoice_ref": "INV-2610-085-R"
+  },
+  {
+    "id": "INV-2610-085-S",
+    "tenant_id": "T085",
+    "type": "service_charge",
+    "period": "2026-10",
+    "amount_due": 677.46,
+    "amount_paid": 0,
+    "due_date": "2026-10-01",
+    "invoice_ref": "INV-2610-085-S"
+  },
+  {
+    "id": "INV-2610-086-R",
+    "tenant_id": "T086",
+    "type": "rent",
+    "period": "2026-10",
+    "amount_due": 5995.83,
+    "amount_paid": 0,
+    "due_date": "2026-10-01",
+    "invoice_ref": "INV-2610-086-R"
+  },
+  {
+    "id": "INV-2610-086-S",
+    "tenant_id": "T086",
+    "type": "service_charge",
+    "period": "2026-10",
+    "amount_due": 587.33,
+    "amount_paid": 0,
+    "due_date": "2026-10-01",
+    "invoice_ref": "INV-2610-086-S"
+  },
+  {
+    "id": "INV-2610-087-R",
+    "tenant_id": "T087",
+    "type": "rent",
+    "period": "2026-10",
+    "amount_due": 2312.51,
+    "amount_paid": 0,
+    "due_date": "2026-10-01",
+    "invoice_ref": "INV-2610-087-R"
+  },
+  {
+    "id": "INV-2610-087-S",
+    "tenant_id": "T087",
+    "type": "service_charge",
+    "period": "2026-10",
+    "amount_due": 242.15,
+    "amount_paid": 0,
+    "due_date": "2026-10-01",
+    "invoice_ref": "INV-2610-087-S"
+  },
+  {
+    "id": "INV-2610-088-R",
+    "tenant_id": "T088",
+    "type": "rent",
+    "period": "2026-10",
+    "amount_due": 2279.17,
+    "amount_paid": 0,
+    "due_date": "2026-10-01",
+    "invoice_ref": "INV-2610-088-R"
+  },
+  {
+    "id": "INV-2610-088-S",
+    "tenant_id": "T088",
+    "type": "service_charge",
+    "period": "2026-10",
+    "amount_due": 316.88,
+    "amount_paid": 0,
+    "due_date": "2026-10-01",
+    "invoice_ref": "INV-2610-088-S"
+  },
+  {
+    "id": "INV-2610-089-R",
+    "tenant_id": "T089",
+    "type": "rent",
+    "period": "2026-10",
+    "amount_due": 4158.34,
+    "amount_paid": 0,
+    "due_date": "2026-10-01",
+    "invoice_ref": "INV-2610-089-R"
+  },
+  {
+    "id": "INV-2610-089-S",
+    "tenant_id": "T089",
+    "type": "service_charge",
+    "period": "2026-10",
+    "amount_due": 567.63,
+    "amount_paid": 0,
+    "due_date": "2026-10-01",
+    "invoice_ref": "INV-2610-089-S"
+  },
+  {
+    "id": "INV-2610-090-R",
+    "tenant_id": "T090",
+    "type": "rent",
+    "period": "2026-10",
+    "amount_due": 5325.0,
+    "amount_paid": 0,
+    "due_date": "2026-10-01",
+    "invoice_ref": "INV-2610-090-R"
+  },
+  {
+    "id": "INV-2610-090-S",
+    "tenant_id": "T090",
+    "type": "service_charge",
+    "period": "2026-10",
+    "amount_due": 494.16,
+    "amount_paid": 0,
+    "due_date": "2026-10-01",
+    "invoice_ref": "INV-2610-090-S"
+  },
+  {
+    "id": "INV-2610-091-R",
+    "tenant_id": "T091",
+    "type": "rent",
+    "period": "2026-10",
+    "amount_due": 1825.0,
+    "amount_paid": 0,
+    "due_date": "2026-10-01",
+    "invoice_ref": "INV-2610-091-R"
+  },
+  {
+    "id": "INV-2610-091-S",
+    "tenant_id": "T091",
+    "type": "service_charge",
+    "period": "2026-10",
+    "amount_due": 174.23,
+    "amount_paid": 0,
+    "due_date": "2026-10-01",
+    "invoice_ref": "INV-2610-091-S"
+  },
+  {
+    "id": "INV-2610-092-R",
+    "tenant_id": "T092",
+    "type": "rent",
+    "period": "2026-10",
+    "amount_due": 7475.0,
+    "amount_paid": 0,
+    "due_date": "2026-10-01",
+    "invoice_ref": "INV-2610-092-R"
+  },
+  {
+    "id": "INV-2610-092-S",
+    "tenant_id": "T092",
+    "type": "service_charge",
+    "period": "2026-10",
+    "amount_due": 646.94,
+    "amount_paid": 0,
+    "due_date": "2026-10-01",
+    "invoice_ref": "INV-2610-092-S"
+  },
+  {
+    "id": "INV-2610-093-R",
+    "tenant_id": "T093",
+    "type": "rent",
+    "period": "2026-10",
+    "amount_due": 6587.5,
+    "amount_paid": 0,
+    "due_date": "2026-10-01",
+    "invoice_ref": "INV-2610-093-R"
+  },
+  {
+    "id": "INV-2610-093-S",
+    "tenant_id": "T093",
+    "type": "service_charge",
+    "period": "2026-10",
+    "amount_due": 872.18,
+    "amount_paid": 0,
+    "due_date": "2026-10-01",
+    "invoice_ref": "INV-2610-093-S"
+  },
+  {
+    "id": "INV-2610-094-R",
+    "tenant_id": "T094",
+    "type": "rent",
+    "period": "2026-10",
+    "amount_due": 5075.0,
+    "amount_paid": 0,
+    "due_date": "2026-10-01",
+    "invoice_ref": "INV-2610-094-R"
+  },
+  {
+    "id": "INV-2610-094-S",
+    "tenant_id": "T094",
+    "type": "service_charge",
+    "period": "2026-10",
+    "amount_due": 529.96,
+    "amount_paid": 0,
+    "due_date": "2026-10-01",
+    "invoice_ref": "INV-2610-094-S"
+  },
+  {
+    "id": "INV-2610-095-R",
+    "tenant_id": "T095",
+    "type": "rent",
+    "period": "2026-10",
+    "amount_due": 2137.5,
+    "amount_paid": 0,
+    "due_date": "2026-10-01",
+    "invoice_ref": "INV-2610-095-R"
+  },
+  {
+    "id": "INV-2610-095-S",
+    "tenant_id": "T095",
+    "type": "service_charge",
+    "period": "2026-10",
+    "amount_due": 188.41,
+    "amount_paid": 0,
+    "due_date": "2026-10-01",
+    "invoice_ref": "INV-2610-095-S"
+  },
+  {
+    "id": "INV-2610-096-R",
+    "tenant_id": "T096",
+    "type": "rent",
+    "period": "2026-10",
+    "amount_due": 3058.33,
+    "amount_paid": 0,
+    "due_date": "2026-10-01",
+    "invoice_ref": "INV-2610-096-R"
+  },
+  {
+    "id": "INV-2610-096-S",
+    "tenant_id": "T096",
+    "type": "service_charge",
+    "period": "2026-10",
+    "amount_due": 356.49,
+    "amount_paid": 0,
+    "due_date": "2026-10-01",
+    "invoice_ref": "INV-2610-096-S"
+  },
+  {
+    "id": "INV-2610-097-R",
+    "tenant_id": "T097",
+    "type": "rent",
+    "period": "2026-10",
+    "amount_due": 1979.17,
+    "amount_paid": 0,
+    "due_date": "2026-10-01",
+    "invoice_ref": "INV-2610-097-R"
+  },
+  {
+    "id": "INV-2610-097-S",
+    "tenant_id": "T097",
+    "type": "service_charge",
+    "period": "2026-10",
+    "amount_due": 224.78,
+    "amount_paid": 0,
+    "due_date": "2026-10-01",
+    "invoice_ref": "INV-2610-097-S"
+  },
+  {
+    "id": "INV-2610-098-R",
+    "tenant_id": "T098",
+    "type": "rent",
+    "period": "2026-10",
+    "amount_due": 4533.34,
+    "amount_paid": 0,
+    "due_date": "2026-10-01",
+    "invoice_ref": "INV-2610-098-R"
+  },
+  {
+    "id": "INV-2610-098-S",
+    "tenant_id": "T098",
+    "type": "service_charge",
+    "period": "2026-10",
+    "amount_due": 524.93,
+    "amount_paid": 0,
+    "due_date": "2026-10-01",
+    "invoice_ref": "INV-2610-098-S"
+  },
+  {
+    "id": "INV-2610-099-R",
+    "tenant_id": "T099",
+    "type": "rent",
+    "period": "2026-10",
+    "amount_due": 3308.33,
+    "amount_paid": 0,
+    "due_date": "2026-10-01",
+    "invoice_ref": "INV-2610-099-R"
+  },
+  {
+    "id": "INV-2610-099-S",
+    "tenant_id": "T099",
+    "type": "service_charge",
+    "period": "2026-10",
+    "amount_due": 381.22,
+    "amount_paid": 0,
+    "due_date": "2026-10-01",
+    "invoice_ref": "INV-2610-099-S"
+  },
+  {
+    "id": "INV-2610-100-R",
+    "tenant_id": "T100",
+    "type": "rent",
+    "period": "2026-10",
+    "amount_due": 4933.33,
+    "amount_paid": 0,
+    "due_date": "2026-10-01",
+    "invoice_ref": "INV-2610-100-R"
+  },
+  {
+    "id": "INV-2610-100-S",
+    "tenant_id": "T100",
+    "type": "service_charge",
+    "period": "2026-10",
+    "amount_due": 432.17,
+    "amount_paid": 0,
+    "due_date": "2026-10-01",
+    "invoice_ref": "INV-2610-100-S"
+  },
+  {
+    "id": "INV-2610-101-R",
+    "tenant_id": "T101",
+    "type": "rent",
+    "period": "2026-10",
+    "amount_due": 5058.33,
+    "amount_paid": 0,
+    "due_date": "2026-10-01",
+    "invoice_ref": "INV-2610-101-R"
+  },
+  {
+    "id": "INV-2610-101-S",
+    "tenant_id": "T101",
+    "type": "service_charge",
+    "period": "2026-10",
+    "amount_due": 693.09,
+    "amount_paid": 0,
+    "due_date": "2026-10-01",
+    "invoice_ref": "INV-2610-101-S"
+  },
+  {
+    "id": "INV-2610-102-R",
+    "tenant_id": "T102",
+    "type": "rent",
+    "period": "2026-10",
+    "amount_due": 4783.33,
+    "amount_paid": 0,
+    "due_date": "2026-10-01",
+    "invoice_ref": "INV-2610-102-R"
+  },
+  {
+    "id": "INV-2610-102-S",
+    "tenant_id": "T102",
+    "type": "service_charge",
+    "period": "2026-10",
+    "amount_due": 538.04,
+    "amount_paid": 0,
+    "due_date": "2026-10-01",
+    "invoice_ref": "INV-2610-102-S"
+  },
+  {
+    "id": "INV-2610-103-R",
+    "tenant_id": "T103",
+    "type": "rent",
+    "period": "2026-10",
+    "amount_due": 4687.5,
+    "amount_paid": 0,
+    "due_date": "2026-10-01",
+    "invoice_ref": "INV-2610-103-R"
+  },
+  {
+    "id": "INV-2610-103-S",
+    "tenant_id": "T103",
+    "type": "service_charge",
+    "period": "2026-10",
+    "amount_due": 415.54,
+    "amount_paid": 0,
+    "due_date": "2026-10-01",
+    "invoice_ref": "INV-2610-103-S"
+  },
+  {
+    "id": "INV-2610-104-R",
+    "tenant_id": "T104",
+    "type": "rent",
+    "period": "2026-10",
+    "amount_due": 6525.0,
+    "amount_paid": 0,
+    "due_date": "2026-10-01",
+    "invoice_ref": "INV-2610-104-R"
+  },
+  {
+    "id": "INV-2610-104-S",
+    "tenant_id": "T104",
+    "type": "service_charge",
+    "period": "2026-10",
+    "amount_due": 711.86,
+    "amount_paid": 0,
+    "due_date": "2026-10-01",
+    "invoice_ref": "INV-2610-104-S"
+  },
+  {
+    "id": "INV-2610-105-R",
+    "tenant_id": "T105",
+    "type": "rent",
+    "period": "2026-10",
+    "amount_due": 6762.5,
+    "amount_paid": 0,
+    "due_date": "2026-10-01",
+    "invoice_ref": "INV-2610-105-R"
+  },
+  {
+    "id": "INV-2610-105-S",
+    "tenant_id": "T105",
+    "type": "service_charge",
+    "period": "2026-10",
+    "amount_due": 773.74,
+    "amount_paid": 0,
+    "due_date": "2026-10-01",
+    "invoice_ref": "INV-2610-105-S"
+  },
+  {
+    "id": "INV-2610-106-R",
+    "tenant_id": "T106",
+    "type": "rent",
+    "period": "2026-10",
+    "amount_due": 2195.83,
+    "amount_paid": 0,
+    "due_date": "2026-10-01",
+    "invoice_ref": "INV-2610-106-R"
+  },
+  {
+    "id": "INV-2610-106-S",
+    "tenant_id": "T106",
+    "type": "service_charge",
+    "period": "2026-10",
+    "amount_due": 196.33,
+    "amount_paid": 0,
+    "due_date": "2026-10-01",
+    "invoice_ref": "INV-2610-106-S"
+  },
+  {
+    "id": "INV-2610-107-R",
+    "tenant_id": "T107",
+    "type": "rent",
+    "period": "2026-10",
+    "amount_due": 1979.18,
+    "amount_paid": 0,
+    "due_date": "2026-10-01",
+    "invoice_ref": "INV-2610-107-R"
+  },
+  {
+    "id": "INV-2610-107-S",
+    "tenant_id": "T107",
+    "type": "service_charge",
+    "period": "2026-10",
+    "amount_due": 240.47,
+    "amount_paid": 0,
+    "due_date": "2026-10-01",
+    "invoice_ref": "INV-2610-107-S"
+  },
+  {
+    "id": "INV-2610-108-R",
+    "tenant_id": "T108",
+    "type": "rent",
+    "period": "2026-10",
+    "amount_due": 2250.0,
+    "amount_paid": 0,
+    "due_date": "2026-10-01",
+    "invoice_ref": "INV-2610-108-R"
+  },
+  {
+    "id": "INV-2610-108-S",
+    "tenant_id": "T108",
+    "type": "service_charge",
+    "period": "2026-10",
+    "amount_due": 228.38,
+    "amount_paid": 0,
+    "due_date": "2026-10-01",
+    "invoice_ref": "INV-2610-108-S"
+  }
+]

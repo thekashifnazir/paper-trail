@@ -1,0 +1,758 @@
+[
+  {
+    "id": "T001",
+    "name": "Oakmere Investments Ltd",
+    "unit": "Unit 11, Teal Court (Orchard Village), London",
+    "lease_id": "SYN-L-0103",
+    "lease_citation": "Synthetic lease SYN-L-0103 (Oakmere Investments Ltd, from 2010-10-14, 10 years): rent monthly in advance, due 1st; service charge monthly in advance."
+  },
+  {
+    "id": "T002",
+    "name": "Allied Estates Ltd",
+    "unit": "Unit 5, Mill Building (Canal Basin), Bristol",
+    "lease_id": "SYN-L-0058",
+    "lease_citation": "Synthetic lease SYN-L-0058 (Allied Estates Ltd, from 2020-01-12, 25 years): rent monthly in advance, due 1st; service charge monthly in advance."
+  },
+  {
+    "id": "T003",
+    "name": "Anchor Retail Ltd",
+    "unit": "Unit 10, Quay House (Riverside Wharf), Leeds",
+    "lease_id": "SYN-L-0077",
+    "lease_citation": "Synthetic lease SYN-L-0077 (Anchor Retail Ltd, from 2013-06-09, 20 years): rent monthly in advance, due 1st; service charge monthly in advance."
+  },
+  {
+    "id": "T004",
+    "name": "Sterling Developments Ltd",
+    "unit": "Unit 8, Gorse House (Orchard Village), London",
+    "lease_id": "SYN-L-0051",
+    "lease_citation": "Synthetic lease SYN-L-0051 (Sterling Developments Ltd, from 2008-08-05, 20 years): rent monthly in advance, due 1st; service charge monthly in advance."
+  },
+  {
+    "id": "T005",
+    "name": "Swift Developments Ltd",
+    "unit": "Unit 7, Cedar House (Southbank Square), Manchester",
+    "lease_id": "SYN-L-0072",
+    "lease_citation": "Synthetic lease SYN-L-0072 (Swift Developments Ltd, from 2018-08-04, 25 years): rent monthly in advance, due 1st; service charge monthly in advance."
+  },
+  {
+    "id": "T006",
+    "name": "Oakmere Developments Ltd",
+    "unit": "Unit 7, Merlin Court (Lark Gardens), Birmingham",
+    "lease_id": "SYN-L-0042",
+    "lease_citation": "Synthetic lease SYN-L-0042 (Oakmere Developments Ltd, from 2011-07-22, 15 years): rent monthly in advance, due 1st; service charge monthly in advance."
+  },
+  {
+    "id": "T007",
+    "name": "Oakmere Commercial Ltd",
+    "unit": "Unit 5, Cedar House (Southbank Square), Manchester",
+    "lease_id": "SYN-L-0026",
+    "lease_citation": "Synthetic lease SYN-L-0026 (Oakmere Commercial Ltd, from 2015-03-21, 25 years): rent monthly in advance, due 1st; service charge monthly in advance."
+  },
+  {
+    "id": "T008",
+    "name": "Swift Lettings Ltd",
+    "unit": "Unit 2, Gorse House (Orchard Village), London",
+    "lease_id": "SYN-L-0093",
+    "lease_citation": "Synthetic lease SYN-L-0093 (Swift Lettings Ltd, from 2011-05-22, 15 years): rent monthly in advance, due 1st; service charge monthly in advance."
+  },
+  {
+    "id": "T009",
+    "name": "Northgate Developments Ltd",
+    "unit": "Unit 10, Teal Court (Orchard Village), London",
+    "lease_id": "SYN-L-0046",
+    "lease_citation": "Synthetic lease SYN-L-0046 (Northgate Developments Ltd, from 2021-11-21, 15 years): rent monthly in advance, due 1st; service charge monthly in advance."
+  },
+  {
+    "id": "T010",
+    "name": "Keystone Ventures Ltd",
+    "unit": "Unit 2, Cedar House (Southbank Square), Manchester",
+    "lease_id": "SYN-L-0007",
+    "lease_citation": "Synthetic lease SYN-L-0007 (Keystone Ventures Ltd, from 2017-12-11, 15 years): rent monthly in advance, due 1st; service charge monthly in advance."
+  },
+  {
+    "id": "T011",
+    "name": "Vertex Developments Ltd",
+    "unit": "Unit 8, Spire House (Old Market), Newcastle upon Tyne",
+    "lease_id": "SYN-L-0033",
+    "lease_citation": "Synthetic lease SYN-L-0033 (Vertex Developments Ltd, from 2012-04-27, 15 years): rent monthly in advance, due 1st; service charge monthly in advance."
+  },
+  {
+    "id": "T012",
+    "name": "Keystone Investments Ltd",
+    "unit": "Unit 12, Mill Building (Canal Basin), Bristol",
+    "lease_id": "SYN-L-0006",
+    "lease_citation": "Synthetic lease SYN-L-0006 (Keystone Investments Ltd, from 2018-08-28, 10 years): rent monthly in advance, due 1st; service charge monthly in advance."
+  },
+  {
+    "id": "T013",
+    "name": "Summit Retail Ltd",
+    "unit": "Unit 4, Gorse House (Orchard Village), London",
+    "lease_id": "SYN-L-0075",
+    "lease_citation": "Synthetic lease SYN-L-0075 (Summit Retail Ltd, from 2007-05-15, 25 years): rent monthly in advance, due 1st; service charge monthly in advance."
+  },
+  {
+    "id": "T014",
+    "name": "Central Estates Ltd",
+    "unit": "Unit 1, Merlin Court (Lark Gardens), Birmingham",
+    "lease_id": "SYN-L-0068",
+    "lease_citation": "Synthetic lease SYN-L-0068 (Central Estates Ltd, from 2014-02-19, 25 years): rent monthly in advance, due 1st; service charge monthly in advance."
+  },
+  {
+    "id": "T015",
+    "name": "Redwell Estates Ltd",
+    "unit": "Unit 5, Spire House (Old Market), Newcastle upon Tyne",
+    "lease_id": "SYN-L-0008",
+    "lease_citation": "Synthetic lease SYN-L-0008 (Redwell Estates Ltd, from 2009-07-06, 10 years): rent monthly in advance, due 1st; service charge monthly in advance."
+  },
+  {
+    "id": "T016",
+    "name": "Halden Property Holdings Ltd",
+    "unit": "Unit 3, Teal Court (Orchard Village), London",
+    "lease_id": "SYN-L-0102",
+    "lease_citation": "Synthetic lease SYN-L-0102 (Halden Property Holdings Ltd, from 2023-01-25, 25 years): rent monthly in advance, due 1st; service charge monthly in advance."
+  },
+  {
+    "id": "T017",
+    "name": "Shield Investments Ltd",
+    "unit": "Unit 1, Teal Court (Orchard Village), London",
+    "lease_id": "SYN-L-0039",
+    "lease_citation": "Synthetic lease SYN-L-0039 (Shield Investments Ltd, from 2006-12-14, 15 years): rent monthly in advance, due 1st; service charge monthly in advance."
+  },
+  {
+    "id": "T018",
+    "name": "Anchor Commercial Ltd",
+    "unit": "Unit 8, Quay House (Riverside Wharf), Leeds",
+    "lease_id": "SYN-L-0014",
+    "lease_citation": "Synthetic lease SYN-L-0014 (Anchor Commercial Ltd, from 2006-01-19, 15 years): rent monthly in advance, due 1st; service charge monthly in advance."
+  },
+  {
+    "id": "T019",
+    "name": "Premier Property Holdings Ltd",
+    "unit": "Unit 12, Block A (Station Reach), Cambridge",
+    "lease_id": "SYN-L-0080",
+    "lease_citation": "Synthetic lease SYN-L-0080 (Premier Property Holdings Ltd, from 2014-04-13, 20 years): rent monthly in advance, due 1st; service charge monthly in advance."
+  },
+  {
+    "id": "T020",
+    "name": "Larkspur Commercial Ltd",
+    "unit": "Unit 6, Gorse House (Orchard Village), London",
+    "lease_id": "SYN-L-0067",
+    "lease_citation": "Synthetic lease SYN-L-0067 (Larkspur Commercial Ltd, from 2019-12-09, 10 years): rent monthly in advance, due 1st; service charge monthly in advance."
+  },
+  {
+    "id": "T021",
+    "name": "Anchor Ventures Ltd",
+    "unit": "Unit 11, Gorse House (Orchard Village), London",
+    "lease_id": "SYN-L-0024",
+    "lease_citation": "Synthetic lease SYN-L-0024 (Anchor Ventures Ltd, from 2015-04-22, 25 years): rent monthly in advance, due 1st; service charge monthly in advance."
+  },
+  {
+    "id": "T022",
+    "name": "Granite Commercial Ltd",
+    "unit": "Unit 3, Cedar House (Southbank Square), Manchester",
+    "lease_id": "SYN-L-0028",
+    "lease_citation": "Synthetic lease SYN-L-0028 (Granite Commercial Ltd, from 2016-10-18, 10 years): rent monthly in advance, due 1st; service charge monthly in advance."
+  },
+  {
+    "id": "T023",
+    "name": "Sterling Estates Ltd",
+    "unit": "Unit 7, Gorse House (Orchard Village), London",
+    "lease_id": "SYN-L-0034",
+    "lease_citation": "Synthetic lease SYN-L-0034 (Sterling Estates Ltd, from 2005-11-07, 10 years): rent monthly in advance, due 1st; service charge monthly in advance."
+  },
+  {
+    "id": "T024",
+    "name": "Northgate Retail Ltd",
+    "unit": "Unit 5, Merlin Court (Lark Gardens), Birmingham",
+    "lease_id": "SYN-L-0098",
+    "lease_citation": "Synthetic lease SYN-L-0098 (Northgate Retail Ltd, from 2007-01-06, 20 years): rent monthly in advance, due 1st; service charge monthly in advance."
+  },
+  {
+    "id": "T025",
+    "name": "Keystone Estates Ltd",
+    "unit": "Unit 6, Spire House (Old Market), Newcastle upon Tyne",
+    "lease_id": "SYN-L-0104",
+    "lease_citation": "Synthetic lease SYN-L-0104 (Keystone Estates Ltd, from 2016-07-11, 15 years): rent monthly in advance, due 1st; service charge monthly in advance."
+  },
+  {
+    "id": "T026",
+    "name": "Allied Property Holdings Ltd",
+    "unit": "Unit 7, Cedar House (Southbank Square), Manchester",
+    "lease_id": "SYN-L-0011",
+    "lease_citation": "Synthetic lease SYN-L-0011 (Allied Property Holdings Ltd, from 2010-07-01, 25 years): rent monthly in advance, due 1st; service charge monthly in advance."
+  },
+  {
+    "id": "T027",
+    "name": "Apex Property Holdings Ltd",
+    "unit": "Unit 6, Quay House (Riverside Wharf), Leeds",
+    "lease_id": "SYN-L-0076",
+    "lease_citation": "Synthetic lease SYN-L-0076 (Apex Property Holdings Ltd, from 2005-08-28, 15 years): rent monthly in advance, due 1st; service charge monthly in advance."
+  },
+  {
+    "id": "T028",
+    "name": "Allied Commercial Ltd",
+    "unit": "Unit 10, Block A (Station Reach), Cambridge",
+    "lease_id": "SYN-L-0017",
+    "lease_citation": "Synthetic lease SYN-L-0017 (Allied Commercial Ltd, from 2018-11-19, 20 years): rent monthly in advance, due 1st; service charge monthly in advance."
+  },
+  {
+    "id": "T029",
+    "name": "Larkspur Lettings Ltd",
+    "unit": "Unit 2, Spire House (Old Market), Newcastle upon Tyne",
+    "lease_id": "SYN-L-0005",
+    "lease_citation": "Synthetic lease SYN-L-0005 (Larkspur Lettings Ltd, from 2018-04-04, 20 years): rent monthly in advance, due 1st; service charge monthly in advance."
+  },
+  {
+    "id": "T030",
+    "name": "Swift Estates Ltd",
+    "unit": "Unit 11, Block A (Station Reach), Cambridge",
+    "lease_id": "SYN-L-0096",
+    "lease_citation": "Synthetic lease SYN-L-0096 (Swift Estates Ltd, from 2012-05-26, 15 years): rent monthly in advance, due 1st; service charge monthly in advance."
+  },
+  {
+    "id": "T031",
+    "name": "Pennant Commercial Ltd",
+    "unit": "Unit 11, Spire House (Old Market), Newcastle upon Tyne",
+    "lease_id": "SYN-L-0049",
+    "lease_citation": "Synthetic lease SYN-L-0049 (Pennant Commercial Ltd, from 2017-04-05, 10 years): rent monthly in advance, due 1st; service charge monthly in advance."
+  },
+  {
+    "id": "T032",
+    "name": "Crest Property Holdings Ltd",
+    "unit": "Unit 5, Spire House (Old Market), Newcastle upon Tyne",
+    "lease_id": "SYN-L-0108",
+    "lease_citation": "Synthetic lease SYN-L-0108 (Crest Property Holdings Ltd, from 2019-01-07, 20 years): rent monthly in advance, due 1st; service charge monthly in advance."
+  },
+  {
+    "id": "T033",
+    "name": "Apex Estates Ltd",
+    "unit": "Unit 2, Teal Court (Orchard Village), London",
+    "lease_id": "SYN-L-0055",
+    "lease_citation": "Synthetic lease SYN-L-0055 (Apex Estates Ltd, from 2015-06-18, 15 years): rent monthly in advance, due 1st; service charge monthly in advance."
+  },
+  {
+    "id": "T034",
+    "name": "Halden Ventures Ltd",
+    "unit": "Unit 10, Block A (Station Reach), Cambridge",
+    "lease_id": "SYN-L-0048",
+    "lease_citation": "Synthetic lease SYN-L-0048 (Halden Ventures Ltd, from 2019-07-21, 25 years): rent monthly in advance, due 1st; service charge monthly in advance."
+  },
+  {
+    "id": "T035",
+    "name": "Harbour Commercial Ltd",
+    "unit": "Unit 7, Teal Court (Orchard Village), London",
+    "lease_id": "SYN-L-0041",
+    "lease_citation": "Synthetic lease SYN-L-0041 (Harbour Commercial Ltd, from 2021-05-22, 20 years): rent monthly in advance, due 1st; service charge monthly in advance."
+  },
+  {
+    "id": "T036",
+    "name": "Keystone Retail Ltd",
+    "unit": "Unit 7, Spire House (Old Market), Newcastle upon Tyne",
+    "lease_id": "SYN-L-0052",
+    "lease_citation": "Synthetic lease SYN-L-0052 (Keystone Retail Ltd, from 2024-12-17, 25 years): rent monthly in advance, due 1st; service charge monthly in advance."
+  },
+  {
+    "id": "T037",
+    "name": "Central Retail Ltd",
+    "unit": "Unit 12, Gorse House (Orchard Village), London",
+    "lease_id": "SYN-L-0045",
+    "lease_citation": "Synthetic lease SYN-L-0045 (Central Retail Ltd, from 2021-08-26, 10 years): rent monthly in advance, due 1st; service charge monthly in advance."
+  },
+  {
+    "id": "T038",
+    "name": "Vertex Investments Ltd",
+    "unit": "Unit 4, Cedar House (Southbank Square), Manchester",
+    "lease_id": "SYN-L-0003",
+    "lease_citation": "Synthetic lease SYN-L-0003 (Vertex Investments Ltd, from 2015-02-17, 25 years): rent monthly in advance, due 1st; service charge monthly in advance."
+  },
+  {
+    "id": "T039",
+    "name": "Allied Lettings Ltd",
+    "unit": "Unit 2, Mill Building (Canal Basin), Bristol",
+    "lease_id": "SYN-L-0027",
+    "lease_citation": "Synthetic lease SYN-L-0027 (Allied Lettings Ltd, from 2022-01-04, 15 years): rent monthly in advance, due 1st; service charge monthly in advance."
+  },
+  {
+    "id": "T040",
+    "name": "Liberty Property Holdings Ltd",
+    "unit": "Unit 1, Spire House (Old Market), Newcastle upon Tyne",
+    "lease_id": "SYN-L-0100",
+    "lease_citation": "Synthetic lease SYN-L-0100 (Liberty Property Holdings Ltd, from 2019-02-20, 20 years): rent monthly in advance, due 1st; service charge monthly in advance."
+  },
+  {
+    "id": "T041",
+    "name": "Fairway Ventures Ltd",
+    "unit": "Unit 5, Cedar House (Southbank Square), Manchester",
+    "lease_id": "SYN-L-0106",
+    "lease_citation": "Synthetic lease SYN-L-0106 (Fairway Ventures Ltd, from 2019-02-11, 25 years): rent monthly in advance, due 1st; service charge monthly in advance."
+  },
+  {
+    "id": "T042",
+    "name": "Shield Property Holdings Ltd",
+    "unit": "Unit 5, Teal Court (Orchard Village), London",
+    "lease_id": "SYN-L-0086",
+    "lease_citation": "Synthetic lease SYN-L-0086 (Shield Property Holdings Ltd, from 2006-01-18, 15 years): rent monthly in advance, due 1st; service charge monthly in advance."
+  },
+  {
+    "id": "T043",
+    "name": "Summit Estates Ltd",
+    "unit": "Unit 11, Mill Building (Canal Basin), Bristol",
+    "lease_id": "SYN-L-0089",
+    "lease_citation": "Synthetic lease SYN-L-0089 (Summit Estates Ltd, from 2020-02-19, 15 years): rent monthly in advance, due 1st; service charge monthly in advance."
+  },
+  {
+    "id": "T044",
+    "name": "Clearview Lettings Ltd",
+    "unit": "Unit 1, Merlin Court (Lark Gardens), Birmingham",
+    "lease_id": "SYN-L-0013",
+    "lease_citation": "Synthetic lease SYN-L-0013 (Clearview Lettings Ltd, from 2011-05-07, 10 years): rent monthly in advance, due 1st; service charge monthly in advance."
+  },
+  {
+    "id": "T045",
+    "name": "Granite Ventures Ltd",
+    "unit": "Unit 5, Spire House (Old Market), Newcastle upon Tyne",
+    "lease_id": "SYN-L-0099",
+    "lease_citation": "Synthetic lease SYN-L-0099 (Granite Ventures Ltd, from 2008-08-23, 20 years): rent monthly in advance, due 1st; service charge monthly in advance."
+  },
+  {
+    "id": "T046",
+    "name": "Halden Estates Ltd",
+    "unit": "Unit 12, Quay House (Riverside Wharf), Leeds",
+    "lease_id": "SYN-L-0030",
+    "lease_citation": "Synthetic lease SYN-L-0030 (Halden Estates Ltd, from 2022-07-20, 15 years): rent monthly in advance, due 1st; service charge monthly in advance."
+  },
+  {
+    "id": "T047",
+    "name": "Northgate Commercial Ltd",
+    "unit": "Unit 12, Spire House (Old Market), Newcastle upon Tyne",
+    "lease_id": "SYN-L-0074",
+    "lease_citation": "Synthetic lease SYN-L-0074 (Northgate Commercial Ltd, from 2019-07-27, 20 years): rent monthly in advance, due 1st; service charge monthly in advance."
+  },
+  {
+    "id": "T048",
+    "name": "Central Investments Ltd",
+    "unit": "Unit 8, Block A (Station Reach), Cambridge",
+    "lease_id": "SYN-L-0094",
+    "lease_citation": "Synthetic lease SYN-L-0094 (Central Investments Ltd, from 2010-01-14, 25 years): rent monthly in advance, due 1st; service charge monthly in advance."
+  },
+  {
+    "id": "T049",
+    "name": "Shield Retail Ltd",
+    "unit": "Unit 2, Block A (Station Reach), Cambridge",
+    "lease_id": "SYN-L-0070",
+    "lease_citation": "Synthetic lease SYN-L-0070 (Shield Retail Ltd, from 2014-11-20, 10 years): rent monthly in advance, due 1st; service charge monthly in advance."
+  },
+  {
+    "id": "T050",
+    "name": "Shield Lettings Ltd",
+    "unit": "Unit 2, Cedar House (Southbank Square), Manchester",
+    "lease_id": "SYN-L-0022",
+    "lease_citation": "Synthetic lease SYN-L-0022 (Shield Lettings Ltd, from 2022-05-22, 15 years): rent monthly in advance, due 1st; service charge monthly in advance."
+  },
+  {
+    "id": "T051",
+    "name": "Summit Developments Ltd",
+    "unit": "Unit 9, Teal Court (Orchard Village), London",
+    "lease_id": "SYN-L-0023",
+    "lease_citation": "Synthetic lease SYN-L-0023 (Summit Developments Ltd, from 2008-02-24, 20 years): rent monthly in advance, due 1st; service charge monthly in advance."
+  },
+  {
+    "id": "T052",
+    "name": "Pioneer Estates Ltd",
+    "unit": "Unit 11, Teal Court (Orchard Village), London",
+    "lease_id": "SYN-L-0101",
+    "lease_citation": "Synthetic lease SYN-L-0101 (Pioneer Estates Ltd, from 2005-02-08, 10 years): rent monthly in advance, due 1st; service charge monthly in advance."
+  },
+  {
+    "id": "T053",
+    "name": "Pioneer Ventures Ltd",
+    "unit": "Unit 9, Merlin Court (Lark Gardens), Birmingham",
+    "lease_id": "SYN-L-0073",
+    "lease_citation": "Synthetic lease SYN-L-0073 (Pioneer Ventures Ltd, from 2018-03-24, 20 years): rent monthly in advance, due 1st; service charge monthly in advance."
+  },
+  {
+    "id": "T054",
+    "name": "Vertex Ventures Ltd",
+    "unit": "Unit 10, Teal Court (Orchard Village), London",
+    "lease_id": "SYN-L-0092",
+    "lease_citation": "Synthetic lease SYN-L-0092 (Vertex Ventures Ltd, from 2023-10-02, 10 years): rent monthly in advance, due 1st; service charge monthly in advance."
+  },
+  {
+    "id": "T055",
+    "name": "Liberty Estates Ltd",
+    "unit": "Unit 8, Block A (Station Reach), Cambridge",
+    "lease_id": "SYN-L-0010",
+    "lease_citation": "Synthetic lease SYN-L-0010 (Liberty Estates Ltd, from 2012-03-14, 25 years): rent monthly in advance, due 1st; service charge monthly in advance."
+  },
+  {
+    "id": "T056",
+    "name": "Northgate Investments Ltd",
+    "unit": "Unit 2, Mill Building (Canal Basin), Bristol",
+    "lease_id": "SYN-L-0056",
+    "lease_citation": "Synthetic lease SYN-L-0056 (Northgate Investments Ltd, from 2009-12-07, 20 years): rent monthly in advance, due 1st; service charge monthly in advance."
+  },
+  {
+    "id": "T057",
+    "name": "Swift Investments Ltd",
+    "unit": "Unit 8, Gorse House (Orchard Village), London",
+    "lease_id": "SYN-L-0079",
+    "lease_citation": "Synthetic lease SYN-L-0079 (Swift Investments Ltd, from 2020-11-23, 10 years): rent monthly in advance, due 1st; service charge monthly in advance."
+  },
+  {
+    "id": "T058",
+    "name": "Anchor Investments Ltd",
+    "unit": "Unit 1, Teal Court (Orchard Village), London",
+    "lease_id": "SYN-L-0043",
+    "lease_citation": "Synthetic lease SYN-L-0043 (Anchor Investments Ltd, from 2017-09-27, 15 years): rent monthly in advance, due 1st; service charge monthly in advance."
+  },
+  {
+    "id": "T059",
+    "name": "Shield Developments Ltd",
+    "unit": "Unit 1, Cedar House (Southbank Square), Manchester",
+    "lease_id": "SYN-L-0107",
+    "lease_citation": "Synthetic lease SYN-L-0107 (Shield Developments Ltd, from 2022-08-14, 20 years): rent monthly in advance, due 1st; service charge monthly in advance."
+  },
+  {
+    "id": "T060",
+    "name": "Vertex Property Holdings Ltd",
+    "unit": "Unit 3, Gorse House (Orchard Village), London",
+    "lease_id": "SYN-L-0085",
+    "lease_citation": "Synthetic lease SYN-L-0085 (Vertex Property Holdings Ltd, from 2014-04-12, 15 years): rent monthly in advance, due 1st; service charge monthly in advance."
+  },
+  {
+    "id": "T061",
+    "name": "Vertex Retail Ltd",
+    "unit": "Unit 12, Mill Building (Canal Basin), Bristol",
+    "lease_id": "SYN-L-0069",
+    "lease_citation": "Synthetic lease SYN-L-0069 (Vertex Retail Ltd, from 2011-02-19, 15 years): rent monthly in advance, due 1st; service charge monthly in advance."
+  },
+  {
+    "id": "T062",
+    "name": "Crest Retail Ltd",
+    "unit": "Unit 5, Spire House (Old Market), Newcastle upon Tyne",
+    "lease_id": "SYN-L-0087",
+    "lease_citation": "Synthetic lease SYN-L-0087 (Crest Retail Ltd, from 2008-01-19, 25 years): rent monthly in advance, due 1st; service charge monthly in advance."
+  },
+  {
+    "id": "T063",
+    "name": "Crest Developments Ltd",
+    "unit": "Unit 1, Teal Court (Orchard Village), London",
+    "lease_id": "SYN-L-0047",
+    "lease_citation": "Synthetic lease SYN-L-0047 (Crest Developments Ltd, from 2012-04-05, 25 years): rent monthly in advance, due 1st; service charge monthly in advance."
+  },
+  {
+    "id": "T064",
+    "name": "Liberty Commercial Ltd",
+    "unit": "Unit 6, Cedar House (Southbank Square), Manchester",
+    "lease_id": "SYN-L-0037",
+    "lease_citation": "Synthetic lease SYN-L-0037 (Liberty Commercial Ltd, from 2008-10-14, 20 years): rent monthly in advance, due 1st; service charge monthly in advance."
+  },
+  {
+    "id": "T065",
+    "name": "Central Commercial Ltd",
+    "unit": "Unit 6, Block A (Station Reach), Cambridge",
+    "lease_id": "SYN-L-0001",
+    "lease_citation": "Synthetic lease SYN-L-0001 (Central Commercial Ltd, from 2012-04-03, 15 years): rent monthly in advance, due 1st; service charge monthly in advance."
+  },
+  {
+    "id": "T066",
+    "name": "Northgate Ventures Ltd",
+    "unit": "Unit 8, Quay House (Riverside Wharf), Leeds",
+    "lease_id": "SYN-L-0088",
+    "lease_citation": "Synthetic lease SYN-L-0088 (Northgate Ventures Ltd, from 2010-01-09, 10 years): rent monthly in advance, due 1st; service charge monthly in advance."
+  },
+  {
+    "id": "T067",
+    "name": "Pioneer Lettings Ltd",
+    "unit": "Unit 1, Gorse House (Orchard Village), London",
+    "lease_id": "SYN-L-0065",
+    "lease_citation": "Synthetic lease SYN-L-0065 (Pioneer Lettings Ltd, from 2007-11-02, 15 years): rent monthly in advance, due 1st; service charge monthly in advance."
+  },
+  {
+    "id": "T068",
+    "name": "Anchor Developments Ltd",
+    "unit": "Unit 6, Mill Building (Canal Basin), Bristol",
+    "lease_id": "SYN-L-0044",
+    "lease_citation": "Synthetic lease SYN-L-0044 (Anchor Developments Ltd, from 2023-10-21, 25 years): rent monthly in advance, due 1st; service charge monthly in advance."
+  },
+  {
+    "id": "T069",
+    "name": "Swift Commercial Ltd",
+    "unit": "Unit 5, Quay House (Riverside Wharf), Leeds",
+    "lease_id": "SYN-L-0082",
+    "lease_citation": "Synthetic lease SYN-L-0082 (Swift Commercial Ltd, from 2019-05-10, 15 years): rent monthly in advance, due 1st; service charge monthly in advance."
+  },
+  {
+    "id": "T070",
+    "name": "Pennant Retail Ltd",
+    "unit": "Unit 10, Cedar House (Southbank Square), Manchester",
+    "lease_id": "SYN-L-0036",
+    "lease_citation": "Synthetic lease SYN-L-0036 (Pennant Retail Ltd, from 2008-05-06, 20 years): rent monthly in advance, due 1st; service charge monthly in advance."
+  },
+  {
+    "id": "T071",
+    "name": "Oakmere Ventures Ltd",
+    "unit": "Unit 11, Spire House (Old Market), Newcastle upon Tyne",
+    "lease_id": "SYN-L-0009",
+    "lease_citation": "Synthetic lease SYN-L-0009 (Oakmere Ventures Ltd, from 2022-02-02, 10 years): rent monthly in advance, due 1st; service charge monthly in advance."
+  },
+  {
+    "id": "T072",
+    "name": "Apex Commercial Ltd",
+    "unit": "Unit 7, Gorse House (Orchard Village), London",
+    "lease_id": "SYN-L-0018",
+    "lease_citation": "Synthetic lease SYN-L-0018 (Apex Commercial Ltd, from 2015-04-09, 20 years): rent monthly in advance, due 1st; service charge monthly in advance."
+  },
+  {
+    "id": "T073",
+    "name": "Clearview Retail Ltd",
+    "unit": "Unit 9, Spire House (Old Market), Newcastle upon Tyne",
+    "lease_id": "SYN-L-0084",
+    "lease_citation": "Synthetic lease SYN-L-0084 (Clearview Retail Ltd, from 2013-12-19, 10 years): rent monthly in advance, due 1st; service charge monthly in advance."
+  },
+  {
+    "id": "T074",
+    "name": "Clearview Commercial Ltd",
+    "unit": "Unit 7, Teal Court (Orchard Village), London",
+    "lease_id": "SYN-L-0025",
+    "lease_citation": "Synthetic lease SYN-L-0025 (Clearview Commercial Ltd, from 2006-02-21, 10 years): rent monthly in advance, due 1st; service charge monthly in advance."
+  },
+  {
+    "id": "T075",
+    "name": "Keystone Commercial Ltd",
+    "unit": "Unit 12, Mill Building (Canal Basin), Bristol",
+    "lease_id": "SYN-L-0050",
+    "lease_citation": "Synthetic lease SYN-L-0050 (Keystone Commercial Ltd, from 2012-03-26, 10 years): rent monthly in advance, due 1st; service charge monthly in advance."
+  },
+  {
+    "id": "T076",
+    "name": "Oakmere Lettings Ltd",
+    "unit": "Unit 8, Spire House (Old Market), Newcastle upon Tyne",
+    "lease_id": "SYN-L-0019",
+    "lease_citation": "Synthetic lease SYN-L-0019 (Oakmere Lettings Ltd, from 2015-02-01, 10 years): rent monthly in advance, due 1st; service charge monthly in advance."
+  },
+  {
+    "id": "T077",
+    "name": "Sterling Lettings Ltd",
+    "unit": "Unit 12, Teal Court (Orchard Village), London",
+    "lease_id": "SYN-L-0095",
+    "lease_citation": "Synthetic lease SYN-L-0095 (Sterling Lettings Ltd, from 2006-04-10, 25 years): rent monthly in advance, due 1st; service charge monthly in advance."
+  },
+  {
+    "id": "T078",
+    "name": "Premier Estates Ltd",
+    "unit": "Unit 7, Gorse House (Orchard Village), London",
+    "lease_id": "SYN-L-0059",
+    "lease_citation": "Synthetic lease SYN-L-0059 (Premier Estates Ltd, from 2020-04-09, 25 years): rent monthly in advance, due 1st; service charge monthly in advance."
+  },
+  {
+    "id": "T079",
+    "name": "Clearview Ventures Ltd",
+    "unit": "Unit 12, Mill Building (Canal Basin), Bristol",
+    "lease_id": "SYN-L-0032",
+    "lease_citation": "Synthetic lease SYN-L-0032 (Clearview Ventures Ltd, from 2012-05-06, 10 years): rent monthly in advance, due 1st; service charge monthly in advance."
+  },
+  {
+    "id": "T080",
+    "name": "Pennant Developments Ltd",
+    "unit": "Unit 1, Mill Building (Canal Basin), Bristol",
+    "lease_id": "SYN-L-0061",
+    "lease_citation": "Synthetic lease SYN-L-0061 (Pennant Developments Ltd, from 2023-10-22, 25 years): rent monthly in advance, due 1st; service charge monthly in advance."
+  },
+  {
+    "id": "T081",
+    "name": "Sterling Retail Ltd",
+    "unit": "Unit 5, Merlin Court (Lark Gardens), Birmingham",
+    "lease_id": "SYN-L-0062",
+    "lease_citation": "Synthetic lease SYN-L-0062 (Sterling Retail Ltd, from 2019-03-02, 15 years): rent monthly in advance, due 1st; service charge monthly in advance."
+  },
+  {
+    "id": "T082",
+    "name": "Metro Investments Ltd",
+    "unit": "Unit 2, Spire House (Old Market), Newcastle upon Tyne",
+    "lease_id": "SYN-L-0054",
+    "lease_citation": "Synthetic lease SYN-L-0054 (Metro Investments Ltd, from 2012-05-15, 15 years): rent monthly in advance, due 1st; service charge monthly in advance."
+  },
+  {
+    "id": "T083",
+    "name": "Harbour Lettings Ltd",
+    "unit": "Unit 7, Teal Court (Orchard Village), London",
+    "lease_id": "SYN-L-0035",
+    "lease_citation": "Synthetic lease SYN-L-0035 (Harbour Lettings Ltd, from 2016-11-17, 20 years): rent monthly in advance, due 1st; service charge monthly in advance."
+  },
+  {
+    "id": "T084",
+    "name": "Keystone Developments Ltd",
+    "unit": "Unit 3, Cedar House (Southbank Square), Manchester",
+    "lease_id": "SYN-L-0066",
+    "lease_citation": "Synthetic lease SYN-L-0066 (Keystone Developments Ltd, from 2024-03-08, 10 years): rent monthly in advance, due 1st; service charge monthly in advance."
+  },
+  {
+    "id": "T085",
+    "name": "Redwell Investments Ltd",
+    "unit": "Unit 7, Mill Building (Canal Basin), Bristol",
+    "lease_id": "SYN-L-0038",
+    "lease_citation": "Synthetic lease SYN-L-0038 (Redwell Investments Ltd, from 2024-09-04, 15 years): rent monthly in advance, due 1st; service charge monthly in advance."
+  },
+  {
+    "id": "T086",
+    "name": "Fairway Lettings Ltd",
+    "unit": "Unit 12, Teal Court (Orchard Village), London",
+    "lease_id": "SYN-L-0064",
+    "lease_citation": "Synthetic lease SYN-L-0064 (Fairway Lettings Ltd, from 2007-08-01, 20 years): rent monthly in advance, due 1st; service charge monthly in advance."
+  },
+  {
+    "id": "T087",
+    "name": "Central Developments Ltd",
+    "unit": "Unit 5, Block A (Station Reach), Cambridge",
+    "lease_id": "SYN-L-0020",
+    "lease_citation": "Synthetic lease SYN-L-0020 (Central Developments Ltd, from 2022-04-17, 20 years): rent monthly in advance, due 1st; service charge monthly in advance."
+  },
+  {
+    "id": "T088",
+    "name": "Premier Ventures Ltd",
+    "unit": "Unit 12, Quay House (Riverside Wharf), Leeds",
+    "lease_id": "SYN-L-0083",
+    "lease_citation": "Synthetic lease SYN-L-0083 (Premier Ventures Ltd, from 2008-12-18, 15 years): rent monthly in advance, due 1st; service charge monthly in advance."
+  },
+  {
+    "id": "T089",
+    "name": "Beacon Property Holdings Ltd",
+    "unit": "Unit 5, Quay House (Riverside Wharf), Leeds",
+    "lease_id": "SYN-L-0105",
+    "lease_citation": "Synthetic lease SYN-L-0105 (Beacon Property Holdings Ltd, from 2018-12-16, 25 years): rent monthly in advance, due 1st; service charge monthly in advance."
+  },
+  {
+    "id": "T090",
+    "name": "Anchor Lettings Ltd",
+    "unit": "Unit 8, Quay House (Riverside Wharf), Leeds",
+    "lease_id": "SYN-L-0060",
+    "lease_citation": "Synthetic lease SYN-L-0060 (Anchor Lettings Ltd, from 2017-12-06, 10 years): rent monthly in advance, due 1st; service charge monthly in advance."
+  },
+  {
+    "id": "T091",
+    "name": "Granite Developments Ltd",
+    "unit": "Unit 3, Cedar House (Southbank Square), Manchester",
+    "lease_id": "SYN-L-0015",
+    "lease_citation": "Synthetic lease SYN-L-0015 (Granite Developments Ltd, from 2021-02-28, 10 years): rent monthly in advance, due 1st; service charge monthly in advance."
+  },
+  {
+    "id": "T092",
+    "name": "Beacon Retail Ltd",
+    "unit": "Unit 4, Teal Court (Orchard Village), London",
+    "lease_id": "SYN-L-0029",
+    "lease_citation": "Synthetic lease SYN-L-0029 (Beacon Retail Ltd, from 2016-01-12, 10 years): rent monthly in advance, due 1st; service charge monthly in advance."
+  },
+  {
+    "id": "T093",
+    "name": "Sterling Commercial Ltd",
+    "unit": "Unit 9, Teal Court (Orchard Village), London",
+    "lease_id": "SYN-L-0012",
+    "lease_citation": "Synthetic lease SYN-L-0012 (Sterling Commercial Ltd, from 2018-12-24, 25 years): rent monthly in advance, due 1st; service charge monthly in advance."
+  },
+  {
+    "id": "T094",
+    "name": "Redwell Property Holdings Ltd",
+    "unit": "Unit 4, Merlin Court (Lark Gardens), Birmingham",
+    "lease_id": "SYN-L-0053",
+    "lease_citation": "Synthetic lease SYN-L-0053 (Redwell Property Holdings Ltd, from 2020-08-09, 20 years): rent monthly in advance, due 1st; service charge monthly in advance."
+  },
+  {
+    "id": "T095",
+    "name": "Liberty Lettings Ltd",
+    "unit": "Unit 11, Mill Building (Canal Basin), Bristol",
+    "lease_id": "SYN-L-0097",
+    "lease_citation": "Synthetic lease SYN-L-0097 (Liberty Lettings Ltd, from 2008-09-08, 20 years): rent monthly in advance, due 1st; service charge monthly in advance."
+  },
+  {
+    "id": "T096",
+    "name": "Metro Ventures Ltd",
+    "unit": "Unit 11, Gorse House (Orchard Village), London",
+    "lease_id": "SYN-L-0002",
+    "lease_citation": "Synthetic lease SYN-L-0002 (Metro Ventures Ltd, from 2005-02-23, 10 years): rent monthly in advance, due 1st; service charge monthly in advance."
+  },
+  {
+    "id": "T097",
+    "name": "Shield Commercial Ltd",
+    "unit": "Unit 6, Quay House (Riverside Wharf), Leeds",
+    "lease_id": "SYN-L-0071",
+    "lease_citation": "Synthetic lease SYN-L-0071 (Shield Commercial Ltd, from 2022-07-22, 20 years): rent monthly in advance, due 1st; service charge monthly in advance."
+  },
+  {
+    "id": "T098",
+    "name": "Harbour Estates Ltd",
+    "unit": "Unit 6, Quay House (Riverside Wharf), Leeds",
+    "lease_id": "SYN-L-0040",
+    "lease_citation": "Synthetic lease SYN-L-0040 (Harbour Estates Ltd, from 2018-02-22, 10 years): rent monthly in advance, due 1st; service charge monthly in advance."
+  },
+  {
+    "id": "T099",
+    "name": "Pioneer Retail Ltd",
+    "unit": "Unit 3, Block A (Station Reach), Cambridge",
+    "lease_id": "SYN-L-0021",
+    "lease_citation": "Synthetic lease SYN-L-0021 (Pioneer Retail Ltd, from 2012-06-10, 20 years): rent monthly in advance, due 1st; service charge monthly in advance."
+  },
+  {
+    "id": "T100",
+    "name": "Shield Estates Ltd",
+    "unit": "Unit 8, Gorse House (Orchard Village), London",
+    "lease_id": "SYN-L-0091",
+    "lease_citation": "Synthetic lease SYN-L-0091 (Shield Estates Ltd, from 2021-07-15, 25 years): rent monthly in advance, due 1st; service charge monthly in advance."
+  },
+  {
+    "id": "T101",
+    "name": "Clearview Developments Ltd",
+    "unit": "Unit 3, Merlin Court (Lark Gardens), Birmingham",
+    "lease_id": "SYN-L-0031",
+    "lease_citation": "Synthetic lease SYN-L-0031 (Clearview Developments Ltd, from 2010-07-01, 20 years): rent monthly in advance, due 1st; service charge monthly in advance."
+  },
+  {
+    "id": "T102",
+    "name": "Fairway Estates Ltd",
+    "unit": "Unit 4, Cedar House (Southbank Square), Manchester",
+    "lease_id": "SYN-L-0078",
+    "lease_citation": "Synthetic lease SYN-L-0078 (Fairway Estates Ltd, from 2021-04-03, 25 years): rent monthly in advance, due 1st; service charge monthly in advance."
+  },
+  {
+    "id": "T103",
+    "name": "Harbour Investments Ltd",
+    "unit": "Unit 7, Spire House (Old Market), Newcastle upon Tyne",
+    "lease_id": "SYN-L-0081",
+    "lease_citation": "Synthetic lease SYN-L-0081 (Harbour Investments Ltd, from 2022-09-12, 20 years): rent monthly in advance, due 1st; service charge monthly in advance."
+  },
+  {
+    "id": "T104",
+    "name": "Liberty Developments Ltd",
+    "unit": "Unit 10, Gorse House (Orchard Village), London",
+    "lease_id": "SYN-L-0004",
+    "lease_citation": "Synthetic lease SYN-L-0004 (Liberty Developments Ltd, from 2022-03-24, 15 years): rent monthly in advance, due 1st; service charge monthly in advance."
+  },
+  {
+    "id": "T105",
+    "name": "Pioneer Commercial Ltd",
+    "unit": "Unit 4, Gorse House (Orchard Village), London",
+    "lease_id": "SYN-L-0016",
+    "lease_citation": "Synthetic lease SYN-L-0016 (Pioneer Commercial Ltd, from 2017-02-19, 10 years): rent monthly in advance, due 1st; service charge monthly in advance."
+  },
+  {
+    "id": "T106",
+    "name": "Premier Investments Ltd",
+    "unit": "Unit 7, Spire House (Old Market), Newcastle upon Tyne",
+    "lease_id": "SYN-L-0063",
+    "lease_citation": "Synthetic lease SYN-L-0063 (Premier Investments Ltd, from 2015-06-25, 25 years): rent monthly in advance, due 1st; service charge monthly in advance."
+  },
+  {
+    "id": "T107",
+    "name": "Sterling Property Holdings Ltd",
+    "unit": "Unit 4, Merlin Court (Lark Gardens), Birmingham",
+    "lease_id": "SYN-L-0090",
+    "lease_citation": "Synthetic lease SYN-L-0090 (Sterling Property Holdings Ltd, from 2023-05-03, 25 years): rent monthly in advance, due 1st; service charge monthly in advance."
+  },
+  {
+    "id": "T108",
+    "name": "Northgate Estates Ltd",
+    "unit": "Unit 7, Spire House (Old Market), Newcastle upon Tyne",
+    "lease_id": "SYN-L-0057",
+    "lease_citation": "Synthetic lease SYN-L-0057 (Northgate Estates Ltd, from 2018-01-07, 10 years): rent monthly in advance, due 1st; service charge monthly in advance."
+  }
+]

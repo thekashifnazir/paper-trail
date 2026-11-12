@@ -1,0 +1,30 @@
+[
+  {
+    "payer_name": "FAIRWAY GROUP PLC",
+    "group_members": [
+      "Fairway Lettings Ltd"
+    ],
+    "source": "company lookup (stub)"
+  },
+  {
+    "payer_name": "CENTRAL GROUP PLC",
+    "group_members": [
+      "Central Developments Ltd"
+    ],
+    "source": "company lookup (stub)"
+  },
+  {
+    "payer_name": "PREMIER GROUP PLC",
+    "group_members": [
+      "Premier Ventures Ltd"
+    ],
+    "source": "company lookup (stub)"
+  },
+  {
+    "payer_name": "BEACON GRP PLC",
+    "group_members": [
+      "Beacon Property Holdings Ltd"
+    ],
+    "source": "company lookup (stub)"
+  }
+]

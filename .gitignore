@@ -1,0 +1,17 @@
+# secrets
+.env
+.env.*
+
+# partner data: licensed for the event only, never commit (Cortile, MSCI)
+data/private/
+*.sqlite
+*.sqlite.zip
+cortile-*
+msci-*
+
+node_modules/
+.wrangler/
+.DS_Store
+
+# generated seed data carries Cortile-derived names and ids, never commit
+data/seed/
