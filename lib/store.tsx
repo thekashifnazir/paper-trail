@@ -183,17 +183,20 @@ export function StoreProvider({ children }: { children: React.ReactNode }) {
     setError(null);
     setProgress({ stage: "exact", percent: 10 });
     // Live answers once at the end, so walk the passes while the engine works and hold on Agent.
+    // Paced so each pass is readable (about 4 s in all); a slow engine simply holds on Agent.
     const timers: number[] = [];
-    if (getMode() === "live") {
-      timers.push(window.setTimeout(() => setProgress({ stage: "memory", percent: 55 }), 300));
-      timers.push(window.setTimeout(() => setProgress({ stage: "agent", percent: 85 }), 600));
+    const startedAt = Date.now();
+    const live = getMode() === "live";
+    if (live) {
+      timers.push(window.setTimeout(() => setProgress({ stage: "memory", percent: 55 }), 1300));
+      timers.push(window.setTimeout(() => setProgress({ stage: "agent", percent: 85 }), 2500));
     }
     try {
       const s = await runStatement(month, setProgress);
-      timers.forEach((t) => window.clearTimeout(t));
-      if (getMode() === "live") {
+      if (live) {
+        await pause(Math.max(0, 4000 - (Date.now() - startedAt)));
+        timers.forEach((t) => window.clearTimeout(t));
         setProgress({ stage: "agent", percent: 85 });
-        await pause(300);
       }
       setProgress({ stage: "done", percent: 100 });
       setSummary(s);
