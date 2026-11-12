@@ -11,16 +11,33 @@ const useMock =
   process.env.NEXT_PUBLIC_USE_MOCK === "1" ||
   process.env.NEXT_PUBLIC_USE_MOCK === undefined;
 
+// Real API (NEXT_PUBLIC_USE_MOCK=0). A failed call is logged and thrown: never a silent fallback to the mock.
 async function json<T>(url: string, init?: RequestInit): Promise<T> {
-  const res = await fetch(url, {
-    ...init,
-    headers: {
-      "content-type": "application/json",
-      "x-actor": "human",
-      ...(init?.headers ?? {}),
-    },
-  });
-  if (!res.ok) throw new Error(await res.text());
+  const method = init?.method ?? "GET";
+  let res: Response;
+  try {
+    res = await fetch(url, {
+      ...init,
+      cache: "no-store",
+      headers: {
+        "content-type": "application/json",
+        "x-actor": "human",
+        ...(init?.headers ?? {}),
+      },
+    });
+  } catch (e) {
+    console.error(`[api] ${method} ${url} network error`, e);
+    throw new Error(`${method} ${url}: network error`);
+  }
+  if (!res.ok) {
+    const body = await res.text();
+    let msg = body;
+    try {
+      msg = (JSON.parse(body) as { error?: string }).error ?? body;
+    } catch {}
+    console.error(`[api] ${method} ${url} → HTTP ${res.status}: ${msg}`);
+    throw new Error(`${method} ${url} failed (HTTP ${res.status}): ${msg}`);
+  }
   return res.json() as Promise<T>;
 }
 
