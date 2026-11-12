@@ -60,7 +60,8 @@ const FILTERS: { id: LineFilter; label: string }[] = [
   { id: "exact", label: "Exact" },
   { id: "memory", label: "Memory" },
   { id: "agent", label: "Agent" },
-  { id: "human", label: "Manual" },
+  { id: "human", label: "Human" },
+  { id: "rule", label: "Rule" },
   { id: "queue", label: "In queue" },
   { id: "rejected", label: "Rejected" },
 ];
@@ -176,7 +177,7 @@ export function LineTable({
           {FILTERS.map((item) => {
             const on = filter === item.id;
             const count = tabCounts[item.id] ?? 0;
-            if ((item.id === "human" || item.id === "rejected") && count === 0 && !on) return null;
+            if ((item.id === "human" || item.id === "rule" || item.id === "rejected") && count === 0 && !on) return null;
             return (
               <button
                 key={item.id}

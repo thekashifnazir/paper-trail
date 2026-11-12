@@ -73,6 +73,14 @@ function bankName(s: string) {
   return s.toUpperCase().replace(/[^A-Z0-9 ]/g, "").slice(0, 18).trim();
 }
 
+/** Dispute email dates, as in data/sample/tenant_notes.json (T096 has its own note). */
+const NOTE_DATES: Record<string, string> = {
+  T095: "2 September 2026",
+  T097: "3 September 2026",
+  T098: "31 August 2026",
+  T099: "1 September 2026",
+};
+
 function buildTenants(): Tenant[] {
   const rnd = mulberry32(42);
   const out: Tenant[] = [];
@@ -102,7 +110,7 @@ function buildTenants(): Tenant[] {
       i >= 95 && i <= 99
         ? i === 96
           ? "14 Sep 2026 — disputing £150.00 of September service charge (lift repair)"
-          : `Disputing part of September service charge, email of ${i} September 2026.`
+          : `Disputing part of September service charge, email of ${NOTE_DATES[id]}.`
         : undefined;
     out.push({
       id,

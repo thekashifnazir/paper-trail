@@ -5,8 +5,6 @@ import { usePathname } from "next/navigation";
 import { MotionConfig } from "framer-motion";
 import {
   ArrowLeftRight,
-  Building2,
-  ChevronsUpDown,
   Clock3,
   Inbox,
   RotateCcw,
@@ -56,16 +54,6 @@ function Sidebar({ pathname, queueCount }: { pathname: string; queueCount: numbe
         <span className="text-[15px] font-semibold tracking-[-0.01em]">Paper Trail</span>
       </div>
 
-      <div className="px-3">
-        <div
-          className="flex h-9 items-center gap-2 rounded-[8px] border border-side-active px-2.5 text-[13px]"
-          title="One property in this workspace"
-        >
-          <Building2 className="h-3.5 w-3.5 text-side-muted" aria-hidden />
-          <span className="min-w-0 flex-1 truncate">Wharfside Quarter</span>
-          <ChevronsUpDown className="h-3.5 w-3.5 text-side-muted" aria-hidden />
-        </div>
-      </div>
 
       <div className="label mt-5 px-4 !text-side-muted">Workspace</div>
       <nav className="mt-1.5 flex flex-col gap-0.5 px-3">
@@ -165,7 +153,7 @@ export function AppShell({ children }: { children: React.ReactNode }) {
             <button
               type="button"
               onClick={() => void reset()}
-              className="ml-auto inline-flex h-8 items-center gap-1.5 rounded-[8px] border border-line bg-surface px-3 text-[13px] font-medium text-ink hover:bg-canvas"
+              className="ml-auto  inline-flex h-8 items-center gap-1.5 rounded-[8px] border border-line bg-surface px-3 text-[13px] font-medium text-ink hover:bg-canvas"
             >
               <RotateCcw className="h-3.5 w-3.5 text-muted" aria-hidden />
               Reset

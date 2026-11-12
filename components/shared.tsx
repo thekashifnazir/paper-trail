@@ -63,7 +63,8 @@ export const METHOD_STYLE: Record<
   exact: { label: "Exact", fg: "text-exact", bg: "bg-exact-tint", dot: "bg-exact" },
   memory: { label: "Memory", fg: "text-memory", bg: "bg-memory-tint", dot: "bg-memory" },
   agent: { label: "Agent", fg: "text-agent", bg: "bg-agent-tint", dot: "bg-agent" },
-  human: { label: "Manual", fg: "text-ink", bg: "bg-canvas", dot: "bg-ink" },
+  human: { label: "Human", fg: "text-ink", bg: "bg-canvas", dot: "bg-ink" },
+  rule: { label: "Rule", fg: "text-exact", bg: "bg-exact-tint", dot: "bg-exact" },
   queue: { label: "In queue", fg: "text-queue", bg: "bg-queue-tint", dot: "bg-queue" },
   rejected: { label: "Rejected", fg: "text-risk", bg: "bg-risk-tint", dot: "bg-risk" },
   pending: { label: "Pending", fg: "text-muted", bg: "bg-canvas", dot: "bg-line" },
@@ -182,7 +183,7 @@ export function KpiStrip({
 /* ------------------------------------------------------------------ */
 
 export type BarSegment = {
-  key: "exact" | "memory" | "agent" | "human" | "queue";
+  key: "exact" | "memory" | "agent" | "human" | "rule" | "queue";
   count: number;
   value: number;
 };

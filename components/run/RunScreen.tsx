@@ -3,7 +3,7 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { AllocationBar, type BarSegment } from "@/components/shared";
 import { getLines } from "@/lib/api";
-import { useStore } from "@/lib/store";
+import { displayLines, useStore } from "@/lib/store";
 import type { LineView } from "@/lib/types";
 import { KpiRow } from "./KpiRow";
 import { LineDrawer } from "./LineDrawer";
@@ -24,6 +24,7 @@ function barSegments(lines: LineView[]): BarSegment[] {
     memory: { key: "memory", count: 0, value: 0 },
     agent: { key: "agent", count: 0, value: 0 },
     human: { key: "human", count: 0, value: 0 },
+    rule: { key: "rule", count: 0, value: 0 },
     queue: { key: "queue", count: 0, value: 0 },
   };
   for (const line of lines) {
@@ -34,11 +35,11 @@ function barSegments(lines: LineView[]): BarSegment[] {
     seg[key].count += 1;
     seg[key].value += line.amount;
   }
-  return [seg.exact, seg.memory, seg.agent, ...(seg.human.count > 0 ? [seg.human] : []), seg.queue];
+  return [seg.exact, seg.memory, seg.agent, ...(seg.human.count > 0 ? [seg.human] : []), ...(seg.rule.count > 0 ? [seg.rule] : []), seg.queue];
 }
 
 export function RunScreen() {
-  const { month, lines, summary, progress, error, loading, run } = useStore();
+  const { month, lines, audit, summary, progress, error, loading, run } = useStore();
   const [running, setRunning] = useState(false);
   const [polled, setPolled] = useState<LineView[] | null>(null);
   const [filter, setFilter] = useState<LineFilter>("all");
@@ -65,18 +66,18 @@ export function RunScreen() {
     const poll = async () => {
       try {
         const next = await getLines(month);
-        if (!cancelled) setPolled(next);
+        if (!cancelled) setPolled(displayLines(next, audit));
       } catch {
         /* The store records the run error. */
       }
     };
     void poll();
-    const id = window.setInterval(() => void poll(), 100);
+    const id = window.setInterval(() => void poll(), 500);
     return () => {
       cancelled = true;
       window.clearInterval(id);
     };
-  }, [running, month]);
+  }, [running, month, audit]);
 
   useEffect(() => {
     setPolled(null);

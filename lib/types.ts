@@ -1,4 +1,4 @@
-export type Method = "exact" | "memory" | "agent" | "human";
+export type Method = "exact" | "memory" | "agent" | "human" | "rule";
 export type Status = "approved" | "proposed" | "rejected";
 export type ReviewReason =
   | "New payer relationship"

@@ -54,6 +54,49 @@ type Store = {
 
 const Ctx = createContext<Store | null>(null);
 
+const DUPLICATE = /duplicate|already (allocated|matched)/i;
+const HUMAN_DECISIONS = new Set(["approved", "hold_confirmed", "manual_match"]);
+
+/**
+ * One view of "who decided" for every screen. The engine keeps method "agent" after a person
+ * approves and reports duplicate holds as "agent"; evidence quotes carry tenant ids (T088).
+ */
+export function displayLines(lines: LineView[], audit: AuditRow[]): LineView[] {
+  const humanDecided = new Set(
+    audit
+      .filter((a) => a.actor === "human" && HUMAN_DECISIONS.has(a.action))
+      .map((a) => a.object_id),
+  );
+  const names = new Map<string, string>();
+  for (const line of lines) {
+    for (const a of line.allocations) names.set(a.tenant_id, a.tenant_name);
+  }
+  const named = (text: string) => text.replace(/\bT\d{3}\b/g, (id) => names.get(id) ?? id);
+  return lines.map((line) => {
+    const duplicate =
+      line.allocations.length === 0 &&
+      (line.review_reason === "Possible duplicate payment" ||
+        DUPLICATE.test(line.reasoning ?? "") ||
+        line.evidence.some((e) => DUPLICATE.test(e.quote)));
+    let method = line.method;
+    if (duplicate && line.status !== null) method = "rule";
+    else if (line.status === "approved" && humanDecided.has(line.id)) method = "human";
+    return {
+      ...line,
+      method,
+      reasoning: line.reasoning ? named(line.reasoning) : line.reasoning,
+      evidence: line.evidence.map((e) => ({ ...e, quote: named(e.quote) })),
+    };
+  });
+}
+
+function pause(ms: number) {
+  const reduce =
+    typeof window !== "undefined" &&
+    window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  return reduce ? Promise.resolve() : new Promise((r) => setTimeout(r, ms));
+}
+
 export function StoreProvider({ children }: { children: React.ReactNode }) {
   const [month, setMonth] = useState("2026-09");
   const [lines, setLines] = useState<LineView[]>([]);
@@ -77,7 +120,7 @@ export function StoreProvider({ children }: { children: React.ReactNode }) {
         getArrears(),
         getAudit(),
       ]);
-      setLines(l);
+      setLines(displayLines(l, au));
       setSummary(s);
       setArrears(a);
       setAudit(au);
@@ -96,14 +139,27 @@ export function StoreProvider({ children }: { children: React.ReactNode }) {
     setError(null);
     setProgress({ stage: "exact", percent: 10 });
     try {
-      const s = await runStatement(month, setProgress);
+      let reported = false;
+      const s = await runStatement(month, (p) => {
+        reported = true;
+        setProgress(p);
+      });
+      if (!reported) {
+        // The real API answers once, so walk the passes the engine just ran.
+        await pause(350);
+        setProgress({ stage: "memory", percent: 55 });
+        await pause(350);
+        setProgress({ stage: "agent", percent: 85 });
+        await pause(350);
+      }
+      setProgress({ stage: "done", percent: 100 });
       setSummary(s);
       const [l, a, au] = await Promise.all([
         getLines(month),
         getArrears(),
         getAudit(),
       ]);
-      setLines(l);
+      setLines(displayLines(l, au));
       setArrears(a);
       setAudit(au);
     } catch (e) {
