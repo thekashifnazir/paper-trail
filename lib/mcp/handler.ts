@@ -12,6 +12,15 @@ import { readFileSync } from "node:fs";
 import { join } from "node:path";
 import { arrears, exceptions, explain, hydrate, HttpError, loadStatement, metrics, propose, QUEUE_BELOW, run, store } from "@/lib/cash/service";
 import { saveAudit } from "@/lib/cash/persist";
+import { agentRun } from "@/lib/cash/agentRun";
+import { existsSync } from "node:fs";
+import type { Store } from "@/lib/cash/service";
+import { dbEnabled, withDb } from "@/lib/supabase-store";
+
+// The store this request works on: Supabase-backed (same as the UI routes) when configured, else in memory.
+let current: Store | null = null;
+const cur = () => current ?? store();
+const WRITE_TOOLS = new Set(["run_month", "propose_allocation", "review_line"]);
 
 const MONTHS = ["2026-09", "2026-10"] as const;
 const PROTOCOL = "2025-06-18";
@@ -116,7 +125,7 @@ const nameMatch = (a: string, b: string) => {
   return x === y || (Math.min(x.length, y.length) >= 8 && (x.startsWith(y) || y.startsWith(x)));
 };
 function isNewPayerRelationship(args: Args): boolean {
-  const s = store();
+  const s = cur();
   const line = s.bankLines.find((b) => b.id === args.bank_line_id);
   const allocs = Array.isArray(args.allocations) ? (args.allocations as { charge_id: string }[]) : [];
   if (!line || !allocs.length) return false;
@@ -142,13 +151,13 @@ function companyLookup(): unknown[] {
 
 // Everything a reviewer could legitimately quote for one line: its explain payload plus the reference data.
 function reviewContext(id: string) {
-  const s = store();
+  const s = cur();
   const e = exceptions(s);
   return { line: explain(s, id), tenant_notes: e.tenant_notes, company_lookup: companyLookup(), aliases: e.aliases, tenants: e.tenants };
 }
 
 function reviewQueue() {
-  const s = store();
+  const s = cur();
   const e = exceptions(s);
   const held = s.holds.map((h) => h.bank_line_id).filter((id, i, a) => a.indexOf(id) === i);
   // Tenants behind every waiting or held line, with their parent company from the lookup.
@@ -165,7 +174,7 @@ function reviewQueue() {
 }
 
 function reviewLine(args: Args) {
-  const s = store();
+  const s = cur();
   const id = String(args.bank_line_id);
   const rec = String(args.recommendation);
   if (!["approve", "reject", "needs_info"].includes(rec)) throw new HttpError(400, "recommendation must be approve, reject or needs_info");
@@ -197,13 +206,22 @@ function statementCsv(month: string) {
   return readFileSync(join(process.cwd(), "data", "sample", `bank_${month.replace("-", "_")}.csv`), "utf8");
 }
 
-function callTool(name: string, args: Args): unknown {
-  const s = store();
+async function runMonth(s: Store, month: string, touch?: (m: string) => void) {
+  touch?.(month);
+  const csv = statementCsv(month);
+  const loaded = s.bankLines.some((b) => (b.statement_month ?? b.date.slice(0, 7)) === month) ? { added: 0 } : loadStatement(s, csv, "grok_bot");
+  const passes = run(s, month);
+  // Same as the app's Run: pass 3 replayed from the saved grok-4.7 run, so Grok Bot and the screens see one queue.
+  const replay = `results/${month}.json`;
+  const agent = passes.left_open && existsSync(join(process.cwd(), replay)) ? await agentRun(s, { month, replay }) : null;
+  return { month, ...loaded, ...passes, pass3_replayed: Boolean(agent) };
+}
+
+async function callTool(name: string, args: Args, runStore?: Store, touch?: (m: string) => void): Promise<unknown> {
+  const s = cur();
   switch (name) {
-    case "run_month": {
-      const loaded = loadStatement(s, statementCsv(String(args.month)), "grok_bot");
-      return { month: args.month, ...loaded, ...run(s) };
-    }
+    case "run_month":
+      return runMonth(runStore ?? s, String(args.month), touch);
     case "list_exceptions": {
       const e = exceptions(s);
       const limit = Number(args.limit ?? 5);
@@ -269,7 +287,24 @@ export async function handleMcp(req: Request, pathKey?: string) {
       return rpc(msg.id, { tools });
     case "tools/call": {
       try {
-        const out = callTool(String(msg.params?.name), msg.params?.arguments ?? {});
+        const name = String(msg.params?.name);
+        const args = msg.params?.arguments ?? {};
+        let out: unknown;
+        if (dbEnabled()) {
+          // Load from Supabase, run the tool, save back (writes only), exactly like the UI routes.
+          const res = await withDb(`MCP ${name}`, async (s, ctx) => {
+            current = ctx.view();
+            try {
+              return await callTool(name, args, s, ctx.touchMonth);
+            } finally {
+              current = null;
+            }
+          }, { write: WRITE_TOOLS.has(name) });
+          out = await res.json();
+          if (!res.ok) throw new Error((out as { error?: string })?.error ?? `HTTP ${res.status}`);
+        } else {
+          out = await callTool(name, args);
+        }
         return rpc(msg.id, { content: [{ type: "text", text: JSON.stringify(out, null, 1) }] });
       } catch (e) {
         const text = e instanceof Error ? e.message : String(e);
