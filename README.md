@@ -5,7 +5,7 @@
 <p align="center">Cash application for commercial property managers, where a payment that looks wrong is often right.</p>
 
 <p align="center">
-  <a href="https://youtu.be/evdDjT1mR58"><b>▶ 2-min demo</b></a> ·
+  <a href="https://youtu.be/YAJkaIV0UbU"><b>▶ 2-min demo</b></a> ·
   <a href="#results"><b>Results</b></a> ·
   <a href="#judges"><b>For judges</b></a> ·
   <a href="https://paper-trail-smoky.vercel.app/"><b>Live site (demo mode)</b></a> ·
@@ -13,9 +13,9 @@
 </p>
 
 <p align="center">
-  <a href="https://youtu.be/evdDjT1mR58"><img src="docs/media/demo-preview.gif" width="720" alt="Silent preview: September's statement runs, 188 of 200 receipts are allocated automatically and 12 go to a person"></a>
+  <a href="https://youtu.be/YAJkaIV0UbU"><img src="docs/media/demo-preview.gif" width="720" alt="Silent preview: September's statement runs, 188 of 200 receipts are allocated automatically and 12 go to a person"></a>
   <br>
-  <sub>▶ Silent preview of the September run. <a href="https://youtu.be/evdDjT1mR58"><b>Watch the full video with sound</b></a></sub>
+  <sub>▶ Silent preview of the September run. <a href="https://youtu.be/YAJkaIV0UbU"><b>Watch the full video with sound</b></a></sub>
 </p>
 
 <p align="center">
